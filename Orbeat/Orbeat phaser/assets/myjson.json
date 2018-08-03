@@ -1,0 +1,18 @@
+{
+  "Developer":"Velocity 7",
+  "GameName":"Orbeat",
+
+  "backgroundColor":"#221842",
+  "minRevolveSpeed": 0.01,
+  "maxRevolveSpeed": 0.05,
+  "shootingSpeed":1250,
+  "beatSpeed":200,
+  "beatFrequency":1.2,
+  "scorebeatSpeed":250,
+  "transitionSpeed":250,
+  "playerZoomSpeed":250,
+  "hurdle_x1":100,
+  "hurdle_x2":100,
+  "hurdle_y1":50,
+  "hurdle_y2":200
+}

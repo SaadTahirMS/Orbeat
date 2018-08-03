@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 82fcafcca6fa04e6ba6c087ce4de892a
+timeCreated: 1533275120
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Crazy Sixties
+  fontNames:
+  - Crazy Sixties
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
