@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadingReference : MonoBehaviour {
+public class TransitionController : MonoBehaviour {
 
-    public GameObject splash;
 
 }

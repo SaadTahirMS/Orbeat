@@ -4,59 +4,71 @@ using UnityEngine;
 
 public class GameplayContoller : Singleton<GameplayContoller>, IController
 {
-
-    public GameObject player;
-    PlayerController playerController;
-
-    //gameplay variables
-    public float playerRotateSpeed = 100f;
-    public float playerMovementSpeed = 10f; 
-    public int playerDirection = 1; //1 means right
-    public float playerShootSpeed = 500f;
-
-    bool canShootFlag = false;
+    public PlayerController playerController;
+    public TargetController targetController;
 
     public void Open()
     {
         InitializePlayer();
-        InitializePlayerRotation();
-        InitializePlayerMovement();
-        AllowToShoot();
+        InitializeTarget();
+        StartGame();
     }
 
     void InitializePlayer(){
-        player.SetActive(true);
-        playerController = player.GetComponent<PlayerController>();
+        playerController.Initialize();
     }
 
-    //Rotation around the axis
-    void InitializePlayerRotation(){
-        playerController.StartRotation(playerRotateSpeed,playerDirection);
+    void InitializeTarget()
+    {
+        targetController.Initialize();
     }
 
-    //Movement towards the center
-    void InitializePlayerMovement(){
-        playerController.StartMovement(playerMovementSpeed);
+    public void StartGame()
+    {
+        ChangeGameState(GameState.Start);
     }
 
-    void AllowToShoot(){
-        canShootFlag = true;
-    }
+    void ChangeGameState(GameState state){
 
-    //Shooting the player
-    void InitializeShoot(){
-        playerController.StartShoot(playerShootSpeed);
-    }
-
-
-    void Update(){
-        if(Input.GetMouseButtonDown(0) && canShootFlag){
-            InitializeShoot();
+        switch(state){
+            case GameState.Start:
+                playerController.ChangeState(GameState.Start);
+                targetController.ChangeState(GameState.Start);
+                print("Start Game");
+                break;
+            case GameState.End:
+                playerController.ChangeState(GameState.End);
+                targetController.ChangeState(GameState.End);
+                print("Game Over");
+                MainMenuController.Instance.ActivateRestartBtn();
+                break;
         }
     }
 
+    //Event called on tap
+    public void ShotPlayer(){
+        if(playerController.isAllowedToShot)
+            playerController.ChangeState(GameState.Shot);
+        else{
+            print("Not allowed to shot");
+        }
+    }
 
+    public void PlayerCollidedWithTarget(){
+        print("Player collided with target");
+        ChangeGameState(GameState.Start);
+    }
 
+    public void PlayerCollidedWithTimer()
+    {
+        print("Player collided with Timer");
+        ChangeGameState(GameState.End);
+    }
 
-   
+    public void PlayerCollidedWithBoundary()
+    {
+        print("Player collided with Boundary");
+        ChangeGameState(GameState.End);
+    }
+
 }
