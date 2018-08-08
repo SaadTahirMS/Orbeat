@@ -63,11 +63,12 @@ public class PlayerController : CharacterBehaviour {
 
     private void InitializeShot()
     {
-        float currentWidth = Screen.width;
-        float referenceWidth = Constants.referenceWidth;
-        float a = currentWidth / referenceWidth;
-        shotSpeed = Constants.playerShotSpeed * 100 * a;
-        Constants.playerShotSpeed = shotSpeed;
+        //float currentWidth = Screen.width;
+        //float referenceWidth = Constants.referenceWidth;
+        //float a = currentWidth / referenceWidth;
+        //shotSpeed = Constants.playerShotSpeed * 100 * a;
+        //Constants.playerShotSpeed = shotSpeed;
+        shotSpeed = Constants.playerShotSpeed;
     }
 
     public void ChangeState(GameState state)
@@ -214,7 +215,8 @@ public class PlayerController : CharacterBehaviour {
     }
 
     void CollisionWithBoundary(){
-        Vector3 position = Camera.main.ScreenToViewportPoint(transform.position);
+        //Vector3 position = Camera.main.ScreenToViewportPoint(transform.position);
+        Vector3 position = Camera.main.WorldToViewportPoint(transform.position);
         if (position.x < 0 || position.x > 1 || position.y < 0 || position.y > 1)
         {
             DisableCollisions();
