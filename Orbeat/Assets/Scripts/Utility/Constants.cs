@@ -18,8 +18,8 @@ public class Constants {
     public static float playerMaxRotationSpeed = 4f;
 
     //Increase to decrease time
-    public static float playerMoveSpeed = 20f; 
-    public static float playerOrbitScaleSpeed = playerMoveSpeed*2; 
+    public static float playerMoveSpeed = 50f;
+    public static float playerOrbitScaleSpeed = playerMoveSpeed; 
     public static float targetMinRotationSpeed = 5f;
     public static float targetMaxRotationSpeed = 10f;
 
@@ -30,4 +30,8 @@ public class Constants {
     public static float playerTargetCollisionDistance = 50f;
 
     public static float perfectHitThreshold = 2f;
+
+    //Tweening
+    public static float transitionTime = .5f; //0.25f
+
 }

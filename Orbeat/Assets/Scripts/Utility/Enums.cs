@@ -3,5 +3,6 @@ public enum GameState
 {
     Start,
     End,
-    Shot
+    Shot,
+    TargetHit
 }  

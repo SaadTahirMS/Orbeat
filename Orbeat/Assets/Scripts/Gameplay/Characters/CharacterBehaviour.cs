@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 public abstract class CharacterBehaviour : MonoBehaviour {
     
     //Rotation Variables
     private Vector3 rotation;
     private float rotateSpeed;
     private int direction;
-    public Rotate rotationComponent;
-
-    //Zoom Variables
+    public List<Rotate> rotationComponent = new List<Rotate>();
 
     public abstract float MinRotateSpeed
     {
@@ -22,7 +22,9 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     }
 
     public virtual void Initialize(){
-        rotationComponent.gameObject.SetActive(true);
+        for (int i = 0; i < rotationComponent.Count;i++){
+            rotationComponent[i].gameObject.SetActive(true);
+        }
         InitializeRotation();
     }
 
@@ -37,7 +39,9 @@ public abstract class CharacterBehaviour : MonoBehaviour {
         StopRotation();
         AssignRandomDirection();
         AssignRotateSpeed();
-        rotationComponent.DoRotate(rotation, direction, rotateSpeed);
+        for (int i = 0; i < rotationComponent.Count;i++){
+            rotationComponent[i].DoRotate(rotation, direction, rotateSpeed);
+        }
     }
 
     private void AssignRandomDirection()
@@ -54,15 +58,13 @@ public abstract class CharacterBehaviour : MonoBehaviour {
    
     protected void StopRotation()
     {
-        rotationComponent.StopRotate();
+        for (int i = 0; i < rotationComponent.Count; i++)
+        {
+            rotationComponent[i].StopRotate();
+        } 
     }
 
+    protected virtual void SetPosition(){}
 
-    protected void ZoomIn(){
-        transform.localScale = Vector3.zero;
-    }
 
-    protected void ZoomOut(){
-        transform.localScale = Vector3.one;
-    }
 }

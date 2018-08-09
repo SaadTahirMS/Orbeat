@@ -805,7 +805,7 @@ function backgroundOrbitOutTransition(){
 function InitiateGame(){
 	game.time.events.add(500,playLetsGoVoice);
 	playerEnterFromCenter();
-    hurdleZoomToPosition();
+    hurdleZoomToPosition(); 
    	BeatBackgroundOrbit();
     for (var i = 0; i < 3; i++) {
         bgOrbitBeat[i].start();
@@ -877,9 +877,11 @@ var transitionSpeed;
 function HurdleZoomToCenter(){
     beatHurdle.pause();
 
+    //direction vector from center to hurdle
     var deltaX=game.world.centerX-hurdle.world.x;
     var deltaY=game.world.centerY-hurdle.world.y;
 
+    //scaling player orbits
     for(var i=0;i<3;i++) {
         game.add.tween(orbit.children[i].scale).to({
             x: orbit.children[i].scale.x + 2,
@@ -887,16 +889,21 @@ function HurdleZoomToCenter(){
         }, transitionSpeed, "Linear", true).onComplete.add(ResetScale);
     }
 
+    //scaling hurdle orbits
     for(var i=0;i<3;i++) {
         game.add.tween(bgGroup.children[i].scale).to({
             x: bgGroup.children[i].scale.x + 2,
             y: bgGroup.children[i].scale.y + 2
         }, transitionSpeed, "Linear", true).onComplete.add(ResetScale);
     }
+
+    //moving player and hurdle orbits in the direction vector
     game.add.tween(orbit.position).to({x:deltaX*5,y:deltaY*5},transitionSpeed,Phaser.Easing.Linear.Out,true).onComplete.add(ResetOrbit);
     game.add.tween(bgGroup.position).to({x:deltaX*5,y:deltaY*5},transitionSpeed,Phaser.Easing.Linear.Out,true);
 
+    //scale player to zero
     game.add.tween(player.scale).to({x:0,y:0},transitionSpeed,Phaser.Easing.Linear.Out,true);
+    //move hurdle to center and then fade
     game.add.tween(hurdle.pivot).to({x:0,y:0},transitionSpeed,Phaser.Easing.Linear.Out,true).onComplete.add(FadeHurdle);
    
 }

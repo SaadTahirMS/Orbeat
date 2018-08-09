@@ -40,7 +40,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     //a call from GameplayController to restart the game
     public void RestartGame(){
         DeactivateRestartBtn();
-        gameplayContoller.StartGame();
+        gameplayContoller.ChangeGameState(GameState.Start);
     }
 
 

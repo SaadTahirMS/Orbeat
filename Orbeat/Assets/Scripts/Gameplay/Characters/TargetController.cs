@@ -2,9 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class TargetController : CharacterBehaviour
 {
+    private Vector3 position;
+
+    public Vector3 Position
+    {
+        get
+        {
+            return position;
+        }
+    }
+
     public override float MinRotateSpeed
     {
         get
@@ -30,48 +41,45 @@ public class TargetController : CharacterBehaviour
 
         switch(state){
             case GameState.Start:
-                Position();
+                SetPosition();
                 Rotate();
                 break;
             case GameState.End:
                 StopRotation();
-                Reset();
                 break;
         }
     }
 
-    private void Position(){
-        AssignPosition();
+    protected override void SetPosition(){
+        position = AssignPosition();
     }
 
-    private void AssignPosition(){
-        int ran = Random.Range(1,4);
-        print("Target pos: "+ran);
+    private Vector3 AssignPosition(){
+        //int ran = Random.Range(1,4);
+        int ran = 1;
         switch(ran){
             case 1:
                 //transform.localPosition = Constants.targetInitialPosition1;
-                transform.DOLocalMove(Constants.targetInitialPosition1, 1f);
-                break;
+                //transform.DOLocalMove(Constants.targetInitialPosition1, 1f);
+                return Constants.targetInitialPosition1;
             case 2:
                 //transform.localPosition = Constants.targetInitialPosition2;
-                transform.DOLocalMove(Constants.targetInitialPosition2, 1f);
-                break;
+                //transform.DOLocalMove(Constants.targetInitialPosition2, 1f);
+                return Constants.targetInitialPosition2;
             case 3:
                 //transform.localPosition = Constants.targetInitialPosition3;
-                transform.DOLocalMove(Constants.targetInitialPosition3, 1f);
-                break;
+                //transform.DOLocalMove(Constants.targetInitialPosition3, 1f);
+                return Constants.targetInitialPosition3;
+            default:
+                return Vector3.zero;
         }
     }
 
-    private void Reset()
+    public Vector3 GetScreenPosition()
     {
-        ResetPosition();
+        return Camera.main.WorldToScreenPoint(transform.position);
     }
 
-    private void ResetPosition()
-    {
-        //transform.localPosition = Vector3.zero;
-        transform.DOLocalMove(Vector3.zero, 1f);
-    }
+
 
 }

@@ -9,24 +9,22 @@ public class PlayerController : CharacterBehaviour {
     public Transform player;
     public Transform targetObj;
     public Transform playerOrbit;
-
-
-    //Movement (to center) Variables
-    float moveSpeed;
-    Sequence movementSequence;
-
-    //Scaling
-    private float scaleSpeed;
-    Sequence scaleSequence;
+    public Rigidbody2D playerRb;
 
     //Shooting
     float shotSpeed;
     bool shotFlag = false;
-    public bool isAllowedToShot = false;   //player can tap or not
 
+    private Vector3 position;
 
-    //Collision Flag
-    bool isAllowedToCollide = false; //All Collisions flag 
+    public Vector3 Position
+    {
+        get
+        {
+            return position;
+        }
+    }
+
 
     public override float MinRotateSpeed
     {
@@ -44,22 +42,14 @@ public class PlayerController : CharacterBehaviour {
         }
     }
 
+
     public override void Initialize()
     {
         base.Initialize();
-        InitializeMovement();
-        InitializeOrbitScale();
         InitializeShot();
     }
 
-    private void InitializeMovement(){
-        moveSpeed = Constants.playerMoveSpeed;
-    }
 
-    private void InitializeOrbitScale()
-    {
-        scaleSpeed = Constants.playerOrbitScaleSpeed;
-    }
 
     private void InitializeShot()
     {
@@ -76,9 +66,9 @@ public class PlayerController : CharacterBehaviour {
         switch (state)
         {
             case GameState.Start:
+                SetCollisions(false); //this will be turned on after transition
                 ResetParent();
-                OrbitScale();
-                Position();
+                SetPosition();
                 Rotate();
                 break;
             case GameState.Shot:
@@ -86,66 +76,23 @@ public class PlayerController : CharacterBehaviour {
                 break;
             case GameState.End:
                 StopRotation();
-                StopMovement();
-                StopOrbitScale();
-                StopShot();
-                DisableCollisions();
-                Reset();
-                break;
-            
+                shotFlag = false;
+                break;            
         }
 
     }
 
-    private void Movement()
+    protected override void SetPosition(){
+        position = AssignPosition();
+    }
+
+    private Vector3 AssignPosition()
     {
-        StopMovement();
-        movementSequence = DOTween.Sequence();
-        movementSequence.Append(transform.DOLocalMove(Vector3.zero, moveSpeed).SetEase(Ease.Linear));
-        movementSequence.SetLoops(-1, LoopType.Incremental);
-        movementSequence.Play();
-    }
-
-    private void OrbitScale()
-    {
-        StopOrbitScale();
-        playerOrbit.localScale = Vector3.one;
-        scaleSequence = DOTween.Sequence();
-        scaleSequence.Append(playerOrbit.DOScale(Vector3.zero, scaleSpeed)).SetEase(Ease.Linear);
-        scaleSequence.SetLoops(-1, LoopType.Incremental);
-        scaleSequence.Play();
-    }
-
-    private void Position(){
-        transform.DOLocalMove(Constants.playerInitialPosition, 1f).OnComplete(PlayerAtPosition);
-    }
-
-    //Movement OrbitScale and Shot is allowed when the player is on its orbit or position
-    private void PlayerAtPosition(){
-        Movement();
-        Shot();
-        EnableCollisions();
-    }
-
-    public void Shot()
-    {
-        shotFlag = false;
-        isAllowedToShot = true;
-    }
-
-    private void EnableCollisions(){
-        isAllowedToCollide = true;
-    }
-
-    private void DisableCollisions()
-    {
-        isAllowedToCollide = false;
+        return Constants.playerInitialPosition;
     }
 
     void InitiateShot(){
         transform.SetParent(player.transform.parent);
-        StopMovement();
-        StopOrbitScale();
         StopRotation();
         shotFlag = true;
     }
@@ -159,67 +106,46 @@ public class PlayerController : CharacterBehaviour {
         }
     }
 
-    private void Reset()
-    {
-        ResetPosition();
-    }
 
-
-    private void ResetPosition()
-    {
-        transform.DOLocalMove(Vector3.zero, 1f);
-    }
 
     private void ResetParent(){
         transform.SetParent(player);
     }
 
-    private void StopMovement()
-    {
-        movementSequence.Kill();
-    }
-
-    private void StopOrbitScale(){
-        scaleSequence.Kill();
-    }
-
-    private void StopShot(){
-        shotFlag = false;
-        isAllowedToShot = false;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(isAllowedToCollide){
-            print("Allowed to Collide");
-            if (collision.gameObject.tag == "Target")
-            {
-                CheckPerfectHit();
-                DisableCollisions();
-                StopShot();
-                GameplayContoller.Instance.PlayerCollidedWithTarget();
-            }
-            else if (collision.gameObject.tag == "Timer")
-            {
-                DisableCollisions();
-                GameplayContoller.Instance.PlayerCollidedWithTimer();
-            }
+        if (collision.gameObject.tag == "Target")
+        {
+            CheckPerfectHit();
+            shotFlag = false;
+            SetCollisions(false);
+            GameplayContoller.Instance.PlayerCollidedWithTarget();
+        }
+        else if (collision.gameObject.tag == "Timer")
+        {
+            SetCollisions(false);
+            GameplayContoller.Instance.PlayerCollidedWithTimer();
         }
     }
 
-    void CheckPerfectHit(){
+    public void SetCollisions(bool state)
+    {
+        playerRb.isKinematic = !state; //inversed just for understanding of function
+    }
+
+    private void CheckPerfectHit(){
       float angleDifference = targetObj.eulerAngles.z - player.eulerAngles.z;
         if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
             print("Perfect Hit");
         }
     }
 
-    void CollisionWithBoundary(){
+    private void CollisionWithBoundary(){
         //Vector3 position = Camera.main.ScreenToViewportPoint(transform.position);
-        Vector3 position = Camera.main.WorldToViewportPoint(transform.position);
-        if (position.x < 0 || position.x > 1 || position.y < 0 || position.y > 1)
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.x < 0 || pos.x > 1 || pos.y < 0 || pos.y > 1)
         {
-            DisableCollisions();
+            SetCollisions(false);
             GameplayContoller.Instance.PlayerCollidedWithBoundary();
         }
     }
