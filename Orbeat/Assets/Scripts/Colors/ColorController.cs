@@ -1,0 +1,224 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ColorController {
+    private List<ColorSet> colorSets;
+
+    public void Initialize(){
+        colorSets = new List<ColorSet>();
+        AddColor();
+    }
+
+    private void AddColor(){
+        ColorSet colorSet1 = new ColorSet
+        {
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0xff, 0x00, 0x00),
+            targetColor = new Color(0xff, 0x83, 0x00),
+            targetOrbitColor = new Color(0xff,0x83,0x00),
+            playerColor = new Color(0xff, 0x83, 0x00),
+            scoreColor = new Color(0xff, 0x83, 0x00),
+            playerArrowColor = new Color(0xff, 0x83, 0x00),
+            shareBtnColor = new Color(0xff, 0x83, 0x00),
+            playBtnColor = new Color(0xff, 0x83, 0x00),
+            highscoreColor = new Color(0xff, 0x83, 0x00),
+            orbit1Color = new Color(0xff, 0x00, 0x00),
+            orbit2Color = new Color(0xff, 0x00, 0x00),
+            orbit3Color = new Color(0xff, 0x00, 0x00),
+            innerOrbitColor = new Color(0xff, 0x00, 0x00)
+
+        };
+
+        ColorSet colorSet2 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0xff, 0xd0, 0x01),
+            targetColor = new Color(0xd0, 0xff, 0x00),
+            targetOrbitColor = new Color(0xd0, 0xff, 0x00),
+            playerColor = new Color(0xd0, 0xff, 0x00),
+            scoreColor = new Color(0xd0, 0xff, 0x00),
+            playerArrowColor = new Color(0xd0, 0xff, 0x00),
+            shareBtnColor = new Color(0xd0, 0xff, 0x00),
+            playBtnColor = new Color(0xd0, 0xff, 0x00),
+            highscoreColor = new Color(0xd0, 0xff, 0x00),
+            orbit1Color = new Color(0xff, 0xd0, 0x01),
+            orbit2Color = new Color(0xff, 0xd0, 0x01),
+            orbit3Color = new Color(0xff, 0xd0, 0x01),
+            innerOrbitColor = new Color(0xff, 0xd0, 0x01)
+
+        };
+
+        ColorSet colorSet3 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0xcf, 0xff, 0x00),
+            targetColor = new Color(0xcf, 0xff, 0x00),
+            targetOrbitColor = new Color(0xcf, 0xff, 0x00),
+            playerColor = new Color(0xcf, 0xff, 0x00),
+            scoreColor = new Color(0xcf, 0xff, 0x00),
+            playerArrowColor = new Color(0xcf, 0xff, 0x00),
+            shareBtnColor = new Color(0xcf, 0xff, 0x00),
+            playBtnColor = new Color(0xcf, 0xff, 0x00),
+            highscoreColor = new Color(0xcf, 0xff, 0x00),
+            orbit1Color = new Color(0xcf, 0xff, 0x00),
+            orbit2Color = new Color(0xcf, 0xff, 0x00),
+            orbit3Color = new Color(0xcf, 0xff, 0x00),
+            innerOrbitColor = new Color(0xcf, 0xff, 0x00)
+
+        };
+
+        ColorSet colorSet4 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0x5a, 0xff, 0x00),
+            targetColor = new Color(0x74, 0xed, 0x9a),
+            targetOrbitColor = new Color(0x74, 0xed, 0x9a),
+            playerColor = new Color(0x74, 0xed, 0x9a),
+            scoreColor = new Color(0x74, 0xed, 0x9a),
+            playerArrowColor = new Color(0x74, 0xed, 0x9a),
+            shareBtnColor = new Color(0x74, 0xed, 0x9a),
+            playBtnColor = new Color(0x74, 0xed, 0x9a),
+            highscoreColor = new Color(0x74, 0xed, 0x9a),
+            orbit1Color = new Color(0x5a, 0xff, 0x00),
+            orbit2Color = new Color(0x5a, 0xff, 0x00),
+            orbit3Color = new Color(0x5a, 0xff, 0x00),
+            innerOrbitColor = new Color(0x5a, 0xff, 0x00)
+        };
+
+        ColorSet colorSet5 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0x00, 0xff, 0x9c),
+            targetColor = new Color(0x00, 0xff, 0x9c),
+            targetOrbitColor = new Color(0x00, 0xff, 0x9c),
+            playerColor = new Color(0x00, 0xff, 0x9c),
+            scoreColor = new Color(0x00, 0xff, 0x9c),
+            playerArrowColor = new Color(0x00, 0xff, 0x9c),
+            shareBtnColor = new Color(0x00, 0xff, 0x9c),
+            playBtnColor = new Color(0x00, 0xff, 0x9c),
+            highscoreColor = new Color(0x00, 0xff, 0x9c),
+            orbit1Color = new Color(0x00, 0xff, 0x9c),
+            orbit2Color = new Color(0x00, 0xff, 0x9c),
+            orbit3Color = new Color(0x00, 0xff, 0x9c),
+            innerOrbitColor = new Color(0x00, 0xff, 0x9c)
+        };
+
+        ColorSet colorSet6 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0x00, 0x9d, 0xff),
+            targetColor = new Color(0x00, 0x9d, 0xff),
+            targetOrbitColor = new Color(0x00, 0x9d, 0xff),
+            playerColor = new Color(0x00, 0x9d, 0xff),
+            scoreColor = new Color(0x00, 0x9d, 0xff),
+            playerArrowColor = new Color(0x00, 0x9d, 0xff),
+            shareBtnColor = new Color(0x00, 0x9d, 0xff),
+            playBtnColor = new Color(0x00, 0x9d, 0xff),
+            highscoreColor = new Color(0x00, 0x9d, 0xff),
+            orbit1Color = new Color(0x00, 0x9d, 0xff),
+            orbit2Color = new Color(0x00, 0x9d, 0xff),
+            orbit3Color = new Color(0x00, 0x9d, 0xff),
+            innerOrbitColor = new Color(0x00, 0x9d, 0xff)
+        };
+
+        ColorSet colorSet7 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0x89, 0x00, 0xf9),
+            targetColor = new Color(0x89, 0x00, 0xf9),
+            targetOrbitColor = new Color(0x89, 0x00, 0xf9),
+            playerColor = new Color(0x89, 0x00, 0xf9),
+            scoreColor = new Color(0x89, 0x00, 0xf9),
+            playerArrowColor = new Color(0x89, 0x00, 0xf9),
+            shareBtnColor =new Color(0x89, 0x00, 0xf9),
+            playBtnColor =new Color(0x89, 0x00, 0xf9),
+            highscoreColor = new Color(0x89, 0x00, 0xf9),
+            orbit1Color = new Color(0x89, 0x00, 0xf9),
+            orbit2Color = new Color(0x89, 0x00, 0xf9),
+            orbit3Color = new Color(0x89, 0x00, 0xf9),
+            innerOrbitColor = new Color(0x89, 0x00, 0xf9)
+        };
+
+        ColorSet colorSet8 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0x01, 0x0e, 0xff),
+            targetColor = new Color(0x01, 0x0e, 0xff),
+            targetOrbitColor = new Color(0x01, 0x0e, 0xff),
+            playerColor = new Color(0x01, 0x0e, 0xff),
+            scoreColor = new Color(0x01, 0x0e, 0xff),
+            playerArrowColor = new Color(0x01, 0x0e, 0xff),
+            shareBtnColor = new Color(0x01, 0x0e, 0xff),
+            playBtnColor = new Color(0x01, 0x0e, 0xff),
+            highscoreColor = new Color(0x01, 0x0e, 0xff),
+            orbit1Color = new Color(0x01, 0x0e, 0xff),
+            orbit2Color = new Color(0x01, 0x0e, 0xff),
+            orbit3Color = new Color(0x01, 0x0e, 0xff),
+            innerOrbitColor = new Color(0x01, 0x0e, 0xff)
+        };
+
+        ColorSet colorSet9 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0xf8, 0x00, 0xff),
+            targetColor = new Color(0xf8, 0x00, 0xff),
+            targetOrbitColor = new Color(0xf8, 0x00, 0xff),
+            playerColor = new Color(0xf8, 0x00, 0xff),
+            scoreColor = new Color(0xf8, 0x00, 0xff),
+            playerArrowColor = new Color(0xf8, 0x00, 0xff),
+            shareBtnColor = new Color(0xf8, 0x00, 0xff),
+            playBtnColor = new Color(0xf8, 0x00, 0xff),
+            highscoreColor = new Color(0xf8, 0x00, 0xff),
+            orbit1Color = new Color(0xf8, 0x00, 0xff),
+            orbit2Color = new Color(0xf8, 0x00, 0xff),
+            orbit3Color = new Color(0xf8, 0x00, 0xff),
+            innerOrbitColor = new Color(0xf8, 0x00, 0xff)
+        };
+
+        ColorSet colorSet10 = new ColorSet
+        {
+
+            backgroundColor = new Color(0x00, 0x00, 0x00),
+            playerOrbitColor = new Color(0xff, 0x00, 0x8f),
+            targetColor = new Color(0xff, 0x00, 0x8f),
+            targetOrbitColor = new Color(0xff, 0x00, 0x8f),
+            playerColor = new Color(0xff, 0x00, 0x8f),
+            scoreColor = new Color(0xff, 0x00, 0x8f),
+            playerArrowColor = new Color(0xff, 0x00, 0x8f),
+            shareBtnColor = new Color(0xff, 0x00, 0x8f),
+            playBtnColor = new Color(0xff, 0x00, 0x8f),
+            highscoreColor = new Color(0xff, 0x00, 0x8f),
+            orbit1Color = new Color(0xff, 0x00, 0x8f),
+            orbit2Color = new Color(0xff, 0x00, 0x8f),
+            orbit3Color = new Color(0xff, 0x00, 0x8f),
+            innerOrbitColor = new Color(0xff, 0x00, 0x8f)
+        };
+
+        colorSets.Add(colorSet1);
+        colorSets.Add(colorSet2);
+        colorSets.Add(colorSet3);
+        colorSets.Add(colorSet4);
+        colorSets.Add(colorSet5);
+        colorSets.Add(colorSet6);
+        colorSets.Add(colorSet7);
+        colorSets.Add(colorSet8);
+        colorSets.Add(colorSet9);
+        colorSets.Add(colorSet10);
+
+    }
+
+    public ColorSet GetRandomColorSet(){
+        int randomColorSet = Random.Range(0, colorSets.Count);
+        return colorSets[randomColorSet];
+    }
+	
+}

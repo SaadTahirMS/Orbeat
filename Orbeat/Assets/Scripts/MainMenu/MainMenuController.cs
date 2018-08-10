@@ -9,6 +9,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     public void Open(){
         ActivatePlayBtn();
+        SoundController.Instance.SetMainMenuMusic(true);
     }
 
     void ActivatePlayBtn(){
@@ -32,6 +33,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     // this will make a call to GameplayController to start the gameplay
     public void PlayGame(){
         DeactivatePlayBtn();
+        SoundController.Instance.SetMainMenuMusic(false);
         gameplayContoller = GameplayContoller.Instance;
         gameplayContoller.Open();
 
@@ -40,8 +42,19 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     //a call from GameplayController to restart the game
     public void RestartGame(){
         DeactivateRestartBtn();
-        gameplayContoller.ChangeGameState(GameState.Start);
+
+        gameplayContoller.ChangeGameState(GameState.Restart);
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(playBtn.activeInHierarchy){
+                PlayGame();
+            }
+            else if(restartBtn.activeInHierarchy){
+                RestartGame();
+            }
+        }
+    }
 
 }

@@ -5,6 +5,10 @@ using DG.Tweening;
 
 public class OrbitController : CharacterBehaviour
 {
+    public Beat orbit1Beat;
+    public Beat orbit2Beat;
+    public Beat orbit3Beat;
+
     private Vector3 position;
     public Vector3 Position
     {
@@ -43,6 +47,7 @@ public class OrbitController : CharacterBehaviour
             case GameState.Start:
                 SetPosition();
                 Rotate();
+                StartBeat();
                 break;
             case GameState.End:
                 StopRotation();          
@@ -61,6 +66,11 @@ public class OrbitController : CharacterBehaviour
         return Vector3.zero;
     }
 
+    private void StartBeat(){
+        orbit1Beat.DoBeat(Constants.beatTime,1);
+        orbit2Beat.DoBeat(Constants.beatTime,1);
+        orbit3Beat.DoBeat(Constants.beatTime,1);
+    }
 
 
 }

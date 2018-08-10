@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class TargetController : CharacterBehaviour
 {
+    public Beat targetOrbit;
+
     private Vector3 position;
 
     public Vector3 Position
@@ -42,6 +44,7 @@ public class TargetController : CharacterBehaviour
         switch(state){
             case GameState.Start:
                 SetPosition();
+                StartBeat();
                 Rotate();
                 break;
             case GameState.End:
@@ -59,16 +62,10 @@ public class TargetController : CharacterBehaviour
         int ran = 1;
         switch(ran){
             case 1:
-                //transform.localPosition = Constants.targetInitialPosition1;
-                //transform.DOLocalMove(Constants.targetInitialPosition1, 1f);
                 return Constants.targetInitialPosition1;
             case 2:
-                //transform.localPosition = Constants.targetInitialPosition2;
-                //transform.DOLocalMove(Constants.targetInitialPosition2, 1f);
                 return Constants.targetInitialPosition2;
             case 3:
-                //transform.localPosition = Constants.targetInitialPosition3;
-                //transform.DOLocalMove(Constants.targetInitialPosition3, 1f);
                 return Constants.targetInitialPosition3;
             default:
                 return Vector3.zero;
@@ -78,6 +75,10 @@ public class TargetController : CharacterBehaviour
     public Vector3 GetScreenPosition()
     {
         return Camera.main.WorldToScreenPoint(transform.position);
+    }
+
+    private void StartBeat(){
+        targetOrbit.DoBeat(Constants.beatTime, -1);
     }
 
 

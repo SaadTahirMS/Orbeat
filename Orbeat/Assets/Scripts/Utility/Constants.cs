@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Constants {
+public static class Constants {
 
     public static float referenceWidth = 740f; 
 
@@ -29,9 +29,19 @@ public class Constants {
     public static float playerCenterCollisionDistance = 85f;
     public static float playerTargetCollisionDistance = 50f;
 
-    public static float perfectHitThreshold = 2f;
+    public static float perfectHitThreshold = 3f;
 
     //Tweening
-    public static float transitionTime = .5f; //0.25f
+    public static float transitionTime = .35f; //0.25f
+    public static float beatTime = 0.18f;
+    public static float beatScale = 0.05f;
+    public static float scoreBeatTime = .5f;
+    public static float pitchTime = 1f;
+    public static Vector3 scoreGameOverPos = new Vector3(0f,200f,0f);
+    public static Vector3 scoreGameOverScale = new Vector3(2f,2f,2f);
+    public static int targetHitCount = 5; //level up after how many target hits
+
+    public static float flashTime = .20f;
+    public static float shakeTime = 1f;
 
 }

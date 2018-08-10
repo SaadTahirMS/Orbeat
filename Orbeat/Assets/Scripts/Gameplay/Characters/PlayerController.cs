@@ -8,7 +8,6 @@ public class PlayerController : CharacterBehaviour {
     
     public Transform player;
     public Transform targetObj;
-    public Transform playerOrbit;
     public Rigidbody2D playerRb;
 
     //Shooting
@@ -116,10 +115,9 @@ public class PlayerController : CharacterBehaviour {
     {
         if (collision.gameObject.tag == "Target")
         {
-            CheckPerfectHit();
             shotFlag = false;
             SetCollisions(false);
-            GameplayContoller.Instance.PlayerCollidedWithTarget();
+            GameplayContoller.Instance.PlayerCollidedWithTarget(CheckPerfectHit());
         }
         else if (collision.gameObject.tag == "Timer")
         {
@@ -133,11 +131,13 @@ public class PlayerController : CharacterBehaviour {
         playerRb.isKinematic = !state; //inversed just for understanding of function
     }
 
-    private void CheckPerfectHit(){
+    private bool CheckPerfectHit(){
       float angleDifference = targetObj.eulerAngles.z - player.eulerAngles.z;
         if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
             print("Perfect Hit");
+            return true;
         }
+        return false;
     }
 
     private void CollisionWithBoundary(){
