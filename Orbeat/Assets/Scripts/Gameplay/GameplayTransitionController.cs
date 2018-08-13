@@ -42,8 +42,7 @@ public class GameplayTransitionController : MonoBehaviour {
         //PlayerOrbit 
         playerOrbit.localScale = Vector3.one;
         //Score
-        ScoreBeat();
-        Tween scoreScale = ScoreScale(Vector3.one);
+        Tween scoreScale = ScoreScale(Constants.scoreInitialScale);
         Tween scorePosition = ScorePosition(Vector3.zero);
 
         //Add Tweens to Sequence
@@ -101,7 +100,7 @@ public class GameplayTransitionController : MonoBehaviour {
     }
 
     private void ScoreBeat(){
-        scoreBeat.DoBeat(Constants.beatScale,Constants.scoreBeatTime, 1);    //plays the infinite beating
+        scoreBeat.DoBeat(Constants.scoreInitialScale,Constants.scoreBeatScale,Constants.scoreBeatTime, 1);    //plays the infinite beating
     }
 
     private Tween ScoreScale(Vector3 value){
@@ -115,6 +114,7 @@ public class GameplayTransitionController : MonoBehaviour {
     private void StartTransitionComplete(){
         GameplayContoller.Instance.IsAllowedToShot = true;
         GameplayContoller.Instance.playerController.SetCollisions(true);
+        ScoreBeat();
         TimerMovement();
     }
 

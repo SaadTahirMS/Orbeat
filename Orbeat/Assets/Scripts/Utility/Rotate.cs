@@ -22,5 +22,4 @@ public class Rotate : MonoBehaviour {
     public void StopRotate(){
         rotationSequence.Kill();
     }
-
 }

@@ -131,8 +131,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKeyDown(KeyCode.Space)){
             ShotPlayer();
         }
-        //if(gameplayViewController!=null)
-            //gameplayViewController.LookAtTarget();
+        if(gameplayViewController!=null)
+            gameplayViewController.LookAtTarget(targetController.transform);
     }
 
     public void PlayerCollidedWithTarget(bool perfectHit){

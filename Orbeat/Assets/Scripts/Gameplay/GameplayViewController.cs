@@ -7,6 +7,7 @@ public class GameplayViewController : IController{
     
     private GameplayRefs gameplayRefs;
     private Sequence timerWarningSequence;
+    float cameraMovementFactor;
 
     public GameplayViewController(GameplayRefs gpRefs)
     {
@@ -18,6 +19,7 @@ public class GameplayViewController : IController{
     {
         SetScoreContainer(true);
         SetScore("0");
+        cameraMovementFactor = GetAspectRatio();
     }
 
     public void SetScore(string score){
@@ -26,6 +28,10 @@ public class GameplayViewController : IController{
 
     public void SetScoreContainer(bool value){
         gameplayRefs.scoreContainer.SetActive(value);
+    }
+
+    private float GetAspectRatio(){
+        return 1 - (float)Screen.width / Screen.height;
     }
 
     public void ChangeColorSet(ColorSet colorSet){
@@ -53,11 +59,19 @@ public class GameplayViewController : IController{
         gameplayRefs.transform.DOShakePosition(duration, Constants.shakeStrength, Constants.shakeRandomness);
     }
 
-    public void LookAtTarget(){
-        Vector3 difference =  gameplayRefs.targetImg.gameObject.transform.position - gameplayRefs.transform.position;
-        //Debug.Log(difference);
-        gameplayRefs.transform.position = difference * Constants.lookingOffset;
+    public void LookAtTarget(Transform target){
+        //float angle = target.transform.rotation.eulerAngles.z;
+        //if((angle > 0 && angle < 90) || (angle > 270 && angle < 360)){
+        //    //Debug.Log("X is +ve");
+        //    gameplayRefs.transform.DOLocalMoveX(-Constants.cameraPosOffset,Constants.cameraPosTime).SetEase(Ease.Linear);
+        //}
+        //else
+        //{
+        //    //Debug.Log("X is -ve");
+        //    gameplayRefs.transform.DOLocalMoveX(Constants.cameraPosOffset, Constants.cameraPosTime).SetEase(Ease.Linear);
+        //}
 
+        gameplayRefs.cam.transform.position = new Vector3(target.position.x * (cameraMovementFactor), 0, -10);
     }
 
     public void TimerWarningSequence(Color color,float speed){

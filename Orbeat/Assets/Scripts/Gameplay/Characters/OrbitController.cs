@@ -67,9 +67,9 @@ public class OrbitController : CharacterBehaviour
     }
 
     private void StartBeat(){
-        orbit1Beat.DoBeat(Constants.beatScale,Constants.beatTime,1);
-        orbit2Beat.DoBeat(Constants.beatScale,Constants.beatTime,1);
-        orbit3Beat.DoBeat(Constants.beatScale,Constants.beatTime,1);
+        orbit1Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
+        orbit2Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
+        orbit3Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
     }
 
 

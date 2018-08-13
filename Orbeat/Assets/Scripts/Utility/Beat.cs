@@ -8,11 +8,11 @@ public class Beat : MonoBehaviour {
     public bool canBeat = true;
     Sequence beatSequence;
 
-    public void DoBeat(float beatScale,float duration,int sign){
+    public void DoBeat(Vector3 from,float beatScale,float duration,int sign){
         if(canBeat){
             StopBeat();
             beatSequence = DOTween.Sequence();
-            transform.localScale = Vector3.one; //reset the scale
+            transform.localScale = from; //reset the scale
             beatSequence.Append(transform.DOScaleX(transform.localScale.x + beatScale * sign, duration));
             beatSequence.Join(transform.DOScaleY(transform.localScale.y + beatScale * sign, duration));
             beatSequence.SetLoops(-1, LoopType.Yoyo);
