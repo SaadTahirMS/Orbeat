@@ -80,6 +80,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 orbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position);
                 print("Start Game");
+                gameplayViewController.StopTimerWarningSequence();
                 break;
             case GameState.Restart:
                 ResetScoring();
@@ -88,7 +89,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
-                gameplayViewController.CameraShake(Constants.shakeTime);
+                gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.End);
                 targetController.ChangeState(GameState.End);
@@ -130,6 +131,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKeyDown(KeyCode.Space)){
             ShotPlayer();
         }
+        //if(gameplayViewController!=null)
+            //gameplayViewController.LookAtTarget();
     }
 
     public void PlayerCollidedWithTarget(bool perfectHit){
@@ -154,8 +157,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         print("Player collided with Boundary");
         isAllowedToShot = false;
         SoundController.Instance.PlaySFXSound(SFX.PlayerBlast);
-        gameplayViewController.CameraFlash(Color.white, Constants.flashTime);
+        gameplayViewController.Flash(Color.white, Constants.flashTime);
         ChangeGameState(GameState.End);
+    }
+
+    public void TimerWarning(){
+        print("Player close to timer");
+        gameplayViewController.TimerWarningSequence(Color.red, Constants.warningSpeed);
     }
 
     private void Scoring(bool perfectHit){
@@ -173,13 +181,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             SoundController.Instance.PlaySFXSound(SFX.PerfectHit);
             AddScore(5 + comboCount);
             comboCount += 1;
-            gameplayViewController.CameraFlash(Color.yellow, Constants.flashTime);
+            gameplayViewController.Flash(Color.yellow, Constants.flashTime);
         }
         else
         { //else add +1 with 0 comboCount
             AddScore(1);
             comboCount = 0;
-            gameplayViewController.CameraFlash(Color.white, Constants.flashTime);
+            gameplayViewController.Flash(Color.white, Constants.flashTime);
         }
     }
 

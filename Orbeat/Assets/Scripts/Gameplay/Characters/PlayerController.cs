@@ -124,6 +124,10 @@ public class PlayerController : CharacterBehaviour {
             SetCollisions(false);
             GameplayContoller.Instance.PlayerCollidedWithTimer();
         }
+        else if (collision.gameObject.tag == "Warning")
+        {
+            GameplayContoller.Instance.TimerWarning();
+        }
     }
 
     public void SetCollisions(bool state)
@@ -150,13 +154,5 @@ public class PlayerController : CharacterBehaviour {
         }
     }
 
-    //void CollisionWithCenter(){
-    //    float distance = Vector3.Distance(transform.localPosition, Vector3.zero);
-    //    if(distance < Constants.playerCenterCollisionDistance){
-    //        print("Collided with center");
-    //        isCollisionWithCenter = true;
-    //        GameplayContoller.Instance.HasCollidedWithCenter();
-    //    }
-    //}
 
 }

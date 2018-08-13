@@ -101,7 +101,7 @@ public class GameplayTransitionController : MonoBehaviour {
     }
 
     private void ScoreBeat(){
-        scoreBeat.DoBeat(Constants.scoreBeatTime, 1);    //plays the infinite beating
+        scoreBeat.DoBeat(Constants.beatScale,Constants.scoreBeatTime, 1);    //plays the infinite beating
     }
 
     private Tween ScoreScale(Vector3 value){

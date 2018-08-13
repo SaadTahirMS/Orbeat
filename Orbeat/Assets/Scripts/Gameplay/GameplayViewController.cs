@@ -6,6 +6,7 @@ using DG.Tweening;
 public class GameplayViewController : IController{
     
     private GameplayRefs gameplayRefs;
+    private Sequence timerWarningSequence;
 
     public GameplayViewController(GameplayRefs gpRefs)
     {
@@ -44,12 +45,31 @@ public class GameplayViewController : IController{
         //gameplayRefs.highscoreText.color = colorSet.highscoreColor;
     }
 
-    public void CameraFlash(Color color,float duration){
+    public void Flash(Color color,float duration){
         gameplayRefs.flashImg.DOColor(color, duration).SetLoops(2, LoopType.Yoyo);
     }
 
-    public void CameraShake(float duration){
-        //gameplayRefs.cam.DOShakePosition(duration);
-        //gameplayRefs.cam.DOShakeRotation(duration);
+    public void Shake(float duration){
+        gameplayRefs.transform.DOShakePosition(duration, Constants.shakeStrength, Constants.shakeRandomness);
     }
+
+    public void LookAtTarget(){
+        Vector3 difference =  gameplayRefs.targetImg.gameObject.transform.position - gameplayRefs.transform.position;
+        //Debug.Log(difference);
+        gameplayRefs.transform.position = difference * Constants.lookingOffset;
+
+    }
+
+    public void TimerWarningSequence(Color color,float speed){
+        timerWarningSequence = DOTween.Sequence();
+        timerWarningSequence.Append(gameplayRefs.timerOrbitImg.DOColor(color, speed))
+        .SetLoops(-1, LoopType.Yoyo);
+        timerWarningSequence.Play();
+    }
+
+    public void StopTimerWarningSequence(){
+        gameplayRefs.timerOrbitImg.color = Constants.timerInitialColor;
+        timerWarningSequence.Kill();
+    }
+
 }

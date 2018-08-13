@@ -6,42 +6,49 @@ public static class Constants {
 
     public static float referenceWidth = 740f; 
 
+    //Positions
     public static Vector3 playerInitialPosition = new Vector3(130f, 0f, 0f);
     public static Vector3 targetInitialPosition1 = new Vector3(265f, 0f, 0f);
-    public static Vector3 targetInitialPosition2 = new Vector3(355f, 0f, 0f);
-    public static Vector3 targetInitialPosition3 = new Vector3(445f, 0f, 0f);
+    public static Vector3 targetInitialPosition2 = new Vector3(400f, 0f, 0f);
+    public static Vector3 targetInitialPosition3 = new Vector3(535f, 0f, 0f);
+    public static Vector3 scoreGameOverPos = new Vector3(0f, 200f, 0f);
+    public static int orbitCount = 3;
 
+    //Rotations
+    public static float playerMinRotationSpeed = 1f;  //Low Rotation Speed means fast speed
+    public static float playerMaxRotationSpeed = 5f;
+    public static float targetMinRotationSpeed = 15f;
+    public static float targetMaxRotationSpeed = 20f;
+
+    //Movement
+    public static float playerMoveSpeed = 50f;    //Increase to decrease time
+    public static float playerOrbitScaleSpeed = 50f;
+
+    //Scale
     public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
+    public static Vector3 scoreGameOverScale = new Vector3(2f, 2f, 2f);
 
-    //Low Rotation Speed means fast speed
-    public static float playerMinRotationSpeed = 1f;
-    public static float playerMaxRotationSpeed = 4f;
+    //Shot
+    public static float playerShotSpeed = 10f;    //Increase to increase shot speed
+    public static float perfectHitThreshold = 3f; //range of angle for perfect hit
+    public static int targetHitCount = 5; //level up after how many target hits
 
-    //Increase to decrease time
-    public static float playerMoveSpeed = 50f;
-    public static float playerOrbitScaleSpeed = playerMoveSpeed; 
-    public static float targetMinRotationSpeed = 5f;
-    public static float targetMaxRotationSpeed = 10f;
-
-    //Increase to increase shot speed
-    public static float playerShotSpeed = 10f;
-
-    public static float playerCenterCollisionDistance = 85f;
-    public static float playerTargetCollisionDistance = 50f;
-
-    public static float perfectHitThreshold = 3f;
+    //Color
+    public static Color timerInitialColor = new Color(255f, 0f, 0f, 0.4f);//red color with 0.4 alpha
 
     //Tweening
     public static float transitionTime = .35f; //0.25f
-    public static float beatTime = 0.18f;
+    public static float beatTime = 0.19f;
     public static float beatScale = 0.05f;
     public static float scoreBeatTime = .5f;
     public static float pitchTime = 1f;
-    public static Vector3 scoreGameOverPos = new Vector3(0f,200f,0f);
-    public static Vector3 scoreGameOverScale = new Vector3(2f,2f,2f);
-    public static int targetHitCount = 5; //level up after how many target hits
+    public static float flashTime = .2f;
+    public static float shakeTime = .5f;
+    public static float shakeStrength = 150f;
+    public static int shakeRandomness = 90;
+    public static float warningSpeed = .5f;
+    public static Vector3 cameraOffset = Vector3.zero;
 
-    public static float flashTime = .20f;
-    public static float shakeTime = 1f;
+    public static float lookingOffset = 1f;
 
 }
