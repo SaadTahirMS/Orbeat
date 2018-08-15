@@ -21,8 +21,8 @@ public static class Constants {
     public static float targetMaxRotationSpeed = 20f;
 
     //Movement
-    public static float playerMoveSpeed = 5000f;    //Increase to decrease time
-    public static float playerOrbitScaleSpeed = 5000f;
+    public static float playerMoveSpeed = 50f;    //Increase to decrease time
+    public static float playerOrbitScaleSpeed = 50f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
     //Scale
@@ -31,7 +31,7 @@ public static class Constants {
     public static Vector3 scoreInitialScale = new Vector3(1.25f, 1.25f, 1.25f);
 
     //Shot
-    public static float playerShotSpeed = 10f;    //Increase to increase shot speed
+    public static float playerShotSpeed = 15f;    //Increase to increase shot speed
     public static float perfectHitThreshold = 3f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
 
