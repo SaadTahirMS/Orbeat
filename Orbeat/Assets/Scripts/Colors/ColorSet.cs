@@ -13,10 +13,15 @@ public class ColorSet {
     public Color targetColor;
     public Color targetOrbitColor;
     public Color playerColor;
+    public Color playerArrowColor;
     public Color scoreColor;
     public Color perfectTextColor;
     public Color shareBtnColor;
     public Color playBtnColor;
     public Color highscoreColor;
-    public Color hurdleColor;
+    public Color hurdle1Color;
+    public Color hurdle2Color;
+    public Color hurdle3Color;
+    public Color hurdle4Color;
+
 }

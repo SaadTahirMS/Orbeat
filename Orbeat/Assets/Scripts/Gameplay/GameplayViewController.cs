@@ -82,19 +82,17 @@ public class GameplayViewController : IController
         gameplayRefs.targetImg.color = colorSet.targetColor;
         gameplayRefs.targetOrbitImg.color = colorSet.targetOrbitColor;
         gameplayRefs.playerImg.color = colorSet.playerColor;
+        gameplayRefs.playerArrowImg.color = colorSet.playerArrowColor;
         gameplayRefs.scoreText.color = colorSet.scoreColor;
         //gameplayRefs.shareBtnImg.color = colorSet.shareBtnColor;
         gameplayRefs.playBtnImg.color = colorSet.playBtnColor;
         gameplayRefs.perfectHitText.color = colorSet.perfectTextColor;
         //gameplayRefs.highscoreText.color = colorSet.highscoreColor;
-        for (int i = 0; i < gameplayRefs.hurdleImg.Count;i++){
-            gameplayRefs.hurdleImg[i].color = colorSet.hurdleColor;
-        }
-    }
+        gameplayRefs.hurdleImg[0].color = colorSet.hurdle1Color;
+        gameplayRefs.hurdleImg[1].color = colorSet.hurdle2Color;
+        gameplayRefs.hurdleImg[2].color = colorSet.hurdle3Color;
+        gameplayRefs.hurdleImg[3].color = colorSet.hurdle4Color;
 
-    public void ChangeArrowColor()
-    {
-        gameplayRefs.playerArrowImg.color = gameplayRefs.playerImg.color;
     }
 
     public void Flash(Color color, float duration)
@@ -136,10 +134,10 @@ public class GameplayViewController : IController
         timerWarningSequence.Kill();
     }
 
-    public void SetArrowAlpha(float alpha)
-    {
-        gameplayRefs.playerArrowImg.DOFade(alpha, 0f);
-    }
+    //public void SetArrowAlpha(float alpha)
+    //{
+    //    gameplayRefs.playerArrowImg.DOFade(alpha, 0f);
+    //}
 
     public void ScoreColor()
     {
@@ -149,5 +147,10 @@ public class GameplayViewController : IController
     public void SetCenterOrbits(bool value){
         gameplayRefs.innerOrbitImg.gameObject.SetActive(value);
         gameplayRefs.timerOrbitImg.gameObject.SetActive(value);
+    }
+
+    public void LevelUpText(){
+        Debug.Log("Level Up");
+        gameplayRefs.levelUpText.DOFade(1f, Constants.scoreBeatTime).SetLoops(6, LoopType.Yoyo);
     }
 }

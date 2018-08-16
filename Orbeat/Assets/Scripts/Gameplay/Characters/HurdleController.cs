@@ -63,17 +63,17 @@ public class HurdleController : CharacterBehaviour {
 
     private Vector3 AssignPosition()
     {
-        //int ran = Random.Range(1, 3);
+        int ran = Random.Range(1, 3);
         //int ran = 1;
-        int ran = orbitPos;
+        //int ran = orbitPos;
         switch (ran)
         {
             case 1:
-                return Constants.targetInitialPosition1;
+                return Constants.hurdleInitialPosition1;
             case 2:
-                return Constants.targetInitialPosition2;
+                return Constants.hurdleInitialPosition2;
             case 3:
-                return Constants.targetInitialPosition3;
+                return Constants.hurdleInitialPosition3;
             default:
                 return Vector3.zero;
         }
@@ -83,4 +83,5 @@ public class HurdleController : CharacterBehaviour {
     {
         direction = myDirection;
     }
+
 }

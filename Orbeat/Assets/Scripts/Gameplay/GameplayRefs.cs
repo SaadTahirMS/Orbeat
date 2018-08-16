@@ -24,5 +24,6 @@ public class GameplayRefs : MonoBehaviour {
     public Text perfectHitText;
     //public Text highscoreText;
     public List<Image> hurdleImg;
+    public Text levelUpText;
 
 }

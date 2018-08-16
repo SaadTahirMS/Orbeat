@@ -58,10 +58,11 @@ public class TargetController : CharacterBehaviour
         position = AssignPosition();
     }
 
+
     private Vector3 AssignPosition(){
-        //int ran = Random.Range(1,Constants.orbitCount+1);
+        int ran = Random.Range(1,Constants.orbitCount+1);
         //int ran = 3;
-        int ran = orbitPos;
+        //int ran = orbitPos;
         switch(ran){
             case 1:
                 return Constants.targetInitialPosition1;

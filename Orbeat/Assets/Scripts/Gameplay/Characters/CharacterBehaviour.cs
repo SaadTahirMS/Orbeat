@@ -8,7 +8,7 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     //Rotation Variables
     private Vector3 rotation;
     private float rotateSpeed;
-    public int direction;
+    protected int direction;
     public List<Rotate> rotationComponent = new List<Rotate>();
 
     public abstract float MinRotateSpeed

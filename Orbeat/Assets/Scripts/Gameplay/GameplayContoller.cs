@@ -11,7 +11,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public PlayerController playerController;
     public TargetController targetController;
-    public List<HurdleController> hurdleController;
+    public List<HurdleController> hurdleController;//individual hurdles
     public OrbitController orbitController;
     public ColorController colorController;
     public GameplayTransitionController gameplayTransitionController;
@@ -27,6 +27,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private int comboCount = 0;  //chain of perfect hits
     private int comboTextCount = 0;
     private bool isAllowedToShot;
+    private int hurdleCount = 0;//how many hurdles in the game
+
     public bool IsAllowedToShot
     {
         get
@@ -79,8 +81,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void InitializeColors(){
         colorController = new ColorController();
         colorController.Initialize();
-        ChangeColors(); //call initially and then after level up
-        ArrowColor();
     }
 
 
@@ -89,25 +89,24 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameState = state;
         switch(state){
             case GameState.Start:
+                ChangeColors();
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
 
-                for (int i = 0; i < hurdleController.Count;i++){
+                for (int i = 0; i < hurdleCount;i++){
                     hurdleController[i].ChangeState(GameState.Start);
                 }
 
-                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position);
+                gameplayTransitionController.LevelTransitionOnStart(targetController,playerController,orbitController,hurdleController,hurdleCount);
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
                 TargetOrbitAlpha();
                 break;
             case GameState.Restart:
                 ResetScoring();
-                ChangeColors();
-                ArrowColor();
                 gameplayViewController.SetCenterOrbits(true);
-                gameplayViewController.SetArrowAlpha(1f);
+                //gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
                 break;
@@ -119,7 +118,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 targetController.ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
 
-                for (int i = 0; i < hurdleController.Count; i++)
+                for (int i = 0; i < hurdleCount; i++)
                 {
                     hurdleController[i].ChangeState(GameState.End);
                 }
@@ -129,7 +128,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.SetCenterOrbits(false);
                 MainMenuController.Instance.ActivateRestartBtn();
                 gameplayViewController.SetScore("SCORE:" + score);
-                gameplayTransitionController.LevelTransitionOnEnd();
+                gameplayTransitionController.LevelTransitionOnEnd(playerController,targetController,hurdleController,hurdleCount);
                 Vibration.Vibrate();
                 break;
             case GameState.Shot:
@@ -139,7 +138,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
                 targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
-                gameplayTransitionController.LevelTransitionOnTargetHit(targetScreenPos);
+                gameplayTransitionController.LevelTransitionOnTargetHit(targetController,playerController,orbitController,hurdleController,hurdleCount, targetScreenPos);
                 Vibration.Vibrate();
                 break;
         }
@@ -214,25 +213,20 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameplayViewController.TimerWarningSequence(Color.red, Constants.warningSpeed);
     }
 
-    private void ChangeArrowAlpha(){
-        float alpha = 1 - targetHitCount / 4f;
-        gameplayViewController.SetArrowAlpha(alpha);
-    }
-
-    private void ArrowColor(){
-        gameplayViewController.ChangeArrowColor();
-    }
+    //private void ChangeArrowAlpha(){
+    //    float alpha = 1 - targetHitCount / 4f;
+    //    gameplayViewController.SetArrowAlpha(alpha);
+    //}
 
     private void Scoring(bool perfectHit){
         //increment target hit in order to level up
         targetHitCount += 1;
-        if (targetHitCount <= 4)
-            ChangeArrowAlpha();
 
         if (CheckLevelUp())
         {
             LevelUp();
-            ChangeColors();
+            AddHurdle();
+            gameplayViewController.LevelUpText();
         }
         //Add +5 and incr when perfect hit
         if (perfectHit)
@@ -252,6 +246,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         }
         gameplayViewController.ScoreColor();
 
+    }
+
+    private void AddHurdles(){
+        
     }
 
     private string GetPerfectHitArray(){
@@ -280,6 +278,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         score = 0;
         targetHitCount = 0;
         level = 0;
+        hurdleCount = 0;
         comboCount = 0;
         isPerfectHit = false;
         comboTextCount = 0;
@@ -298,5 +297,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         level += 1;
     }
 
+    private void AddHurdle(){
+        if(hurdleCount<4)
+            hurdleCount += 1;
+    }
 
 }
