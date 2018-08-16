@@ -18,9 +18,10 @@ public class GameplayRefs : MonoBehaviour {
     public Image targetOrbitImg;
     public Image playerImg;
     public Text scoreText;
-    //public Image playerArrowImg;
+    public Image playerArrowImg;
     //public Image shareBtnImg;
     public Image playBtnImg;
+    public Text perfectHitText;
     //public Text highscoreText;
 
 }

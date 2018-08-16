@@ -14,9 +14,8 @@ public class ColorSet {
     public Color targetOrbitColor;
     public Color playerColor;
     public Color scoreColor;
-    public Color playerArrowColor;
+    public Color perfectTextColor;
     public Color shareBtnColor;
     public Color playBtnColor;
     public Color highscoreColor;
-
 }

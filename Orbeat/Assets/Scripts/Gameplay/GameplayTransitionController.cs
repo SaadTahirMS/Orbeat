@@ -25,7 +25,7 @@ public class GameplayTransitionController : MonoBehaviour {
         StopLevelTransitionOnStart();
         StopLevelTransitionOnEnd();
         levelTransitionOnStartSeq = DOTween.Sequence();
-
+        
         //Create tweens 
         //Target tweens
         target.gameObject.SetActive(true);
@@ -38,12 +38,13 @@ public class GameplayTransitionController : MonoBehaviour {
         Tween playerPositionTween = PlayerPosition(playerPos);
         //Orbits tweens
         orbits.localPosition = Vector3.zero;
-        Tween orbitsScaleTween = OrbitsScale();
+        ResetOrbitScale();
+        Tween orbitsScaleTween = OrbitsScale(Vector3.one);
         //PlayerOrbit 
         playerOrbit.localScale = Vector3.one;
         //Score
         Tween scoreScale = ScoreScale(Constants.scoreInitialScale);
-        Tween scorePosition = ScorePosition(Vector3.zero);
+        Tween scorePosition = ScorePosition(Constants.scoreInitialPosition);
 
         //Add Tweens to Sequence
         levelTransitionOnStartSeq.Append(targetFadeInTween)
@@ -93,10 +94,13 @@ public class GameplayTransitionController : MonoBehaviour {
         return player.transform.DOLocalMove(pos, Constants.transitionTime);
     }
 
-    private Tween OrbitsScale()
+    private Tween OrbitsScale(Vector3 scale)
     {
+        return orbits.DOScale(scale, Constants.transitionTime);
+    }
+
+    private void ResetOrbitScale(){
         orbits.localScale = Vector3.zero;
-        return orbits.DOScale(Vector3.one, Constants.transitionTime/2);
     }
 
     private void ScoreBeat(){
@@ -109,6 +113,11 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private Tween ScorePosition(Vector3 value){
         return scoreText.transform.DOLocalMove(value, Constants.transitionTime);
+    }
+
+    private Tween ScoreAlpha()
+    {
+        return scoreText.DOFade(1f, Constants.transitionTime);
     }
 
     private void StartTransitionComplete(){
@@ -154,20 +163,21 @@ public class GameplayTransitionController : MonoBehaviour {
         //Create tweens
         //Target tweens
         Tween targetMoveToCenterTween = TargetMoveToCenter();
-        Tween targetFadeOutTween = TargetFadeOut();
+        //Tween targetFadeOutTween = TargetFadeOut();
         //Player tweens
         Tween playerMoveToCenterTween = PlayerMoveToCenter();
         Tween playerScaleToZeroTween = PlayerScaleToZero();
         //Orbit tweens
         Vector3 direction = GetDirection(targetScreenPos);
         Tween orbitMoveToTarget = OrbitMoveToTarget(direction.x,direction.y);
-
+        Tween orbitScale = OrbitsScale(Vector3.one * 2);
         //Add tweens
         levelTransitionOnTargetHitSeq.Append(targetMoveToCenterTween)
-        .Join(targetFadeOutTween)
+        //.Join(targetFadeOutTween)
         .Join(playerMoveToCenterTween)
         .Join(playerScaleToZeroTween)
         .Join(orbitMoveToTarget)
+         .Join(orbitScale)
         .SetEase(Ease.Linear)
         .OnComplete(TargetHitTransitionComplete)
         .Play();
@@ -206,7 +216,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private Tween OrbitMoveToTarget(float x, float y)
     {
-        return orbits.DOLocalMove(new Vector3(x * 5, y * 5, 0f), Constants.transitionTime);
+        return orbits.DOLocalMove(new Vector3(x * 10, y * 10, 0f), Constants.transitionTime);
     }
 
     private void TargetHitTransitionComplete(){
@@ -216,16 +226,16 @@ public class GameplayTransitionController : MonoBehaviour {
     public void LevelTransitionOnEnd(){
         StopLevelTransitionOnEnd();
         levelTransitionOnEndSeq = DOTween.Sequence();
-
         player.gameObject.SetActive(false);
         target.gameObject.SetActive(false);
-
         scoreBeat.StopBeat();
         Tween scorePosition = ScorePosition(Constants.scoreGameOverPos);
         Tween scoreScale = ScoreScale(Constants.scoreGameOverScale);
+        Tween scoreAlpha = ScoreAlpha();
         levelTransitionOnEndSeq
         .Append(scorePosition)
         .Join(scoreScale)
+        .Join(scoreAlpha)
         .SetEase(Ease.Linear)
         .Play();
     }

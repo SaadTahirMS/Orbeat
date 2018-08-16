@@ -17,12 +17,14 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
    
     private Vector3 targetScreenPos;
 
+    private GameState gameState;
+
     private bool isPerfectHit = false;   //perfect hit check passed by player
     private int score = 0;   //simple score
     private int level = 0;   //game level
     private int targetHitCount = 0;  //how many targets hit in order to level up
     private int comboCount = 0;  //chain of perfect hits
-
+    private int comboTextCount = 0;
     private bool isAllowedToShot;
     public bool IsAllowedToShot
     {
@@ -69,10 +71,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         colorController = new ColorController();
         colorController.Initialize();
         ChangeColors(); //call initially and then after level up
+        ArrowColor();
     }
 
     public void ChangeGameState(GameState state){
-
+        gameState = state;
         switch(state){
             case GameState.Start:
                 playerController.ChangeState(GameState.Start);
@@ -81,22 +84,31 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position);
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
+                TargetOrbitAlpha();
                 break;
             case GameState.Restart:
                 ResetScoring();
                 ChangeColors();
+                ArrowColor();
+                gameplayViewController.SetCenterOrbits(true);
+                gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
+                gameplayViewController.Flash(Color.white, Constants.flashTime);
                 gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.End);
                 targetController.ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
+                ResetCameraPosition();
                 print("Game Over");
+                gameplayViewController.SetCenterOrbits(false);
                 MainMenuController.Instance.ActivateRestartBtn();
+                gameplayViewController.SetScore("SCORE:" + score);
                 gameplayTransitionController.LevelTransitionOnEnd();
+                Vibration.Vibrate();
                 break;
             case GameState.Shot:
                 gameplayTransitionController.StopTimerMovement();
@@ -106,6 +118,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 Scoring(isPerfectHit);
                 targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
                 gameplayTransitionController.LevelTransitionOnTargetHit(targetScreenPos);
+                Vibration.Vibrate();
                 break;
         }
     }
@@ -131,8 +144,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKeyDown(KeyCode.Space)){
             ShotPlayer();
         }
-        if(gameplayViewController!=null)
-            gameplayViewController.LookAtTarget(targetController.transform);
+        if(gameplayViewController!=null && gameState == GameState.Start)
+            gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
+    }
+
+    private void ResetCameraPosition(){
+        gameplayViewController.LookAtTarget(Vector3.zero, Constants.cameraOffset,targetController.GetOrbit());
     }
 
     public void PlayerCollidedWithTarget(bool perfectHit){
@@ -157,7 +174,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         print("Player collided with Boundary");
         isAllowedToShot = false;
         SoundController.Instance.PlaySFXSound(SFX.PlayerBlast);
-        gameplayViewController.Flash(Color.white, Constants.flashTime);
         ChangeGameState(GameState.End);
     }
 
@@ -166,35 +182,66 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameplayViewController.TimerWarningSequence(Color.red, Constants.warningSpeed);
     }
 
+    private void ChangeArrowAlpha(){
+        float alpha = 1 - targetHitCount / 4f;
+        gameplayViewController.SetArrowAlpha(alpha);
+    }
+
+    private void ArrowColor(){
+        gameplayViewController.ChangeArrowColor();
+    }
+
     private void Scoring(bool perfectHit){
         //increment target hit in order to level up
-        TargetHitCount();
+        targetHitCount += 1;
+        if (targetHitCount <= 4)
+            ChangeArrowAlpha();
+
         if (CheckLevelUp())
         {
             LevelUp();
             ChangeColors();
-
         }
         //Add +5 and incr when perfect hit
         if (perfectHit)
         {
             SoundController.Instance.PlaySFXSound(SFX.PerfectHit);
             AddScore(5 + comboCount);
-            comboCount += 1;
+            SetPerfectHitText(GetPerfectHitArray());
+            comboCount ++;
+            comboTextCount++;
             gameplayViewController.Flash(Color.yellow, Constants.flashTime);
         }
         else
         { //else add +1 with 0 comboCount
             AddScore(1);
             comboCount = 0;
-            gameplayViewController.Flash(Color.white, Constants.flashTime);
+            comboTextCount = 0;
         }
+        gameplayViewController.ScoreColor();
+
     }
+
+    private string GetPerfectHitArray(){
+        if (comboTextCount == Constants.perfectHitArray.Length)
+            comboTextCount = 0;
+        return Constants.perfectHitArray[comboTextCount];
+    }
+
+    private void TargetOrbitAlpha(){
+        int targetPos = targetController.GetOrbit();
+        gameplayViewController.SetTargetOrbitAlpha(targetPos);
+    }
+
 
 
     private void AddScore(int s){
         score += s;
         gameplayViewController.SetScore(score.ToString());
+    }
+
+    private void SetPerfectHitText(string text){
+        gameplayViewController.SetPerfectHit(text);
     }
 
     private void ResetScoring(){
@@ -203,12 +250,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         level = 0;
         comboCount = 0;
         isPerfectHit = false;
+        comboTextCount = 0;
         AddScore(0);
     }
 
-    private void TargetHitCount(){
-        targetHitCount += 1;
-    }
 
     private bool CheckLevelUp(){
         if(targetHitCount % Constants.targetHitCount == 0){

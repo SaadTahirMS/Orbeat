@@ -58,8 +58,8 @@ public class TargetController : CharacterBehaviour
     }
 
     private Vector3 AssignPosition(){
-        //int ran = Random.Range(1,Constants.orbitCount+1);
-        int ran = 3;
+        int ran = Random.Range(1,Constants.orbitCount+1);
+        //int ran = 3;
         switch(ran){
             case 1:
                 return Constants.targetInitialPosition1;
@@ -81,6 +81,15 @@ public class TargetController : CharacterBehaviour
         targetOrbit.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime, -1);
     }
 
-
+    public int GetOrbit(){
+        if (position == Constants.targetInitialPosition1)
+            return 1;
+        else if (position == Constants.targetInitialPosition2)
+            return 2;
+        else if (position == Constants.targetInitialPosition3)
+            return 3;
+        else
+            return 0;
+    }
 
 }

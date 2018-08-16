@@ -18,14 +18,14 @@ public class ColorController {
             targetColor = new Color(0xff, 0x83, 0x00),
             targetOrbitColor = new Color(0xff,0x83,0x00),
             playerColor = new Color(0xff, 0x83, 0x00),
-            scoreColor = new Color(0xff, 0x83, 0x00),
-            playerArrowColor = new Color(0xff, 0x83, 0x00),
+            scoreColor = new Color(0xff, 0x83, 0x00, Constants.scoreAlpha),
+            perfectTextColor = new Color(0xff, 0x83, 0x00,Constants.perfectTextAlpha),
             shareBtnColor = new Color(0xff, 0x83, 0x00),
             playBtnColor = new Color(0xff, 0x83, 0x00),
             highscoreColor = new Color(0xff, 0x83, 0x00),
-            orbit1Color = new Color(0xff, 0x00, 0x00),
-            orbit2Color = new Color(0xff, 0x00, 0x00),
-            orbit3Color = new Color(0xff, 0x00, 0x00),
+            orbit1Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
+            orbit2Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
+            orbit3Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
             innerOrbitColor = new Color(0xff, 0x00, 0x00)
 
         };
@@ -38,14 +38,14 @@ public class ColorController {
             targetColor = new Color(0xd0, 0xff, 0x00),
             targetOrbitColor = new Color(0xd0, 0xff, 0x00),
             playerColor = new Color(0xd0, 0xff, 0x00),
-            scoreColor = new Color(0xd0, 0xff, 0x00),
-            playerArrowColor = new Color(0xd0, 0xff, 0x00),
+            scoreColor = new Color(0xd0, 0xff, 0x00, Constants.scoreAlpha),
+            perfectTextColor = new Color(0xd0, 0xff, 0x00,Constants.perfectTextAlpha),
             shareBtnColor = new Color(0xd0, 0xff, 0x00),
             playBtnColor = new Color(0xd0, 0xff, 0x00),
             highscoreColor = new Color(0xd0, 0xff, 0x00),
-            orbit1Color = new Color(0xff, 0xd0, 0x01),
-            orbit2Color = new Color(0xff, 0xd0, 0x01),
-            orbit3Color = new Color(0xff, 0xd0, 0x01),
+            orbit1Color = new Color(0xff, 0xd0, 0x01, Constants.orbitAlpha),
+            orbit2Color = new Color(0xff, 0xd0, 0x01, Constants.orbitAlpha),
+            orbit3Color = new Color(0xff, 0xd0, 0x01, Constants.orbitAlpha),
             innerOrbitColor = new Color(0xff, 0xd0, 0x01)
 
         };
@@ -58,14 +58,14 @@ public class ColorController {
             targetColor = new Color(0xcf, 0xff, 0x00),
             targetOrbitColor = new Color(0xcf, 0xff, 0x00),
             playerColor = new Color(0xcf, 0xff, 0x00),
-            scoreColor = new Color(0xcf, 0xff, 0x00),
-            playerArrowColor = new Color(0xcf, 0xff, 0x00),
+            scoreColor = new Color(0xcf, 0xff, 0x00, Constants.scoreAlpha),
+            perfectTextColor = new Color(0xcf, 0xff, 0x00, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0xcf, 0xff, 0x00),
             playBtnColor = new Color(0xcf, 0xff, 0x00),
             highscoreColor = new Color(0xcf, 0xff, 0x00),
-            orbit1Color = new Color(0xcf, 0xff, 0x00),
-            orbit2Color = new Color(0xcf, 0xff, 0x00),
-            orbit3Color = new Color(0xcf, 0xff, 0x00),
+            orbit1Color = new Color(0xcf, 0xff, 0x00, Constants.orbitAlpha),
+            orbit2Color = new Color(0xcf, 0xff, 0x00, Constants.orbitAlpha),
+            orbit3Color = new Color(0xcf, 0xff, 0x00, Constants.orbitAlpha),
             innerOrbitColor = new Color(0xcf, 0xff, 0x00)
 
         };
@@ -78,14 +78,14 @@ public class ColorController {
             targetColor = new Color(0x74, 0xed, 0x9a),
             targetOrbitColor = new Color(0x74, 0xed, 0x9a),
             playerColor = new Color(0x74, 0xed, 0x9a),
-            scoreColor = new Color(0x74, 0xed, 0x9a),
-            playerArrowColor = new Color(0x74, 0xed, 0x9a),
+            scoreColor = new Color(0x74, 0xed, 0x9a, Constants.scoreAlpha),
+            perfectTextColor = new Color(0x74, 0xed, 0x9a, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0x74, 0xed, 0x9a),
             playBtnColor = new Color(0x74, 0xed, 0x9a),
             highscoreColor = new Color(0x74, 0xed, 0x9a),
-            orbit1Color = new Color(0x5a, 0xff, 0x00),
-            orbit2Color = new Color(0x5a, 0xff, 0x00),
-            orbit3Color = new Color(0x5a, 0xff, 0x00),
+            orbit1Color = new Color(0x5a, 0xff, 0x00, Constants.orbitAlpha),
+            orbit2Color = new Color(0x5a, 0xff, 0x00, Constants.orbitAlpha),
+            orbit3Color = new Color(0x5a, 0xff, 0x00, Constants.orbitAlpha),
             innerOrbitColor = new Color(0x5a, 0xff, 0x00)
         };
 
@@ -97,14 +97,14 @@ public class ColorController {
             targetColor = new Color(0x00, 0xff, 0x9c),
             targetOrbitColor = new Color(0x00, 0xff, 0x9c),
             playerColor = new Color(0x00, 0xff, 0x9c),
-            scoreColor = new Color(0x00, 0xff, 0x9c),
-            playerArrowColor = new Color(0x00, 0xff, 0x9c),
+            scoreColor = new Color(0x00, 0xff, 0x9c, Constants.scoreAlpha),
+            perfectTextColor = new Color(0x00, 0xff, 0x9c, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0x00, 0xff, 0x9c),
             playBtnColor = new Color(0x00, 0xff, 0x9c),
             highscoreColor = new Color(0x00, 0xff, 0x9c),
-            orbit1Color = new Color(0x00, 0xff, 0x9c),
-            orbit2Color = new Color(0x00, 0xff, 0x9c),
-            orbit3Color = new Color(0x00, 0xff, 0x9c),
+            orbit1Color = new Color(0x00, 0xff, 0x9c, Constants.orbitAlpha),
+            orbit2Color = new Color(0x00, 0xff, 0x9c, Constants.orbitAlpha),
+            orbit3Color = new Color(0x00, 0xff, 0x9c, Constants.orbitAlpha),
             innerOrbitColor = new Color(0x00, 0xff, 0x9c)
         };
 
@@ -116,14 +116,14 @@ public class ColorController {
             targetColor = new Color(0x00, 0x9d, 0xff),
             targetOrbitColor = new Color(0x00, 0x9d, 0xff),
             playerColor = new Color(0x00, 0x9d, 0xff),
-            scoreColor = new Color(0x00, 0x9d, 0xff),
-            playerArrowColor = new Color(0x00, 0x9d, 0xff),
+            scoreColor = new Color(0x00, 0x9d, 0xff, Constants.scoreAlpha),
+            perfectTextColor = new Color(0x00, 0x9d, 0xff, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0x00, 0x9d, 0xff),
             playBtnColor = new Color(0x00, 0x9d, 0xff),
             highscoreColor = new Color(0x00, 0x9d, 0xff),
-            orbit1Color = new Color(0x00, 0x9d, 0xff),
-            orbit2Color = new Color(0x00, 0x9d, 0xff),
-            orbit3Color = new Color(0x00, 0x9d, 0xff),
+            orbit1Color = new Color(0x00, 0x9d, 0xff, Constants.orbitAlpha),
+            orbit2Color = new Color(0x00, 0x9d, 0xff, Constants.orbitAlpha),
+            orbit3Color = new Color(0x00, 0x9d, 0xff, Constants.orbitAlpha),
             innerOrbitColor = new Color(0x00, 0x9d, 0xff)
         };
 
@@ -135,14 +135,14 @@ public class ColorController {
             targetColor = new Color(0x89, 0x00, 0xf9),
             targetOrbitColor = new Color(0x89, 0x00, 0xf9),
             playerColor = new Color(0x89, 0x00, 0xf9),
-            scoreColor = new Color(0x89, 0x00, 0xf9),
-            playerArrowColor = new Color(0x89, 0x00, 0xf9),
+            scoreColor = new Color(0x89, 0x00, 0xf9, Constants.scoreAlpha),
+            perfectTextColor = new Color(0x89, 0x00, 0xf9, Constants.perfectTextAlpha),
             shareBtnColor =new Color(0x89, 0x00, 0xf9),
             playBtnColor =new Color(0x89, 0x00, 0xf9),
             highscoreColor = new Color(0x89, 0x00, 0xf9),
-            orbit1Color = new Color(0x89, 0x00, 0xf9),
-            orbit2Color = new Color(0x89, 0x00, 0xf9),
-            orbit3Color = new Color(0x89, 0x00, 0xf9),
+            orbit1Color = new Color(0x89, 0x00, 0xf9, Constants.orbitAlpha),
+            orbit2Color = new Color(0x89, 0x00, 0xf9, Constants.orbitAlpha),
+            orbit3Color = new Color(0x89, 0x00, 0xf9, Constants.orbitAlpha),
             innerOrbitColor = new Color(0x89, 0x00, 0xf9)
         };
 
@@ -154,14 +154,14 @@ public class ColorController {
             targetColor = new Color(0x01, 0x0e, 0xff),
             targetOrbitColor = new Color(0x01, 0x0e, 0xff),
             playerColor = new Color(0x01, 0x0e, 0xff),
-            scoreColor = new Color(0x01, 0x0e, 0xff),
-            playerArrowColor = new Color(0x01, 0x0e, 0xff),
+            scoreColor = new Color(0x01, 0x0e, 0xff, Constants.scoreAlpha),
+            perfectTextColor = new Color(0x01, 0x0e, 0xff, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0x01, 0x0e, 0xff),
             playBtnColor = new Color(0x01, 0x0e, 0xff),
             highscoreColor = new Color(0x01, 0x0e, 0xff),
-            orbit1Color = new Color(0x01, 0x0e, 0xff),
-            orbit2Color = new Color(0x01, 0x0e, 0xff),
-            orbit3Color = new Color(0x01, 0x0e, 0xff),
+            orbit1Color = new Color(0x01, 0x0e, 0xff, Constants.orbitAlpha),
+            orbit2Color = new Color(0x01, 0x0e, 0xff, Constants.orbitAlpha),
+            orbit3Color = new Color(0x01, 0x0e, 0xff, Constants.orbitAlpha),
             innerOrbitColor = new Color(0x01, 0x0e, 0xff)
         };
 
@@ -173,14 +173,14 @@ public class ColorController {
             targetColor = new Color(0xf8, 0x00, 0xff),
             targetOrbitColor = new Color(0xf8, 0x00, 0xff),
             playerColor = new Color(0xf8, 0x00, 0xff),
-            scoreColor = new Color(0xf8, 0x00, 0xff),
-            playerArrowColor = new Color(0xf8, 0x00, 0xff),
+            scoreColor = new Color(0xf8, 0x00, 0xff, Constants.scoreAlpha),
+            perfectTextColor = new Color(0xf8, 0x00, 0xff, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0xf8, 0x00, 0xff),
             playBtnColor = new Color(0xf8, 0x00, 0xff),
             highscoreColor = new Color(0xf8, 0x00, 0xff),
-            orbit1Color = new Color(0xf8, 0x00, 0xff),
-            orbit2Color = new Color(0xf8, 0x00, 0xff),
-            orbit3Color = new Color(0xf8, 0x00, 0xff),
+            orbit1Color = new Color(0xf8, 0x00, 0xff, Constants.orbitAlpha),
+            orbit2Color = new Color(0xf8, 0x00, 0xff, Constants.orbitAlpha),
+            orbit3Color = new Color(0xf8, 0x00, 0xff, Constants.orbitAlpha),
             innerOrbitColor = new Color(0xf8, 0x00, 0xff)
         };
 
@@ -192,14 +192,14 @@ public class ColorController {
             targetColor = new Color(0xff, 0x00, 0x8f),
             targetOrbitColor = new Color(0xff, 0x00, 0x8f),
             playerColor = new Color(0xff, 0x00, 0x8f),
-            scoreColor = new Color(0xff, 0x00, 0x8f),
-            playerArrowColor = new Color(0xff, 0x00, 0x8f),
+            scoreColor = new Color(0xff, 0x00, 0x8f, Constants.scoreAlpha),
+            perfectTextColor = new Color(0xff, 0x00, 0x8f, Constants.perfectTextAlpha),
             shareBtnColor = new Color(0xff, 0x00, 0x8f),
             playBtnColor = new Color(0xff, 0x00, 0x8f),
             highscoreColor = new Color(0xff, 0x00, 0x8f),
-            orbit1Color = new Color(0xff, 0x00, 0x8f),
-            orbit2Color = new Color(0xff, 0x00, 0x8f),
-            orbit3Color = new Color(0xff, 0x00, 0x8f),
+            orbit1Color = new Color(0xff, 0x00, 0x8f, Constants.orbitAlpha),
+            orbit2Color = new Color(0xff, 0x00, 0x8f, Constants.orbitAlpha),
+            orbit3Color = new Color(0xff, 0x00, 0x8f, Constants.orbitAlpha),
             innerOrbitColor = new Color(0xff, 0x00, 0x8f)
         };
 
