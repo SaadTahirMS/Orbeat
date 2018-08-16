@@ -9,6 +9,7 @@ TagManager:
   - Timer
   - Boundary
   - Warning
+  - Hurdle
   layers:
   - Default
   - TransparentFX

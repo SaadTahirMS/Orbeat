@@ -11,6 +11,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public PlayerController playerController;
     public TargetController targetController;
+    public List<HurdleController> hurdleController;
     public OrbitController orbitController;
     public ColorController colorController;
     public GameplayTransitionController gameplayTransitionController;
@@ -40,11 +41,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
 
     public void Open()
-    {
+    {        
         InitializeGameplayViewController();
         InitializePlayer();
         InitializeTarget();
         InitializeOrbits();
+        InitializeHurdles();
         InitializeColors();
         SoundController.Instance.SetGamePlayMusic(true);
         ChangeGameState(GameState.Start);
@@ -67,12 +69,21 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         orbitController.Initialize();
     }
 
+    private void InitializeHurdles()
+    {
+        for (int i = 0; i < hurdleController.Count;i++){
+            hurdleController[i].Initialize();
+        }
+    }
+
     private void InitializeColors(){
         colorController = new ColorController();
         colorController.Initialize();
         ChangeColors(); //call initially and then after level up
         ArrowColor();
     }
+
+
 
     public void ChangeGameState(GameState state){
         gameState = state;
@@ -81,6 +92,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
+
+                for (int i = 0; i < hurdleController.Count;i++){
+                    hurdleController[i].ChangeState(GameState.Start);
+                }
+
                 gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position);
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
@@ -102,6 +118,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 playerController.ChangeState(GameState.End);
                 targetController.ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
+
+                for (int i = 0; i < hurdleController.Count; i++)
+                {
+                    hurdleController[i].ChangeState(GameState.End);
+                }
+
                 ResetCameraPosition();
                 print("Game Over");
                 gameplayViewController.SetCenterOrbits(false);
@@ -122,6 +144,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 break;
         }
     }
+
 
     private void ChangeColors(){
         ColorSet colorSet = colorController.GetRandomColorSet();
@@ -158,6 +181,15 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         isPerfectHit = perfectHit;
         SoundController.Instance.PlaySFXSound(SFX.TargetHit);
         ChangeGameState(GameState.TargetHit);
+
+    }
+
+    public void PlayerCollidedWithHurdle()
+    {
+        print("Player collided with hurdle");
+        isAllowedToShot = false;
+        SoundController.Instance.PlaySFXSound(SFX.PlayerBlast);
+        ChangeGameState(GameState.End);
 
     }
 

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
 
-public class TargetController : CharacterBehaviour
-{
+public class HurdleController : CharacterBehaviour {
+
     public int orbitPos;
-    public Beat targetOrbit;
-
     private Vector3 position;
+    public int myDirection;
 
     public Vector3 Position
     {
@@ -19,11 +17,12 @@ public class TargetController : CharacterBehaviour
         }
     }
 
+
     public override float MinRotateSpeed
     {
         get
         {
-            return Constants.targetMinRotationSpeed;
+            return Constants.hurdleMinRotationSpeed;
         }
     }
 
@@ -31,7 +30,7 @@ public class TargetController : CharacterBehaviour
     {
         get
         {
-            return Constants.targetMaxRotationSpeed;
+            return Constants.hurdleMaxRotationSpeed;
         }
     }
 
@@ -40,12 +39,14 @@ public class TargetController : CharacterBehaviour
         base.Initialize();
     }
 
-    public void ChangeState(GameState state){
 
-        switch(state){
+    public void ChangeState(GameState state)
+    {
+
+        switch (state)
+        {
             case GameState.Start:
                 SetPosition();
-                StartBeat();
                 Rotate();
                 break;
             case GameState.End:
@@ -54,15 +55,19 @@ public class TargetController : CharacterBehaviour
         }
     }
 
-    protected override void SetPosition(){
+    protected override void SetPosition()
+    {
         position = AssignPosition();
+        transform.DOLocalMove(position, Constants.transitionTime);
     }
 
-    private Vector3 AssignPosition(){
-        //int ran = Random.Range(1,Constants.orbitCount+1);
-        //int ran = 3;
+    private Vector3 AssignPosition()
+    {
+        //int ran = Random.Range(1, 3);
+        //int ran = 1;
         int ran = orbitPos;
-        switch(ran){
+        switch (ran)
+        {
             case 1:
                 return Constants.targetInitialPosition1;
             case 2:
@@ -74,26 +79,8 @@ public class TargetController : CharacterBehaviour
         }
     }
 
-    public Vector3 GetScreenPosition()
+    protected override void AssignRandomDirection()
     {
-        return Camera.main.WorldToScreenPoint(transform.position);
+        direction = myDirection;
     }
-
-    private void StartBeat(){
-        targetOrbit.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime, -1);
-    }
-
-    public int GetOrbit(){
-        if (position == Constants.targetInitialPosition1)
-            return 1;
-        else if (position == Constants.targetInitialPosition2)
-            return 2;
-        else if (position == Constants.targetInitialPosition3)
-            return 3;
-        else
-            return 0;
-    }
-
-
-
 }

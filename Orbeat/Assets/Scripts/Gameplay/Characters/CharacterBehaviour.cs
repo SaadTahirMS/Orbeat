@@ -8,7 +8,7 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     //Rotation Variables
     private Vector3 rotation;
     private float rotateSpeed;
-    protected int direction;
+    public int direction;
     public List<Rotate> rotationComponent = new List<Rotate>();
 
     public abstract float MinRotateSpeed
@@ -44,7 +44,7 @@ public abstract class CharacterBehaviour : MonoBehaviour {
         }
     }
 
-    private void AssignRandomDirection()
+    protected virtual void AssignRandomDirection()
     {
         direction = Random.Range(0, 2);
         direction = direction > 0 ? 1 : -1;

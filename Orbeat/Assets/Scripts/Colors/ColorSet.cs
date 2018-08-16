@@ -18,4 +18,5 @@ public class ColorSet {
     public Color shareBtnColor;
     public Color playBtnColor;
     public Color highscoreColor;
+    public Color hurdleColor;
 }

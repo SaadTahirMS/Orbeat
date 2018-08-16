@@ -30,6 +30,8 @@ public static class Constants {
     public static float playerMaxRotationSpeed = 5f;
     public static float targetMinRotationSpeed = 15f;
     public static float targetMaxRotationSpeed = 20f;
+    public static float hurdleMinRotationSpeed = 23f;
+    public static float hurdleMaxRotationSpeed = 23f;
 
     //Movement
     public static float playerMoveSpeed = 50f;    //Increase to decrease time

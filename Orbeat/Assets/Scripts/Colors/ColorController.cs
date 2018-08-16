@@ -16,6 +16,7 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0xff, 0x00, 0x00),
             targetColor = new Color(0xff, 0x83, 0x00),
+            hurdleColor = new Color(0x06, 0x79, 0x9f),
             targetOrbitColor = new Color(0xff,0x83,0x00),
             playerColor = new Color(0xff, 0x83, 0x00),
             scoreColor = new Color(0xff, 0x83, 0x00, Constants.scoreAlpha),
@@ -27,7 +28,6 @@ public class ColorController {
             orbit2Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
             orbit3Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
             innerOrbitColor = new Color(0xff, 0x00, 0x00)
-
         };
 
         ColorSet colorSet2 = new ColorSet
@@ -36,6 +36,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0xff, 0xd0, 0x01),
             targetColor = new Color(0xd0, 0xff, 0x00),
+            hurdleColor = new Color(0xff, 0x00, 0xf4),
+
             targetOrbitColor = new Color(0xd0, 0xff, 0x00),
             playerColor = new Color(0xd0, 0xff, 0x00),
             scoreColor = new Color(0xd0, 0xff, 0x00, Constants.scoreAlpha),
@@ -56,6 +58,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0xcf, 0xff, 0x00),
             targetColor = new Color(0xcf, 0xff, 0x00),
+            hurdleColor = new Color(0xff, 0x00, 0xe9),
+
             targetOrbitColor = new Color(0xcf, 0xff, 0x00),
             playerColor = new Color(0xcf, 0xff, 0x00),
             scoreColor = new Color(0xcf, 0xff, 0x00, Constants.scoreAlpha),
@@ -76,6 +80,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0x5a, 0xff, 0x00),
             targetColor = new Color(0x74, 0xed, 0x9a),
+            hurdleColor = new Color(0xff, 0x8f, 0x7d),
+
             targetOrbitColor = new Color(0x74, 0xed, 0x9a),
             playerColor = new Color(0x74, 0xed, 0x9a),
             scoreColor = new Color(0x74, 0xed, 0x9a, Constants.scoreAlpha),
@@ -95,6 +101,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0x00, 0xff, 0x9c),
             targetColor = new Color(0x00, 0xff, 0x9c),
+            hurdleColor = new Color(0xff, 0x4f, 0x00),
+
             targetOrbitColor = new Color(0x00, 0xff, 0x9c),
             playerColor = new Color(0x00, 0xff, 0x9c),
             scoreColor = new Color(0x00, 0xff, 0x9c, Constants.scoreAlpha),
@@ -114,6 +122,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0x00, 0x9d, 0xff),
             targetColor = new Color(0x00, 0x9d, 0xff),
+            hurdleColor = new Color(0xff, 0x8e, 0x00),
+
             targetOrbitColor = new Color(0x00, 0x9d, 0xff),
             playerColor = new Color(0x00, 0x9d, 0xff),
             scoreColor = new Color(0x00, 0x9d, 0xff, Constants.scoreAlpha),
@@ -133,6 +143,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0x89, 0x00, 0xf9),
             targetColor = new Color(0x89, 0x00, 0xf9),
+            hurdleColor = new Color(0xff, 0xf5, 0x00),
+
             targetOrbitColor = new Color(0x89, 0x00, 0xf9),
             playerColor = new Color(0x89, 0x00, 0xf9),
             scoreColor = new Color(0x89, 0x00, 0xf9, Constants.scoreAlpha),
@@ -152,6 +164,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0x01, 0x0e, 0xff),
             targetColor = new Color(0x01, 0x0e, 0xff),
+            hurdleColor = new Color(0xff, 0xbc, 0x00),
+
             targetOrbitColor = new Color(0x01, 0x0e, 0xff),
             playerColor = new Color(0x01, 0x0e, 0xff),
             scoreColor = new Color(0x01, 0x0e, 0xff, Constants.scoreAlpha),
@@ -171,6 +185,8 @@ public class ColorController {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0xf8, 0x00, 0xff),
             targetColor = new Color(0xf8, 0x00, 0xff),
+            hurdleColor = new Color(0xd6, 0xff, 0x00),
+
             targetOrbitColor = new Color(0xf8, 0x00, 0xff),
             playerColor = new Color(0xf8, 0x00, 0xff),
             scoreColor = new Color(0xf8, 0x00, 0xff, Constants.scoreAlpha),
@@ -189,7 +205,9 @@ public class ColorController {
 
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0xff, 0x00, 0x8f),
-            targetColor = new Color(0xff, 0x00, 0x8f),
+            targetColor = new Color(0xff, 0x00, 0x90),
+            hurdleColor = new Color(0xaa, 0xff, 0x00),
+
             targetOrbitColor = new Color(0xff, 0x00, 0x8f),
             playerColor = new Color(0xff, 0x00, 0x8f),
             scoreColor = new Color(0xff, 0x00, 0x8f, Constants.scoreAlpha),
@@ -218,6 +236,7 @@ public class ColorController {
 
     public ColorSet GetRandomColorSet(){
         int randomColorSet = Random.Range(0, colorSets.Count);
+        Debug.Log("ColorSet: " + randomColorSet);
         return colorSets[randomColorSet];
     }
 	
