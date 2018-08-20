@@ -15,18 +15,18 @@ public class ColorController {
         {
             backgroundColor = new Color(0x00, 0x00, 0x00),
             playerOrbitColor = new Color(0xff, 0x00, 0x00),
-            targetColor = new Color(0xff, 0x83, 0x00),
-            targetOrbitColor = new Color(0xff,0x83,0x00),
-            playerColor = new Color(0xff, 0x83, 0x00),
-            scoreColor = new Color(0xff, 0x83, 0x00, Constants.scoreAlpha),
-            perfectTextColor = new Color(0xff, 0x83, 0x00,Constants.perfectTextAlpha),
-            shareBtnColor = new Color(0xff, 0x83, 0x00),
-            playBtnColor = new Color(0xff, 0x83, 0x00),
-            highscoreColor = new Color(0xff, 0x83, 0x00),
-            orbit1Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
-            orbit2Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
-            orbit3Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0xff, 0x00, 0x00)
+            targetColor = new Color(0xff, 0xff, 0xff),
+            targetOrbitColor = new Color(0xff, 0xff, 0xff),
+            playerColor = new Color(0xff, 0xff, 0xff),
+            scoreColor = new Color(0xff, 0xff, 0xff, Constants.scoreAlpha),
+            perfectTextColor = new Color(0xff, 0xff, 0xff,Constants.perfectTextAlpha),
+            shareBtnColor = new Color(0xff, 0xff, 0xff),
+            playBtnColor = new Color(0xff, 0xff, 0xff),
+            highscoreColor = new Color(0xff, 0xff, 0xff),
+            orbit1Color = new Color(0xff, 0xff, 0xff, Constants.orbitAlpha),
+            orbit2Color = new Color(0xff, 0xff, 0xff, Constants.orbitAlpha),
+            orbit3Color = new Color(0xff, 0xff, 0xff, Constants.orbitAlpha),
+            innerOrbitColor = new Color(0xff, 0xff, 0xff)
 
         };
 

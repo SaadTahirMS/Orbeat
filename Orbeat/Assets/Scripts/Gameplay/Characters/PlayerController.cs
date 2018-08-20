@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerController : CharacterBehaviour {
     
-    public Transform player;
     public Transform targetObj;
     public Rigidbody2D playerRb;
 
@@ -71,10 +70,12 @@ public class PlayerController : CharacterBehaviour {
                 Rotate();
                 break;
             case GameState.Shot:
+                StopTimerMovement();
                 InitiateShot();
                 break;
             case GameState.End:
                 StopRotation();
+                StopTimerMovement();
                 shotFlag = false;
                 break;            
         }
@@ -87,11 +88,11 @@ public class PlayerController : CharacterBehaviour {
 
     private Vector3 AssignPosition()
     {
-        return Constants.playerInitialPosition;
+        return new Vector3(Constants.playerInitialPosition, 0f, 0f);
     }
 
     void InitiateShot(){
-        transform.SetParent(player.transform.parent);
+        transform.SetParent(gameObject.transform.parent);
         StopRotation();
         shotFlag = true;
     }
@@ -101,14 +102,13 @@ public class PlayerController : CharacterBehaviour {
         if (shotFlag)
         {
             transform.Translate(Vector3.right * Time.deltaTime * shotSpeed);
-            CollisionWithBoundary();
+            CollisionWithBoundary();//start checking it
         }
     }
 
 
-
     private void ResetParent(){
-        transform.SetParent(player);
+        transform.SetParent(gameObject.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -119,15 +119,15 @@ public class PlayerController : CharacterBehaviour {
             SetCollisions(false);
             GameplayContoller.Instance.PlayerCollidedWithTarget(CheckPerfectHit());
         }
-        else if (collision.gameObject.tag == "Timer")
-        {
-            SetCollisions(false);
-            GameplayContoller.Instance.PlayerCollidedWithTimer();
-        }
-        else if (collision.gameObject.tag == "Warning")
-        {
-            GameplayContoller.Instance.TimerWarning();
-        }
+        //else if (collision.gameObject.tag == "Timer")
+        //{
+        //    SetCollisions(false);
+        //    GameplayContoller.Instance.PlayerCollidedWithTimer();
+        //}
+        //else if (collision.gameObject.tag == "Warning")
+        //{
+        //    GameplayContoller.Instance.TimerWarning();
+        //}
     }
 
     public void SetCollisions(bool state)
@@ -136,7 +136,7 @@ public class PlayerController : CharacterBehaviour {
     }
 
     private bool CheckPerfectHit(){
-      float angleDifference = targetObj.eulerAngles.z - player.eulerAngles.z;
+        float angleDifference = targetObj.eulerAngles.z - gameObject.transform.eulerAngles.z;
         if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
             print("Perfect Hit");
             return true;
@@ -153,6 +153,7 @@ public class PlayerController : CharacterBehaviour {
             GameplayContoller.Instance.PlayerCollidedWithBoundary();
         }
     }
+
 
 
 }

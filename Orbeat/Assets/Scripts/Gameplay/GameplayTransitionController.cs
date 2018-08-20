@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class GameplayTransitionController : MonoBehaviour {
 
-    public Transform target;
-    public Transform player;
     public Transform orbits;
     public Image targetImg;
 
@@ -18,10 +16,9 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private Sequence levelTransitionOnStartSeq; //called when game starts at the beginning or after the level transition
     private Sequence levelTransitionOnTargetHitSeq;   //called on target hit
-    private Sequence timerMovement;
     private Sequence levelTransitionOnEndSeq;
 
-    public void LevelTransitionOnStart(Vector3 targetPos,Vector3 playerPos,Vector3 orbitPos){
+    public void LevelTransitionOnStart(TargetController target,PlayerController player,OrbitController orbit){
         StopLevelTransitionOnStart();
         StopLevelTransitionOnEnd();
         levelTransitionOnStartSeq = DOTween.Sequence();
@@ -29,13 +26,13 @@ public class GameplayTransitionController : MonoBehaviour {
         //Create tweens 
         //Target tweens
         target.gameObject.SetActive(true);
-        Tween targetScaleTween = TargetScale();
-        Tween targetPositionTween = TargetPosition(targetPos);
+        Tween targetScaleTween = TargetScale(target.transform);
+        Tween targetPositionTween = TargetPosition(target.transform,target.Position);
         Tween targetFadeInTween = TargetFadeIn();
         //Player tweens
         player.gameObject.SetActive(true);
-        Tween playerScaleTween = PlayerScale();
-        Tween playerPositionTween = PlayerPosition(playerPos);
+        Tween playerScaleTween = PlayerScale(player.transform);
+        Tween playerPositionTween = PlayerPosition(player.transform,player.Position);
         //Orbits tweens
         orbits.localPosition = Vector3.zero;
         ResetOrbitScale();
@@ -56,7 +53,7 @@ public class GameplayTransitionController : MonoBehaviour {
         .Join(scoreScale)
         .Join(scorePosition)
         .SetEase(Ease.Linear)
-        .OnComplete(StartTransitionComplete)
+        .OnComplete(() => StartTransitionComplete(player,target,orbit))
         .Play();
 
     }
@@ -66,12 +63,12 @@ public class GameplayTransitionController : MonoBehaviour {
         levelTransitionOnStartSeq.Kill();
     }
 
-    private Tween TargetScale(){
+    private Tween TargetScale(Transform target){
         target.transform.localScale = Vector3.zero; 
         return target.DOScale(Vector3.one, Constants.transitionTime);
     }
 
-    private Tween TargetPosition(Vector3 pos)
+    private Tween TargetPosition(Transform target,Vector3 pos)
     {
         target.transform.localPosition = Vector3.zero; 
         return  target.transform.DOLocalMove(pos, Constants.transitionTime);
@@ -82,13 +79,13 @@ public class GameplayTransitionController : MonoBehaviour {
         return targetImg.DOFade(1, Constants.transitionTime);
     }
 
-    private Tween PlayerScale()
+    private Tween PlayerScale(Transform player)
     {
         player.transform.localScale = Vector3.zero; 
         return player.DOScale(Vector3.one, Constants.transitionTime);
     }
 
-    private Tween PlayerPosition(Vector3 pos)
+    private Tween PlayerPosition(Transform player,Vector3 pos)
     {
         player.transform.localPosition = Vector3.zero; 
         return player.transform.DOLocalMove(pos, Constants.transitionTime);
@@ -120,76 +117,45 @@ public class GameplayTransitionController : MonoBehaviour {
         return scoreText.DOFade(1f, Constants.transitionTime);
     }
 
-    private void StartTransitionComplete(){
+    private void StartTransitionComplete(PlayerController player,TargetController target,OrbitController orbit){
         GameplayContoller.Instance.IsAllowedToShot = true;
         GameplayContoller.Instance.playerController.SetCollisions(true);
         ScoreBeat();
-        TimerMovement();
+        player.Movement();
+        target.Movement();
     }
 
-    private void TimerMovement(){
-        StopTimerMovement();
-        timerMovement = DOTween.Sequence();
-        //Player Orbit tweens
-        Tween playerOrbitScale = PlayerOrbitScale();
-        //Player Movement tweens
-        Tween playerMovement = PlayerMovement();
-
-        timerMovement.Append(playerOrbitScale);
-        timerMovement.Join(playerMovement);
-
-        timerMovement.Play();
-    }
-
-    public void StopTimerMovement(){
-        timerMovement.Kill();
-    }
-
-    private Tween PlayerOrbitScale()
-    {
-        playerOrbit.localScale = Vector3.one;
-        return playerOrbit.DOScale(Vector3.zero, Constants.playerOrbitScaleSpeed);
-    }
-
-    private Tween PlayerMovement(){
-        return player.transform.DOLocalMove(Vector3.zero, Constants.playerMoveSpeed);
-    }
-
-    public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
+    public void LevelTransitionOnTargetHit(PlayerController player,TargetController target){
         StopLevelTransitionOnTargetHit();
-
         levelTransitionOnTargetHitSeq = DOTween.Sequence();
-
-        //Create tweens
         //Target tweens
-        Tween targetMoveToCenterTween = TargetMoveToCenter();
-        //Tween targetFadeOutTween = TargetFadeOut();
-        //Player tweens
-        Tween playerMoveToCenterTween = PlayerMoveToCenter();
-        Tween playerScaleToZeroTween = PlayerScaleToZero();
-        //Orbit tweens
-        Vector3 direction = GetDirection(targetScreenPos);
-        Tween orbitMoveToTarget = OrbitMoveToTarget(direction.x,direction.y);
-        Tween orbitScale = OrbitsScale(Vector3.one * 2);
-        //Add tweens
-        levelTransitionOnTargetHitSeq.Append(targetMoveToCenterTween)
-        //.Join(targetFadeOutTween)
-        .Join(playerMoveToCenterTween)
-        .Join(playerScaleToZeroTween)
-        .Join(orbitMoveToTarget)
-         .Join(orbitScale)
-        .SetEase(Ease.Linear)
-        .OnComplete(TargetHitTransitionComplete)
-        .Play();
-
-
+        //Tween targetMoveToCenterTween = TargetMoveToCenter(target.transform);
+        ////Tween targetFadeOutTween = TargetFadeOut();
+        ////Player tweens
+        //Tween playerMoveToCenterTween = PlayerMoveToCenter(player.transform);
+        //Tween playerScaleToZeroTween = PlayerScaleToZero(player.transform);
+        ////Orbit tweens
+        //Vector3 direction = GetDirection(targetScreenPos);
+        //Tween orbitMoveToTarget = OrbitMoveToTarget(direction.x,direction.y);
+        //Tween orbitScale = OrbitsScale(Vector3.one * 2);
+        ////Add tweens
+        //levelTransitionOnTargetHitSeq.Append(targetMoveToCenterTween)
+        ////.Join(targetFadeOutTween)
+        //.Join(playerMoveToCenterTween)
+        //.Join(playerScaleToZeroTween)
+        //.Join(orbitMoveToTarget)
+        // .Join(orbitScale)
+        //.SetEase(Ease.Linear)
+        //.OnComplete(TargetHitTransitionComplete)
+        //.Play();
+        levelTransitionOnTargetHitSeq.Play();
     }
 
     private void StopLevelTransitionOnTargetHit(){
         levelTransitionOnTargetHitSeq.Kill();
     }
 
-    private Tween TargetMoveToCenter()
+    private Tween TargetMoveToCenter(Transform target)
     {
         return target.DOLocalMove(Vector3.zero, Constants.transitionTime);
     }
@@ -199,12 +165,12 @@ public class GameplayTransitionController : MonoBehaviour {
         return targetImg.DOFade(0, Constants.transitionTime);
     }
 
-    private Tween PlayerMoveToCenter()
+    private Tween PlayerMoveToCenter(Transform player)
     {
         return player.DOLocalMove(Vector3.zero, Constants.transitionTime);
     }
 
-    private Tween PlayerScaleToZero()
+    private Tween PlayerScaleToZero(Transform player)
     {
         return player.DOScale(Vector3.zero, Constants.transitionTime);
     }
@@ -223,7 +189,7 @@ public class GameplayTransitionController : MonoBehaviour {
         GameplayContoller.Instance.ChangeGameState(GameState.Start);
     }
 
-    public void LevelTransitionOnEnd(){
+    public void LevelTransitionOnEnd(PlayerController player,TargetController target){
         StopLevelTransitionOnEnd();
         levelTransitionOnEndSeq = DOTween.Sequence();
         player.gameObject.SetActive(false);

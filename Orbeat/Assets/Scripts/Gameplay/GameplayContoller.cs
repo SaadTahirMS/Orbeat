@@ -70,7 +70,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void InitializeColors(){
         colorController = new ColorController();
         colorController.Initialize();
-        ChangeColors(); //call initially and then after level up
+        //ChangeColors(); //call initially and then after level up
         ArrowColor();
     }
 
@@ -81,16 +81,15 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
-                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position);
+                gameplayTransitionController.LevelTransitionOnStart(targetController,playerController,orbitController);
                 print("Start Game");
-                gameplayViewController.StopTimerWarningSequence();
+                //gameplayViewController.StopTimerWarningSequence();
                 TargetOrbitAlpha();
                 break;
             case GameState.Restart:
                 ResetScoring();
-                ChangeColors();
+                //ChangeColors();
                 ArrowColor();
-                gameplayViewController.SetCenterOrbits(true);
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
@@ -98,27 +97,25 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.End:
                 gameplayViewController.Flash(Color.white, Constants.flashTime);
                 gameplayViewController.Shake(Constants.shakeTime);
-                gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.End);
                 targetController.ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
                 ResetCameraPosition();
                 print("Game Over");
-                gameplayViewController.SetCenterOrbits(false);
                 MainMenuController.Instance.ActivateRestartBtn();
                 gameplayViewController.SetScore("SCORE:" + score);
-                gameplayTransitionController.LevelTransitionOnEnd();
+                gameplayTransitionController.LevelTransitionOnEnd(playerController, targetController);
                 Vibration.Vibrate();
                 break;
             case GameState.Shot:
-                gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.Shot); //this initiates a player shot
                 break;
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
-                targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
-                gameplayTransitionController.LevelTransitionOnTargetHit(targetScreenPos);
-                Vibration.Vibrate();
+                //targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
+                gameplayTransitionController.LevelTransitionOnTargetHit(playerController,targetController);
+                //Vibration.Vibrate();
+                ChangeGameState(GameState.Start);
                 break;
         }
     }
@@ -144,8 +141,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKeyDown(KeyCode.Space)){
             ShotPlayer();
         }
-        if(gameplayViewController!=null && gameState == GameState.Start)
-            gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
+        //if(gameplayViewController!=null && gameState == GameState.Start)
+            //gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
     }
 
     private void ResetCameraPosition(){
@@ -161,13 +158,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     }
 
-    public void PlayerCollidedWithTimer()
-    {
-        print("Player collided with Timer");
-        isAllowedToShot = false;
-        SoundController.Instance.PlaySFXSound(SFX.PlayerBlast);
-        ChangeGameState(GameState.End);
-    }
+    //public void PlayerCollidedWithTimer()
+    //{
+    //    print("Player collided with Timer");
+    //    isAllowedToShot = false;
+    //    SoundController.Instance.PlaySFXSound(SFX.PlayerBlast);
+    //    ChangeGameState(GameState.End);
+    //}
 
     public void PlayerCollidedWithBoundary()
     {
@@ -177,10 +174,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         ChangeGameState(GameState.End);
     }
 
-    public void TimerWarning(){
-        print("Player close to timer");
-        gameplayViewController.TimerWarningSequence(Color.red, Constants.warningSpeed);
-    }
+    //public void TimerWarning(){
+    //    print("Player close to timer");
+    //    gameplayViewController.TimerWarningSequence(Color.red, Constants.warningSpeed);
+    //}
 
     private void ChangeArrowAlpha(){
         float alpha = 1 - targetHitCount / 4f;
@@ -200,7 +197,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if (CheckLevelUp())
         {
             LevelUp();
-            ChangeColors();
+            //ChangeColors();
         }
         //Add +5 and incr when perfect hit
         if (perfectHit)

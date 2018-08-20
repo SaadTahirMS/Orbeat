@@ -17,10 +17,10 @@ public static class Constants {
     };
 
     //Positions
-    public static Vector3 playerInitialPosition = new Vector3(180f, 0f, 0f);
-    public static Vector3 targetInitialPosition1 = new Vector3(275f, 0f, 0f);
-    public static Vector3 targetInitialPosition2 = new Vector3(390f, 0f, 0f);
-    public static Vector3 targetInitialPosition3 = new Vector3(500f, 0f, 0f);
+    public static float playerInitialPosition = 150f;
+    public static float targetInitialPosition1 = 265f;
+    public static float targetInitialPosition2 = 375f;
+    public static float targetInitialPosition3 = 485f;
     public static Vector3 scoreInitialPosition = new Vector3(0f, -14f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
@@ -32,8 +32,7 @@ public static class Constants {
     public static float targetMaxRotationSpeed = 20f;
 
     //Movement
-    public static float playerMoveSpeed = 50f;    //Increase to decrease time
-    public static float playerOrbitScaleSpeed = 50f;
+    public static float moveSpeed = 60f;    //Increase to decrease time
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
     public static float cameraOffset = 0.25f;
@@ -42,6 +41,10 @@ public static class Constants {
     public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
     public static Vector3 scoreGameOverScale = new Vector3(1.25f, 1.25f, 1.25f);
     public static Vector3 scoreInitialScale = new Vector3(1f, 1f, 1f);
+    public static Vector3 endScale = new Vector3(0.25f, 0.25f, 0.25f);
+    public static Vector3 intialOrbitScale = new Vector3(5f, 5f, 5f);
+    public static float intialOrbitDuration = 25f;
+    public static float scaleSpeed = 5f;
 
     //Shot
     public static float playerShotSpeed = 15f;    //Increase to increase shot speed

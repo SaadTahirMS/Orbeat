@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public abstract class CharacterBehaviour : MonoBehaviour {
     
-    //Rotation Variables
+    private Sequence movement;
     private Vector3 rotation;
     private float rotateSpeed;
     protected int direction;
@@ -66,5 +66,23 @@ public abstract class CharacterBehaviour : MonoBehaviour {
 
     protected virtual void SetPosition(){}
 
+
+    public void Movement()
+    {
+        StopTimerMovement();
+        movement = DOTween.Sequence();
+        Tween playerMovement = PlayerMovement();
+        movement.Append(playerMovement).Play();
+    }
+
+    private Tween PlayerMovement()
+    {
+        return gameObject.transform.DOLocalMove(Vector3.zero, Constants.moveSpeed);
+    }
+
+    public void StopTimerMovement()
+    {
+        movement.Kill();
+    }
 
 }

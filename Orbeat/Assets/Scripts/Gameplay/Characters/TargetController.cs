@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class TargetController : CharacterBehaviour
 {
-    public Beat targetOrbit;
-
     private Vector3 position;
+    private int orbitNo;
 
     public Vector3 Position
     {
@@ -44,7 +43,6 @@ public class TargetController : CharacterBehaviour
         switch(state){
             case GameState.Start:
                 SetPosition();
-                StartBeat();
                 Rotate();
                 break;
             case GameState.End:
@@ -54,22 +52,68 @@ public class TargetController : CharacterBehaviour
     }
 
     protected override void SetPosition(){
-        position = AssignPosition();
+        orbitNo = AssignOrbit();
+        position = AssignPosition(orbitNo);
     }
 
-    private Vector3 AssignPosition(){
-        int ran = Random.Range(1,Constants.orbitCount+1);
-        //int ran = 3;
-        switch(ran){
+    private Vector3 AssignPosition(int orbitNumber){
+        //int randomPos = Random.Range(1, 3);
+        switch(orbitNumber){
             case 1:
-                return Constants.targetInitialPosition1;
+                //switch(randomPos){
+                //    case 1:
+                //        return new Vector3(Constants.targetInitialPosition1, 0f, 0f);
+                //    case 2:
+                //        return new Vector3(-Constants.targetInitialPosition1, 0f, 0f);
+                //    case 3:
+                //        return new Vector3(0f, -Constants.targetInitialPosition1, 0f);
+                //    case 4:
+                //        return new Vector3(0f,Constants.targetInitialPosition1, 0f);
+                //    default:
+                //        return Vector3.zero;
+                //}
+                return new Vector3(Constants.targetInitialPosition1, 0f, 0f);
             case 2:
-                return Constants.targetInitialPosition2;
+                //switch (randomPos)
+                //{
+                //    case 1:
+                //        return new Vector3(Constants.targetInitialPosition2, 0f, 0f);
+                //    case 2:
+                //        return new Vector3(-Constants.targetInitialPosition2, 0f, 0f);
+                //    case 3:
+                //        return new Vector3(0f, -Constants.targetInitialPosition2, 0f);
+                //    case 4:
+                //        return new Vector3(0f, Constants.targetInitialPosition2, 0f);
+                //    default:
+                //        return Vector3.zero;
+                //}
+                return new Vector3(Constants.targetInitialPosition2, 0f, 0f);
             case 3:
-                return Constants.targetInitialPosition3;
+                //switch (randomPos)
+                //{
+                //    case 1:
+                //        return new Vector3(Constants.targetInitialPosition3, 0f, 0f);
+                //    case 2:
+                //        return new Vector3(-Constants.targetInitialPosition3, 0f, 0f);
+                //    case 3:
+                //        return new Vector3(0f, -Constants.targetInitialPosition3, 0f);
+                //    case 4:
+                //        return new Vector3(0f, Constants.targetInitialPosition3, 0f);
+                //    default:
+                //        return Vector3.zero;
+                //}
+                return new Vector3(Constants.targetInitialPosition3, 0f, 0f);
             default:
                 return Vector3.zero;
         }
+    }
+
+    private int AssignOrbit(){
+        return Random.Range(1, Constants.orbitCount + 1);
+    }
+
+    public int GetOrbit(){
+        return orbitNo;
     }
 
     public Vector3 GetScreenPosition()
@@ -77,19 +121,5 @@ public class TargetController : CharacterBehaviour
         return Camera.main.WorldToScreenPoint(transform.position);
     }
 
-    private void StartBeat(){
-        targetOrbit.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime, -1);
-    }
-
-    public int GetOrbit(){
-        if (position == Constants.targetInitialPosition1)
-            return 1;
-        else if (position == Constants.targetInitialPosition2)
-            return 2;
-        else if (position == Constants.targetInitialPosition3)
-            return 3;
-        else
-            return 0;
-    }
 
 }

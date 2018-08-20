@@ -121,17 +121,17 @@ public class GameplayViewController : IController
         gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset * targetPos, 0, -10);
     }
 
-    public void TimerWarningSequence(Color color,float speed){
-        timerWarningSequence = DOTween.Sequence();
-        timerWarningSequence.Append(gameplayRefs.timerOrbitImg.DOColor(color, speed))
-        .SetLoops(-1, LoopType.Yoyo);
-        timerWarningSequence.Play();
-    }
+    //public void TimerWarningSequence(Color color,float speed){
+    //    timerWarningSequence = DOTween.Sequence();
+    //    timerWarningSequence.Append(gameplayRefs.timerOrbitImg.DOColor(color, speed))
+    //    .SetLoops(-1, LoopType.Yoyo);
+    //    timerWarningSequence.Play();
+    //}
 
-    public void StopTimerWarningSequence(){
-        gameplayRefs.timerOrbitImg.color = Constants.timerInitialColor;
-        timerWarningSequence.Kill();
-    }
+    //public void StopTimerWarningSequence(){
+    //    gameplayRefs.timerOrbitImg.color = Constants.timerInitialColor;
+    //    timerWarningSequence.Kill();
+    //}
 
     public void SetArrowAlpha(float alpha)
     {
@@ -143,8 +143,4 @@ public class GameplayViewController : IController
         gameplayRefs.scoreText.DOFade(1f, Constants.scoreBeatTime).SetLoops(6, LoopType.Yoyo);
     }
 
-    public void SetCenterOrbits(bool value){
-        gameplayRefs.innerOrbitImg.gameObject.SetActive(value);
-        gameplayRefs.timerOrbitImg.gameObject.SetActive(value);
-    }
 }

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class OrbitController : CharacterBehaviour
+public class OrbitController : MonoBehaviour
 {
-    public Beat orbit1Beat;
-    public Beat orbit2Beat;
-    public Beat orbit3Beat;
-
+    public List<Scale> orbits;
+    private Sequence scale;
     private Vector3 position;
     public Vector3 Position
     {
@@ -18,26 +16,14 @@ public class OrbitController : CharacterBehaviour
         }
     }
 
-    public override float MinRotateSpeed
+    private void Start()
     {
-        get
-        {
-            return Constants.playerMinRotationSpeed;
-        }
+        StartScale();
     }
 
-    public override float MaxRotateSpeed
-    {
-        get
-        {
-            return Constants.playerMaxRotationSpeed;
-        }
-    }
-
-    public override void Initialize()
+    public void Initialize()
     {
         gameObject.SetActive(true);
-        base.Initialize();
     }
 
     public void ChangeState(GameState state)
@@ -45,32 +31,40 @@ public class OrbitController : CharacterBehaviour
         switch (state)
         {
             case GameState.Start:
-                SetPosition();
-                Rotate();
-                StartBeat();
+                StartScale();
                 break;
             case GameState.End:
-                StopRotation();          
+                StopScale();
                 break;
             case GameState.TargetHit:
+                HitScale();
                 break;
         }
     }
 
-    protected override void SetPosition()
+    private void StartScale(){
+        for (int i = 0; i < orbits.Count;i++){
+            orbits[i].DoScale(Vector3.one);
+        }
+    }
+
+    private void StopScale()
     {
-        position = AssignPosition();
+        for (int i = 0; i < orbits.Count; i++)
+        {
+            orbits[i].StopScale();
+        }
     }
 
-    private Vector3 AssignPosition(){
-        return Vector3.zero;
+    private void HitScale() //scaling on target hit
+    {
+        //for (int i = 0; i < orbits.Count; i++)
+        //{
+
+        //}
     }
 
-    private void StartBeat(){
-        orbit1Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
-        orbit2Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
-        orbit3Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
-    }
+
 
 
 }
