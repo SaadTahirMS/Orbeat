@@ -55,9 +55,9 @@ public static class Constants {
     public static float scoreAlpha = 0.5f;
 
     //Tweening
-    public static float transitionTime = .4f; //0.25f
-    public static float beatTime = 0.185f;
-    public static float beatScale = 0.05f;
+    public static float transitionTime = .45f; //0.25f
+    public static float beatTime = 0.195f;
+    public static float beatScale = 0.04f;
     public static float scoreBeatTime = .19f;
     public static float scoreBeatScale = 0.25f;
     public static float pitchTime = 1f;
