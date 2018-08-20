@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/main.unity
     guid: a0c4651c3c9314b459f6ee3f742a1732
+  - enabled: 1
+    path: Assets/Beat Detector by Saad/beat.unity
+    guid: e8c49b27dfdb6694eb66a9a07649b386

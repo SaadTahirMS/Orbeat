@@ -47,4 +47,7 @@ public class SoundController : Singleton<SoundController> {
         }
     }
 
+    public void DoPitch(float endValue,float duration){
+        gameplayAudioSource.DOPitch(endValue, duration);
+    }
 }

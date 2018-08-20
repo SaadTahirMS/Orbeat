@@ -8,6 +8,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     GameplayViewController gameplayViewController;
 
     public GameplayRefs gameplayRefs;
+    public Loudness loudness;
 
     public PlayerController playerController;
     public TargetController targetController;
@@ -50,6 +51,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeOrbits();
         InitializeHurdles();
         InitializeColors();
+        InitializeBgBeat();
         SoundController.Instance.SetGamePlayMusic(true);
         ChangeGameState(GameState.Start);
     }
@@ -83,13 +85,19 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         colorController.Initialize();
     }
 
+    private void InitializeBgBeat(){
+        loudness.gameObject.SetActive(true);
+        loudness.Initialize();
 
+    }
 
     public void ChangeGameState(GameState state){
         gameState = state;
         switch(state){
             case GameState.Start:
                 ChangeColors();
+                gameplayViewController.SlowMo(1f, 0f);
+                gameplayViewController.CameraZoom(Constants.camInitialSize);
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
@@ -111,6 +119,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
+                gameplayViewController.SlowMo(1f, 0f);
+                gameplayViewController.CameraZoom(Constants.camInitialSize);
                 gameplayViewController.Flash(Color.white, Constants.flashTime);
                 gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();
@@ -163,11 +173,34 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     //Spacebar key for PC
     void Update(){
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyUp(KeyCode.Space)){
             ShotPlayer();
         }
-        if(gameplayViewController!=null && gameState == GameState.Start)
-            gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
+        if (Input.GetMouseButtonDown(0))
+        {
+            //SoundController.Instance.DoPitch(Constants.pitchEndValue, Constants.pitchDuration);
+            gameplayViewController.CameraZoom(Constants.camZoom);
+            gameplayViewController.SlowMo(Constants.slowMoValue, Constants.slowMoDuration);
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            //SoundController.Instance.DoPitch(1+Constants.pitchEndValue, Constants.pitchDuration);
+            gameplayViewController.CameraZoom(Constants.camZoom);
+
+        }
+        else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+        {
+            gameplayViewController.SlowMo(1f, 0f);
+            //SoundController.Instance.DoPitch(1, Constants.pitchDuration);
+            ShotPlayer();
+        }
+
+        if(gameplayViewController!=null){
+            if (gameState == GameState.Start){
+                gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
+   
+            }
+        }
     }
 
     private void ResetCameraPosition(){
@@ -298,7 +331,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void AddHurdle(){
-        if(hurdleCount<4)
+        if(hurdleCount<Constants.hurdleCount)
             hurdleCount += 1;
     }
 

@@ -153,4 +153,12 @@ public class GameplayViewController : IController
         Debug.Log("Level Up");
         gameplayRefs.levelUpText.DOFade(1f, Constants.scoreBeatTime).SetLoops(6, LoopType.Yoyo);
     }
+
+    public void CameraZoom(float endValue){
+        gameplayRefs.cam.DOOrthoSize(endValue,1f);
+    }
+
+    public void SlowMo(float endValue,float duration){
+        Time.timeScale = Mathf.Lerp(1f,endValue , duration);
+    }
 }

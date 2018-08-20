@@ -27,9 +27,10 @@ public static class Constants {
     public static Vector3 scoreInitialPosition = new Vector3(0f, -14f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
+    public static int hurdleCount = 2;
 
     //Rotations
-    public static float playerMinRotationSpeed = 2f;  //Low Rotation Speed means fast speed
+    public static float playerMinRotationSpeed = 1f;  //Low Rotation Speed means fast speed
     public static float playerMaxRotationSpeed = 5f;
     public static float targetMinRotationSpeed = 15f;
     public static float targetMaxRotationSpeed = 20f;
@@ -75,4 +76,12 @@ public static class Constants {
     public static float lookingOffset = 1f;
     public static float orbitFadeTime = 0.5f;
     public static long vibrateTime = 100;
+
+    //SlowMo
+    public static float pitchEndValue = 0.75f;
+    public static float pitchDuration = 2f;
+    public static float slowMoDuration = 1f;
+    public static float slowMoValue = 0.5f;
+    public static float camInitialSize = 7f;
+    public static float camZoom = 6.5f;
 }
