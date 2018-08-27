@@ -48,34 +48,46 @@ public class GameplayViewController : IController
 
     public void SetTargetOrbitAlpha(int pos)
     {
-        ResetOrbitsAlpha();
-        switch (pos)
-        {
-            case 1:
-                gameplayRefs.orbit1Img.DOFade(1f, Constants.orbitFadeTime);
-                break;
-            case 2:
-                gameplayRefs.orbit2Img.DOFade(1f, Constants.orbitFadeTime);
-                break;
-            case 3:
-                gameplayRefs.orbit3Img.DOFade(1f, Constants.orbitFadeTime);
-                break;
-        }
+        
+        ResetOrbitsAlpha();//make all orbits alpha zero
+        gameplayRefs.orbitImg[pos - 1].DOFade(1f, Constants.orbitFadeTime); //since pos is 1 for the first orbit, we will change alpha for pos-1 in the list i.e 0 is the first orbit
+
+        //switch (pos)
+        //{
+        //    case 1:
+        //        gameplayRefs.orbit1Img.DOFade(1f, Constants.orbitFadeTime);
+        //        break;
+        //    case 2:
+        //        gameplayRefs.orbit2Img.DOFade(1f, Constants.orbitFadeTime);
+        //        break;
+        //    case 3:
+        //        gameplayRefs.orbit3Img.DOFade(1f, Constants.orbitFadeTime);
+        //        break;
+        //}
+
+
     }
 
     private void ResetOrbitsAlpha()
     {
-        gameplayRefs.orbit1Img.DOFade(Constants.orbitAlpha, 0f);
-        gameplayRefs.orbit2Img.DOFade(Constants.orbitAlpha, 0f);
-        gameplayRefs.orbit3Img.DOFade(Constants.orbitAlpha, 0f);
+        //gameplayRefs.orbit1Img.DOFade(Constants.orbitAlpha, 0f);
+        //gameplayRefs.orbit2Img.DOFade(Constants.orbitAlpha, 0f);
+        //gameplayRefs.orbit3Img.DOFade(Constants.orbitAlpha, 0f);
+        for (int i = 0; i < gameplayRefs.orbitImg.Count;i++){
+            gameplayRefs.orbitImg[i].DOFade(Constants.orbitAlpha, 0f);
+        }
 
     }
 
     public void ChangeColorSet(ColorSet colorSet)
     {
-        gameplayRefs.orbit1Img.color = colorSet.orbit1Color;
-        gameplayRefs.orbit2Img.color = colorSet.orbit2Color;
-        gameplayRefs.orbit3Img.color = colorSet.orbit3Color;
+        //gameplayRefs.orbit1Img.color = colorSet.orbit1Color;
+        //gameplayRefs.orbit2Img.color = colorSet.orbit2Color;
+        //gameplayRefs.orbit3Img.color = colorSet.orbit3Color;
+        for (int i = 0; i < gameplayRefs.orbitImg.Count; i++)
+        {
+            gameplayRefs.orbitImg[i].color = colorSet.orbitColor;
+        }
         //gameplayRefs.innerOrbitImg.color = colorSet.innerOrbitColor;
         gameplayRefs.cam.backgroundColor = colorSet.backgroundColor;
         gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;

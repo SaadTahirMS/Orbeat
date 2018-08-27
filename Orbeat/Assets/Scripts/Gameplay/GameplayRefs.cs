@@ -7,9 +7,7 @@ public class GameplayRefs : MonoBehaviour {
     
     public GameObject scoreContainer;
     public Image flashImg;
-    public Image orbit1Img;
-    public Image orbit2Img;
-    public Image orbit3Img;
+    public List<Image> orbitImg;
     public Image innerOrbitImg;
     public Image timerOrbitImg;
     public Camera cam;

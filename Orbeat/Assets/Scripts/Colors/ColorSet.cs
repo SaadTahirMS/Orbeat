@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ColorSet {
 
-    public Color orbit1Color;
-    public Color orbit2Color;
-    public Color orbit3Color;
+    //public Color orbit1Color;
+    //public Color orbit2Color;
+    //public Color orbit3Color;
+    public Color orbitColor;
     public Color innerOrbitColor;
     public Color backgroundColor;
     public Color playerOrbitColor;
