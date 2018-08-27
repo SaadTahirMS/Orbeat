@@ -45,7 +45,6 @@ public class GameplayTransitionController : MonoBehaviour {
         //Score
         Tween scoreScale = ScoreScale(Constants.scoreInitialScale);
         Tween scorePosition = ScorePosition(Constants.scoreInitialPosition);
-
         //Add Tweens to Sequence
         levelTransitionOnStartSeq.Append(targetFadeInTween)
         .Join(targetScaleTween)
@@ -81,6 +80,8 @@ public class GameplayTransitionController : MonoBehaviour {
     {
         return targetImg.DOFade(1, Constants.transitionTime);
     }
+
+   
 
     private Tween PlayerScale()
     {

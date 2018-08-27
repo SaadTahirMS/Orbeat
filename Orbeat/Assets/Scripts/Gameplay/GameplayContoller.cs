@@ -117,7 +117,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
                 targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
-                gameplayTransitionController.LevelTransitionOnTargetHit(targetScreenPos);
+                //gameplayTransitionController.LevelTransitionOnTargetHit(targetScreenPos);
+                ChangeGameState(GameState.Start);
+
                 Vibration.Vibrate();
                 break;
         }
