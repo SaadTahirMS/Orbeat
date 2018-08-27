@@ -161,7 +161,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     //public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
 
-    public void LevelTransitionOnTargetHit(int targetOrbitPos, List<Transform> orbits,OrbitController orbitController)
+    public void LevelTransitionOnTargetHit(int targetOrbitPos, List<Transform> orbitsTransform,OrbitController orbitController)
     {
         StopLevelTransitionOnTargetHit();
 
@@ -199,14 +199,15 @@ public class GameplayTransitionController : MonoBehaviour {
         //scale down till the target orbit pos
         Vector3 scaleValue = Constants.orbitsDistance * targetOrbitPos; //if pos is 3 then 1.5 of scale will be reduced of each orbit
         orbitController.StopBeats();
-        //for (int i = 0; i < orbits.Count; i++)
-        //{
-        //    Vector3 scale = orbits[i].transform.localScale - scaleValue;
-        //    levelTransitionOnTargetHitSeq.Join(orbits[i].DOScale(scale, Constants.transitionTime));
-        //}
+        for (int i = 0; i < orbitsTransform.Count; i++)
+        {
+            
+            Vector3 scale = orbitsTransform[i].transform.localScale - scaleValue;
+            levelTransitionOnTargetHitSeq.Join(orbitController.ScaleDown(i,scale));
+        }
 
         levelTransitionOnTargetHitSeq.SetEase(Ease.Linear)
-        .OnComplete(TargetHitTransitionComplete)
+                                     .OnComplete(()=>TargetHitTransitionComplete(orbitsTransform))
         .Play();
     }
 
@@ -245,7 +246,15 @@ public class GameplayTransitionController : MonoBehaviour {
         return orbits.DOLocalMove(new Vector3(x * 10, y * 10, 0f), Constants.transitionTime);
     }
 
-    private void TargetHitTransitionComplete(){
+    private void TargetHitTransitionComplete(List<Transform> orbitsTransform){
+        for (int i = 0; i < orbitsTransform.Count;i++){
+            if (orbitsTransform[i].transform.localScale.x <= Constants.orbitResetScale.x)
+            {
+                //so this is the one to be set to initial scale
+                orbitsTransform[i].transform.localScale = Constants.intialOrbitScale;
+            }
+        }
+
         GameplayContoller.Instance.ChangeGameState(GameState.Start);
     }
 

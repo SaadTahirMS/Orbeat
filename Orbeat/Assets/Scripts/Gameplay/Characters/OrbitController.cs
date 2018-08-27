@@ -50,12 +50,13 @@ public class OrbitController : CharacterBehaviour
             case GameState.Start:
                 SetPosition();
                 Rotate();
-                //StartBeat();
+                //StartBeats();
                 break;
             case GameState.End:
                 StopRotation();          
                 break;
             case GameState.TargetHit:
+                //StopBeats();
                 break;
         }
     }
@@ -85,7 +86,22 @@ public class OrbitController : CharacterBehaviour
     public void StopBeats(){
         for (int i = 0; i < orbitBeat.Count; i++)
         {
+            orbitBeat[i].canBeat = false;
             orbitBeat[i].StopBeat();
         }
     }
+
+    public void StartBeats(){
+        for (int i = 0; i < orbitBeat.Count; i++)
+        {
+            orbitBeat[i].canBeat = true;
+        }
+    }
+
+    public Tween ScaleDown(int orbitIndex,Vector3 value){
+        return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
+    }
+
+
+
 }
