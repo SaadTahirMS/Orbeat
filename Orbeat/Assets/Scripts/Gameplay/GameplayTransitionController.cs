@@ -37,8 +37,8 @@ public class GameplayTransitionController : MonoBehaviour {
         Tween playerScaleTween = PlayerScale();
         Tween playerPositionTween = PlayerPosition(playerPos);
         //Orbits tweens
-        orbits.localPosition = Vector3.zero;
-        ResetOrbitScale();
+        //orbits.localPosition = Vector3.zero;
+        //ResetOrbitScale();
         Tween orbitsScaleTween = OrbitsScale(Vector3.one);
         //PlayerOrbit 
         playerOrbit.localScale = Vector3.one;
@@ -51,7 +51,7 @@ public class GameplayTransitionController : MonoBehaviour {
         .Join(targetPositionTween)
         .Join(playerScaleTween)
         .Join(playerPositionTween)
-        .Join(orbitsScaleTween)
+        //.Join(orbitsScaleTween)
         .Join(scoreScale)
         .Join(scorePosition)
         .SetEase(Ease.Linear)

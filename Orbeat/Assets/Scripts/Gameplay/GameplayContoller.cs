@@ -217,7 +217,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             SetPerfectHitText(GetPerfectHitArray());
             comboCount ++;
             comboTextCount++;
-            gameplayViewController.Flash(Color.yellow, Constants.flashTime);
+            gameplayViewController.Flash(gameplayRefs.flashColor, Constants.flashTime);
         }
         else
         { //else add +1 with 0 comboCount
