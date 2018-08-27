@@ -47,4 +47,8 @@ public class SoundController : Singleton<SoundController> {
         }
     }
 
+    public void SetPitch(float value){
+        gameplayAudioSource.pitch = value;
+    }
+
 }

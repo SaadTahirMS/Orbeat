@@ -122,8 +122,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
                 targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
-                //gameplayTransitionController.LevelTransitionOnTargetHit(targetScreenPos);
-                ChangeGameState(GameState.Start);
+                gameplayTransitionController.LevelTransitionOnTargetHit(targetController.GetOrbit(),orbitController.GetOrbits(),orbitController);
+                //ChangeGameState(GameState.Start);
 
                 Vibration.Vibrate();
                 break;

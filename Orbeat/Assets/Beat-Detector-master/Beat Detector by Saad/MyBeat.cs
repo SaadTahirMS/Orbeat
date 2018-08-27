@@ -17,5 +17,8 @@ public class MyBeat : MonoBehaviour
         s.Append(transform.DOScale(initialScale + value * endValue, duration).SetLoops(2, LoopType.Yoyo));
         s.Play();
     }
+    public void StopBeat(){
+        s.Kill();
+    }
 
 }

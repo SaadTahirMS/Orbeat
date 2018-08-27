@@ -4,7 +4,12 @@ using UnityEngine;
 
 public static class Constants {
 
+    //Initials
     public static float referenceWidth = 740f;
+    public static Vector3 orbitsDistance = new Vector3(0.5f,0.5f,0.5f);//distance between orbits
+    public static Vector3 orbitResetScale = new Vector3(0.5f, 0.5f, 0.5f);//when to reset the orbits
+    public static Vector3 intialOrbitScale = new Vector3(3.5f, 3.5f, 3.5f);//intial value of the orbits
+
 
     //Perfect hit text
     public static string[] perfectHitArray = new string[]{
@@ -15,6 +20,7 @@ public static class Constants {
         "DEAD CENTRE",
         "INSANE"
     };
+
 
     //Positions
     public static Vector3 playerInitialPosition = new Vector3(180f, 0f, 0f);
@@ -55,7 +61,7 @@ public static class Constants {
     public static float scoreAlpha = 0.5f;
 
     //Tweening
-    public static float transitionTime = .45f; //0.25f
+    public static float transitionTime = .45f; 
     public static float beatTime = 0.195f;
     public static float beatScale = 0.04f;
     public static float scoreBeatTime = .19f;

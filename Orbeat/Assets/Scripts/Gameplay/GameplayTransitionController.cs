@@ -25,7 +25,10 @@ public class GameplayTransitionController : MonoBehaviour {
         StopLevelTransitionOnStart();
         StopLevelTransitionOnEnd();
         levelTransitionOnStartSeq = DOTween.Sequence();
-        
+
+
+        SoundController.Instance.SetPitch(1);
+
         //Create tweens 
         //Target tweens
         target.gameObject.SetActive(true);
@@ -156,35 +159,57 @@ public class GameplayTransitionController : MonoBehaviour {
         return player.transform.DOLocalMove(Vector3.zero, Constants.playerMoveSpeed);
     }
 
-    public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
+    //public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
+
+    public void LevelTransitionOnTargetHit(int targetOrbitPos, List<Transform> orbits,OrbitController orbitController)
+    {
         StopLevelTransitionOnTargetHit();
 
         levelTransitionOnTargetHitSeq = DOTween.Sequence();
+       
+        ////Create tweens
+        ////Target tweens
+        //Tween targetMoveToCenterTween = TargetMoveToCenter();
+        ////Tween targetFadeOutTween = TargetFadeOut();
+        ////Player tweens
+        //Tween playerMoveToCenterTween = PlayerMoveToCenter();
+        //Tween playerScaleToZeroTween = PlayerScaleToZero();
+        ////Orbit tweens
+        //Vector3 direction = GetDirection(targetScreenPos);
+        //Tween orbitMoveToTarget = OrbitMoveToTarget(direction.x,direction.y);
+        //Tween orbitScale = OrbitsScale(Vector3.one * 2);
+        ////Add tweens
+        //levelTransitionOnTargetHitSeq.Append(targetMoveToCenterTween)
+        ////.Join(targetFadeOutTween)
+        //.Join(playerMoveToCenterTween)
+        //.Join(playerScaleToZeroTween)
+        //.Join(orbitMoveToTarget)
+        //.Join(orbitScale)
+        //.SetEase(Ease.Linear)
+        //.OnComplete(TargetHitTransitionComplete)
+        //.Play();
 
-        //Create tweens
-        //Target tweens
+
         Tween targetMoveToCenterTween = TargetMoveToCenter();
-        //Tween targetFadeOutTween = TargetFadeOut();
-        //Player tweens
         Tween playerMoveToCenterTween = PlayerMoveToCenter();
-        Tween playerScaleToZeroTween = PlayerScaleToZero();
-        //Orbit tweens
-        Vector3 direction = GetDirection(targetScreenPos);
-        Tween orbitMoveToTarget = OrbitMoveToTarget(direction.x,direction.y);
-        Tween orbitScale = OrbitsScale(Vector3.one * 2);
-        //Add tweens
-        levelTransitionOnTargetHitSeq.Append(targetMoveToCenterTween)
-        //.Join(targetFadeOutTween)
-        .Join(playerMoveToCenterTween)
-        .Join(playerScaleToZeroTween)
-        .Join(orbitMoveToTarget)
-         .Join(orbitScale)
-        .SetEase(Ease.Linear)
+        levelTransitionOnTargetHitSeq.Append(targetMoveToCenterTween);
+        levelTransitionOnTargetHitSeq.Join(targetMoveToCenterTween);
+        //Setting pitch to zero that will result in stopping beats
+        SoundController.Instance.SetPitch(0);
+        //scale down till the target orbit pos
+        Vector3 scaleValue = Constants.orbitsDistance * targetOrbitPos; //if pos is 3 then 1.5 of scale will be reduced of each orbit
+        orbitController.StopBeats();
+        //for (int i = 0; i < orbits.Count; i++)
+        //{
+        //    Vector3 scale = orbits[i].transform.localScale - scaleValue;
+        //    levelTransitionOnTargetHitSeq.Join(orbits[i].DOScale(scale, Constants.transitionTime));
+        //}
+
+        levelTransitionOnTargetHitSeq.SetEase(Ease.Linear)
         .OnComplete(TargetHitTransitionComplete)
         .Play();
-
-
     }
+
 
     private void StopLevelTransitionOnTargetHit(){
         levelTransitionOnTargetHitSeq.Kill();

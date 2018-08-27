@@ -9,8 +9,8 @@ public class OrbitController : CharacterBehaviour
     //public Beat orbit2Beat;
     //public Beat orbit3Beat;
 
-    public List<Beat> orbitBeat;
-
+    public List<MyBeat> orbitBeat;
+    public List<Transform> orbits;
 
     private Vector3 position;
     public Vector3 Position
@@ -50,7 +50,7 @@ public class OrbitController : CharacterBehaviour
             case GameState.Start:
                 SetPosition();
                 Rotate();
-                StartBeat();
+                //StartBeat();
                 break;
             case GameState.End:
                 StopRotation();          
@@ -69,14 +69,23 @@ public class OrbitController : CharacterBehaviour
         return Vector3.zero;
     }
 
-    private void StartBeat(){
-        //orbit1Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
-        //orbit2Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
-        //orbit3Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
-        for (int i = 0; i < orbitBeat.Count;i++){
-            orbitBeat[i].DoBeat(Vector3.one, Constants.beatScale, Constants.beatTime, 1);
-        }
+    //private void StartBeat(){
+    //    //orbit1Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
+    //    //orbit2Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
+    //    //orbit3Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);
+    //    for (int i = 0; i < orbitBeat.Count;i++){
+    //        orbitBeat[i].DoBeat(Vector3.one, Constants.beatScale, Constants.beatTime, 1);
+    //    }
+    //}
+
+    public List<Transform> GetOrbits(){
+        return orbits;
     }
 
-
+    public void StopBeats(){
+        for (int i = 0; i < orbitBeat.Count; i++)
+        {
+            orbitBeat[i].StopBeat();
+        }
+    }
 }
