@@ -43399,8 +43399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialScale: 1
-  endValue: 1
-  duration: 0.03
+  endValue: 0.5
+  duration: 0.1
 --- !u!1 &1768790553
 GameObject:
   m_ObjectHideFlags: 0
