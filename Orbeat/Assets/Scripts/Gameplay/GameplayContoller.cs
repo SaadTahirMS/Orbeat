@@ -46,6 +46,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeTarget();
         InitializeOrbits();
         InitializeColors();
+        InitializeBeats();
         SoundController.Instance.SetGamePlayMusic(true);
         ChangeGameState(GameState.Start);
     }
@@ -72,6 +73,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         colorController.Initialize();
         ChangeColors(); //call initially and then after level up
         ArrowColor();
+    }
+
+    private void InitializeBeats(){
+        gameplayRefs.loudness.Initialize();
     }
 
     public void ChangeGameState(GameState state){

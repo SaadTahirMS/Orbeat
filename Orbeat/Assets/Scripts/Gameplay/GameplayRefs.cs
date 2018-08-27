@@ -21,5 +21,5 @@ public class GameplayRefs : MonoBehaviour {
     public Image playBtnImg;
     public Text perfectHitText;
     //public Text highscoreText;
-
+    public Loudness loudness;
 }

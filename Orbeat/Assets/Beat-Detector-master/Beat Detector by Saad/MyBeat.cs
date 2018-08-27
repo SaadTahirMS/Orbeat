@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class MyBeat : MonoBehaviour
 {
+    public float initialScale = 1f;//since we need to retain our scale if no beat detected
     public float endValue, duration;
     Sequence s;
     private void Start()
@@ -13,8 +14,7 @@ public class MyBeat : MonoBehaviour
     }
     public void DoBeat(float value)
     {
-        s.Kill();
-        s.Append(transform.DOScale(value * endValue, duration).SetLoops(2, LoopType.Yoyo));
+        s.Append(transform.DOScale(initialScale + value * endValue, duration).SetLoops(2, LoopType.Yoyo));
         s.Play();
     }
 

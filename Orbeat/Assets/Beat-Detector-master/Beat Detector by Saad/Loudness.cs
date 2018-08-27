@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class Loudness : MonoBehaviour
 {
+    private bool flag = false;
     //public float pitchDuration,pitchEndValue;
     public bool playAlone = false;
     public AudioSource audioSource;
@@ -27,6 +28,8 @@ public class Loudness : MonoBehaviour
             Debug.LogError(GetType() + ".Awake: there was no audioSource set.");
         }
         clipSampleData = new float[sampleDataLength];
+        flag = true;
+
     }
 
     public void Awake()
@@ -44,20 +47,23 @@ public class Loudness : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentUpdateTime += Time.deltaTime;
-        if (currentUpdateTime >= updateStep)
-        {
-            currentUpdateTime = 0f;
-            audioSource.clip.GetData(clipSampleData, audioSource.timeSamples); //I read 1024 samples, which is about 80 ms on a 44khz stereo clip, beginning at the current sample position of the clip.
-            clipLoudness = 0f;
-            foreach (var sample in clipSampleData)
+        if(flag){
+            currentUpdateTime += Time.deltaTime;
+            if (currentUpdateTime >= updateStep)
             {
-                clipLoudness += Mathf.Abs(sample);
-            }
-            clipLoudness /= sampleDataLength; //clipLoudness is what you are looking for
-            DOBeat(clipLoudness);
+                currentUpdateTime = 0f;
+                audioSource.clip.GetData(clipSampleData, audioSource.timeSamples); //I read 1024 samples, which is about 80 ms on a 44khz stereo clip, beginning at the current sample position of the clip.
+                clipLoudness = 0f;
+                foreach (var sample in clipSampleData)
+                {
+                    clipLoudness += Mathf.Abs(sample);
+                }
+                clipLoudness /= sampleDataLength; //clipLoudness is what you are looking for
+                DOBeat(clipLoudness);
 
+            }
         }
+
 
         //if (Input.GetMouseButtonDown(0))
         //{
