@@ -23,10 +23,10 @@ public static class Constants {
 
 
     //Positions
-    public static Vector3 playerInitialPosition = new Vector3(145f, 0f, 0f);
-    public static Vector3 targetInitialPosition1 = new Vector3(285f, 0f, 0f);
-    public static Vector3 targetInitialPosition2 = new Vector3(430f, 0f, 0f);
-    public static Vector3 targetInitialPosition3 = new Vector3(580f, 0f, 0f);
+    public static Vector3 playerInitialPosition = new Vector3(135f, 0f, 0f);
+    public static Vector3 targetInitialPosition1 = new Vector3(260f, 0f, 0f);
+    public static Vector3 targetInitialPosition2 = new Vector3(395f, 0f, 0f);
+    public static Vector3 targetInitialPosition3 = new Vector3(530f, 0f, 0f);
     public static Vector3 scoreInitialPosition = new Vector3(0f, -14f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
@@ -42,7 +42,7 @@ public static class Constants {
     public static float playerOrbitScaleSpeed = 70f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
-    public static float cameraOffset = 0.25f;
+    public static float cameraOffset = 0.30f;
 
     //Scale
     public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
