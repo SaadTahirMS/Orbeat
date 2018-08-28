@@ -109,17 +109,21 @@ public class OrbitController : CharacterBehaviour
         return orbits[orbitIndex].localScale;
     }
 
-    Sequence scaleSequence;
-    public void DoScale(){
-        scaleSequence = DOTween.Sequence();
-        for (int i = 0; i < orbits.Count;i++){
-            scaleSequence.Join(orbits[i].DOScale(Vector3.zero, Constants.playerOrbitScaleSpeed));
-        }
-        scaleSequence.Play();
-    }
+    //Sequence scaleSequence;
+    //public void DoScale(){
+    //    scaleSequence = DOTween.Sequence();
+    //    for (int i = 0; i < orbits.Count;i++){
+    //        scaleSequence.Join(orbits[i].DOScale(Vector3.zero, Constants.playerOrbitScaleSpeed));
+    //    }
+    //    scaleSequence.Play();
+    //}
 
-    public void StopScale(){
-        scaleSequence.Kill();
+    //public void StopScale(){
+    //    scaleSequence.Kill();
+    //}
+
+    public void SetOrbits(List<Transform> orbits){
+        this.orbits = orbits;
     }
 
 }
