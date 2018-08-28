@@ -50,13 +50,16 @@ public class OrbitController : CharacterBehaviour
             case GameState.Start:
                 SetPosition();
                 Rotate();
+                //DoScale();
                 //StartBeats();
                 break;
             case GameState.End:
-                StopRotation();          
+                StopRotation();
+                //StopScale();
                 break;
             case GameState.TargetHit:
                 //StopBeats();
+                //StopScale();
                 break;
         }
     }
@@ -102,6 +105,21 @@ public class OrbitController : CharacterBehaviour
         return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
     }
 
+    public Vector3 GetCurrentScale(int orbitIndex){
+        return orbits[orbitIndex].localScale;
+    }
 
+    Sequence scaleSequence;
+    public void DoScale(){
+        scaleSequence = DOTween.Sequence();
+        for (int i = 0; i < orbits.Count;i++){
+            scaleSequence.Join(orbits[i].DOScale(Vector3.zero, Constants.playerOrbitScaleSpeed));
+        }
+        scaleSequence.Play();
+    }
+
+    public void StopScale(){
+        scaleSequence.Kill();
+    }
 
 }

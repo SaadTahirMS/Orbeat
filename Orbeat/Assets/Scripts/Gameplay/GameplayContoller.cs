@@ -86,10 +86,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
-                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position);
+                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position,orbitController.GetOrbits(),orbitController);
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
-                TargetOrbitAlpha();
+                //TargetOrbitAlpha();
                 break;
             case GameState.Restart:
                 ResetScoring();
@@ -122,7 +122,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
                 targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
-                gameplayTransitionController.LevelTransitionOnTargetHit(targetController.GetOrbit(),orbitController.GetOrbits(),orbitController);
+                gameplayTransitionController.LevelTransitionOnTargetHit(targetController.GetOrbit(),orbitController);
                 //ChangeGameState(GameState.Start);
 
                 Vibration.Vibrate();
