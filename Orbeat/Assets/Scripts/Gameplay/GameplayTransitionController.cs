@@ -25,7 +25,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private TargetController currentTargetController;
 
-    public void LevelTransitionOnStart(Vector3 targetPos,Vector3 playerPos,Vector3 orbitPos,List<Transform> orbitsTransform,OrbitController orbitController,TargetController targetController){
+    public void LevelTransitionOnStart(Vector3 targetPos,Vector3 playerPos,Vector3 orbitPos,List<Transform> orbitsTransform,OrbitController orbitController,TargetController targetController, bool isFirstTime = false){
 
         currentTargetController = targetController;
         StopLevelTransitionOnStart();
@@ -40,12 +40,24 @@ public class GameplayTransitionController : MonoBehaviour {
         //Target tweens
         target.gameObject.SetActive(true);
         Tween targetScaleTween = TargetScale();
-        Tween targetPositionTween = TargetPosition(targetPos);
+        //Tween targetPositionTween = TargetPosition(targetPos);
+        target.transform.localPosition = targetPos; 
         Tween targetFadeInTween = TargetFadeIn();
         //Player tweens
         player.gameObject.SetActive(true);
         Tween playerScaleTween = PlayerScale();
-        Tween playerPositionTween = PlayerPosition(playerPos);
+
+        Tween playerPositionTween;
+
+        if (isFirstTime)
+        {
+            playerPositionTween = PlayerPosition(playerPos, Constants.transitionTime);
+        }
+        else
+        {
+            playerPositionTween = PlayerPosition(playerPos, 0);
+        }
+
         //Orbits tweens
         //orbits.localPosition = Vector3.zero;
         //ResetOrbitScale();
@@ -53,12 +65,15 @@ public class GameplayTransitionController : MonoBehaviour {
         //PlayerOrbit 
         playerOrbit.localScale = Vector3.one*0.5f;
         //Score
-        Tween scoreScale = ScoreScale(Constants.scoreInitialScale);
+        Tween scoreScale = InitialScoreScale(Constants.scoreInitialScale);
+        ScoreScale(Constants.scoreInitialScaleWH);
+
+        //InitialScoreScale(Constants.scoreInitialScale);
         Tween scorePosition = ScorePosition(Constants.scoreInitialPosition);
         //Add Tweens to Sequence
         levelTransitionOnStartSeq.Append(targetFadeInTween)
         .Join(targetScaleTween)
-        .Join(targetPositionTween)
+        //.Join(targetPositionTween)
         .Join(playerScaleTween)
         .Join(playerPositionTween)
         //.Join(orbitsScaleTween)
@@ -101,10 +116,10 @@ public class GameplayTransitionController : MonoBehaviour {
         return player.DOScale(Vector3.one, Constants.transitionTime);
     }
 
-    private Tween PlayerPosition(Vector3 pos)
+    private Tween PlayerPosition(Vector3 pos,float transitionTime)
     {
         player.transform.localPosition = Vector3.zero; 
-        return player.transform.DOLocalMove(pos, Constants.transitionTime);
+        return player.transform.DOLocalMove(pos, transitionTime);
     }
 
     private Tween OrbitsScale(Vector3 scale)
@@ -120,8 +135,13 @@ public class GameplayTransitionController : MonoBehaviour {
         scoreBeat.DoBeat(Constants.scoreInitialScale,Constants.scoreBeatScale,Constants.scoreBeatTime, 1);    //plays the infinite beating
     }
 
-    private Tween ScoreScale(Vector3 value){
+    private Tween InitialScoreScale(Vector3 value){
         return scoreText.transform.DOScale(value, Constants.transitionTime);
+    }
+
+    private void ScoreScale(Vector2 value){
+        scoreText.rectTransform.sizeDelta = value;
+        //return scoreText.transform.DOScale(value, Constants.transitionTime);
     }
 
     private Tween ScorePosition(Vector3 value){
@@ -204,8 +224,9 @@ public class GameplayTransitionController : MonoBehaviour {
 
     //public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
 
-    public void LevelTransitionOnTargetHit(int targetOrbitPos,OrbitController orbitController)
+    public void LevelTransitionOnTargetHit(TargetController targetController,OrbitController orbitController,Vector3 playerShotPos)
     {
+        int targetOrbitPos = targetController.GetOrbit();
         StopLevelTransitionOnTargetHit();
 
         levelTransitionOnTargetHitSeq = DOTween.Sequence();
@@ -233,12 +254,14 @@ public class GameplayTransitionController : MonoBehaviour {
         //.Play();
 
         List<Transform> orbitsTransform = orbitController.GetOrbits();
-        Tween playerScaleToZeroTween = PlayerScaleToZero();
-        Tween targetScaleToZeroTween = TargetScaleToZero();
-
-        levelTransitionOnTargetHitSeq.Append(playerScaleToZeroTween);
-        levelTransitionOnTargetHitSeq.Join(targetScaleToZeroTween);
-        levelTransitionOnTargetHitSeq.Join(playerOrbit.DOScale(0f, Constants.transitionTime));
+        //Tween playerScaleToZeroTween = PlayerScaleToZero();
+        Tween targetScaleToValueTween = TargetScaleToValue(0.5f);
+        Tween targetMoveToPositionTween = TargetMoveToPosition(playerShotPos);
+        levelTransitionOnTargetHitSeq.Append(playerOrbit.DOScale(0f, Constants.transitionTime));
+        player.gameObject.SetActive(false);
+        levelTransitionOnTargetHitSeq.Join(targetMoveToPositionTween);
+        levelTransitionOnTargetHitSeq.Join(targetScaleToValueTween);
+        //levelTransitionOnTargetHitSeq.Join(playerScaleToZeroTween);
         //Setting pitch to zero that will result in stopping beats
         //SoundController.Instance.SetPitch(0);
         //scale down till the target orbit pos
@@ -299,9 +322,9 @@ public class GameplayTransitionController : MonoBehaviour {
         levelTransitionOnTargetHitSeq.Kill();
     }
 
-    private Tween TargetMoveToCenter()
+    private Tween TargetMoveToPosition(Vector3 pos)
     {
-        return target.DOLocalMove(Vector3.zero, Constants.transitionTime);
+        return target.DOLocalMove(pos, Constants.transitionTime);
     }
 
     private Tween TargetFadeOut()
@@ -309,9 +332,9 @@ public class GameplayTransitionController : MonoBehaviour {
         return targetImg.DOFade(0, Constants.transitionTime);
     }
 
-    private Tween TargetScaleToZero()
+    private Tween TargetScaleToValue(float value)
     {
-        return target.DOScale(Vector3.zero, Constants.transitionTime);
+        return target.DOScale(Vector3.one*value, Constants.transitionTime);
     }
 
     private Tween PlayerMoveToCenter()
@@ -380,11 +403,12 @@ public class GameplayTransitionController : MonoBehaviour {
         target.gameObject.SetActive(false);
         scoreBeat.StopBeat();
         Tween scorePosition = ScorePosition(Constants.scoreGameOverPos);
-        Tween scoreScale = ScoreScale(Constants.scoreGameOverScale);
+        //Tween scoreScale = ScoreScale(Constants.scoreGameOverScale);
+        ScoreScale(Constants.scoreGameOverScale);
         Tween scoreAlpha = ScoreAlpha();
         levelTransitionOnEndSeq
         .Append(scorePosition)
-        .Join(scoreScale)
+        //.Join(scoreScale)
         .Join(scoreAlpha)
         .SetEase(Ease.Linear)
         .Play();

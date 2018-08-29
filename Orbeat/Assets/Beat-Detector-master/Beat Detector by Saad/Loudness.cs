@@ -5,9 +5,7 @@ using DG.Tweening;
 
 public class Loudness : MonoBehaviour
 {
-    private bool flag = false;
-    //public float pitchDuration,pitchEndValue;
-    public bool playAlone = false;
+
     public AudioSource audioSource;
     public float updateStep = 0.03f;
     public int sampleDataLength = 1024;
@@ -17,37 +15,49 @@ public class Loudness : MonoBehaviour
     private float clipLoudness;
     private float[] clipSampleData;
 
-    MyBeat[] cb;
+    public bool canBeat = false;
+    public bool playAlone = false;
+    MyBeat[] mb; //it finds all MyBeat itself
+    MyFade[] mf; //it finds all MyFade itself
+    MyCamZoom[] mcz;
+
+    //public List<AudioClip> songs;
+    //int songCount = 0;
 
     public void Initialize()
     {
-        //cb = new MyBeat[50];
-        cb = FindObjectsOfType<MyBeat>();
+        mb = FindObjectsOfType<MyBeat>();
+        mf = FindObjectsOfType<MyFade>();
+        mcz = FindObjectsOfType<MyCamZoom>();
+
         if (!audioSource)
         {
             Debug.LogError(GetType() + ".Awake: there was no audioSource set.");
         }
         clipSampleData = new float[sampleDataLength];
-        flag = true;
-
+        canBeat = true;
     }
 
-    public void Awake()
+    void Awake()
     {
-        if(playAlone){
-            cb = FindObjectsOfType<MyBeat>();
+
+        if (playAlone)
+        {
+            mb = FindObjectsOfType<MyBeat>();
             if (!audioSource)
             {
                 Debug.LogError(GetType() + ".Awake: there was no audioSource set.");
             }
             clipSampleData = new float[sampleDataLength];
         }
+        //NextSong();
+
     }
-    //float pitch;
     // Update is called once per frame
     void Update()
     {
-        if(flag){
+        if (canBeat)
+        {
             currentUpdateTime += Time.deltaTime;
             if (currentUpdateTime >= updateStep)
             {
@@ -60,29 +70,50 @@ public class Loudness : MonoBehaviour
                 }
                 clipLoudness /= sampleDataLength; //clipLoudness is what you are looking for
                 DOBeat(clipLoudness);
-
+                DOFade(clipLoudness);
+                DOCamZoom(clipLoudness);
             }
+
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    audioSource.pitch = 1 - pitchEndValue;
+            //}
+            //else if (Input.GetMouseButtonDown(1))
+            //{
+            //    audioSource.pitch = 1 + pitchEndValue;
+            //}
+            //else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+            //{
+            //    audioSource.pitch = 1;
+            //}
         }
-
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    audioSource.DOPitch(pitchEndValue, pitchDuration);
-        //}
-        //else if (Input.GetMouseButtonDown(1))
-        //{
-        //    audioSource.DOPitch(1 + pitchEndValue, pitchDuration);
-        //}
-        //else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)){
-        //    audioSource.DOPitch(1, pitchDuration);
-        //}
     }
+
+    //public void NextSong()
+    //{
+    //    audioSource.enabled = false;
+    //    if (songCount >= songs.Count)
+    //    {
+    //        songCount = 0;
+    //    }
+    //    audioSource.clip = songs[songCount];
+    //    songCount++;
+    //    audioSource.enabled = true;
+    //}
 
     void DOBeat(float v)
     {
-        for (int i = 0; i < cb.Length; i++)
-            cb[i].DoBeat(v);
+        for (int i = 0; i < mb.Length; i++)
+            mb[i].DoBeat(v);
     }
-
-
+    void DOFade(float v)
+    {
+        for (int i = 0; i < mf.Length; i++)
+            mf[i].DoFade(v);
+    }
+    void DOCamZoom(float v)
+    {
+        for (int i = 0; i < mcz.Length; i++)
+            mcz[i].DoZoom(v);
+    }
 }

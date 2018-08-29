@@ -26,6 +26,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private int comboCount = 0;  //chain of perfect hits
     private int comboTextCount = 0;
     private bool isAllowedToShot;
+    private Vector3 playerShotPos;
+
+    private bool isFirstTime = false;
+
     public bool IsAllowedToShot
     {
         get
@@ -41,6 +45,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public void Open()
     {
+        isFirstTime = true;
+
         InitializeGameplayViewController();
         InitializePlayer();
         InitializeTarget();
@@ -72,7 +78,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         colorController = new ColorController();
         colorController.Initialize();
         ChangeColors(); //call initially and then after level up
-        ArrowColor();
     }
 
     private void InitializeBeats(){
@@ -86,15 +91,16 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
-                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position,orbitController.GetOrbits(),orbitController,targetController);
+                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position,orbitController.GetOrbits(),orbitController,targetController,isFirstTime);
+                isFirstTime = false;
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
                 //TargetOrbitAlpha();
                 break;
             case GameState.Restart:
+                isFirstTime = true;
                 ResetScoring();
                 ChangeColors();
-                ArrowColor();
                 gameplayViewController.SetCenterOrbits(true);
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
@@ -118,13 +124,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.Shot:
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.Shot); //this initiates a player shot
+                playerShotPos = playerController.GetPosition();
+                print(playerShotPos);
                 break;
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
-                targetScreenPos = targetController.GetScreenPosition(); //Get WorldToScreenPoint coordinates
-                gameplayTransitionController.LevelTransitionOnTargetHit(targetController.GetOrbit(),orbitController);
-                //ChangeGameState(GameState.Start);
-
+                targetController.ChangeState(GameState.TargetHit);
+                gameplayTransitionController.LevelTransitionOnTargetHit(targetController, orbitController, playerShotPos);
                 Vibration.Vibrate();
                 break;
         }
@@ -133,6 +139,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void ChangeColors(){
         ColorSet colorSet = colorController.GetRandomColorSet();
         gameplayViewController.ChangeColorSet(colorSet);
+        ArrowColor();
     }
 
     //Event called on tap
@@ -201,13 +208,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void Scoring(bool perfectHit){
         //increment target hit in order to level up
         targetHitCount += 1;
-        if (targetHitCount <= 4)
-            ChangeArrowAlpha();
+        //if (targetHitCount <= 4)
+            //ChangeArrowAlpha();
 
         if (CheckLevelUp())
         {
             LevelUp();
-            ChangeColors();
         }
         //Add +5 and incr when perfect hit
         if (perfectHit)
@@ -225,6 +231,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             comboCount = 0;
             comboTextCount = 0;
         }
+        ChangeColors();
         gameplayViewController.ScoreColor();
 
     }

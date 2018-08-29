@@ -9,7 +9,8 @@ public class PlayerController : CharacterBehaviour {
     public Transform player;
     public Transform targetObj;
     public Rigidbody2D playerRb;
-
+    Vector3 playerPos;//this is used by gameplayController for transitions
+    Quaternion playerRot;
     //Shooting
     float shotSpeed;
     bool shotFlag = false;
@@ -92,6 +93,8 @@ public class PlayerController : CharacterBehaviour {
 
     void InitiateShot(){
         transform.SetParent(player.transform.parent);
+        playerPos = transform.localPosition;
+        playerRot = transform.localRotation;
         StopRotation();
         shotFlag = true;
     }
@@ -152,6 +155,14 @@ public class PlayerController : CharacterBehaviour {
             SetCollisions(false);
             GameplayContoller.Instance.PlayerCollidedWithBoundary();
         }
+    }
+
+    public Vector3 GetPosition(){
+        return playerPos;
+    }
+
+    public Quaternion GetRotation(){
+        return playerRot;
     }
 
 

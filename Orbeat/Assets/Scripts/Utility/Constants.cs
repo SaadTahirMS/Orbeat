@@ -27,7 +27,7 @@ public static class Constants {
     public static Vector3 targetInitialPosition1 = new Vector3(260f, 0f, 0f);
     public static Vector3 targetInitialPosition2 = new Vector3(395f, 0f, 0f);
     public static Vector3 targetInitialPosition3 = new Vector3(530f, 0f, 0f);
-    public static Vector3 scoreInitialPosition = new Vector3(0f, -14f, 0f);
+    public static Vector3 scoreInitialPosition = new Vector3(0f, -12.3f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
 
@@ -49,8 +49,9 @@ public static class Constants {
 
     //Scale
     public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
-    public static Vector3 scoreGameOverScale = new Vector3(1.25f, 1.25f, 1.25f);
+    public static Vector3 scoreGameOverScale = new Vector2(400f, 400f);
     public static Vector3 scoreInitialScale = new Vector3(1f, 1f, 1f);
+    public static Vector3 scoreInitialScaleWH = new Vector3(100f, 100f, 100f);
 
     //Shot
     public static float playerShotSpeed = 25f;    //Increase to increase shot speed

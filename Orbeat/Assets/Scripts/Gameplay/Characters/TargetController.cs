@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class TargetController : CharacterBehaviour
 {
+    public Transform target;
     public Beat targetOrbit;
 
     private Vector3 position;
@@ -43,9 +44,14 @@ public class TargetController : CharacterBehaviour
 
         switch(state){
             case GameState.Start:
+                ResetParent();
                 SetPosition();
                 StartBeat();
                 Rotate();
+                break;
+            case GameState.TargetHit:
+                transform.SetParent(target.parent);
+                StopRotation();
                 break;
             case GameState.End:
                 StopRotation();
@@ -91,5 +97,11 @@ public class TargetController : CharacterBehaviour
         else
             return 0;
     }
+
+    private void ResetParent()
+    {
+        transform.SetParent(target);
+    }
+
 
 }
