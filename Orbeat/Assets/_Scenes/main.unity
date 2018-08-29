@@ -4233,9 +4233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa80bb0ac2154ab8b7d2d04f8e169fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationComponent:
-  - {fileID: 396143168}
-  - {fileID: 722346108}
+  rotationComponent: {fileID: 396143168}
   orbitBeat: []
   orbits:
   - {fileID: 182387077}
@@ -34423,8 +34421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9093e4c41fecc4ec7aac43fbe1023503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationComponent:
-  - {fileID: 1665140672}
+  rotationComponent: {fileID: 1665140672}
 --- !u!58 &1384471579
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -35288,8 +35285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9093e4c41fecc4ec7aac43fbe1023503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationComponent:
-  - {fileID: 926283460}
+  rotationComponent: {fileID: 926283460}
 --- !u!58 &1404788584
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -41330,8 +41326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02b1d16a9eb04c8990a35872fcbfe93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationComponent:
-  - {fileID: 1192645542}
+  rotationComponent: {fileID: 1192645542}
   player: {fileID: 1192645541}
   targetObj: {fileID: 1704106024}
   playerRb: {fileID: 1650243715}
@@ -42739,8 +42734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800e6048e3879422c91cefa22b07e3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationComponent:
-  - {fileID: 151216893}
+  rotationComponent: {fileID: 151216893}
   target: {fileID: 151216892}
   targetOrbit: {fileID: 1762379371}
 --- !u!58 &1704106028

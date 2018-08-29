@@ -170,6 +170,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         return orbit;
     }
 
+
     private void ChangeColors(){
         ColorSet colorSet = colorController.GetRandomColorSet();
         gameplayViewController.ChangeColorSet(colorSet);

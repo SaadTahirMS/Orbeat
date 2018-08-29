@@ -9,7 +9,7 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     private Vector3 rotation;
     private float rotateSpeed;
     protected int direction;
-    public List<Rotate> rotationComponent = new List<Rotate>();
+    public Rotate rotationComponent;
 
     public abstract float MinRotateSpeed
     {
@@ -22,9 +22,8 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     }
 
     public virtual void Initialize(){
-        for (int i = 0; i < rotationComponent.Count;i++){
-            rotationComponent[i].gameObject.SetActive(true);
-        }
+            rotationComponent.gameObject.SetActive(true);
+
         InitializeRotation();
     }
 
@@ -37,10 +36,27 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     protected void Rotate()
     {
         StopRotation();
+        float ran = AssignRandomRotation();
         AssignRandomDirection();
         AssignRotateSpeed();
-        for (int i = 0; i < rotationComponent.Count;i++){
-            rotationComponent[i].DoRotate(rotation, direction, rotateSpeed);
+            rotationComponent.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, ran);
+            rotationComponent.DoRotate(rotation, direction, rotateSpeed);
+
+    }
+
+    private float AssignRandomRotation(){
+        int ran = Random.Range(0, 5);//0,90,180,270
+        switch(ran){
+            case 1:
+                return 0f;
+            case 2:
+                return 90f;
+            case 3:
+                return 180f;
+            case 4:
+                return -90f;
+            default:
+                return -1;
         }
     }
 
@@ -58,10 +74,9 @@ public abstract class CharacterBehaviour : MonoBehaviour {
    
     protected void StopRotation()
     {
-        for (int i = 0; i < rotationComponent.Count; i++)
-        {
-            rotationComponent[i].StopRotate();
-        } 
+        
+            rotationComponent.StopRotate();
+         
     }
 
     protected virtual void SetPosition(){}
