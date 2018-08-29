@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameplayTransitionController : MonoBehaviour {
 
+
     public Transform target;
     public Transform player;
     public Transform orbits;
@@ -25,7 +26,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private TargetController currentTargetController;
 
-    public void LevelTransitionOnStart(Vector3 targetPos,Vector3 playerPos,Vector3 orbitPos,List<Transform> orbitsTransform,OrbitController orbitController,TargetController targetController, bool isFirstTime = false){
+    public void LevelTransitionOnStart(Vector3 targetPos,Vector3 playerPos,Vector3 orbitPos,List<Transform> orbitsTransform,OrbitController orbitController,TargetController targetController, bool isFirstTime,List<HurdleController> hurdles, int hurdleCount){
 
         currentTargetController = targetController;
         StopLevelTransitionOnStart();
@@ -40,8 +41,8 @@ public class GameplayTransitionController : MonoBehaviour {
         //Target tweens
         target.gameObject.SetActive(true);
         Tween targetScaleTween = TargetScale();
-        //Tween targetPositionTween = TargetPosition(targetPos);
-        target.transform.localPosition = targetPos; 
+        Tween targetPositionTween = TargetPosition(targetPos);
+        //target.transform.localPosition = targetPos; 
         Tween targetFadeInTween = TargetFadeIn();
         //Player tweens
         player.gameObject.SetActive(true);
@@ -73,14 +74,24 @@ public class GameplayTransitionController : MonoBehaviour {
         //Add Tweens to Sequence
         levelTransitionOnStartSeq.Append(targetFadeInTween)
         .Join(targetScaleTween)
-        //.Join(targetPositionTween)
+        .Join(targetPositionTween)
         .Join(playerScaleTween)
         .Join(playerPositionTween)
         //.Join(orbitsScaleTween)
         .Join(scoreScale)
         .Join(scorePosition);
+
+        for (int i = 0; i < hurdleCount; i++)
+        {
+            hurdles[i].gameObject.SetActive(true);
+            levelTransitionOnStartSeq.Join(HurdleScale(hurdles[i].transform))
+                                     .Join(HurdlePosition(hurdles[i].transform, hurdles[i].Position))
+                                     .Join(HurdleFadeIn(hurdles[i].GetComponent<Image>()));
+        }
+
+
         levelTransitionOnStartSeq.SetEase(Ease.Linear)
-        .OnComplete(()=>StartTransitionComplete(orbitController))
+                                 .OnComplete(()=>StartTransitionComplete(orbitController,hurdles,hurdleCount))
         .Play();
 
     }
@@ -108,7 +119,27 @@ public class GameplayTransitionController : MonoBehaviour {
         return targetImg.DOFade(1, Constants.transitionTime);
     }
 
-   
+    private Tween HurdleScale(Transform hurdle)
+    {
+        hurdle.localScale = Vector3.zero;
+        return hurdle.DOScale(Vector3.one, Constants.transitionTime);
+    }
+
+    private Tween HurdleScaleToZero(Transform hurdle)
+    {
+        return hurdle.DOScale(Vector3.zero, Constants.transitionTime);
+    }
+
+    private Tween HurdlePosition(Transform hurdle, Vector3 pos)
+    {
+        hurdle.localPosition = Vector3.zero;
+        return hurdle.DOLocalMove(pos, Constants.transitionTime);
+    }
+
+    private Tween HurdleFadeIn(Image hurdleImg)
+    {
+        return hurdleImg.DOFade(1, Constants.transitionTime);
+    }
 
     private Tween PlayerScale()
     {
@@ -153,14 +184,14 @@ public class GameplayTransitionController : MonoBehaviour {
         return scoreText.DOFade(1f, Constants.transitionTime);
     }
 
-    private void StartTransitionComplete(OrbitController orbitController){
+    private void StartTransitionComplete(OrbitController orbitController, List<HurdleController> hurdleController, int hurdleCount){
         GameplayContoller.Instance.IsAllowedToShot = true;
         GameplayContoller.Instance.playerController.SetCollisions(true);
 
         //SetOrbitIndividualScales(orbitController);
 
         ScoreBeat();
-        TimerMovement(orbitController);
+        TimerMovement(orbitController,hurdleController,hurdleCount);
     }
 
     private void SetOrbitIndividualScales(OrbitController orbitController){
@@ -176,7 +207,7 @@ public class GameplayTransitionController : MonoBehaviour {
         }
     }
 
-    private void TimerMovement(OrbitController orbitController){
+    private void TimerMovement(OrbitController orbitController,List<HurdleController> hurdleController,int hurdleCount){
         StopTimerMovement();
         timerMovement = DOTween.Sequence();
         //Player Orbit tweens
@@ -188,6 +219,12 @@ public class GameplayTransitionController : MonoBehaviour {
         timerMovement.Append(playerOrbitScale);
         timerMovement.Join(playerMovement);
         timerMovement.Join(targetMovement);
+
+        //Hurdle
+        for (int i = 0; i < hurdleCount; i++)
+        {
+            timerMovement.Join(HurdleMovement(hurdleController[i]));
+        }
 
         //Orbits Scale
         List<Transform> orbitScales = orbitController.GetOrbits();//list of orbits in the game
@@ -222,9 +259,15 @@ public class GameplayTransitionController : MonoBehaviour {
         return target.transform.DOLocalMove(Vector3.zero, speed);
     }
 
+    private Tween HurdleMovement(HurdleController hurdleController)
+    {
+        float speed = Constants.hurdleMoveSpeed + (Constants.hurdleMoveSpeed * hurdleController.GetOrbit());
+        return hurdleController.transform.DOLocalMove(Vector3.zero, speed);
+    }
+
     //public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
 
-    public void LevelTransitionOnTargetHit(TargetController targetController,OrbitController orbitController,Vector3 playerShotPos)
+    public void LevelTransitionOnTargetHit(TargetController targetController,OrbitController orbitController,Vector3 playerShotPos,List<HurdleController> hurdles, int hurdleCount)
     {
         int targetOrbitPos = targetController.GetOrbit();
         StopLevelTransitionOnTargetHit();
@@ -261,6 +304,14 @@ public class GameplayTransitionController : MonoBehaviour {
         player.gameObject.SetActive(false);
         levelTransitionOnTargetHitSeq.Join(targetMoveToPositionTween);
         levelTransitionOnTargetHitSeq.Join(targetScaleToValueTween);
+
+        for (int i = 0; i < hurdleCount; i++)
+        {
+            levelTransitionOnTargetHitSeq.Join(HurdleMoveToCenter(hurdles[i].transform));
+            levelTransitionOnTargetHitSeq.Join(HurdleScaleToZero(hurdles[i].transform));
+
+        }
+
         //levelTransitionOnTargetHitSeq.Join(playerScaleToZeroTween);
         //Setting pitch to zero that will result in stopping beats
         //SoundController.Instance.SetPitch(0);
@@ -337,6 +388,16 @@ public class GameplayTransitionController : MonoBehaviour {
         return target.DOScale(Vector3.one*value, Constants.transitionTime);
     }
 
+    private Tween HurdleMoveToCenter(Transform hurdle)
+    {
+        return hurdle.DOLocalMove(Vector3.zero, Constants.transitionTime);
+    }
+
+    private Tween HurdleFadeOut(Image hurdleImg)
+    {
+        return hurdleImg.DOFade(0, Constants.transitionTime);
+    }
+
     private Tween PlayerMoveToCenter()
     {
         return player.DOLocalMove(Vector3.zero, Constants.transitionTime);
@@ -396,11 +457,16 @@ public class GameplayTransitionController : MonoBehaviour {
         }
     }
 
-    public void LevelTransitionOnEnd(){
+    public void LevelTransitionOnEnd(List<HurdleController> hurdles, int hurdleCount){
         StopLevelTransitionOnEnd();
         levelTransitionOnEndSeq = DOTween.Sequence();
         player.gameObject.SetActive(false);
         target.gameObject.SetActive(false);
+        for (int i = 0; i < hurdleCount; i++)
+        {
+            //hurdles[i].gameObject.SetActive(false);
+            hurdles[i].transform.DOScale(0f, 0f);
+        }
         scoreBeat.StopBeat();
         Tween scorePosition = ScorePosition(Constants.scoreGameOverPos);
         //Tween scoreScale = ScoreScale(Constants.scoreGameOverScale);

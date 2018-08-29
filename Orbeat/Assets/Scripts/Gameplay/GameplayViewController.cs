@@ -99,6 +99,9 @@ public class GameplayViewController : IController
         gameplayRefs.playBtnImg.color = colorSet.playBtnColor;
         gameplayRefs.perfectHitText.color = colorSet.perfectTextColor;
         //gameplayRefs.highscoreText.color = colorSet.highscoreColor;
+        gameplayRefs.hurdle1Img.color = colorSet.hurdle1Color;
+        gameplayRefs.hurdle2Img.color = colorSet.hurdle2Color;
+
     }
 
     public void ChangeArrowColor()

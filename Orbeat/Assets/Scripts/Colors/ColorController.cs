@@ -5,6 +5,7 @@ using UnityEngine;
 public class ColorController {
     private List<ColorSet> colorSets;
 
+
     public void Initialize(){
         colorSets = new List<ColorSet>();
         AddColor();
@@ -27,7 +28,9 @@ public class ColorController {
             //orbit2Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
             //orbit3Color = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
             orbitColor = new Color(0xff, 0x00, 0x00, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0xff, 0x00, 0x00)
+            innerOrbitColor = new Color(0xff, 0x00, 0x00),
+            hurdle1Color = new Color(0xd0, 0xff, 0x00),
+            hurdle2Color = new Color(0xcf, 0xff, 0x00)
 
         };
 
@@ -46,7 +49,10 @@ public class ColorController {
             //orbit1Color = new Color(0xff, 0xd0, 0x01, Constants.orbitAlpha),
             //orbit2Color = new Color(0xff, 0xd0, 0x01, Constants.orbitAlpha),
             orbitColor = new Color(0xff, 0xd0, 0x01, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0xff, 0xd0, 0x01)
+            innerOrbitColor = new Color(0xff, 0xd0, 0x01),
+            hurdle1Color = new Color(0xff, 0x83, 0x00),
+            hurdle2Color = new Color(0xcf, 0xff, 0x00)
+                
         };
         ColorSet colorSet3 = new ColorSet
         {
@@ -63,7 +69,9 @@ public class ColorController {
             //orbit1Color = new Color(0xcf, 0xff, 0x00, Constants.orbitAlpha),
             //orbit2Color = new Color(0xcf, 0xff, 0x00, Constants.orbitAlpha),
             orbitColor = new Color(0xcf, 0xff, 0x00, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0xcf, 0xff, 0x00)
+            innerOrbitColor = new Color(0xcf, 0xff, 0x00),
+            hurdle1Color = new Color(0xff, 0x83, 0x00),
+            hurdle2Color = new Color(0xcf, 0xff, 0x00)
         };
         ColorSet colorSet4 = new ColorSet
         {
@@ -80,7 +88,9 @@ public class ColorController {
             //orbit1Color = new Color(0x5a, 0xff, 0x00, Constants.orbitAlpha),
             //orbit2Color = new Color(0x5a, 0xff, 0x00, Constants.orbitAlpha),
             orbitColor = new Color(0x5a, 0xff, 0x00, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0x5a, 0xff, 0x00)
+            innerOrbitColor = new Color(0x5a, 0xff, 0x00),
+            hurdle1Color = new Color(0xcf, 0xff, 0x00),
+            hurdle2Color = new Color(0x00, 0x9d, 0xff)
         };
         ColorSet colorSet5 = new ColorSet
         {
@@ -97,7 +107,9 @@ public class ColorController {
             //orbit1Color = new Color(0x00, 0xff, 0x9c, Constants.orbitAlpha),
             //orbit2Color = new Color(0x00, 0xff, 0x9c, Constants.orbitAlpha),
             orbitColor = new Color(0x00, 0xff, 0x9c, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0x00, 0xff, 0x9c)
+            innerOrbitColor = new Color(0x00, 0xff, 0x9c),
+            hurdle1Color = new Color(0x74, 0xed, 0x9a),
+            hurdle2Color = new Color(0xcf, 0xff, 0x00)
         };
         ColorSet colorSet6 = new ColorSet
         {
@@ -114,7 +126,9 @@ public class ColorController {
             //orbit1Color = new Color(0x00, 0x9d, 0xff, Constants.orbitAlpha),
             //orbit2Color = new Color(0x00, 0x9d, 0xff, Constants.orbitAlpha),
             orbitColor = new Color(0x00, 0x9d, 0xff, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0x00, 0x9d, 0xff)
+            innerOrbitColor = new Color(0x00, 0x9d, 0xff),
+            hurdle1Color = new Color(0x74, 0xed, 0x9a),
+            hurdle2Color = new Color(0x00, 0xff, 0x9c)
         };
         ColorSet colorSet7 = new ColorSet
         {
@@ -131,7 +145,9 @@ public class ColorController {
             //orbit1Color = new Color(0x89, 0x00, 0xf9, Constants.orbitAlpha),
             //orbit2Color = new Color(0x89, 0x00, 0xf9, Constants.orbitAlpha),
             orbitColor = new Color(0x89, 0x00, 0xf9, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0x89, 0x00, 0xf9)
+            innerOrbitColor = new Color(0x89, 0x00, 0xf9),
+            hurdle1Color = new Color(0x8f, 0x00, 0xf9),
+            hurdle2Color = new Color(0x01, 0x0e, 0xff)
         };
         ColorSet colorSet8 = new ColorSet
         {
@@ -148,7 +164,9 @@ public class ColorController {
             //orbit1Color = new Color(0x01, 0x0e, 0xff, Constants.orbitAlpha),
             //orbit2Color = new Color(0x01, 0x0e, 0xff, Constants.orbitAlpha),
             orbitColor = new Color(0x01, 0x0e, 0xff, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0x01, 0x0e, 0xff)
+            innerOrbitColor = new Color(0x01, 0x0e, 0xff),
+            hurdle1Color = new Color(0x89, 0x00, 0xf9),
+            hurdle2Color = new Color(0x21, 0x0e, 0xff)
         };
         ColorSet colorSet9 = new ColorSet
         {
@@ -165,7 +183,9 @@ public class ColorController {
             //orbit1Color = new Color(0xf8, 0x00, 0xff, Constants.orbitAlpha),
             //orbit2Color = new Color(0xf8, 0x00, 0xff, Constants.orbitAlpha),
             orbitColor = new Color(0xf8, 0x00, 0xff, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0xf8, 0x00, 0xff)
+            innerOrbitColor = new Color(0xf8, 0x00, 0xff),
+            hurdle1Color = new Color(0x89, 0x00, 0xf9),
+            hurdle2Color = new Color(0x01, 0x0e, 0xff)
         };
         ColorSet colorSet10 = new ColorSet
         {
@@ -182,7 +202,10 @@ public class ColorController {
             //orbit1Color = new Color(0xff, 0x00, 0x8f, Constants.orbitAlpha),
             //orbit2Color = new Color(0xff, 0x00, 0x8f, Constants.orbitAlpha),
             orbitColor = new Color(0xff, 0x00, 0x8f, Constants.orbitAlpha),
-            innerOrbitColor = new Color(0xff, 0x00, 0x8f)
+            innerOrbitColor = new Color(0xff, 0x00, 0x8f),
+            hurdle1Color = new Color(0xf8, 0x00, 0xff),
+            hurdle2Color = new Color(0x21, 0x0e, 0xff)
+
         };
 
         colorSets.Add(colorSet1);

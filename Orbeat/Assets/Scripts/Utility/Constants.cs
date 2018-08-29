@@ -9,6 +9,8 @@ public static class Constants {
     public static Vector3 orbitsDistance = new Vector3(0.5f,0.5f,0.5f);//distance between orbits
     public static Vector3 orbitResetScale = new Vector3(0.5f, 0.5f, 0.5f);//when to reset the orbits
     public static Vector3 intialOrbitScale = new Vector3(3.5f, 3.5f, 3.5f);//intial value of the orbits
+    public static int totalHurdles = 2;
+    public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
 
 
     //Perfect hit text
@@ -27,6 +29,9 @@ public static class Constants {
     public static Vector3 targetInitialPosition1 = new Vector3(260f, 0f, 0f);
     public static Vector3 targetInitialPosition2 = new Vector3(395f, 0f, 0f);
     public static Vector3 targetInitialPosition3 = new Vector3(530f, 0f, 0f);
+    public static Vector3 hurdleInitialPosition1 = new Vector3(260f, 0f, 0f);
+    public static Vector3 hurdleInitialPosition2 = new Vector3(395f, 0f, 0f);
+    public static Vector3 hurdleInitialPosition3 = new Vector3(530f, 0f, 0f);
     public static Vector3 scoreInitialPosition = new Vector3(0f, -12.3f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
@@ -36,6 +41,8 @@ public static class Constants {
     public static float playerMaxRotationSpeed = 5f;
     public static float targetMinRotationSpeed = 15f;
     public static float targetMaxRotationSpeed = 20f;
+    public static float hurdleMinRotationSpeed = 5f;
+    public static float hurdleMaxRotationSpeed = 10f;
 
     //Movement
     public static float playerMoveSpeed = 70f;    //Increase to decrease time
@@ -45,6 +52,7 @@ public static class Constants {
     public static float cameraOffset = 0.30f;
     public static float orbitsScaleSpeed = 35f;
     public static float targetMoveSpeed = 40f;    //Increase to decrease time
+    public static float hurdleMoveSpeed = 40f;    //Increase to decrease time
 
 
     //Scale

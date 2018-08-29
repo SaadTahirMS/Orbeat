@@ -66,12 +66,9 @@ public class OrbitController : CharacterBehaviour
 
     protected override void SetPosition()
     {
-        position = AssignPosition();
+        position = Vector3.zero;
     }
 
-    private Vector3 AssignPosition(){
-        return Vector3.zero;
-    }
 
     //private void StartBeat(){
     //    //orbit1Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);

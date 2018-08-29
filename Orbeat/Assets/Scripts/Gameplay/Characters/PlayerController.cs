@@ -131,6 +131,10 @@ public class PlayerController : CharacterBehaviour {
         {
             GameplayContoller.Instance.TimerWarning();
         }
+        else if (collision.gameObject.tag == "Hurdle")
+        {
+            GameplayContoller.Instance.PlayerCollidedWithHurdle();
+        }
     }
 
     public void SetCollisions(bool state)
