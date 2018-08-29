@@ -33,7 +33,7 @@ public class GameplayTransitionController : MonoBehaviour {
         levelTransitionOnStartSeq = DOTween.Sequence();
 
         CheckOrbitScale(orbitController,orbitsTransform);
-
+        SetOrbitIndividualScales(orbitController);
         //SoundController.Instance.SetPitch(1);
 
         //Create tweens 
@@ -64,8 +64,6 @@ public class GameplayTransitionController : MonoBehaviour {
         //.Join(orbitsScaleTween)
         .Join(scoreScale)
         .Join(scorePosition);
-        
-
         levelTransitionOnStartSeq.SetEase(Ease.Linear)
         .OnComplete(()=>StartTransitionComplete(orbitController))
         .Play();
@@ -139,17 +137,23 @@ public class GameplayTransitionController : MonoBehaviour {
         GameplayContoller.Instance.IsAllowedToShot = true;
         GameplayContoller.Instance.playerController.SetCollisions(true);
 
+        //SetOrbitIndividualScales(orbitController);
+
+        ScoreBeat();
+        TimerMovement(orbitController);
+    }
+
+    private void SetOrbitIndividualScales(OrbitController orbitController){
         //Orbits individual scales
         List<Transform> orbitsTransform = orbitController.GetOrbits();
         for (int i = 0; i < orbitsTransform.Count; i++)
         {
             initialScales.Add(orbitController.GetCurrentScale(i));
-            print(i + " : " + initialScales[i]);
-            orbitsTransform[i].localScale = initialScales[i];
-        }
+            //print(i + " : " + initialScales[i]);
+            //orbitsTransform[i].localScale = initialScales[i];
+            orbitsTransform[i].DOScale(initialScales[i], .1f);
 
-        ScoreBeat();
-        TimerMovement(orbitController);
+        }
     }
 
     private void TimerMovement(OrbitController orbitController){
