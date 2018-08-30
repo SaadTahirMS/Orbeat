@@ -60,13 +60,14 @@ public class TargetController : CharacterBehaviour
     }
 
     protected override void SetPosition(){
-        position = AssignPosition();
+        int pos = GameplayContoller.Instance.GetOrbitIndex();
+        position = AssignPosition(pos);
     }
 
-    private Vector3 AssignPosition(){
-        int ran = Random.Range(1,Constants.orbitCount+1);
+    private Vector3 AssignPosition(int pos){
+        //int ran = Random.Range(1,Constants.orbitCount+1);
         //int ran = 3;
-        switch(ran){
+        switch(pos){
             case 1:
                 return Constants.targetInitialPosition1;
             case 2:

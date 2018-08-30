@@ -88,6 +88,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameState = state;
         switch(state){
             case GameState.Start:
+                ResetAvailableOrbitList();
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
@@ -279,6 +280,24 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void LevelUp(){
         level += 1;
     }
+
+    public int GetOrbitIndex()
+    {
+        int random = Random.Range(0, Constants.availablePositions.Count);
+
+        int orbit = Constants.availablePositions[random];
+
+        Constants.availablePositions.RemoveAt(random);
+
+        return orbit;
+    }
+
+    private void ResetAvailableOrbitList()
+    {
+        Constants.availablePositions = new List<int>() { 1, 2, 3 };//array of positions
+
+    }
+
 
 
 }

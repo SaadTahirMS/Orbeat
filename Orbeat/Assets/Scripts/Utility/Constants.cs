@@ -9,7 +9,7 @@ public static class Constants {
     public static Vector3 orbitsDistance = new Vector3(0.5f,0.5f,0.5f);//distance between orbits
     public static Vector3 orbitResetScale = new Vector3(0.5f, 0.5f, 0.5f);//when to reset the orbits
     public static Vector3 intialOrbitScale = new Vector3(3.5f, 3.5f, 3.5f);//intial value of the orbits
-
+    public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
 
     //Perfect hit text
     public static string[] perfectHitArray = new string[]{
