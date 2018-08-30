@@ -10,7 +10,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public GameplayRefs gameplayRefs;
 
     public PlayerController playerController;
-    public TargetController targetController;
+    public List<TargetController> targetsController;
     public OrbitController orbitController;
     public ColorController colorController;
     public GameplayTransitionController gameplayTransitionController;
@@ -49,7 +49,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
         InitializeGameplayViewController();
         InitializePlayer();
-        InitializeTarget();
+        InitializeTargets();
         InitializeOrbits();
         InitializeColors();
         InitializeBeats();
@@ -66,9 +66,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         playerController.Initialize();
     }
 
-    private void InitializeTarget()
+    private void InitializeTargets()
     {
-        targetController.Initialize();
+        for (int i = 0; i < targetsController.Count;i++){
+            targetsController[i].Initialize();
+            targetsController[i].Id = i;
+        }
     }
 
     private void InitializeOrbits(){
@@ -86,7 +89,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void InitializeTransitionController(){
-        gameplayTransitionController.Initialize(gameplayRefs,targetController, playerController,orbitController);
+        gameplayTransitionController.Initialize(gameplayRefs,targetsController, playerController,orbitController);
     }
 
     public void ChangeGameState(GameState state){
@@ -95,7 +98,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.Start:
                 ResetAvailableOrbitList();
                 playerController.ChangeState(GameState.Start);
-                targetController.ChangeState(GameState.Start);
+                for (int i = 0; i < targetsController.Count; i++)
+                    targetsController[i].ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.LevelTransitionOnStart(isFirstTime);
                 isFirstTime = false;
@@ -117,9 +121,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.End);
-                targetController.ChangeState(GameState.End);
+                for (int i = 0; i < targetsController.Count; i++)
+                    targetsController[i].ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
-                ResetCameraPosition();
+                //ResetCameraPosition();
                 print("Game Over");
                 gameplayViewController.SetCenterOrbits(false);
                 MainMenuController.Instance.ActivateRestartBtn();
@@ -135,8 +140,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 break;
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
-                targetController.ChangeState(GameState.TargetHit);
-                gameplayTransitionController.LevelTransitionOnTargetHit(targetController, orbitController, playerShotPos);
+                for (int i = 0; i < targetsController.Count; i++){
+                    targetsController[i].ChangeState(GameState.TargetHit);
+                    gameplayTransitionController.LevelTransitionOnTargetHit(playerShotPos,i);
+                }
                 Vibration.Vibrate();
                 break;
         }
@@ -164,13 +171,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKeyDown(KeyCode.Space)){
             ShotPlayer();
         }
-        if(gameplayViewController!=null && gameState == GameState.Start)
-            gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
+        //if(gameplayViewController!=null && gameState == GameState.Start)
+            //gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
     }
 
-    private void ResetCameraPosition(){
-        gameplayViewController.LookAtTarget(Vector3.zero, Constants.cameraOffset,targetController.GetOrbit());
-    }
+    //private void ResetCameraPosition(){
+    //    gameplayViewController.LookAtTarget(Vector3.zero, Constants.cameraOffset,targetController.GetOrbit());
+    //}
 
     public void PlayerCollidedWithTarget(bool perfectHit){
         print("Player collided with target");
@@ -178,7 +185,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         isPerfectHit = perfectHit;
         SoundController.Instance.PlaySFXSound(SFX.TargetHit);
         ChangeGameState(GameState.TargetHit);
-
     }
 
     public void PlayerCollidedWithTimer()
@@ -248,10 +254,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         return Constants.perfectHitArray[comboTextCount];
     }
 
-    private void TargetOrbitAlpha(){
-        int targetPos = targetController.GetOrbit();
-        gameplayViewController.SetTargetOrbitAlpha(targetPos);
-    }
+    //private void TargetOrbitAlpha(){
+    //    int targetPos = targetController.GetOrbit();
+    //    gameplayViewController.SetTargetOrbitAlpha(targetPos);
+    //}
 
 
 

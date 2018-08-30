@@ -51,11 +51,11 @@ public static class Constants {
     public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
     public static Vector3 scoreGameOverScale = new Vector2(400f, 400f);
     public static Vector3 scoreInitialScale = new Vector3(1f, 1f, 1f);
-    public static Vector3 scoreInitialScaleWH = new Vector3(100f, 100f, 100f);
+    public static Vector3 scoreInitialScaleWH = new Vector3(90f, 90f, 90f);
 
     //Shot
     public static float playerShotSpeed = 25f;    //Increase to increase shot speed
-    public static float perfectHitThreshold = 3f; //range of angle for perfect hit
+    public static float perfectHitThreshold = 13f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
 
     //Color

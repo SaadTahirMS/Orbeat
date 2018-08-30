@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : CharacterBehaviour {
     
     public Transform player;
-    public Transform targetObj;
+    public List<Transform> targetsObj;
     public Rigidbody2D playerRb;
     Vector3 playerPos;//this is used by gameplayController for transitions
     Quaternion playerRot;
@@ -116,20 +116,20 @@ public class PlayerController : CharacterBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Target")
+        switch (collision.gameObject.tag)
         {
-            shotFlag = false;
-            SetCollisions(false);
-            GameplayContoller.Instance.PlayerCollidedWithTarget(CheckPerfectHit());
-        }
-        else if (collision.gameObject.tag == "Timer")
-        {
-            SetCollisions(false);
-            GameplayContoller.Instance.PlayerCollidedWithTimer();
-        }
-        else if (collision.gameObject.tag == "Warning")
-        {
-            GameplayContoller.Instance.TimerWarning();
+            case "Target":
+                shotFlag = false;
+                SetCollisions(false);
+                GameplayContoller.Instance.PlayerCollidedWithTarget(CheckPerfectHit(collision.gameObject.GetComponent<TargetController>().Id));
+                break;
+            case "Timer":
+                SetCollisions(false);
+                GameplayContoller.Instance.PlayerCollidedWithTimer();
+                break;
+            case "Warning":
+                GameplayContoller.Instance.TimerWarning();
+                break;
         }
     }
 
@@ -138,8 +138,8 @@ public class PlayerController : CharacterBehaviour {
         playerRb.isKinematic = !state; //inversed just for understanding of function
     }
 
-    private bool CheckPerfectHit(){
-      float angleDifference = targetObj.eulerAngles.z - player.eulerAngles.z;
+    private bool CheckPerfectHit(int index){
+      float angleDifference = targetsObj[index].eulerAngles.z - player.eulerAngles.z;
         if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
             print("Perfect Hit");
             return true;

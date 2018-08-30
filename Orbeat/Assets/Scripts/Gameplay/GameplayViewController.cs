@@ -91,14 +91,16 @@ public class GameplayViewController : IController
         //gameplayRefs.innerOrbitImg.color = colorSet.innerOrbitColor;
         gameplayRefs.cam.backgroundColor = colorSet.backgroundColor;
         gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
-        gameplayRefs.targetImg.color = colorSet.targetColor;
-        gameplayRefs.targetOrbitImg.color = colorSet.targetOrbitColor;
         gameplayRefs.playerImg.color = colorSet.playerColor;
         gameplayRefs.scoreText.color = colorSet.scoreColor;
         //gameplayRefs.shareBtnImg.color = colorSet.shareBtnColor;
         gameplayRefs.playBtnImg.color = colorSet.playBtnColor;
         gameplayRefs.perfectHitText.color = colorSet.perfectTextColor;
         //gameplayRefs.highscoreText.color = colorSet.highscoreColor;
+        for (int i = 0; i < gameplayRefs.targetImg.Count;i++){
+            gameplayRefs.targetImg[i].color = colorSet.targetColor;
+            gameplayRefs.targetOrbitImg[i].color = colorSet.targetOrbitColor;
+        }
     }
 
     public void ChangeArrowColor()
