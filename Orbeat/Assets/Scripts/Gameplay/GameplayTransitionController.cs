@@ -269,7 +269,7 @@ public class GameplayTransitionController : MonoBehaviour {
         //SoundController.Instance.SetPitch(0);
         //scale down till the target orbit pos
         Vector3 scaleValue = Constants.orbitsDistance * targetOrbitPos; //if pos is 3 then 1.5 of scale will be reduced of each orbit
-        orbitController.StopBeats();
+        //orbitController.StopBeats();
         for (int loopCount = 0; loopCount < targetOrbitPos; loopCount++)
         {
             for (int i = 0; i < orbitsTransform.Count; i++)

@@ -5,14 +5,9 @@ using DG.Tweening;
 
 public class OrbitController : CharacterBehaviour
 {
-    //public Beat orbit1Beat;
-    //public Beat orbit2Beat;
-    //public Beat orbit3Beat;
-
-    public List<MyBeat> orbitBeat;
     public List<Transform> orbits;
-
     private Vector3 position;
+
     public Vector3 Position
     {
         get
@@ -86,20 +81,20 @@ public class OrbitController : CharacterBehaviour
         return orbits;
     }
 
-    public void StopBeats(){
-        for (int i = 0; i < orbitBeat.Count; i++)
-        {
-            orbitBeat[i].canBeat = false;
-            orbitBeat[i].StopBeat();
-        }
-    }
+    //public void StopBeats(){
+    //    for (int i = 0; i < orbitBeat.Count; i++)
+    //    {
+    //        orbitBeat[i].canBeat = false;
+    //        orbitBeat[i].StopBeat();
+    //    }
+    //}
 
-    public void StartBeats(){
-        for (int i = 0; i < orbitBeat.Count; i++)
-        {
-            orbitBeat[i].canBeat = true;
-        }
-    }
+    //public void StartBeats(){
+    //    for (int i = 0; i < orbitBeat.Count; i++)
+    //    {
+    //        orbitBeat[i].canBeat = true;
+    //    }
+    //}
 
     public Tween ScaleDown(int orbitIndex,Vector3 value){
         return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
