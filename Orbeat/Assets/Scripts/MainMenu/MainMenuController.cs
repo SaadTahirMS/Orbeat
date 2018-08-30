@@ -9,7 +9,9 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     public void Open(){
         ActivatePlayBtn();
-        SoundController.Instance.SetMainMenuMusic(true);
+        //SoundController.Instance.SetMainMusic(true);
+        SoundController.Instance.SetPitch(.5f,true);
+        SoundController.Instance.SetVolume(.25f);
     }
 
     void ActivatePlayBtn(){
@@ -33,7 +35,8 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     // this will make a call to GameplayController to start the gameplay
     public void PlayGame(){
         DeactivatePlayBtn();
-        SoundController.Instance.SetMainMenuMusic(false);
+        SoundController.Instance.SetPitch(1f,true);
+        SoundController.Instance.SetVolume(1f);
         gameplayContoller = GameplayContoller.Instance;
         gameplayContoller.Open();
 

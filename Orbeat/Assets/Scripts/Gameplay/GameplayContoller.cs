@@ -54,7 +54,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeColors();
         InitializeBeats();
         InitializeTransitionController();
-        SoundController.Instance.SetGamePlayMusic(true);
         ChangeGameState(GameState.Start);
     }
 
@@ -96,6 +95,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameState = state;
         switch(state){
             case GameState.Start:
+                SoundController.Instance.SetPitch(1f,false);
+                SoundController.Instance.SetVolume(1f);
                 ResetAvailableOrbitList();
                 playerController.ChangeState(GameState.Start);
                 for (int i = 0; i < targetsController.Count; i++)
@@ -117,6 +118,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
+                SoundController.Instance.SetPitch(.5f,false);
+                SoundController.Instance.SetVolume(.25f);
                 gameplayViewController.Flash(Color.white, Constants.flashTime);
                 gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();

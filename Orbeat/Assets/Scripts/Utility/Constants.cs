@@ -55,7 +55,7 @@ public static class Constants {
 
     //Shot
     public static float playerShotSpeed = 25f;    //Increase to increase shot speed
-    public static float perfectHitThreshold = 13f; //range of angle for perfect hit
+    public static float perfectHitThreshold = 3f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
 
     //Color
@@ -70,7 +70,7 @@ public static class Constants {
     public static float beatScale = 0.04f;
     public static float scoreBeatTime = .19f;
     public static float scoreBeatScale = 0.25f;
-    public static float pitchTime = 1f;
+    public static float pitchTime = .75f;
     public static float flashTime = .1f;
     public static float shakeTime = .5f;
     public static float shakeStrength = 1f;
