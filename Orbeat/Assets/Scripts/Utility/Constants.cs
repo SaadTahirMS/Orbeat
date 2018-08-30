@@ -38,14 +38,13 @@ public static class Constants {
     public static float targetMaxRotationSpeed = 20f;
 
     //Movement
-    public static float playerMoveSpeed = 70f;    //Increase to decrease time
-    public static float playerOrbitScaleSpeed = 70f;
+    public static float playerMoveSpeed = 20f;    //Increase to decrease time
+    public static float playerOrbitScaleSpeed = 20f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
     public static float cameraOffset = 0.30f;
-    public static float orbitsScaleSpeed = 35f;
-    public static float targetMoveSpeed = 40f;    //Increase to decrease time
-
+    public static float orbitsScaleSpeed = 10f;
+    public static float targetMoveSpeed = 11f;    //Increase to decrease time
 
     //Scale
     public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
