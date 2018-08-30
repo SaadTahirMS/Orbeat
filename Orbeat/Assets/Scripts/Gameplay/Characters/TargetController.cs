@@ -46,7 +46,7 @@ public class TargetController : CharacterBehaviour
             case GameState.Start:
                 ResetParent();
                 SetPosition();
-                StartBeat();
+                //StartBeat();
                 Rotate();
                 break;
             case GameState.TargetHit:
@@ -84,9 +84,9 @@ public class TargetController : CharacterBehaviour
         return Camera.main.WorldToScreenPoint(transform.position);
     }
 
-    private void StartBeat(){
-        targetOrbit.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime, -1);
-    }
+    //private void StartBeat(){
+    //    targetOrbit.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime, -1);
+    //}
 
     public int GetOrbit(){
         if (position == Constants.targetInitialPosition1)
