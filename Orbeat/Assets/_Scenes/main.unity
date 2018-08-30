@@ -39357,10 +39357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d729a27ce238d4822bf317f82aba3049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1704106024}
-  player: {fileID: 1650243710}
-  orbits: {fileID: 152704290}
-  targetImg: {fileID: 1704106025}
   scoreBeat: {fileID: 2033416988}
   scoreText: {fileID: 2033416986}
   playerOrbit: {fileID: 1241361890}
@@ -49162,7 +49158,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00
+  m_Text: 0
 --- !u!222 &2033416987
 CanvasRenderer:
   m_ObjectHideFlags: 0

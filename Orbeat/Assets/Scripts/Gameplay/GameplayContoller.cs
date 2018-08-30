@@ -86,7 +86,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void InitializeTransitionController(){
-        gameplayTransitionController.Initialize(targetController, playerController,orbitController);
+        gameplayTransitionController.Initialize(gameplayRefs,targetController, playerController,orbitController);
     }
 
     public void ChangeGameState(GameState state){
