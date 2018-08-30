@@ -53,6 +53,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeOrbits();
         InitializeColors();
         InitializeBeats();
+        InitializeTransitionController();
         SoundController.Instance.SetGamePlayMusic(true);
         ChangeGameState(GameState.Start);
     }
@@ -84,6 +85,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameplayRefs.loudness.Initialize();
     }
 
+    private void InitializeTransitionController(){
+        gameplayTransitionController.Initialize(targetController, playerController,orbitController);
+    }
+
     public void ChangeGameState(GameState state){
         gameState = state;
         switch(state){
@@ -92,7 +97,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 playerController.ChangeState(GameState.Start);
                 targetController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
-                gameplayTransitionController.LevelTransitionOnStart(targetController.Position,playerController.Position,orbitController.Position,orbitController.GetOrbits(),orbitController,targetController,isFirstTime);
+                gameplayTransitionController.LevelTransitionOnStart(isFirstTime);
                 isFirstTime = false;
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
