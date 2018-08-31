@@ -7,6 +7,13 @@ public class Rotate : MonoBehaviour {
     
     public bool canRotate = true;
     Sequence rotationSequence;
+    public Vector3 _endValue;
+    public int _direction;
+    public float _duration;
+    private void Start()
+    {
+        DoRotate(_endValue,_direction,_duration);
+    }
 
     public void DoRotate(Vector3 endValue,int direction,float duration)
     {
