@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : CharacterBehaviour {
     
     public Transform player;
-    public List<Transform> targetsObj;
+    //public List<Transform> targetsObj;
     public Rigidbody2D playerRb;
     Vector3 playerPos;//this is used by gameplayController for transitions
     Quaternion playerRot;
@@ -121,7 +121,7 @@ public class PlayerController : CharacterBehaviour {
             case "Target":
                 shotFlag = false;
                 SetCollisions(false);
-                GameplayContoller.Instance.PlayerCollidedWithTarget(CheckPerfectHit(collision.gameObject.GetComponent<TargetController>().Id));
+                GameplayContoller.Instance.PlayerCollidedWithTarget();
                 break;
             case "Timer":
                 SetCollisions(false);
@@ -138,14 +138,14 @@ public class PlayerController : CharacterBehaviour {
         playerRb.isKinematic = !state; //inversed just for understanding of function
     }
 
-    private bool CheckPerfectHit(int index){
-      float angleDifference = targetsObj[index].eulerAngles.z - player.eulerAngles.z;
-        if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
-            print("Perfect Hit");
-            return true;
-        }
-        return false;
-    }
+    //private bool CheckPerfectHit(int index){
+    //  float angleDifference = targetsObj[index].eulerAngles.z - player.eulerAngles.z;
+    //    if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
+    //        print("Perfect Hit");
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     private void CollisionWithBoundary(){
         //Vector3 position = Camera.main.ScreenToViewportPoint(transform.position);

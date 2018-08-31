@@ -13,8 +13,8 @@ public class GameplayRefs : MonoBehaviour {
     public Image timerOrbitImg;
     public Camera cam;
     public Image playerOrbitImg;
-    public List<Image> targetImg;
-    public List<Image> targetOrbitImg;
+    //public List<Image> targetImg;
+    //public List<Image> targetOrbitImg;
     public Image playerImg;
     public Text scoreText;
     public Image playerArrowImg;

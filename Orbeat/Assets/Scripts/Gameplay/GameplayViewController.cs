@@ -46,27 +46,27 @@ public class GameplayViewController : IController
                     .SetLoops(6, LoopType.Yoyo);
     }
 
-    public void SetTargetOrbitAlpha(int pos)
-    {
+    //public void SetTargetOrbitAlpha(int pos)
+    //{
         
-        ResetOrbitsAlpha();//make all orbits alpha zero
-        gameplayRefs.orbitImg[pos - 1].DOFade(1f, Constants.orbitFadeTime); //since pos is 1 for the first orbit, we will change alpha for pos-1 in the list i.e 0 is the first orbit
+    //    ResetOrbitsAlpha();//make all orbits alpha zero
+    //    gameplayRefs.orbitImg[pos - 1].DOFade(1f, Constants.orbitFadeTime); //since pos is 1 for the first orbit, we will change alpha for pos-1 in the list i.e 0 is the first orbit
 
-        //switch (pos)
-        //{
-        //    case 1:
-        //        gameplayRefs.orbit1Img.DOFade(1f, Constants.orbitFadeTime);
-        //        break;
-        //    case 2:
-        //        gameplayRefs.orbit2Img.DOFade(1f, Constants.orbitFadeTime);
-        //        break;
-        //    case 3:
-        //        gameplayRefs.orbit3Img.DOFade(1f, Constants.orbitFadeTime);
-        //        break;
-        //}
+    //    //switch (pos)
+    //    //{
+    //    //    case 1:
+    //    //        gameplayRefs.orbit1Img.DOFade(1f, Constants.orbitFadeTime);
+    //    //        break;
+    //    //    case 2:
+    //    //        gameplayRefs.orbit2Img.DOFade(1f, Constants.orbitFadeTime);
+    //    //        break;
+    //    //    case 3:
+    //    //        gameplayRefs.orbit3Img.DOFade(1f, Constants.orbitFadeTime);
+    //    //        break;
+    //    //}
 
 
-    }
+    //}
 
     private void ResetOrbitsAlpha()
     {
@@ -97,10 +97,10 @@ public class GameplayViewController : IController
         gameplayRefs.playBtnImg.color = colorSet.playBtnColor;
         gameplayRefs.perfectHitText.color = colorSet.perfectTextColor;
         //gameplayRefs.highscoreText.color = colorSet.highscoreColor;
-        for (int i = 0; i < gameplayRefs.targetImg.Count;i++){
-            gameplayRefs.targetImg[i].color = colorSet.targetColor;
-            gameplayRefs.targetOrbitImg[i].color = colorSet.targetOrbitColor;
-        }
+        //for (int i = 0; i < gameplayRefs.targetImg.Count;i++){
+        //    gameplayRefs.targetImg[i].color = colorSet.targetColor;
+        //    gameplayRefs.targetOrbitImg[i].color = colorSet.targetOrbitColor;
+        //}
     }
 
     public void ChangeArrowColor()
@@ -120,20 +120,20 @@ public class GameplayViewController : IController
     }
 
 
-    public void LookAtTarget(Vector3 target,float offset,int targetPos){
-        //float angle = target.transform.rotation.eulerAngles.z;
-        //if((angle > 0 && angle < 90) || (angle > 270 && angle < 360)){
-        //    //Debug.Log("X is +ve");
-        //    gameplayRefs.transform.DOLocalMoveX(-Constants.cameraPosOffset,Constants.cameraPosTime).SetEase(Ease.Linear);
-        //}
-        //else
-        //{
-        //    //Debug.Log("X is -ve");
-        //    gameplayRefs.transform.DOLocalMoveX(Constants.cameraPosOffset, Constants.cameraPosTime).SetEase(Ease.Linear);
-        //}
+    //public void LookAtTarget(Vector3 target,float offset,int targetPos){
+    //    //float angle = target.transform.rotation.eulerAngles.z;
+    //    //if((angle > 0 && angle < 90) || (angle > 270 && angle < 360)){
+    //    //    //Debug.Log("X is +ve");
+    //    //    gameplayRefs.transform.DOLocalMoveX(-Constants.cameraPosOffset,Constants.cameraPosTime).SetEase(Ease.Linear);
+    //    //}
+    //    //else
+    //    //{
+    //    //    //Debug.Log("X is -ve");
+    //    //    gameplayRefs.transform.DOLocalMoveX(Constants.cameraPosOffset, Constants.cameraPosTime).SetEase(Ease.Linear);
+    //    //}
 
-        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset * targetPos, 0, -10);
-    }
+    //    gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset * targetPos, 0, -10);
+    //}
 
     public void TimerWarningSequence(Color color,float speed){
         timerWarningSequence = DOTween.Sequence();
