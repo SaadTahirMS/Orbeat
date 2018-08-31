@@ -34,3 +34,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Orbeat/Assets/_Scenes/Test.unity.meta
+Orbeat/Assets/Sprites/NewCircle.png
+Orbeat/Assets/Sprites/NewCircle.png.meta
+Orbeat/Assets/Sprites/Target.png
+Orbeat/Assets/Sprites/Target.png.meta
