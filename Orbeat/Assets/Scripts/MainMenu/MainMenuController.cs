@@ -11,7 +11,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         ActivatePlayBtn();
         //SoundController.Instance.SetMainMusic(true);
         SoundController.Instance.SetPitch(.5f,true);
-        SoundController.Instance.SetVolume(.25f);
+        SoundController.Instance.SetVolume(1f);
     }
 
     void ActivatePlayBtn(){

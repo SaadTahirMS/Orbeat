@@ -118,7 +118,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 break;
             case GameState.End:
                 SoundController.Instance.SetPitch(.5f,false);
-                SoundController.Instance.SetVolume(.25f);
+                SoundController.Instance.SetVolume(1f);
                 gameplayViewController.Flash(Color.white, Constants.flashTime);
                 gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();
