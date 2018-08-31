@@ -36,10 +36,12 @@ public abstract class CharacterBehaviour : MonoBehaviour {
 
     protected void Rotate()
     {
-        StopRotation();
-        AssignRandomDirection();
-        AssignRotateSpeed();
-        for (int i = 0; i < rotationComponent.Count;i++){
+        
+        for (int i = 0; i < rotationComponent.Count; i++)
+        {
+            rotationComponent[i].StopRotate();
+            AssignRandomDirection();
+            AssignRotateSpeed();
             rotationComponent[i].DoRotate(rotation, direction, rotateSpeed);
         }
     }

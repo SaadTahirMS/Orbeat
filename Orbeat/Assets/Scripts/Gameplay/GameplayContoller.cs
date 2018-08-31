@@ -10,7 +10,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public GameplayRefs gameplayRefs;
 
     public PlayerController playerController;
-    //public List<TargetController> targetsController;
+    public List<MyTargetController> targetIDs;
     public OrbitController orbitController;
     public ColorController colorController;
     public GameplayTransitionController gameplayTransitionController;
@@ -22,7 +22,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private bool isPerfectHit = false;   //perfect hit check passed by player
     private int score = 0;   //simple score
     private int level = 0;   //game level
-    //private int targetHitCount = 0;  //how many targets hit in order to level up
+    private int targetHitCount = 0;  //how many targets hit in order to level up
     private int comboCount = 0;  //chain of perfect hits
     private int comboTextCount = 0;
     private bool isAllowedToShot;
@@ -49,7 +49,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
         InitializeGameplayViewController();
         InitializePlayer();
-        //InitializeTargets();
+        InitializeTargetIDs();
         InitializeOrbits();
         InitializeColors();
         InitializeBeats();
@@ -65,13 +65,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         playerController.Initialize();
     }
 
-    //private void InitializeTargets()
-    //{
-    //    for (int i = 0; i < targetsController.Count;i++){
-    //        targetsController[i].Initialize();
-    //        targetsController[i].Id = i;
-    //    }
-    //}
+    private void InitializeTargetIDs()
+    {
+        for (int i = 0; i < targetIDs.Count;i++){
+            targetIDs[i].Id = i+1;
+        }
+    }
 
     private void InitializeOrbits(){
         orbitController.Initialize();
@@ -88,7 +87,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void InitializeTransitionController(){
-        gameplayTransitionController.Initialize(gameplayRefs, playerController,orbitController);
+        gameplayTransitionController.Initialize(gameplayRefs, playerController,orbitController,targetIDs);
     }
 
     public void ChangeGameState(GameState state){
@@ -138,20 +137,28 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.Shot:
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.Shot); //this initiates a player shot
+                //orbitController.ChangeState(GameState.Shot);
                 playerShotPos = playerController.GetPosition();
                 //print(playerShotPos);
                 break;
             case GameState.TargetHit:
                 Scoring(isPerfectHit);
+                playerController.ChangeState(GameState.TargetHit);
+                orbitController.ChangeState(GameState.TargetHit);
                 //for (int i = 0; i < targetsController.Count; i++){
                 //    targetsController[i].ChangeState(GameState.TargetHit);
                 //    gameplayTransitionController.LevelTransitionOnTargetHit(playerShotPos,i);
                 //}
                 //ChangeGameState(GameState.Start);
-                gameplayTransitionController.LevelTransitionOnTargetHit(1);
+                gameplayTransitionController.LevelTransitionOnTargetHit(playerShotPos,Constants.targetID);
                 Vibration.Vibrate();
                 break;
         }
+    }
+
+    public void SetTargetIDs(List<MyTargetController> targetIDs){
+        this.targetIDs = targetIDs;
+        InitializeTargetIDs();
     }
 
     private void ChangeColors(){
@@ -184,9 +191,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     //    gameplayViewController.LookAtTarget(Vector3.zero, Constants.cameraOffset,targetController.GetOrbit());
     //}
 
-    public void PlayerCollidedWithTarget(){
+    public void PlayerCollidedWithTarget(int targetID){
         print("Player collided with target");
         isAllowedToShot = false;
+        Constants.targetID = targetID;
         //isPerfectHit = perfectHit;
         SoundController.Instance.PlaySFXSound(SFX.TargetHit);
         ChangeGameState(GameState.TargetHit);
@@ -224,7 +232,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void Scoring(bool perfectHit){
         //increment target hit in order to level up
-        //targetHitCount += 1;
+        targetHitCount += 1;
         //if (targetHitCount <= 4)
             //ChangeArrowAlpha();
 
@@ -277,7 +285,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void ResetScoring(){
         score = 0;
-        //targetHitCount = 0;
+        targetHitCount = 0;
         level = 0;
         comboCount = 0;
         isPerfectHit = false;
@@ -287,9 +295,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
 
     private bool CheckLevelUp(){
-        //if(targetHitCount % Constants.targetHitCount == 0){
-        //    return true;
-        //}
+        if(targetHitCount % Constants.targetHitCount == 0){
+            return true;
+        }
         return false;
     }
 

@@ -53,9 +53,10 @@ public static class Constants {
     public static Vector3 scoreInitialScaleWH = new Vector3(90f, 90f, 90f);
 
     //Shot
-    public static float playerShotSpeed = 25f;    //Increase to increase shot speed
+    public static float playerShotSpeed = 15f;    //Increase to increase shot speed
     public static float perfectHitThreshold = 3f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
+    public static int targetID = 1; //target ID of which target u hit
 
     //Color
     public static Color timerInitialColor = new Color(255f, 0f, 0f, 0.4f);//red color with 0.4 alpha

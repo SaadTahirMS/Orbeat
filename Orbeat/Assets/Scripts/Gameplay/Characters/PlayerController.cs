@@ -73,6 +73,11 @@ public class PlayerController : CharacterBehaviour {
                 break;
             case GameState.Shot:
                 InitiateShot();
+                StopRotation();
+                break;
+            case GameState.TargetHit:
+                shotFlag = false;
+                SetCollisions(false);
                 break;
             case GameState.End:
                 StopRotation();
@@ -95,11 +100,10 @@ public class PlayerController : CharacterBehaviour {
         transform.SetParent(player.transform.parent);
         playerPos = transform.localPosition;
         playerRot = transform.localRotation;
-        StopRotation();
         shotFlag = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (shotFlag)
         {
@@ -118,11 +122,11 @@ public class PlayerController : CharacterBehaviour {
     {
         switch (collision.gameObject.tag)
         {
-            case "Target":
-                shotFlag = false;
-                SetCollisions(false);
-                GameplayContoller.Instance.PlayerCollidedWithTarget();
-                break;
+            //case "Target":
+                //shotFlag = false;
+                //SetCollisions(false);
+                //GameplayContoller.Instance.PlayerCollidedWithTarget();
+                //break;
             case "Timer":
                 SetCollisions(false);
                 GameplayContoller.Instance.PlayerCollidedWithTimer();

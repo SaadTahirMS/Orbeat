@@ -53,6 +53,7 @@ public class OrbitController : CharacterBehaviour
                 //StopScale();
                 break;
             case GameState.TargetHit:
+                StopRotation();
                 //StopBeats();
                 //StopScale();
                 break;
@@ -119,6 +120,10 @@ public class OrbitController : CharacterBehaviour
 
     public void SetOrbits(List<Transform> orbits){
         this.orbits = orbits;
+    }
+
+    public Transform GetOrbit(int i){
+        return orbits[i];
     }
 
 }
