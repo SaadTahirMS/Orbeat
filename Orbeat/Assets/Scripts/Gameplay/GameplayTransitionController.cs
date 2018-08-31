@@ -50,7 +50,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
         if (isFirstTime)
         {
-            playerPositionTween = PlayerPosition(playerController.Position, Constants.transitionTime);
+            playerPositionTween = PlayerPosition(playerController.Position, Constants.playertransitionTime);
             playerScaleTween = PlayerScale();
             levelTransitionOnStartSeq.Append(playerScaleTween);
         }
@@ -84,8 +84,8 @@ public class GameplayTransitionController : MonoBehaviour {
         //    levelTransitionOnStartSeq.Join(TargetScale(i));
         //    levelTransitionOnStartSeq.Join(TargetFadeIn(i));
         //}
-        levelTransitionOnStartSeq.SetEase(Ease.Linear)
-        .OnComplete(StartTransitionComplete)
+        levelTransitionOnStartSeq.SetEase(Ease.InCubic);
+        levelTransitionOnStartSeq.OnComplete(StartTransitionComplete)
         .Play();
 
     }
@@ -119,7 +119,7 @@ public class GameplayTransitionController : MonoBehaviour {
     private Tween PlayerScale()
     {
         playerController.transform.localScale = Vector3.zero; 
-        return playerController.transform.DOScale(Vector3.one, Constants.transitionTime);
+        return playerController.transform.DOScale(Vector3.one, Constants.playertransitionTime);
     }
 
     private Tween PlayerPosition(Vector3 pos,float transitionTime)
@@ -130,7 +130,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private Tween OrbitsScale(Vector3 scale)
     {
-        return orbitController.transform.DOScale(scale, Constants.transitionTime);
+        return orbitController.transform.DOScale(scale, Constants.playertransitionTime);
     }
 
     private void ResetOrbitScale(){
@@ -142,7 +142,7 @@ public class GameplayTransitionController : MonoBehaviour {
     //}
 
     private Tween InitialScoreScale(Vector3 value){
-        return gameplayRefs.scoreText.transform.DOScale(value, Constants.transitionTime);
+        return gameplayRefs.scoreText.transform.DOScale(value, Constants.playertransitionTime);
     }
 
     private void ScoreScale(Vector2 value){
@@ -151,7 +151,7 @@ public class GameplayTransitionController : MonoBehaviour {
     }
 
     private Tween ScorePosition(Vector3 value){
-        return gameplayRefs.scoreText.transform.DOLocalMove(value, Constants.transitionTime);
+        return gameplayRefs.scoreText.transform.DOLocalMove(value, Constants.playertransitionTime);
     }
 
     private Tween ScoreAlpha()
@@ -162,7 +162,7 @@ public class GameplayTransitionController : MonoBehaviour {
     private void StartTransitionComplete(){
         GameplayContoller.Instance.IsAllowedToShot = true;
         GameplayContoller.Instance.playerController.SetCollisions(true);
-
+        print("Allowed to Shot");
         //SetOrbitIndividualScales(orbitController);
         //ScoreBeat();
         TimerMovement();

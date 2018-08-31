@@ -154,7 +154,7 @@ public class PlayerController : CharacterBehaviour {
     private void CollisionWithBoundary(){
         //Vector3 position = Camera.main.ScreenToViewportPoint(transform.position);
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.x < 0 || pos.x > 1 || pos.y < 0 || pos.y > 1)
+        if (pos.x < -0.05 || pos.x > 1.05 || pos.y < -0.05 || pos.y > 1.05)
         {
             SetCollisions(false);
             GameplayContoller.Instance.PlayerCollidedWithBoundary();

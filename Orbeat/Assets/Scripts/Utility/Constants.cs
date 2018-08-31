@@ -65,7 +65,8 @@ public static class Constants {
     public static float scoreAlpha = 0.5f;
 
     //Tweening
-    public static float transitionTime = .45f; 
+    public static float transitionTime = .45f;
+    public static float playertransitionTime = .25f;
     public static float beatTime = 0.195f;
     public static float beatScale = 0.04f;
     public static float scoreBeatTime = .19f;
