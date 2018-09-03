@@ -7,7 +7,8 @@ public class MainOrbitController : CharacterBehaviour
 {
     [Range(0,99)]
     public List<int> targetProbabilty;
-    public List<Transform> orbits;
+    //public List<Transform> orbits;
+    public List<RectTransform> orbits;
     private Vector3 position;
 
     public Vector3 Position
@@ -81,7 +82,12 @@ public class MainOrbitController : CharacterBehaviour
     //    }
     //}
 
-    public List<Transform> GetOrbits(){
+    //public List<Transform> GetOrbits(){
+    //    return orbits;
+    //}
+
+    public List<RectTransform> GetOrbitsRT()
+    {
         return orbits;
     }
 
@@ -100,18 +106,19 @@ public class MainOrbitController : CharacterBehaviour
     //    }
     //}
 
-    public Tween ScaleDown(int orbitIndex,Vector3 value){
-        return orbits[orbitIndex].GetComponent<Scaler>().DoScale(value);
-        //orbits[orbitIndex].GetComponent<Scaler>().DoHeightWidth
-        //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
-    }
-
-    public void ScaleDownHW(int orbitIndex,float height,float width){
-        orbits[orbitIndex].GetComponent<Scaler>().DoHeightWidth(height, width);
-    }
+    //public Tween ScaleDown(int orbitIndex,Vector3 value){
+    //    return orbits[orbitIndex].GetComponent<Scaler>().DoScale(value);
+    //    //orbits[orbitIndex].GetComponent<Scaler>().DoHeightWidth
+    //    //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
+    //}
 
     public Vector3 GetCurrentScale(int orbitIndex){
         return orbits[orbitIndex].localScale;
+    }
+
+    public Vector2 GetCurrentHW(int orbitIndex)
+    {
+        return orbits[orbitIndex].sizeDelta;
     }
 
     //Sequence scaleSequence;
@@ -127,11 +134,21 @@ public class MainOrbitController : CharacterBehaviour
     //    scaleSequence.Kill();
     //}
 
-    public void SetOrbits(List<Transform> orbits){
+    //public void SetOrbits(List<Transform> orbits){
+    //    this.orbits = orbits;
+    //}
+
+    public void SetOrbits(List<RectTransform> orbits)
+    {
         this.orbits = orbits;
     }
 
     public Transform GetOrbit(int i){
+        return orbits[i];
+    }
+
+    public RectTransform GetOrbitRT(int i)
+    {
         return orbits[i];
     }
 

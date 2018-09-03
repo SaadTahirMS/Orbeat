@@ -6,9 +6,9 @@ public static class Constants {
 
     //Initials
     public static float referenceWidth = 740f;
-    public static Vector3 orbitsDistance = new Vector3(0.5f,0.5f,0.5f);//distance between orbits
-    public static Vector3 orbitResetScale = new Vector3(0.5f, 0.5f, 0.5f);//when to reset the orbits
-    public static Vector3 intialOrbitScale = new Vector3(3.5f, 3.5f, 3.5f);//intial value of the orbits
+    public static Vector2 orbitsDistance = new Vector2(100f,100f);//distance between orbits
+    public static Vector2 orbitResetScale = new Vector2(100f,100f);//when to reset the orbits
+    public static Vector2 intialOrbitScale = new Vector2(2150f,2150f);//intial value of the orbits
     public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
 
     //Perfect hit text
@@ -38,7 +38,7 @@ public static class Constants {
     public static float targetMaxRotationSpeed = 20f;
 
     //Movement
-    public static float playerMoveSpeed = 20f;    //Increase to decrease time
+    public static float playerMoveSpeed = 30f;    //Increase to decrease time
     public static float playerOrbitScaleSpeed = 20f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
