@@ -8,7 +8,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     List<MyTargetController> targetIDs;
     PlayerController playerController;
-    OrbitController orbitController;
+    MainOrbitController orbitController;
     GameplayRefs gameplayRefs;
 
     public Transform playerOrbit;
@@ -22,7 +22,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     //private TargetController currentTargetController;
 
-    public void Initialize(GameplayRefs gameplayRefs,PlayerController playerController,OrbitController orbitController,List<MyTargetController> targetIDs){
+    public void Initialize(GameplayRefs gameplayRefs,PlayerController playerController,MainOrbitController orbitController,List<MyTargetController> targetIDs){
         this.targetIDs = targetIDs;
         this.playerController = playerController;
         this.orbitController = orbitController;
@@ -50,6 +50,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
         if (isFirstTime)
         {
+            playerController.transform.localPosition = Vector3.zero; 
             playerPositionTween = PlayerPosition(playerController.Position, Constants.playertransitionTime);
             playerScaleTween = PlayerScale();
             levelTransitionOnStartSeq.Append(playerScaleTween);
@@ -124,7 +125,6 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private Tween PlayerPosition(Vector3 pos,float transitionTime)
     {
-        //playerController.transform.localPosition = Vector3.zero; 
         return playerController.transform.DOLocalMove(pos, transitionTime);
     }
 

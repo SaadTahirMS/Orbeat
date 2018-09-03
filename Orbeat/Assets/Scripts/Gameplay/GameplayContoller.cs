@@ -11,7 +11,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public PlayerController playerController;
     public List<MyTargetController> targetIDs;
-    public OrbitController orbitController;
+    public MainOrbitController orbitController;
     public ColorController colorController;
     public GameplayTransitionController gameplayTransitionController;
    
