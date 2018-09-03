@@ -124,7 +124,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private Tween PlayerPosition(Vector3 pos,float transitionTime)
     {
-        playerController.transform.localPosition = Vector3.zero; 
+        //playerController.transform.localPosition = Vector3.zero; 
         return playerController.transform.DOLocalMove(pos, transitionTime);
     }
 
@@ -283,8 +283,8 @@ public class GameplayTransitionController : MonoBehaviour {
             {
                 //Vector3 scale = orbitsTransform[i].transform.localScale - scaleValue;
                 Vector3 scale = initialScales[i] - scaleValue;
-                if (scale.y <= 0f)
-                    orbitsTransform[i].GetComponent<Image>().DOFade(0f, 1f);
+                //if (scale.y <= 0f)
+                    //orbitsTransform[i].GetComponent<Image>().DOFade(0f, 0f);
                 Tween scaleTween = orbitController.ScaleDown(i, scale);
                 levelTransitionOnTargetHitSeq.Join(scaleTween);
             }
@@ -423,7 +423,7 @@ public class GameplayTransitionController : MonoBehaviour {
                 //orbitsTransform[i].GetComponent<Image>().DOFade(0f, Constants.transitionTime);
                 //orbitsTransform[i].gameObject.SetActive(false);
                 orbitsTransform[i].transform.localScale = orbitController.GetCurrentScale(i) + Constants.intialOrbitScale;
-                //orbitsTransform[i].gameObject.SetActive(true);
+                orbitsTransform[i].gameObject.SetActive(true);
                 //orbitsTransform[i].GetComponent<Image>().DOFade(1f, 5f);
                 //orbitsTransform[i].transform.DOScale(Constants.intialOrbitScale.x, Constants.transitionTime);
 

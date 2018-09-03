@@ -158,7 +158,6 @@ public class GameplayViewController : IController
     }
 
     public void SetCenterOrbits(bool value){
-        gameplayRefs.innerOrbitImg.gameObject.SetActive(value);
         gameplayRefs.timerOrbitImg.gameObject.SetActive(value);
     }
 }

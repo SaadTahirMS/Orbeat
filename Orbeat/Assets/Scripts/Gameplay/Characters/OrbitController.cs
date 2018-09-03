@@ -98,7 +98,8 @@ public class OrbitController : CharacterBehaviour
     //}
 
     public Tween ScaleDown(int orbitIndex,Vector3 value){
-        return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
+        return orbits[orbitIndex].GetComponent<Scaler>().DoScale(value);
+        //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
     }
 
     public Vector3 GetCurrentScale(int orbitIndex){

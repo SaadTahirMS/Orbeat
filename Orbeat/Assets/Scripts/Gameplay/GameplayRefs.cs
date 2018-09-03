@@ -9,7 +9,6 @@ public class GameplayRefs : MonoBehaviour {
     public Image flashImg;
     public Color flashColor;
     public List<Image> orbitImg;
-    public Image innerOrbitImg;
     public Image timerOrbitImg;
     public Camera cam;
     public Image playerOrbitImg;

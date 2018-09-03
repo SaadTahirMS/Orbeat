@@ -51,6 +51,7 @@ public static class Constants {
     public static Vector3 scoreGameOverScale = new Vector2(400f, 400f);
     public static Vector3 scoreInitialScale = new Vector3(1f, 1f, 1f);
     public static Vector3 scoreInitialScaleWH = new Vector3(90f, 90f, 90f);
+    public static float orbitScaleThreshold = 0.25f; //when the orbits will active false on target hit
 
     //Shot
     public static float playerShotSpeed = 15f;    //Increase to increase shot speed
