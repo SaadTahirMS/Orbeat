@@ -217,7 +217,7 @@ public class GameplayTransitionController : MonoBehaviour {
         for (int i = 0; i < orbitScales.Count; i++)
         {
             Vector2 scale = orbitController.GetCurrentHW(i);
-            Vector2 value = scale - Vector2.one * 100f;
+            Vector2 value = scale - Constants.orbitReduceScale;
             timerMovement.Join(orbitScales[i].DOSizeDelta(value, Constants.orbitsScaleSpeed));
         }
         timerMovement.Play();
