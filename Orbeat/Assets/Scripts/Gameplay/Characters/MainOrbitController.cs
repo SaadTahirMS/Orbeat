@@ -112,6 +112,10 @@ public class MainOrbitController : CharacterBehaviour
     //    //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
     //}
 
+    public Tween ScaleDownHW(int orbitIndex,Vector2 value){
+        return orbits[orbitIndex].DOSizeDelta(value,Constants.transitionTime);
+    }
+
     public Vector3 GetCurrentScale(int orbitIndex){
         return orbits[orbitIndex].localScale;
     }

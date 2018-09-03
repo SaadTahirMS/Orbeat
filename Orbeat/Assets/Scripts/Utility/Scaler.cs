@@ -7,7 +7,6 @@ using DG.Tweening;
 public class Scaler : MonoBehaviour {
 
     public RectTransform inner;
-    //public RectTransform target;
     private RectTransform rect;
 
     private void Start()
@@ -17,8 +16,6 @@ public class Scaler : MonoBehaviour {
 
     private void Update()
     {
-        //if(target!=null)
-            //target.sizeDelta = rect.sizeDelta;
         inner.sizeDelta = rect.sizeDelta - Constants.orbitsDistance;
     }
 }
