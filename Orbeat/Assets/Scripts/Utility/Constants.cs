@@ -23,11 +23,11 @@ public static class Constants {
 
 
     //Positions
-    public static Vector3 playerInitialPosition = new Vector3(135f, 0f, 0f);
+    public static Vector3 playerInitialPosition = new Vector3(175f, 0f, 0f);
     public static Vector3 targetInitialPosition1 = new Vector3(260f, 0f, 0f);
     public static Vector3 targetInitialPosition2 = new Vector3(395f, 0f, 0f);
     public static Vector3 targetInitialPosition3 = new Vector3(530f, 0f, 0f);
-    public static Vector3 scoreInitialPosition = new Vector3(0f, -12.3f, 0f);
+    public static Vector3 scoreInitialPosition = new Vector3(0f, 0f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
 

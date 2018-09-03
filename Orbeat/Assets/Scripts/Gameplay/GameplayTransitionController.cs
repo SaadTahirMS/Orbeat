@@ -11,7 +11,7 @@ public class GameplayTransitionController : MonoBehaviour {
     MainOrbitController orbitController;
     GameplayRefs gameplayRefs;
 
-    public Transform playerOrbit;
+    //public Transform playerOrbit;
 
     private Sequence levelTransitionOnStartSeq; //called when game starts at the beginning or after the level transition
     private Sequence levelTransitionOnTargetHitSeq;   //called on target hit
@@ -65,7 +65,7 @@ public class GameplayTransitionController : MonoBehaviour {
         //ResetOrbitScale();
         Tween orbitsScaleTween = OrbitsScale(Vector3.one);
         //PlayerOrbit 
-        playerOrbit.localScale = Vector3.one*0.5f;
+        //playerOrbit.localScale = Vector3.one*0.5f;
         //Score
         Tween scoreScale = InitialScoreScale(Constants.scoreInitialScale);
         ScoreScale(Constants.scoreInitialScaleWH);
@@ -165,7 +165,7 @@ public class GameplayTransitionController : MonoBehaviour {
         print("Allowed to Shot");
         //SetOrbitIndividualScales(orbitController);
         //ScoreBeat();
-        TimerMovement();
+        //TimerMovement();
     }
 
     private void SetOrbitIndividualScales(){
@@ -185,10 +185,10 @@ public class GameplayTransitionController : MonoBehaviour {
         StopTimerMovement();
         timerMovement = DOTween.Sequence();
         //Player Orbit tweens
-        Tween playerOrbitScale = PlayerOrbitScale();
+        //Tween playerOrbitScale = PlayerOrbitScale();
         //Player Movement tweens
         Tween playerMovement = PlayerMovement();
-        timerMovement.Append(playerOrbitScale);
+        //timerMovement.Append(playerOrbitScale);
         timerMovement.Join(playerMovement);
         //for (int i = 0; i < targetsController.Count; i++)
         //{
@@ -196,14 +196,14 @@ public class GameplayTransitionController : MonoBehaviour {
         //}
 
         //Orbits Scale
-        List<Transform> orbitScales = orbitController.GetOrbits();//list of orbits in the game
-        for (int i = 0; i < orbitScales.Count;i++){
-            Vector3 scale = orbitController.GetCurrentScale(i);
-            Vector3 value = scale - Vector3.one * 0.5f;
-            timerMovement.Join(orbitScales[i].DOScale(value, Constants.orbitsScaleSpeed));
-            //timerMovement.Join(orbitScales[i].DOScale(Vector3.one*0.5f, Constants.playerOrbitScaleSpeed));
+        //List<Transform> orbitScales = orbitController.GetOrbits();//list of orbits in the game
+        //for (int i = 0; i < orbitScales.Count;i++){
+        //    Vector3 scale = orbitController.GetCurrentScale(i);
+        //    Vector3 value = scale - Vector3.one * 0.5f;
+        //    timerMovement.Join(orbitScales[i].DOScale(value, Constants.orbitsScaleSpeed));
+        //    //timerMovement.Join(orbitScales[i].DOScale(Vector3.one*0.5f, Constants.playerOrbitScaleSpeed));
 
-        }
+        //}
         timerMovement.Play();
     }
 
@@ -212,11 +212,11 @@ public class GameplayTransitionController : MonoBehaviour {
     }
 
 
-    private Tween PlayerOrbitScale()
-    {
-        playerOrbit.localScale = Vector3.one*0.5f;
-        return playerOrbit.DOScale(Vector3.zero, Constants.playerOrbitScaleSpeed);
-    }
+    //private Tween PlayerOrbitScale()
+    //{
+    //    playerOrbit.localScale = Vector3.one*0.5f;
+    //    return playerOrbit.DOScale(Vector3.zero, Constants.playerOrbitScaleSpeed);
+    //}
 
     private Tween PlayerMovement(){
         return playerController.transform.DOLocalMove(Vector3.zero, Constants.playerMoveSpeed);
@@ -263,7 +263,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
         List<Transform> orbitsTransform = orbitController.GetOrbits();
         //Tween playerScaleToZeroTween = PlayerScaleToZero();
-        levelTransitionOnTargetHitSeq.Append(playerOrbit.DOScale(0f, Constants.transitionTime));
+        //levelTransitionOnTargetHitSeq.Append(playerOrbit.DOScale(0f, Constants.transitionTime));
         levelTransitionOnTargetHitSeq.Join(playerMoveToValueTween);
         //playerController.gameObject.SetActive(false);
         //for (int i = 0; i < targetsController.Count;i++){
@@ -279,15 +279,16 @@ public class GameplayTransitionController : MonoBehaviour {
         //orbitController.StopBeats();
         for (int loopCount = 0; loopCount < orbitIndex; loopCount++)
         {
-            for (int i = 0; i < orbitsTransform.Count; i++)
-            {
-                //Vector3 scale = orbitsTransform[i].transform.localScale - scaleValue;
-                Vector3 scale = initialScales[i] - scaleValue;
-                //if (scale.y <= 0f)
-                    //orbitsTransform[i].GetComponent<Image>().DOFade(0f, 0f);
-                Tween scaleTween = orbitController.ScaleDown(i, scale);
-                levelTransitionOnTargetHitSeq.Join(scaleTween);
-            }
+            //for (int i = 0; i < orbitsTransform.Count; i++)
+            //{
+            //    //Vector3 scale = orbitsTransform[i].transform.localScale - scaleValue;
+            //    Vector3 scale = initialScales[i] - scaleValue;
+            //    //if (scale.y <= 0f)
+            //        //orbitsTransform[i].GetComponent<Image>().DOFade(0f, 0f);
+            //    Tween scaleTween = orbitController.ScaleDown(i, scale);
+            //    //levelTransitionOnTargetHitSeq.Join(scaleTween);
+            //    //orbitController.ScaleDownHW(i,)
+            //}
 
             levelTransitionOnTargetHitSeq.SetEase(Ease.Linear);
             levelTransitionOnTargetHitSeq.OnComplete(() => TargetHitTransitionComplete(orbitIndex));
@@ -374,9 +375,9 @@ public class GameplayTransitionController : MonoBehaviour {
     }
 
     private void TargetHitTransitionComplete(int orbitIndex){
-        SortOrbits(orbitIndex);
-        SortTargetIDs(orbitIndex);
-        CheckOrbitScale();
+        //SortOrbits(orbitIndex);
+        //SortTargetIDs(orbitIndex);
+        //CheckOrbitScale();
         GameplayContoller.Instance.ChangeGameState(GameState.Start);
     }
 

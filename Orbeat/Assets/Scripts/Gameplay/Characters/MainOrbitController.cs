@@ -47,7 +47,7 @@ public class MainOrbitController : CharacterBehaviour
             case GameState.Start:
                 SetPosition();
                 Rotate();
-                TargetProbability();
+                //TargetProbability();
                 //DoScale();
                 //StartBeats();
                 break;
@@ -102,7 +102,12 @@ public class MainOrbitController : CharacterBehaviour
 
     public Tween ScaleDown(int orbitIndex,Vector3 value){
         return orbits[orbitIndex].GetComponent<Scaler>().DoScale(value);
+        //orbits[orbitIndex].GetComponent<Scaler>().DoHeightWidth
         //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
+    }
+
+    public void ScaleDownHW(int orbitIndex,float height,float width){
+        orbits[orbitIndex].GetComponent<Scaler>().DoHeightWidth(height, width);
     }
 
     public Vector3 GetCurrentScale(int orbitIndex){
