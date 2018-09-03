@@ -4344,7 +4344,7 @@ MonoBehaviour:
   - {fileID: 361791389}
   - {fileID: 1739081282}
   - {fileID: 396143168}
-  targetProbabilty: 63000000630000006300000063000000630000006300000063000000
+  targetProbabilty: 63000000320000006300000000000000000000000000000000000000
   orbits:
   - {fileID: 182387077}
   - {fileID: 423443433}
@@ -11227,7 +11227,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 396143164}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
