@@ -45,6 +45,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public void Open()
     {
+        Application.targetFrameRate = 60;
+
         isFirstTime = true;
 
         InitializeGameplayViewController();

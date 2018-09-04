@@ -282,7 +282,7 @@ public class GameplayTransitionController : MonoBehaviour {
         List<RectTransform> orbitsTransform = orbitController.GetOrbitsRT();
         //Tween playerScaleToZeroTween = PlayerScaleToZero();
         //levelTransitionOnTargetHitSeq.Append(playerOrbit.DOScale(0f, Constants.transitionTime));
-        levelTransitionOnTargetHitSeq.Append(gameplayRefs.playerOrbit.DOSizeDelta(Vector2.zero, Constants.transitionTime));
+        levelTransitionOnTargetHitSeq.Append(gameplayRefs.playerOrbit.DOSizeDelta(Constants.orbitReduceScale, Constants.transitionTime));
         levelTransitionOnTargetHitSeq.Join(playerMoveToValueTween);
         //playerController.gameObject.SetActive(false);
         //for (int i = 0; i < targetsController.Count;i++){
