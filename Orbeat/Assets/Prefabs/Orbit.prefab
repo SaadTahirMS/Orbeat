@@ -181,15 +181,7 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 325, y: 0}
-  - {x: 323.99814, y: 25.499207}
-  - {x: 320.99872, y: 50.841206}
-  - {x: 316.02023, y: 75.86974}
-  - {x: 309.09338, y: 100.43053}
   - {x: 300.26083, y: 124.37212}
-  - {x: 289.57712, y: 147.5469}
-  - {x: 277.10806, y: 169.81203}
-  - {x: 262.9305, y: 191.0302}
-  - {x: 247.13194, y: 211.07062}
   - {x: 229.8097, y: 229.8097}
 --- !u!114 &114010509345983036
 MonoBehaviour:
@@ -295,7 +287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472c6ca915f8444eabe5c4d2ece18edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 224150990977799346}
   inner: {fileID: 224025110176823880}
+  rect: {fileID: 224248680043652472}
+  arcCollider: {fileID: 114677932328992014}
+  edgeCollider: {fileID: 68873525861122736}
 --- !u!114 &114196475648683978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -400,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 325
-  smoothness: 10
+  smoothness: 2
   totalAngle: 45
   offsetRotation: 0
   pizzaSlice: 0

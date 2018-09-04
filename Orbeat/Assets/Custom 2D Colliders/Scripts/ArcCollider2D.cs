@@ -37,7 +37,7 @@ public class ArcCollider2D : MonoBehaviour {
 
     //[Range(1, 25)]
     public float radius = 3;
-    [Range(10,90)]
+    //[Range(10,90)]
     public int smoothness = 24;
 
     [Range(10, 360)]

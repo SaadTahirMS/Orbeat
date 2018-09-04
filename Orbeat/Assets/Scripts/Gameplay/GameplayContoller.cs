@@ -142,7 +142,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 //print(playerShotPos);
                 break;
             case GameState.TargetHit:
-                Scoring(isPerfectHit);
+                Scoring(isPerfectHit,Constants.targetID);
                 playerController.ChangeState(GameState.TargetHit);
                 orbitController.ChangeState(GameState.TargetHit);
                 //for (int i = 0; i < targetsController.Count; i++){
@@ -230,9 +230,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameplayViewController.ChangeArrowColor();
     }
 
-    private void Scoring(bool perfectHit){
+    private void Scoring(bool perfectHit, int targetID){
         //increment target hit in order to level up
-        targetHitCount += 1;
+        targetHitCount += targetID;//add score based on which target u hit
         //if (targetHitCount <= 4)
             //ChangeArrowAlpha();
 
@@ -240,22 +240,25 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         {
             LevelUp();
         }
-        //Add +5 and incr when perfect hit
-        if (perfectHit)
-        {
-            SoundController.Instance.PlaySFXSound(SFX.PerfectHit);
-            AddScore(5 + comboCount);
-            SetPerfectHitText(GetPerfectHitArray());
-            comboCount ++;
-            comboTextCount++;
-            gameplayViewController.Flash(gameplayRefs.flashColor, Constants.flashTime);
-        }
-        else
-        { //else add +1 with 0 comboCount
-            AddScore(1);
-            comboCount = 0;
-            comboTextCount = 0;
-        }
+        ////Add +5 and incr when perfect hit
+        //if (perfectHit)
+        //{
+        //    SoundController.Instance.PlaySFXSound(SFX.PerfectHit);
+        //    AddScore(5 + comboCount);
+        //    SetPerfectHitText(GetPerfectHitArray());
+        //    comboCount ++;
+        //    comboTextCount++;
+        //    gameplayViewController.Flash(gameplayRefs.flashColor, Constants.flashTime);
+        //}
+        //else
+        //{ //else add +1 with 0 comboCount
+        //    AddScore(1);
+        //    comboCount = 0;
+        //    comboTextCount = 0;
+        //}
+        AddScore(1);
+        comboCount = 0;
+        comboTextCount = 0;
         ChangeColors();
         gameplayViewController.ScoreColor();
 
