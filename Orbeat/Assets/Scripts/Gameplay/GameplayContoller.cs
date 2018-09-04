@@ -232,7 +232,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void Scoring(bool perfectHit, int targetID){
         //increment target hit in order to level up
-        targetHitCount += targetID;//add score based on which target u hit
+        targetHitCount += 1;
         //if (targetHitCount <= 4)
             //ChangeArrowAlpha();
 
@@ -256,7 +256,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         //    comboCount = 0;
         //    comboTextCount = 0;
         //}
-        AddScore(1);
+        AddScore(targetID);//add score based on target u hit, 1 for first orbit
         comboCount = 0;
         comboTextCount = 0;
         ChangeColors();
