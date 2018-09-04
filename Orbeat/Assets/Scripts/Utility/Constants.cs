@@ -6,11 +6,11 @@ public static class Constants {
 
     //Initials
     public static float referenceWidth = 740f;
-    public static Vector2 orbitsDistance = new Vector2(100f,100f);//distance between orbits
+    public static Vector2 orbitsDistance = new Vector2(250f,250f);//distance between orbits
     public static Vector2 orbitResetScale = new Vector2(100f,100f);//when to reset the orbits
     public static Vector2 intialOrbitScale = new Vector2(2150f,2150f);//intial value of the orbits
     public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
-    public static Vector2 orbitReduceScale = new Vector2(100f, 100f);
+    public static Vector2 orbitReduceScale = new Vector2(100f, 100f);//how much scale to reduce for each orbit
 
     //Perfect hit text
     public static string[] perfectHitArray = new string[]{
@@ -48,7 +48,7 @@ public static class Constants {
     public static float targetMoveSpeed = 11f;    //Increase to decrease time
 
     //Scale
-    public static Vector3 playerOrbitInitialScale = new Vector3(1f, 1f, 1f);
+    public static Vector2 playerOrbitInitialScale = new Vector2(400f, 400f);
     public static Vector3 scoreGameOverScale = new Vector2(400f, 400f);
     public static Vector3 scoreInitialScale = new Vector3(1f, 1f, 1f);
     public static Vector3 scoreInitialScaleWH = new Vector3(90f, 90f, 90f);

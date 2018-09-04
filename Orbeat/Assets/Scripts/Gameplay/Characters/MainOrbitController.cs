@@ -9,6 +9,7 @@ public class MainOrbitController : CharacterBehaviour
     public List<int> targetProbabilty;
     //public List<Transform> orbits;
     public List<RectTransform> orbits;
+
     private Vector3 position;
 
     public Vector3 Position
@@ -145,6 +146,14 @@ public class MainOrbitController : CharacterBehaviour
     public void SetOrbits(List<RectTransform> orbits)
     {
         this.orbits = orbits;
+    }
+
+    public void SortInHeirarchy(){
+        int j = orbits.Count - 1;
+        for (int i = 0; i < orbits.Count;i++){
+            orbits[i].SetSiblingIndex(j);
+            j--;
+        }
     }
 
     public Transform GetOrbit(int i){

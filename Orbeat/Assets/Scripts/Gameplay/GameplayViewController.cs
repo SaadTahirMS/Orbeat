@@ -90,7 +90,7 @@ public class GameplayViewController : IController
         }
         //gameplayRefs.innerOrbitImg.color = colorSet.innerOrbitColor;
         gameplayRefs.cam.backgroundColor = colorSet.backgroundColor;
-        gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
+        //gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
         gameplayRefs.playerImg.color = colorSet.playerColor;
         gameplayRefs.scoreText.color = colorSet.scoreColor;
         //gameplayRefs.shareBtnImg.color = colorSet.shareBtnColor;
