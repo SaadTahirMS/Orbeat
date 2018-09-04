@@ -51,7 +51,7 @@ public class MainOrbitController : CharacterBehaviour
                 SetPosition();
                 Rotate();
                 //SetColliders();
-                TargetProbability();
+                //TargetProbability();
                 //DoScale();
                 //StartBeats();
                 break;
