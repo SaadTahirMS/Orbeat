@@ -395,7 +395,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     private void TargetHitTransitionComplete(int orbitIndex){
         SortOrbits(orbitIndex);
-        SortOrbitsInHeirarchy();
+        SortOrbitsInHierarchy();
         SortTargetIDs(orbitIndex);
         CheckOrbitScale();
         GameplayContoller.Instance.ChangeGameState(GameState.Start);
@@ -416,8 +416,8 @@ public class GameplayTransitionController : MonoBehaviour {
         orbitController.SetOrbits(orbitTransforms);
     }
 
-    private void SortOrbitsInHeirarchy(){
-        orbitController.SortInHeirarchy();//sorting orbits in heirarchy
+    private void SortOrbitsInHierarchy(){
+        orbitController.SortInHierarchy();//sorting orbits in heirarchy
         gameplayRefs.playerOrbit.SetAsLastSibling();//set player orbit as last in heirarchy
         gameplayRefs.timerOrbitImg.transform.SetAsLastSibling();//set timer as last in heirarchy
     }

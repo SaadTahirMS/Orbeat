@@ -148,7 +148,7 @@ public class MainOrbitController : CharacterBehaviour
         this.orbits = orbits;
     }
 
-    public void SortInHeirarchy(){
+    public void SortInHierarchy(){
         int j = orbits.Count - 1;
         for (int i = 0; i < orbits.Count;i++){
             orbits[i].SetSiblingIndex(j);
