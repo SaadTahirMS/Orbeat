@@ -27,11 +27,11 @@ public class Scaler : MonoBehaviour
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
     }
 
-    public void SetColliders()
-    {
-        arcCollider.radius = rect.sizeDelta.x / 2f;
-        edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
-    }
+    //public void SetCollider()
+    //{
+    //    arcCollider.radius = rect.sizeDelta.x / 2f - 50f;
+    //    edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
+    //}
 
 
 }

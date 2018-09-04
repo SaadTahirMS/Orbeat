@@ -220,7 +220,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public void TimerWarning(){
         print("Player close to timer");
-        gameplayViewController.TimerWarningSequence(Color.red, Constants.warningSpeed);
+        gameplayViewController.TimerWarningSequence(Constants.timerWarningColor, Constants.warningSpeed);
     }
 
     //private void ChangeArrowAlpha(){

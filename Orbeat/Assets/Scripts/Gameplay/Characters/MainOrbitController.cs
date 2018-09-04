@@ -51,7 +51,7 @@ public class MainOrbitController : CharacterBehaviour
                 SetPosition();
                 Rotate();
                 //SetColliders();
-                //TargetProbability();
+                TargetProbability();
                 //DoScale();
                 //StartBeats();
                 break;
@@ -155,6 +155,8 @@ public class MainOrbitController : CharacterBehaviour
     {
         this.orbits = orbits;
     }
+
+        
 
     public void SortInHierarchy(){
         int j = orbits.Count - 1;

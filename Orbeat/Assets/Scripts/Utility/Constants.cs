@@ -55,13 +55,14 @@ public static class Constants {
     public static float orbitScaleThreshold = 0.25f; //when the orbits will active false on target hit
 
     //Shot
-    public static float playerShotSpeed = 15f;    //Increase to increase shot speed
+    public static float playerShotSpeed = 20f;    //Increase to increase shot speed
     public static float perfectHitThreshold = 3f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
     public static int targetID = 1; //target ID of which target u hit
 
     //Color
-    public static Color timerInitialColor = new Color(255f, 0f, 0f, 0.4f);//red color with 0.4 alpha
+    public static Color timerInitialColor = new Color(255f, 0f, 0f, 0.4f);//red color with 0.4 alpha 7117AFFF
+    public static Color timerWarningColor = new Color(255f, 0f, 0f, 0.8f);//red color with 0.4 alpha 7117AFFF
     public static float orbitAlpha = 1f;//0.5f;
     public static float perfectTextAlpha = 0f;
     public static float scoreAlpha = 0.5f;
