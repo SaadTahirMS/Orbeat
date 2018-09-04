@@ -9,6 +9,7 @@ public class MainOrbitController : CharacterBehaviour
     public List<int> targetProbabilty;
     //public List<Transform> orbits;
     public List<RectTransform> orbits;
+    //public List<Scaler> orbitScalers;
 
     private Vector3 position;
 
@@ -49,6 +50,7 @@ public class MainOrbitController : CharacterBehaviour
             case GameState.Start:
                 SetPosition();
                 Rotate();
+                //SetColliders();
                 //TargetProbability();
                 //DoScale();
                 //StartBeats();
@@ -73,6 +75,12 @@ public class MainOrbitController : CharacterBehaviour
     private Vector3 AssignPosition(){
         return Vector3.zero;
     }
+
+    //private void SetColliders(){
+    //    for (int i = 0; i < orbitScalers.Count;i++){
+    //        orbitScalers[i].SetCollider();
+    //    }
+    //}
 
     //private void StartBeat(){
     //    //orbit1Beat.DoBeat(Vector3.one,Constants.beatScale,Constants.beatTime,1);

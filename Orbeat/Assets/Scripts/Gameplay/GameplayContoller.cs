@@ -79,7 +79,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void InitializeColors(){
         colorController = new ColorController();
         colorController.Initialize();
-        ChangeColors(); //call initially and then after level up
+        //ChangeColors(); //call initially and then after level up
     }
 
     private void InitializeBeats(){
@@ -110,7 +110,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.Restart:
                 isFirstTime = true;
                 ResetScoring();
-                ChangeColors();
+                //ChangeColors();
                 gameplayViewController.SetCenterOrbits(true);
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
@@ -259,7 +259,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         AddScore(targetID);//add score based on target u hit, 1 for first orbit
         comboCount = 0;
         comboTextCount = 0;
-        ChangeColors();
+        //ChangeColors();
         gameplayViewController.ScoreColor();
 
     }
