@@ -60,7 +60,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeColors();
         InitializeBeats();
         InitializeTransitionController();
-        //SpawnTargetsWithProbabilty();
+        SpawnTargetsWithProbabilty(Constants.totalTargets);
         //SetTargetsSize();
         ChangeGameState(GameState.Start);
     }
@@ -107,22 +107,25 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 ResetAvailableOrbitList();
                 playerController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
+                if(!isFirstTime)
+                    SpawnTargetsWithProbabilty(Constants.targetID); //if it is not the first time, then spawn based on target hit index
                 gameplayTransitionController.LevelTransitionOnStart(isFirstTime);
                 isFirstTime = false;
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
-                SpawnTargetsWithProbabilty();
+
                 SetTargetsSize();
                 break;
             case GameState.Restart:
                 isFirstTime = true;
+                SpawnTargetsWithProbabilty(Constants.totalTargets);//spawn all targets with probability
                 ResetScoring();
                 //ChangeColors();
                 gameplayViewController.SetCenterOrbits(true);
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
-                //SetTargetsSize();
+                SetTargetsSize();
                 break;
             case GameState.End:
                 SoundController.Instance.SetPitch(.5f,false);
@@ -140,7 +143,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayTransitionController.LevelTransitionOnEnd();
                 Vibration.Vibrate();
                 targetFillAmount = Constants.maxTargetFillAmount;
-                ResetTargetSize();
+                ResetAllTargetSize();
                 break;
             case GameState.Shot:
                 gameplayTransitionController.StopTimerMovement();
@@ -203,8 +206,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     public void PlayerCollidedWithTarget(int targetID){
         print("Player collided with target: " + targetID);
-        print("Target name " + targetIDs[targetID - 1].name);
-        targetIDs[targetID-1].gameObject.SetActive(false);
         isAllowedToShot = false;
         Constants.targetID = targetID;
         //isPerfectHit = perfectHit;
@@ -336,9 +337,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Constants.availablePositions = new List<int>() { 1, 2, 3 };//array of positions
     }
 
-    private void SpawnTargetsWithProbabilty(){
+    private void SpawnTargetsWithProbabilty(int targetHitIndex){
+        SortTargetProbabilities(targetHitIndex);
+        int index = Constants.totalTargets - targetHitIndex;//targetHitIndex=1,totaltargets=7
         List<RectTransform> orbits = orbitController.GetOrbits();
-        for (int i = 0; i < orbits.Count; i++)
+        for (int i = index; i < Constants.totalTargets; i++)
         {
             GameObject target = orbits[i].Find("Target").gameObject;
             int ran = Random.Range(0, 100); //0 - 99 random number
@@ -347,6 +350,21 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             { //if generated ran number is less than the orbit's target probabilty, then spawn it
                 target.SetActive(true);
             }
+        }
+    }
+
+    private void SortTargetProbabilities(int targetHitIndex)
+    {
+        for (int i = 0; i < targetHitIndex; i++)
+        {
+            int j;
+            int key = targetsProbabilty[0];
+            for (j = 0; j < targetsProbabilty.Count - 1; j++)
+            {
+                //shift left
+                targetsProbabilty[j] = targetsProbabilty[j + 1];
+            }
+            targetsProbabilty[j] = key;
         }
     }
 
@@ -361,11 +379,20 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void ResetTargetSize()
     {
+        //for (int i = 0; i < targetIDs.Count; i++)
+        //{
+        //    targetIDs[i].ResetSize();
+        //}
+        targetIDs[Constants.targetID-1].ResetSize();
+    }
+
+    private void ResetAllTargetSize()
+    {
         for (int i = 0; i < targetIDs.Count; i++)
         {
             targetIDs[i].ResetSize();
         }
-
+        //targetIDs[Constants.targetID - 1].ResetSize();
     }
 
 }
