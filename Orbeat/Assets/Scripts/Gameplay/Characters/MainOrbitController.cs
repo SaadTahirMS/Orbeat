@@ -60,7 +60,7 @@ public class MainOrbitController : CharacterBehaviour
                 //StopScale();
                 break;
             case GameState.TargetHit:
-                StopRotation();
+                //StopRotation();
                 //StopBeats();
                 //StopScale();
                 break;

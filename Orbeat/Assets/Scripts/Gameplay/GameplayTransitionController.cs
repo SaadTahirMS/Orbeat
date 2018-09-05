@@ -183,6 +183,7 @@ public class GameplayTransitionController : MonoBehaviour {
         List<RectTransform> orbitsTransform = orbitController.GetOrbits();
         for (int i = 0; i < orbitsTransform.Count; i++)
         {
+            //targetIDs[i].gameObject.SetActive(true);
             initialScales.Add(orbitController.GetCurrentHW(i));
             //print(i + " : " + initialScales[i]);
             //orbitsTransform[i].localScale = initialScales[i];
@@ -248,7 +249,7 @@ public class GameplayTransitionController : MonoBehaviour {
 
     //public void LevelTransitionOnTargetHit(Vector3 targetScreenPos){
 
-    public void LevelTransitionOnTargetHit(Vector3 playerShotPos, int orbitIndex)
+    public void LevelTransitionOnTargetHit(Vector3 playerShotPos, int targetIndex)
     {
         //int targetOrbitPos = targetsController[targetIndex].GetOrbit();
         StopLevelTransitionOnTargetHit();
@@ -295,23 +296,22 @@ public class GameplayTransitionController : MonoBehaviour {
         //Setting pitch to zero that will result in stopping beats
         //SoundController.Instance.SetPitch(0);
         //scale down till the target orbit pos
-        Vector2 scaleValue = Constants.orbitsDistance * orbitIndex; //if pos is 3 then 1.5 of scale will be reduced of each orbit
-        //orbitController.StopBeats();
-        for (int loopCount = 0; loopCount < orbitIndex; loopCount++)
+        Vector2 scaleValue = Constants.orbitsDistance * targetIndex; 
+        for (int loopCount = 0; loopCount < targetIndex; loopCount++)
         {
             for (int i = 0; i < orbitsTransform.Count; i++)
             {
                 //Vector3 scale = orbitsTransform[i].transform.localScale - scaleValue;
                 Vector3 scale = initialScales[i] - scaleValue;
                 //if (scale.y <= 0f)
-                    //orbitsTransform[i].GetComponent<Image>().DOFade(0f, 0f);
+                //orbitsTransform[i].GetComponent<Image>().DOFade(0f, 0f);
                 Tween scaleTween = orbitController.ScaleDownHW(i, scale);
                 levelTransitionOnTargetHitSeq.Join(scaleTween);
                 //orbitController.ScaleDownHW(i,)
             }
 
             levelTransitionOnTargetHitSeq.SetEase(Ease.Linear);
-            levelTransitionOnTargetHitSeq.OnComplete(() => TargetHitTransitionComplete(orbitIndex));
+            levelTransitionOnTargetHitSeq.OnComplete(() => TargetHitTransitionComplete(targetIndex));
             levelTransitionOnTargetHitSeq.Play();
         }
         //RecursiveTransition(targetOrbitPos, orbitController);

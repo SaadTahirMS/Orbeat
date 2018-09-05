@@ -60,8 +60,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeColors();
         InitializeBeats();
         InitializeTransitionController();
-        SpawnTargetsWithProbabilty();
-        SetTargetsSize();
+        //SpawnTargetsWithProbabilty();
+        //SetTargetsSize();
         ChangeGameState(GameState.Start);
     }
 
@@ -111,7 +111,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 isFirstTime = false;
                 print("Start Game");
                 gameplayViewController.StopTimerWarningSequence();
-                //TargetOrbitAlpha();
+                SpawnTargetsWithProbabilty();
+                SetTargetsSize();
                 break;
             case GameState.Restart:
                 isFirstTime = true;
@@ -121,8 +122,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
-                SpawnTargetsWithProbabilty();
-                SetTargetsSize();
+                //SetTargetsSize();
                 break;
             case GameState.End:
                 SoundController.Instance.SetPitch(.5f,false);
@@ -131,8 +131,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.Shake(Constants.shakeTime);
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.End);
-                //for (int i = 0; i < targetsController.Count; i++)
-                    //targetsController[i].ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
                 //ResetCameraPosition();
                 print("Game Over");
@@ -161,8 +159,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 //ChangeGameState(GameState.Start);
                 gameplayTransitionController.LevelTransitionOnTargetHit(playerShotPos,Constants.targetID);
                 Vibration.Vibrate();
-                SpawnTargetsWithProbabilty();
-                SetTargetsSize();
+                ResetTargetSize();
+                //SetTargetsSize();
                 break;
         }
     }
@@ -203,7 +201,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     //}
 
     public void PlayerCollidedWithTarget(int targetID){
-        print("Player collided with target");
+        print("Player collided with target: " + targetID);
+        print("Target name " + targetIDs[targetID - 1].name);
+        targetIDs[targetID-1].gameObject.SetActive(false);
         isAllowedToShot = false;
         Constants.targetID = targetID;
         //isPerfectHit = perfectHit;
@@ -339,22 +339,32 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         List<RectTransform> orbits = orbitController.GetOrbits();
         for (int i = 0; i < orbits.Count; i++)
         {
+            GameObject target = orbits[i].Find("Target").gameObject;
             int ran = Random.Range(0, 100); //0 - 99 random number
-            orbits[i].Find("Target").gameObject.SetActive(false);
+            target.SetActive(false);
             if (ran < targetsProbabilty[i])
             { //if generated ran number is less than the orbit's target probabilty, then spawn it
-                orbits[i].Find("Target").gameObject.SetActive(true);
+                target.SetActive(true);
             }
         }
     }
 
-    //Set the target sizes of last 
+    //Set the targets size 
     private void SetTargetsSize(){
         for (int i = 0; i < targetIDs.Count;i++){
             targetIDs[i].SetSize(targetFillAmount);
         }
         targetFillAmount -= Constants.targetReduceAmount;
         targetFillAmount = Mathf.Clamp(targetFillAmount, Constants.minTargetFillAmount, Constants.maxTargetFillAmount);
+    }
+
+    private void ResetTargetSize()
+    {
+        for (int i = 0; i < targetIDs.Count; i++)
+        {
+            targetIDs[i].SetSize(Constants.minTargetFillAmount);
+        }
+
     }
 
 }
