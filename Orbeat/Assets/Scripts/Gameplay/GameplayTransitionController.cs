@@ -31,7 +31,7 @@ public class GameplayTransitionController : MonoBehaviour {
     public void LevelTransitionOnStart(bool isFirstTime = false){
         
         StopLevelTransitionOnStart();
-        StopLevelTransitionOnEnd();
+        //StopLevelTransitionOnEnd();
         levelTransitionOnStartSeq = DOTween.Sequence();
 
         CheckOrbitScale();
@@ -50,14 +50,15 @@ public class GameplayTransitionController : MonoBehaviour {
         if (isFirstTime)
         {
             playerController.transform.localPosition = Vector3.zero; 
-            playerPositionTween = PlayerPosition(playerController.Position, Constants.playertransitionTime);
+            playerPositionTween = PlayerPosition(playerController.Position, Constants.transitionTime);
             playerScaleTween = PlayerScale();
             levelTransitionOnStartSeq.Append(playerScaleTween);
         }
         else
         {
-            playerPositionTween = PlayerPosition(playerController.Position, 0);
+            playerPositionTween = PlayerPosition(playerController.Position, 0f);
         }
+        levelTransitionOnStartSeq.Join(playerPositionTween);
 
         //Orbits tweens
         //orbits.localPosition = Vector3.zero;
@@ -73,9 +74,8 @@ public class GameplayTransitionController : MonoBehaviour {
         //InitialScoreScale(Constants.scoreInitialScale);
         Tween scorePosition = ScorePosition(Constants.scoreInitialPosition);
         //.Join(targetPositionTween)
-        levelTransitionOnStartSeq.Join(playerPositionTween)
         //.Join(orbitsScaleTween)
-        .Join(scoreScale)
+        levelTransitionOnStartSeq.Join(scoreScale)
         .Join(scorePosition);
         //Target tweens
         //for (int i = 0; i < targetsController.Count; i++)

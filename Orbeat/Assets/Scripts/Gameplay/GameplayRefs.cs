@@ -24,4 +24,6 @@ public class GameplayRefs : MonoBehaviour {
     //public Text highscoreText;
     public Loudness loudness;
     //public Transform otherOrbits;//for sorting
+    public GameObject triangleParticles;
+    public GameObject hexagonParticles;
 }

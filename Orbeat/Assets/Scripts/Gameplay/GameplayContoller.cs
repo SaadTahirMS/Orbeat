@@ -125,7 +125,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
-                SetTargetsSize();
                 break;
             case GameState.End:
                 SoundController.Instance.SetPitch(.5f,false);
@@ -163,7 +162,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 //ChangeGameState(GameState.Start);
                 gameplayTransitionController.LevelTransitionOnTargetHit(playerShotPos,Constants.targetID);
                 Vibration.Vibrate();
-                ResetTargetSize();
+                //ResetTargetSize();
                 //SetTargetsSize();
                 break;
         }
@@ -208,6 +207,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         print("Player collided with target: " + targetID);
         isAllowedToShot = false;
         Constants.targetID = targetID;
+        targetIDs[targetID - 1].gameObject.SetActive(false);
+        SetTargetParticles();
         //isPerfectHit = perfectHit;
         SoundController.Instance.PlaySFXSound(SFX.TargetHit);
         ChangeGameState(GameState.TargetHit);
@@ -238,6 +239,16 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     //    float alpha = 1 - targetHitCount / 4f;
     //    gameplayViewController.SetArrowAlpha(alpha);
     //}
+
+    private void SetTargetParticles(){
+        Vector3 pos = new Vector3(playerController.transform.position.x, playerController.transform.position.y,0f);
+        Instantiate(gameplayRefs.triangleParticles,pos,Quaternion.identity);
+        Instantiate(gameplayRefs.hexagonParticles,pos, Quaternion.identity);
+        //gameplayRefs.triangleParticles.transform.position = pos;
+        //gameplayRefs.hexagonParticles.transform.position = pos;
+        //gameplayRefs.triangleParticles.SetActive(true);
+        //gameplayRefs.hexagonParticles.SetActive(true);
+    }
 
     private void ArrowColor(){
         gameplayViewController.ChangeArrowColor();
@@ -351,6 +362,18 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 target.SetActive(true);
             }
         }
+    }
+
+    private GameObject GetClosestTarget(){
+        List<RectTransform> orbits = orbitController.GetOrbits();
+        for (int i = 0; i < orbits.Count; i++)
+        {
+            GameObject target = orbits[i].Find("Target").gameObject;
+            if (target.activeInHierarchy)
+                return target;
+        }
+        return null;
+
     }
 
     private void SortTargetProbabilities(int targetHitIndex)

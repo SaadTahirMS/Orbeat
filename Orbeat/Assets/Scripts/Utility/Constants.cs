@@ -13,7 +13,7 @@ public static class Constants {
     public static Vector2 orbitReduceScale = new Vector2(100f, 100f);//how much scale to reduce for each orbit
     public static float maxTargetFillAmount = 0.25f; // 1 is fully filled and 0 empty
     public static float minTargetFillAmount = 0.025f; // 1 is fully filled and 0 empty
-    public static float targetReduceAmount = 0.005f;
+    public static float targetReduceAmount = 0.015f;
     public static float boundaryOffset = 0.1f;
     public static int totalTargets = 7;
 
@@ -40,15 +40,27 @@ public static class Constants {
     //Rotations
     public static float playerMinRotationSpeed = 2f;  //Low Rotation Speed means fast speed
     public static float playerMaxRotationSpeed = 5f;
-    public static float targetMinRotationSpeed = 15f;
-    public static float targetMaxRotationSpeed = 20f;
+    public static float minOrbitSpeed1 = 1f;  
+    public static float maxOrbitSpeed1 = 2f;
+    public static float minOrbitSpeed2 = 2f;
+    public static float maxOrbitSpeed2 = 3f;
+    public static float minOrbitSpeed3 = 3f;
+    public static float maxOrbitSpeed3 = 4f;
+    public static float minOrbitSpeed4 = 4f;
+    public static float maxOrbitSpeed4 = 5f;
+    public static float minOrbitSpeed5 = 5f;
+    public static float maxOrbitSpeed5 = 6f;
+    public static float minOrbitSpeed6 = 6f;
+    public static float maxOrbitSpeed6 = 7f;
+    public static float minOrbitSpeed7 = 7f;
+    public static float maxOrbitSpeed7 = 8f;
 
     //Movement
     public static float playerMoveSpeed = 50f;    //Increase to decrease time
     public static float playerOrbitScaleSpeed = 20f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
-    public static float cameraOffset = 1f;//0.30f;
+    public static float cameraOffset = 2f;//0.30f;
     public static float orbitsScaleSpeed = 10f;
     public static float targetMoveSpeed = 11f;    //Increase to decrease time
 
@@ -60,7 +72,7 @@ public static class Constants {
     public static float orbitScaleThreshold = 0.25f; //when the orbits will active false on target hit
 
     //Shot
-    public static float playerShotSpeed = 20f;    //Increase to increase shot speed
+    public static float playerShotSpeed = 22f;    //Increase to increase shot speed
     public static float perfectHitThreshold = 3f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
     public static int targetID = 1; //target ID of which target u hit
@@ -73,8 +85,8 @@ public static class Constants {
     public static float scoreAlpha = 0.5f;
 
     //Tweening
-    public static float transitionTime = .45f;
-    public static float playertransitionTime = .25f;
+    public static float transitionTime = .35f;
+    public static float playertransitionTime = .15f;
     public static float beatTime = 0.195f;
     public static float beatScale = 0.04f;
     public static float scoreBeatTime = .19f;

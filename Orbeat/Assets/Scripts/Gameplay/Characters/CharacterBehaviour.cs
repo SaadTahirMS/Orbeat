@@ -6,8 +6,8 @@ using DG.Tweening;
 public abstract class CharacterBehaviour : MonoBehaviour {
     
     //Rotation Variables
-    private Vector3 rotation;
-    private float rotateSpeed;
+    protected Vector3 rotation;
+    protected float rotateSpeed;
     protected int direction;
     public List<Rotate> rotationComponent = new List<Rotate>();
 
@@ -34,7 +34,7 @@ public abstract class CharacterBehaviour : MonoBehaviour {
     }
 
 
-    protected void Rotate()
+    protected virtual void Rotate()
     {
         
         for (int i = 0; i < rotationComponent.Count; i++)
@@ -46,16 +46,17 @@ public abstract class CharacterBehaviour : MonoBehaviour {
         }
     }
 
-    private void AssignRandomDirection()
+    protected void AssignRandomDirection()
     {
         direction = Random.Range(0, 2);
         direction = direction > 0 ? 1 : -1;
     }
 
-    private void AssignRotateSpeed()
+    protected void AssignRotateSpeed()
     {
         rotateSpeed = Random.Range(MinRotateSpeed, MaxRotateSpeed);
     }
+
 
    
     protected void StopRotation()

@@ -131,7 +131,7 @@ public class GameplayViewController : IController
         //    //Debug.Log("X is -ve");
         //    gameplayRefs.transform.DOLocalMoveX(Constants.cameraPosOffset, Constants.cameraPosTime).SetEase(Ease.Linear);
         //}
-        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0, -10);
+        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, target.y * (cameraMovementFactor) * offset, -10);
     }
 
     public void TimerWarningSequence(Color color,float speed){

@@ -67,9 +67,50 @@ public class MainOrbitController : CharacterBehaviour
         }
     }
 
+    protected override void Rotate()
+    {
+        for (int i = 0; i < rotationComponent.Count; i++)
+        {
+            rotationComponent[i].StopRotate();
+            AssignRandomDirection();
+            if (i < orbits.Count)//this will assign speeds to orbits
+                AssignIndividualRotateSpeed(i);
+            else//this will assign speeds to rest of the rotation components
+                AssignRotateSpeed();
+            rotationComponent[i].DoRotate(rotation, direction, rotateSpeed);
+        }
+    }
+
     protected override void SetPosition()
     {
         position = AssignPosition();
+    }
+
+    private void AssignIndividualRotateSpeed(int index){
+        print(orbits[index].name);
+        switch(index){
+            case 0:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed1, Constants.maxOrbitSpeed1);
+                break;
+            case 1:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed2, Constants.maxOrbitSpeed2);
+                break;
+            case 2:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed3, Constants.maxOrbitSpeed3);
+                break;
+            case 3:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed4, Constants.maxOrbitSpeed4);
+                break;
+            case 4:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed5, Constants.maxOrbitSpeed5);
+                break;
+            case 5:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed6, Constants.maxOrbitSpeed6);
+                break;
+            case 6:
+                rotateSpeed = Random.Range(Constants.minOrbitSpeed7, Constants.maxOrbitSpeed7);
+                break;
+        }
     }
 
     private Vector3 AssignPosition(){
@@ -154,6 +195,19 @@ public class MainOrbitController : CharacterBehaviour
     public void SetOrbits(List<RectTransform> orbits)
     {
         this.orbits = orbits;
+        SortRotationComponents();
+    }
+
+    private void SortRotationComponents(){
+        int j;
+        Rotate key = rotationComponent[0];
+        for (j = 0; j < orbits.Count - 1; j++)
+        {
+            //shift left
+            rotationComponent[j] = rotationComponent[j + 1];
+        }
+        rotationComponent[j] = key;
+
     }
 
     public void SortInHierarchy(){
