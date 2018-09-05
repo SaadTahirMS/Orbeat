@@ -14,6 +14,7 @@ public static class Constants {
     public static float maxTargetFillAmount = 0.25f; // 1 is fully filled and 0 empty
     public static float minTargetFillAmount = 0.025f; // 1 is fully filled and 0 empty
     public static float targetReduceAmount = 0.005f;
+    public static float boundaryOffset = 0.1f;
 
     //Perfect hit text
     public static string[] perfectHitArray = new string[]{
