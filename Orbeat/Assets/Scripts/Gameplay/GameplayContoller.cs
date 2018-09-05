@@ -15,6 +15,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public ColorController colorController;
     public GameplayTransitionController gameplayTransitionController;
    
+    [Range(0, 99)]
+    public List<int> targetsProbabilty;
+    [Range(0.025f, 0.25f)]
+    public float targetFillAmount;
     //private Vector3 targetScreenPos;
 
     private GameState gameState;
@@ -56,6 +60,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeColors();
         InitializeBeats();
         InitializeTransitionController();
+        SpawnTargetsWithProbabilty();
+        SetTargetsSize();
         ChangeGameState(GameState.Start);
     }
 
@@ -100,8 +106,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 SoundController.Instance.SetVolume(1f);
                 ResetAvailableOrbitList();
                 playerController.ChangeState(GameState.Start);
-                //for (int i = 0; i < targetsController.Count; i++)
-                    //targetsController[i].ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.LevelTransitionOnStart(isFirstTime);
                 isFirstTime = false;
@@ -117,6 +121,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.SetArrowAlpha(1f);
                 print("Restart Game");
                 ChangeGameState(GameState.Start);
+                SpawnTargetsWithProbabilty();
+                SetTargetsSize();
                 break;
             case GameState.End:
                 SoundController.Instance.SetPitch(.5f,false);
@@ -135,6 +141,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayViewController.SetScore("SCORE:" + score);
                 gameplayTransitionController.LevelTransitionOnEnd();
                 Vibration.Vibrate();
+                targetFillAmount = Constants.maxTargetFillAmount;
                 break;
             case GameState.Shot:
                 gameplayTransitionController.StopTimerMovement();
@@ -154,6 +161,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 //ChangeGameState(GameState.Start);
                 gameplayTransitionController.LevelTransitionOnTargetHit(playerShotPos,Constants.targetID);
                 Vibration.Vibrate();
+                SpawnTargetsWithProbabilty();
+                SetTargetsSize();
                 break;
         }
     }
@@ -324,9 +333,28 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void ResetAvailableOrbitList()
     {
         Constants.availablePositions = new List<int>() { 1, 2, 3 };//array of positions
-
     }
 
+    private void SpawnTargetsWithProbabilty(){
+        List<RectTransform> orbits = orbitController.GetOrbits();
+        for (int i = 0; i < orbits.Count; i++)
+        {
+            int ran = Random.Range(0, 100); //0 - 99 random number
+            orbits[i].Find("Target").gameObject.SetActive(false);
+            if (ran < targetsProbabilty[i])
+            { //if generated ran number is less than the orbit's target probabilty, then spawn it
+                orbits[i].Find("Target").gameObject.SetActive(true);
+            }
+        }
+    }
 
+    //Set the target sizes of last 
+    private void SetTargetsSize(){
+        for (int i = 0; i < targetIDs.Count;i++){
+            targetIDs[i].SetSize(targetFillAmount);
+        }
+        targetFillAmount -= Constants.targetReduceAmount;
+        targetFillAmount = Mathf.Clamp(targetFillAmount, Constants.minTargetFillAmount, Constants.maxTargetFillAmount);
+    }
 
 }

@@ -5,8 +5,8 @@ using DG.Tweening;
 
 public class MainOrbitController : CharacterBehaviour
 {
-    [Range(0,99)]
-    public List<int> targetProbabilty;
+    //[Range(0,99)]
+    //public List<int> targetProbabilty;
     //public List<Transform> orbits;
     public List<RectTransform> orbits;
     //public List<Scaler> orbitScalers;
@@ -95,7 +95,7 @@ public class MainOrbitController : CharacterBehaviour
     //    return orbits;
     //}
 
-    public List<RectTransform> GetOrbitsRT()
+    public List<RectTransform> GetOrbits()
     {
         return orbits;
     }
@@ -156,8 +156,6 @@ public class MainOrbitController : CharacterBehaviour
         this.orbits = orbits;
     }
 
-        
-
     public void SortInHierarchy(){
         int j = orbits.Count - 1;
         for (int i = 0; i < orbits.Count;i++){
@@ -175,14 +173,14 @@ public class MainOrbitController : CharacterBehaviour
         return orbits[i];
     }
 
-    public void TargetProbability(){
-        for (int i = 0; i < orbits.Count; i++)
-        {
-            int ran = Random.Range(0, 100); 
-            orbits[i].Find("Target").gameObject.SetActive(false);
-            if (ran < targetProbabilty[i]){ //if generated ran number is less than the orbit's target probabilty, then spawn it
-                orbits[i].Find("Target").gameObject.SetActive(true);
-            }
-        }
-    }
+    //public void TargetProbability(){
+    //    for (int i = 0; i < orbits.Count; i++)
+    //    {
+    //        int ran = Random.Range(0, 100); 
+    //        orbits[i].Find("Target").gameObject.SetActive(false);
+    //        if (ran < targetProbabilty[i]){ //if generated ran number is less than the orbit's target probabilty, then spawn it
+    //            orbits[i].Find("Target").gameObject.SetActive(true);
+    //        }
+    //    }
+    //}
 }

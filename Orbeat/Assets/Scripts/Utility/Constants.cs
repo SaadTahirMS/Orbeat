@@ -11,6 +11,9 @@ public static class Constants {
     public static Vector2 intialOrbitScale = new Vector2(2150f,2150f);//intial value of the orbits
     public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
     public static Vector2 orbitReduceScale = new Vector2(100f, 100f);//how much scale to reduce for each orbit
+    public static float maxTargetFillAmount = 0.25f; // 1 is fully filled and 0 empty
+    public static float minTargetFillAmount = 0.025f; // 1 is fully filled and 0 empty
+    public static float targetReduceAmount = 0.005f;
 
     //Perfect hit text
     public static string[] perfectHitArray = new string[]{
@@ -84,4 +87,5 @@ public static class Constants {
     public static float lookingOffset = 1f;
     public static float orbitFadeTime = 0.5f;
     public static long vibrateTime = 100;
+    public static float targetSizeTime = 1f;
 }
