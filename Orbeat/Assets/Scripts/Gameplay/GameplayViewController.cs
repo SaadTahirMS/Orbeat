@@ -120,20 +120,19 @@ public class GameplayViewController : IController
     }
 
 
-    //public void LookAtTarget(Vector3 target,float offset,int targetPos){
-    //    //float angle = target.transform.rotation.eulerAngles.z;
-    //    //if((angle > 0 && angle < 90) || (angle > 270 && angle < 360)){
-    //    //    //Debug.Log("X is +ve");
-    //    //    gameplayRefs.transform.DOLocalMoveX(-Constants.cameraPosOffset,Constants.cameraPosTime).SetEase(Ease.Linear);
-    //    //}
-    //    //else
-    //    //{
-    //    //    //Debug.Log("X is -ve");
-    //    //    gameplayRefs.transform.DOLocalMoveX(Constants.cameraPosOffset, Constants.cameraPosTime).SetEase(Ease.Linear);
-    //    //}
-
-    //    gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset * targetPos, 0, -10);
-    //}
+    public void LookAtTransform(Vector3 target,float offset){
+        //float angle = target.rotation.eulerAngles.z;
+        //if((angle > 0 && angle < 90) || (angle > 270 && angle < 360)){
+        //    //Debug.Log("X is +ve");
+        //    gameplayRefs.transform.DOLocalMoveX(-Constants.cameraPosOffset,Constants.cameraPosTime).SetEase(Ease.Linear);
+        //}
+        //else
+        //{
+        //    //Debug.Log("X is -ve");
+        //    gameplayRefs.transform.DOLocalMoveX(Constants.cameraPosOffset, Constants.cameraPosTime).SetEase(Ease.Linear);
+        //}
+        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0, -10);
+    }
 
     public void TimerWarningSequence(Color color,float speed){
         timerWarningSequence = DOTween.Sequence();

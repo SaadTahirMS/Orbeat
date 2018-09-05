@@ -47,7 +47,7 @@ public static class Constants {
     public static float playerOrbitScaleSpeed = 20f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
-    public static float cameraOffset = 0.30f;
+    public static float cameraOffset = 1f;//0.30f;
     public static float orbitsScaleSpeed = 10f;
     public static float targetMoveSpeed = 11f;    //Increase to decrease time
 

@@ -132,7 +132,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayTransitionController.StopTimerMovement();
                 playerController.ChangeState(GameState.End);
                 orbitController.ChangeState(GameState.End);
-                //ResetCameraPosition();
+                ResetCameraPosition();
                 print("Game Over");
                 gameplayViewController.SetCenterOrbits(false);
                 MainMenuController.Instance.ActivateRestartBtn();
@@ -140,6 +140,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayTransitionController.LevelTransitionOnEnd();
                 Vibration.Vibrate();
                 targetFillAmount = Constants.maxTargetFillAmount;
+                ResetTargetSize();
                 break;
             case GameState.Shot:
                 gameplayTransitionController.StopTimerMovement();
@@ -192,13 +193,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKeyDown(KeyCode.Space)){
             ShotPlayer();
         }
-        //if(gameplayViewController!=null && gameState == GameState.Start)
-            //gameplayViewController.LookAtTarget(targetController.transform.position, Constants.cameraOffset,targetController.GetOrbit());
+        if(gameplayViewController!=null && gameState == GameState.Start)
+            gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
     }
 
-    //private void ResetCameraPosition(){
-    //    gameplayViewController.LookAtTarget(Vector3.zero, Constants.cameraOffset,targetController.GetOrbit());
-    //}
+    private void ResetCameraPosition(){
+        gameplayViewController.LookAtTransform(Vector3.zero, Constants.cameraOffset);
+    }
 
     public void PlayerCollidedWithTarget(int targetID){
         print("Player collided with target: " + targetID);
@@ -362,7 +363,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         for (int i = 0; i < targetIDs.Count; i++)
         {
-            targetIDs[i].SetSize(Constants.minTargetFillAmount);
+            targetIDs[i].ResetSize();
         }
 
     }
