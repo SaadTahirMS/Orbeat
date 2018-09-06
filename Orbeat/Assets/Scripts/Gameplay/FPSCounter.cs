@@ -17,6 +17,7 @@ namespace UnityStandardAssets.Utility
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
             m_FpsNextPeriod = Time.realtimeSinceStartup + fpsMeasurePeriod;
             m_Text = GetComponent<Text>();
         }

@@ -104,7 +104,7 @@ public class PlayerController : CharacterBehaviour {
         shotFlag = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (shotFlag)
         {
