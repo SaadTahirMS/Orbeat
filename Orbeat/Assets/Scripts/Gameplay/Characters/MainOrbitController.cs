@@ -87,7 +87,6 @@ public class MainOrbitController : CharacterBehaviour
     }
 
     private void AssignIndividualRotateSpeed(int index){
-        print(orbits[index].name);
         switch(index){
             case 0:
                 rotateSpeed = Random.Range(Constants.minOrbitSpeed1, Constants.maxOrbitSpeed1);
@@ -195,20 +194,8 @@ public class MainOrbitController : CharacterBehaviour
     public void SetOrbits(List<RectTransform> orbits)
     {
         this.orbits = orbits;
-        SortRotationComponents();
     }
 
-    private void SortRotationComponents(){
-        int j;
-        Rotate key = rotationComponent[0];
-        for (j = 0; j < orbits.Count - 1; j++)
-        {
-            //shift left
-            rotationComponent[j] = rotationComponent[j + 1];
-        }
-        rotationComponent[j] = key;
-
-    }
 
     public void SortInHierarchy(){
         int j = orbits.Count - 1;
@@ -216,10 +203,26 @@ public class MainOrbitController : CharacterBehaviour
             orbits[i].SetSiblingIndex(j);
             j--;
         }
+        SortRotationComponents();
     }
 
     public Transform GetOrbit(int i){
         return orbits[i];
+    }
+
+    private void SortRotationComponents()
+    {
+        for (int i = 0; i < Constants.targetID; i++)
+        {
+            int j;
+            Rotate key = rotationComponent[0];
+            for (j = 0; j < orbits.Count - 1; j++)
+            {
+                //shift left
+                rotationComponent[j] = rotationComponent[j + 1];
+            }
+            rotationComponent[j] = key;
+        }
     }
 
     public RectTransform GetOrbitRT(int i)

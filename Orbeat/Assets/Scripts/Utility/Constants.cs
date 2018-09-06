@@ -14,7 +14,7 @@ public static class Constants {
     public static float maxTargetFillAmount = 0.25f; // 1 is fully filled and 0 empty
     public static float minTargetFillAmount = 0.025f; // 1 is fully filled and 0 empty
     public static float targetReduceAmount = 0.015f;
-    public static float boundaryOffset = 0.1f;
+    public static float boundaryOffset = 0f;//0.1f;
     public static int totalTargets = 7;
 
     //Perfect hit text
@@ -44,16 +44,16 @@ public static class Constants {
     public static float maxOrbitSpeed1 = 2f;
     public static float minOrbitSpeed2 = 2f;
     public static float maxOrbitSpeed2 = 3f;
-    public static float minOrbitSpeed3 = 3f;
-    public static float maxOrbitSpeed3 = 4f;
-    public static float minOrbitSpeed4 = 4f;
-    public static float maxOrbitSpeed4 = 5f;
-    public static float minOrbitSpeed5 = 5f;
-    public static float maxOrbitSpeed5 = 6f;
-    public static float minOrbitSpeed6 = 6f;
-    public static float maxOrbitSpeed6 = 7f;
-    public static float minOrbitSpeed7 = 7f;
-    public static float maxOrbitSpeed7 = 8f;
+    public static float minOrbitSpeed3 = 4f;
+    public static float maxOrbitSpeed3 = 5f;
+    public static float minOrbitSpeed4 = 5f;
+    public static float maxOrbitSpeed4 = 6f;
+    public static float minOrbitSpeed5 = 6f;
+    public static float maxOrbitSpeed5 = 7f;
+    public static float minOrbitSpeed6 = 8f;
+    public static float maxOrbitSpeed6 = 9f;
+    public static float minOrbitSpeed7 = 9f;
+    public static float maxOrbitSpeed7 = 10f;
 
     //Movement
     public static float playerMoveSpeed = 50f;    //Increase to decrease time
@@ -72,7 +72,7 @@ public static class Constants {
     public static float orbitScaleThreshold = 0.25f; //when the orbits will active false on target hit
 
     //Shot
-    public static float playerShotSpeed = 22f;    //Increase to increase shot speed
+    public static float playerShotSpeed = 8f;    //Increase to increase shot speed
     public static float perfectHitThreshold = 3f; //range of angle for perfect hit
     public static int targetHitCount = 5; //level up after how many target hits
     public static int targetID = 1; //target ID of which target u hit

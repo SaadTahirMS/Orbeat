@@ -78,6 +78,7 @@ public class PlayerController : CharacterBehaviour {
             case GameState.TargetHit:
                 shotFlag = false;
                 SetCollisions(false);
+                playerRb.velocity = Vector2.zero;
                 break;
             case GameState.End:
                 StopRotation();
@@ -107,7 +108,9 @@ public class PlayerController : CharacterBehaviour {
     {
         if (shotFlag)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * shotSpeed);
+            playerRb.AddForce(transform.right * shotSpeed,ForceMode2D.Impulse);
+            //transform.Translate(Vector3.right * Time.deltaTime * shotSpeed);
+            //playerRb.MovePosition(Vector2.right*Time.deltaTime*shotSpeed);
             CollisionWithBoundary();
         }
     }
