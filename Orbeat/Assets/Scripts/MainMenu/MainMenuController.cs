@@ -49,15 +49,15 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         gameplayContoller.ChangeGameState(GameState.Restart);
     }
 
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.Space)){
-            if(playBtn.activeInHierarchy){
-                PlayGame();
-            }
-            else if(restartBtn.activeInHierarchy){
-                RestartGame();
-            }
-        }
-    }
+    //void Update(){
+    //    if(Input.GetKeyDown(KeyCode.Space)){
+    //        if(playBtn.activeInHierarchy){
+    //            PlayGame();
+    //        }
+    //        else if(restartBtn.activeInHierarchy){
+    //            RestartGame();
+    //        }
+    //    }
+    //}
 
 }

@@ -8,8 +8,8 @@ public class MainOrbitController : CharacterBehaviour
     //[Range(0,99)]
     //public List<int> targetProbabilty;
     //public List<Transform> orbits;
-    public List<RectTransform> orbits;
-    //public List<Scaler> orbitScalers;
+    //public List<Transform> orbits;
+    public List<MyScaler> orbitScalers;
 
     private Vector3 position;
 
@@ -73,7 +73,7 @@ public class MainOrbitController : CharacterBehaviour
         {
             rotationComponent[i].StopRotate();
             AssignRandomDirection();
-            if (i < orbits.Count)//this will assign speeds to orbits
+            if (i < orbitScalers.Count)//this will assign speeds to orbits
                 AssignIndividualRotateSpeed(i);
             else//this will assign speeds to rest of the rotation components
                 AssignRotateSpeed();
@@ -135,10 +135,15 @@ public class MainOrbitController : CharacterBehaviour
     //    return orbits;
     //}
 
-    public List<RectTransform> GetOrbits()
+    public List<MyScaler> GetOrbitScalers()
     {
-        return orbits;
+        return orbitScalers;
     }
+
+    //public List<RectTransform> GetOrbits()
+    //{
+    //    return orbits;
+    //}
 
     //public void StopBeats(){
     //    for (int i = 0; i < orbitBeat.Count; i++)
@@ -155,24 +160,23 @@ public class MainOrbitController : CharacterBehaviour
     //    }
     //}
 
-    //public Tween ScaleDown(int orbitIndex,Vector3 value){
-    //    return orbits[orbitIndex].GetComponent<Scaler>().DoScale(value);
-    //    //orbits[orbitIndex].GetComponent<Scaler>().DoHeightWidth
-    //    //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
+    public Tween Scale(int orbitIndex,Vector3 outerValue){
+        return orbitScalers[orbitIndex].DoScale(outerValue, Constants.transitionTime);
+        //return orbits[orbitIndex].DOScale(value, Constants.transitionTime);
+    }
+
+    //public Tween ScaleDownHW(int orbitIndex,Vector2 value){
+    //    return orbits[orbitIndex].DOSizeDelta(value,Constants.transitionTime);
     //}
 
-    public Tween ScaleDownHW(int orbitIndex,Vector2 value){
-        return orbits[orbitIndex].DOSizeDelta(value,Constants.transitionTime);
+    public Vector3 GetCurrentOuterScale(int orbitIndex){
+        return orbitScalers[orbitIndex].outer.localScale;
     }
 
-    public Vector3 GetCurrentScale(int orbitIndex){
-        return orbits[orbitIndex].localScale;
-    }
-
-    public Vector2 GetCurrentHW(int orbitIndex)
-    {
-        return orbits[orbitIndex].sizeDelta;
-    }
+    //public Vector2 GetCurrentHW(int orbitIndex)
+    //{
+    //    return orbits[orbitIndex].sizeDelta;
+    //}
 
     //Sequence scaleSequence;
     //public void DoScale(){
@@ -187,27 +191,27 @@ public class MainOrbitController : CharacterBehaviour
     //    scaleSequence.Kill();
     //}
 
-    //public void SetOrbits(List<Transform> orbits){
+    public void SetOrbits(List<MyScaler> orbitScalers){
+        this.orbitScalers = orbitScalers;
+    }
+
+    //public void SetOrbits(List<RectTransform> orbits)
+    //{
     //    this.orbits = orbits;
     //}
 
-    public void SetOrbits(List<RectTransform> orbits)
-    {
-        this.orbits = orbits;
-    }
-
 
     public void SortInHierarchy(){
-        int j = orbits.Count - 1;
-        for (int i = 0; i < orbits.Count;i++){
-            orbits[i].SetSiblingIndex(j);
+        int j = orbitScalers.Count - 1;
+        for (int i = 0; i < orbitScalers.Count;i++){
+            orbitScalers[i].transform.SetSiblingIndex(j);
             j--;
         }
         SortRotationComponents();
     }
 
     public Transform GetOrbit(int i){
-        return orbits[i];
+        return orbitScalers[i].transform;
     }
 
     private void SortRotationComponents()
@@ -216,7 +220,7 @@ public class MainOrbitController : CharacterBehaviour
         {
             int j;
             Rotate key = rotationComponent[0];
-            for (j = 0; j < orbits.Count - 1; j++)
+            for (j = 0; j < orbitScalers.Count - 1; j++)
             {
                 //shift left
                 rotationComponent[j] = rotationComponent[j + 1];
@@ -225,10 +229,10 @@ public class MainOrbitController : CharacterBehaviour
         }
     }
 
-    public RectTransform GetOrbitRT(int i)
-    {
-        return orbits[i];
-    }
+    //public RectTransform GetOrbitRT(int i)
+    //{
+    //    return orbits[i];
+    //}
 
     //public void TargetProbability(){
     //    for (int i = 0; i < orbits.Count; i++)

@@ -104,7 +104,7 @@ public class PlayerController : CharacterBehaviour {
         shotFlag = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (shotFlag)
         {
@@ -134,6 +134,16 @@ public class PlayerController : CharacterBehaviour {
                 SetCollisions(false);
                 GameplayContoller.Instance.PlayerCollidedWithTimer();
                 break;
+            //case "Warning":
+                //GameplayContoller.Instance.TimerWarning();
+                //break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
             case "Warning":
                 GameplayContoller.Instance.TimerWarning();
                 break;

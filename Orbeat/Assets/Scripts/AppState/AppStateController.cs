@@ -7,5 +7,6 @@ public class AppStateController : MonoBehaviour {
     {
         loadingController = LoadingController.Instance;
         loadingController.Open();
+        print("Appstate open");
     }
 }

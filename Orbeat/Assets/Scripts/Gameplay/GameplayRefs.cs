@@ -11,7 +11,7 @@ public class GameplayRefs : MonoBehaviour {
     public List<Image> orbitImg;
     public Image timerOrbitImg;
     public Camera cam;
-    public RectTransform playerOrbit;    
+    public MyPlayerOrbitScaler playerOrbit;    
     public Image playerOrbitImg;
     //public List<Image> targetImg;
     //public List<Image> targetOrbitImg;

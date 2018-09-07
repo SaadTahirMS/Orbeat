@@ -6,15 +6,20 @@ public static class Constants {
 
     //Initials
     public static float referenceWidth = 740f;
-    public static Vector2 orbitsDistance = new Vector2(250f,250f);//distance between orbits
-    public static Vector2 orbitResetScale = new Vector2(100f,100f);//when to reset the orbits
-    public static Vector2 intialOrbitScale = new Vector2(2150f,2150f);//intial value of the orbits
-    public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
-    public static Vector2 orbitReduceScale = new Vector2(100f, 100f);//how much scale to reduce for each orbit
+    //public static Vector2 orbitsDistance = new Vector2(250f,250f);//distance between orbits
+    //public static Vector2 orbitResetScale = new Vector2(100f,100f);//when to reset the orbits
+    //public static Vector2 intialOrbitScale = new Vector2(2150f,2150f);//intial value of the orbits
+    //public static List<int> availablePositions = new List<int>() { 1, 2, 3 };//array of positions
+    //public static Vector2 orbitReduceScale = new Vector2(100f, 100f);//how much scale to reduce for each orbit
+    public static Vector3 orbitsDistance = new Vector3(2.5f, 2.5f,2.5f);//distance between orbits
+    public static Vector3 orbitResetScale = new Vector3(1f, 1f,1f);//when to reset the orbits
+    public static Vector3 intialOrbitScale = new Vector3(21.5f, 21.5f,21.5f);//intial value of the orbits
+    public static Vector3 orbitReduceScale = new Vector3(1f, 1f,1f);//how much scale to reduce for each orbit
+    public static Vector3 innerOuterDistance = new Vector3(1f, 1f, 1f);//distance b/w inner and outer
     public static float maxTargetFillAmount = 0.25f; // 1 is fully filled and 0 empty
     public static float minTargetFillAmount = 0.025f; // 1 is fully filled and 0 empty
     public static float targetReduceAmount = 0.005f;
-    public static float boundaryOffset = 0f;//0.1f;
+    public static float boundaryOffset = 0.1f;
     public static int totalTargets = 7;
 
     //Perfect hit text
@@ -57,7 +62,7 @@ public static class Constants {
 
     //Movement
     public static float playerMoveSpeed = 50f;    //Increase to decrease time
-    public static float playerOrbitScaleSpeed = 20f;
+    public static float playerOrbitScaleSpeed = 50f;
     public static float cameraPosOffset = 240;
     public static float cameraPosTime = 5f;
     public static float cameraOffset = 2f;//0.30f;
@@ -65,10 +70,10 @@ public static class Constants {
     public static float targetMoveSpeed = 11f;    //Increase to decrease time
 
     //Scale
-    public static Vector2 playerOrbitInitialScale = new Vector2(400f, 400f);
-    public static Vector3 scoreGameOverScale = new Vector2(400f, 400f);
+    public static Vector3 playerOrbitInitialScale = new Vector3(4f, 4f);
+    public static Vector3 scoreGameOverScale = new Vector3(2f, 2f);
     public static Vector3 scoreInitialScale = new Vector3(1f, 1f, 1f);
-    public static Vector3 scoreInitialScaleWH = new Vector3(90f, 90f, 90f);
+    //public static Vector3 scoreInitialScaleWH = new Vector3(90f, 90f, 90f);
     public static float orbitScaleThreshold = 0.25f; //when the orbits will active false on target hit
 
     //Shot

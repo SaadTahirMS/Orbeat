@@ -19,13 +19,13 @@ public class Scaler : MonoBehaviour
     //    edgeCollider = target.GetComponent<EdgeCollider2D>();
     //}
 
-    private void Update()
-    {
-        target.sizeDelta = rect.sizeDelta;
-        inner.sizeDelta = rect.sizeDelta - Vector2.one * 100f;
-        arcCollider.radius = rect.sizeDelta.x / 2f;
-        edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
-    }
+    //private void Update()
+    //{
+    //    target.sizeDelta = rect.sizeDelta;
+    //    inner.sizeDelta = rect.sizeDelta - Vector2.one * 100f;
+    //    arcCollider.radius = rect.sizeDelta.x / 2f;
+    //    edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
+    //}
 
     //public void SetCollider()
     //{

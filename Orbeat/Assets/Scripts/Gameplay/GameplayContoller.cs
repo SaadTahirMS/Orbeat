@@ -13,7 +13,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public List<MyTargetController> targetIDs;
     public MainOrbitController orbitController;
     public ColorController colorController;
-    public GameplayTransitionController gameplayTransitionController;
+    private GameplayTransitionController gameplayTransitionController;
    
     [Range(0, 99)]
     public List<int> targetsProbabilty;
@@ -52,7 +52,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Application.targetFrameRate = 60;
 
         isFirstTime = true;
-
+        gameplayTransitionController = new GameplayTransitionController();
         InitializeGameplayViewController();
         InitializePlayer();
         InitializeTargetIDs();
@@ -104,7 +104,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.Start:
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(1f);
-                ResetAvailableOrbitList();
+                //ResetAvailableOrbitList();
                 playerController.ChangeState(GameState.Start);
                 orbitController.ChangeState(GameState.Start);
                 if(!isFirstTime)
@@ -192,7 +192,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     //Spacebar key for PC
     void Update(){
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
             ShotPlayer();
         }
         if(gameplayViewController!=null && gameState == GameState.Start)
@@ -332,29 +332,29 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         level += 1;
     }
 
-    public int GetOrbitIndex()
-    {
-        int random = Random.Range(0, Constants.availablePositions.Count);
+    //public int GetOrbitIndex()
+    //{
+    //    int random = Random.Range(0, Constants.availablePositions.Count);
 
-        int orbit = Constants.availablePositions[random];
+    //    int orbit = Constants.availablePositions[random];
 
-        Constants.availablePositions.RemoveAt(random);
+    //    Constants.availablePositions.RemoveAt(random);
 
-        return orbit;
-    }
+    //    return orbit;
+    //}
 
-    private void ResetAvailableOrbitList()
-    {
-        Constants.availablePositions = new List<int>() { 1, 2, 3 };//array of positions
-    }
+    //private void ResetAvailableOrbitList()
+    //{
+    //    Constants.availablePositions = new List<int>() { 1, 2, 3 };//array of positions
+    //}
 
     private void SpawnTargetsWithProbabilty(int targetHitIndex){
         SortTargetProbabilities(targetHitIndex);
         int index = Constants.totalTargets - targetHitIndex;//targetHitIndex=1,totaltargets=7
-        List<RectTransform> orbits = orbitController.GetOrbits();
+        List<MyScaler> orbits = orbitController.GetOrbitScalers();
         for (int i = index; i < Constants.totalTargets; i++)
         {
-            GameObject target = orbits[i].Find("Target").gameObject;
+            GameObject target = orbits[i].transform.Find("Target").gameObject;
             int ran = Random.Range(0, 100); //0 - 99 random number
             target.SetActive(false);
             if (ran < targetsProbabilty[i])
@@ -362,18 +362,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 target.SetActive(true);
             }
         }
-    }
-
-    private GameObject GetClosestTarget(){
-        List<RectTransform> orbits = orbitController.GetOrbits();
-        for (int i = 0; i < orbits.Count; i++)
-        {
-            GameObject target = orbits[i].Find("Target").gameObject;
-            if (target.activeInHierarchy)
-                return target;
-        }
-        return null;
-
     }
 
     private void SortTargetProbabilities(int targetHitIndex)
