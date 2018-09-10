@@ -210,13 +210,22 @@ public class GameplayTransitionController : MonoBehaviour {
         //    timerMovement.Join(TargetMovement(i));
         //}
 
+
+
         //Orbits Scale
         List<MyScaler> orbitScales = orbitController.GetOrbitScalers();//list of outer orbits in the game
         for (int i = 0; i < orbitScales.Count;i++){
             Vector3 scale = orbitController.GetCurrentOuterScale(i);
             Vector3 value = scale - Constants.orbitReduceScale;
             //timerMovement.Join(orbitScales[i].DOScale(value, Constants.orbitsScaleSpeed));
+
             timerMovement.Join(orbitScales[i].DoScale(value, Constants.orbitsScaleSpeed));
+
+            Vector3 currentPosition = targetIDs[i].edgeObj1.localPosition;
+            value = currentPosition - Constants.edgeMovementReduceValue; //50f reduction of edges because player dies after that so no need for more
+
+            targetIDs[i].SetEdgeState(true);
+            timerMovement.Join(targetIDs[i].EdgeMovement(value,Constants.orbitsScaleSpeed));
         }
         //List<RectTransform> orbitScales = orbitController.GetOrbits();//list of orbits in the game
         //for (int i = 0; i < orbitScales.Count; i++)
@@ -283,6 +292,7 @@ public class GameplayTransitionController : MonoBehaviour {
         //.SetEase(Ease.Linear)
         //.OnComplete(TargetHitTransitionComplete)
         //.Play();
+
         Tween playerMoveToValueTween = PlayerMoveToValue(playerShotPos);
 
         List<MyScaler> orbitScalers = orbitController.GetOrbitScalers();
@@ -306,6 +316,8 @@ public class GameplayTransitionController : MonoBehaviour {
         {
             for (int i = 0; i < orbitScalers.Count; i++)
             {
+                targetIDs[i].SetEdgeState(false);
+
                 Vector3 scale = orbitScalers[i].outer.transform.localScale - scaleValue;
                 //Vector3 scale = initialScales[i] - scaleValue;
                 //if (scale.y <= 0f)
@@ -315,6 +327,7 @@ public class GameplayTransitionController : MonoBehaviour {
                 levelTransitionOnTargetHitSeq.Join(scaleTween);
                 //orbitController.ScaleDownHW(i,)
             }
+
 
             levelTransitionOnTargetHitSeq.SetEase(Ease.Linear);
             levelTransitionOnTargetHitSeq.OnComplete(() => TargetHitTransitionComplete(targetIndex));

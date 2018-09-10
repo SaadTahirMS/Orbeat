@@ -207,7 +207,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         print("Player collided with target: " + targetID);
         isAllowedToShot = false;
         Constants.targetID = targetID;
-        targetIDs[targetID - 1].gameObject.SetActive(false);
+        //targetIDs[targetID - 1].gameObject.SetActive(false);
+        targetIDs[targetID - 1].SetActiveState(false);
         SetTargetParticles();
         //isPerfectHit = perfectHit;
         SoundController.Instance.PlaySFXSound(SFX.TargetHit);
@@ -354,12 +355,14 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         List<MyScaler> orbits = orbitController.GetOrbitScalers();
         for (int i = index; i < Constants.totalTargets; i++)
         {
-            GameObject target = orbits[i].transform.Find("Target").gameObject;
+            //GameObject target = orbits[i].transform.Find("Target").gameObject;
             int ran = Random.Range(0, 100); //0 - 99 random number
-            target.SetActive(false);
+            //target.SetActive(false);
+            orbits[i].target.SetActiveState(false);
             if (ran < targetsProbabilty[i])
             { //if generated ran number is less than the orbit's target probabilty, then spawn it
-                target.SetActive(true);
+                //target.SetActive(true);
+                orbits[i].target.SetActiveState(true);
             }
         }
     }

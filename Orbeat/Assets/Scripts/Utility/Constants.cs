@@ -41,6 +41,8 @@ public static class Constants {
     public static Vector3 scoreInitialPosition = new Vector3(0f, 0f, 0f);
     public static Vector3 scoreGameOverPos = new Vector3(0f, 325f, 0f);
     public static int orbitCount = 3;
+    public static float edgeInitialPos = 300f;
+    public static float edgeDistance = 125f;
 
     //Rotations
     public static float playerMinRotationSpeed = 2f;  //Low Rotation Speed means fast speed
@@ -68,6 +70,7 @@ public static class Constants {
     public static float cameraOffset = 2f;//0.30f;
     public static float orbitsScaleSpeed = 10f;
     public static float targetMoveSpeed = 11f;    //Increase to decrease time
+    public static Vector3 edgeMovementReduceValue = new Vector3(50f, 0f, 0f);
 
     //Scale
     public static Vector3 playerOrbitInitialScale = new Vector3(4f, 4f);
