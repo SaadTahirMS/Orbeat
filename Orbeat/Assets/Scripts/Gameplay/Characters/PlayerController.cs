@@ -4,61 +4,57 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class PlayerController : CharacterBehaviour {
+public class PlayerController: MonoBehaviour {
     
     public Transform player;
-    //public List<Transform> targetsObj;
-    public Rigidbody2D playerRb;
-    Vector3 playerPos;//this is used by gameplayController for transitions
-    Quaternion playerRot;
-    //Shooting
-    float shotSpeed;
-    bool shotFlag = false;
+    public Transform orbit;
+    public Rigidbody2D rb2d; //used for collisions turn on off
+    public Slider slider;
 
+    private bool gameStart = false;
+    private float screenCenterX; //for left right touch movement
     private Vector3 position;
-
     public Vector3 Position
     {
         get
         {
             return position;
         }
-    }
-
-
-    public override float MinRotateSpeed
-    {
-        get
+        set
         {
-            return Constants.playerMinRotationSpeed;
+            position = value;
         }
     }
 
-    public override float MaxRotateSpeed
+    private float rotationSpeed;
+    public float RotationSpeed
     {
         get
         {
-            return Constants.playerMaxRotationSpeed;
+            return rotationSpeed;
         }
+        set
+        {
+            rotationSpeed = value;    
+        }
+
     }
 
-
-    public override void Initialize()
+    public void Initialize()
     {
-        base.Initialize();
-        InitializeShot();
+        // save the horizontal center of the screen
+        screenCenterX = Screen.width * 0.5f;
+
+        AssignPosition();
+        AssignRotationSpeed();
     }
 
+    private void AssignPosition(){
+        Position = Constants.playerInitialPosition;
+    }
 
-
-    private void InitializeShot()
-    {
-        //float currentWidth = Screen.width;
-        //float referenceWidth = Constants.referenceWidth;
-        //float a = currentWidth / referenceWidth;
-        //shotSpeed = Constants.playerShotSpeed * 100 * a;
-        //Constants.playerShotSpeed = shotSpeed;
-        shotSpeed = Constants.playerShotSpeed;
+    private void AssignRotationSpeed(){
+        RotationSpeed = Constants.playerRotationSpeed;
     }
 
     public void ChangeState(GameState state)
@@ -66,121 +62,48 @@ public class PlayerController : CharacterBehaviour {
         switch (state)
         {
             case GameState.Start:
-                SetCollisions(false); //this will be turned on after transition
-                ResetParent();
-                SetPosition();
-                Rotate();
-                break;
-            case GameState.Shot:
-                InitiateShot();
-                StopRotation();
-                break;
-            case GameState.TargetHit:
-                shotFlag = false;
-                SetCollisions(false);
-                playerRb.velocity = Vector2.zero;
+                gameStart = true;
                 break;
             case GameState.End:
-                StopRotation();
-                shotFlag = false;
                 break;            
         }
-
     }
 
-    protected override void SetPosition(){
-        position = AssignPosition();
-    }
-
-    private Vector3 AssignPosition()
+    //Slider control
+    public void RotatePlayer()
     {
-        return Constants.playerInitialPosition;
+        player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -slider.value * 360f));
     }
 
-    void InitiateShot(){
-        transform.SetParent(player.transform.parent);
-        playerPos = transform.localPosition;
-        playerRot = transform.localRotation;
-        shotFlag = true;
-    }
-
-    private void FixedUpdate()
+    //Keyboard control
+    private void Update()
     {
-        if (shotFlag)
-        {
-            playerRb.AddForce(transform.right * shotSpeed,ForceMode2D.Impulse);
-            //transform.Translate(Vector3.right * Time.deltaTime * shotSpeed);
-            //playerRb.MovePosition(Vector2.right*Time.deltaTime*shotSpeed);
-            CollisionWithBoundary();
+        if(gameStart){
+            //For Keyboard
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                MoveLeft();
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                MoveRight();
+            }
+
         }
+
     }
 
-
-
-    private void ResetParent(){
-        transform.SetParent(player);
+    private void MoveLeft(){
+        player.Rotate(Vector3.forward * RotationSpeed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        switch (collision.gameObject.tag)
-        {
-            //case "Target":
-                //shotFlag = false;
-                //SetCollisions(false);
-                //GameplayContoller.Instance.PlayerCollidedWithTarget();
-                //break;
-            case "Timer":
-                SetCollisions(false);
-                GameplayContoller.Instance.PlayerCollidedWithTimer();
-                break;
-            //case "Warning":
-                //GameplayContoller.Instance.TimerWarning();
-                //break;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        switch (collision.gameObject.tag)
-        {
-            case "Warning":
-                GameplayContoller.Instance.TimerWarning();
-                break;
-        }
+    private void MoveRight(){
+        player.Rotate(Vector3.back * RotationSpeed);
     }
 
     public void SetCollisions(bool state)
     {
-        playerRb.isKinematic = !state; //inversed just for understanding of function
+        rb2d.isKinematic = !state; //inversed just for understanding of function
     }
-
-    //private bool CheckPerfectHit(int index){
-    //  float angleDifference = targetsObj[index].eulerAngles.z - player.eulerAngles.z;
-    //    if(angleDifference >= -Constants.perfectHitThreshold && angleDifference <= Constants.perfectHitThreshold){
-    //        print("Perfect Hit");
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
-    private void CollisionWithBoundary(){
-        //Vector3 position = Camera.main.ScreenToViewportPoint(transform.position);
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.x < (0 - Constants.boundaryOffset) || pos.x > (1+Constants.boundaryOffset) || pos.y < (0-Constants.boundaryOffset) || pos.y > (1+Constants.boundaryOffset))
-        {
-            SetCollisions(false);
-            GameplayContoller.Instance.PlayerCollidedWithBoundary();
-        }
-    }
-
-    public Vector3 GetPosition(){
-        return playerPos;
-    }
-
-    public Quaternion GetRotation(){
-        return playerRot;
-    }
-
 
 }

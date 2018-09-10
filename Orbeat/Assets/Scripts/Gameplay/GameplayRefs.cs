@@ -4,26 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameplayRefs : MonoBehaviour {
-    
-    public GameObject scoreContainer;
-    public Image flashImg;
-    public Color flashColor;
-    public List<Image> orbitImg;
-    public Image timerOrbitImg;
-    public Camera cam;
-    public MyPlayerOrbitScaler playerOrbit;    
-    public Image playerOrbitImg;
-    //public List<Image> targetImg;
-    //public List<Image> targetOrbitImg;
-    public Image playerImg;
-    public Text scoreText;
-    public Image playerArrowImg;
-    //public Image shareBtnImg;
-    public Image playBtnImg;
-    public Text perfectHitText;
-    //public Text highscoreText;
+
+    public PlayerController playerController;
+    //public MainOrbitController orbitController;//inner and hurdle together
+    //public List<HurdleController> hurdleControllers;//area that can collide with the player
     public Loudness loudness;
-    //public Transform otherOrbits;//for sorting
     public GameObject triangleParticles;
     public GameObject hexagonParticles;
+    //[Range(0.025f, 0.25f)]
+    public float targetFillAmount;
 }

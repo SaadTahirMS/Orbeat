@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/main.unity
     guid: 6feae033ba7f04147a37f0bceef4c637
   - enabled: 0
@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/test 3.unity
     guid: e18ee2abe49c4491b99330f35d8cc62f
+  - enabled: 1
+    path: Assets/_Scenes/hexagon.unity
+    guid: 981db44415c23400a9c6749242f69dce

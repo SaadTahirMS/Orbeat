@@ -3,16 +3,11 @@ public enum GameState
 {
     Start,
     End,
-    Shot,
-    TargetHit,
-    Restart,
-    PerfectHit
+    Restart
 }  
 
 public enum SFX
 {
-    PerfectHit,
-    PlayerBlast,
-    TargetHit
+    PlayerBlast
 }
 

@@ -2,6 +2,7 @@
 
 public class MainMenuController : Singleton<MainMenuController>, IController {
 
+    public GameplayRefs gameplayRefs;
     GameplayContoller gameplayContoller;
 
     public GameObject playBtn;
@@ -9,9 +10,14 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     public void Open(){
         ActivatePlayBtn();
-        //SoundController.Instance.SetMainMusic(true);
         SoundController.Instance.SetPitch(.5f,true);
         SoundController.Instance.SetVolume(1f);
+        InitializeBeat();
+    }
+
+    private void InitializeBeat()
+    {
+        gameplayRefs.loudness.Initialize();
     }
 
     void ActivatePlayBtn(){
@@ -49,15 +55,15 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         gameplayContoller.ChangeGameState(GameState.Restart);
     }
 
-    //void Update(){
-    //    if(Input.GetKeyDown(KeyCode.Space)){
-    //        if(playBtn.activeInHierarchy){
-    //            PlayGame();
-    //        }
-    //        else if(restartBtn.activeInHierarchy){
-    //            RestartGame();
-    //        }
-    //    }
-    //}
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(playBtn.activeInHierarchy){
+                PlayGame();
+            }
+            else if(restartBtn.activeInHierarchy){
+                RestartGame();
+            }
+        }
+    }
 
 }

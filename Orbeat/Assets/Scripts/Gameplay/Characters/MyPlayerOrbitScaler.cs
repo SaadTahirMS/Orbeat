@@ -5,24 +5,24 @@ using DG.Tweening;
 
 public class MyPlayerOrbitScaler : MonoBehaviour {
 
-    public Transform outer;
-    public Transform inner;
+    //public Transform outer;
+    //public Transform inner;
 
-    Sequence scaleSequence;
+    //Sequence scaleSequence;
 
-    public Tween DoScale(Vector3 endValue, float duration)
-    {
-        scaleSequence = DOTween.Sequence();
+    //public Tween DoScale(Vector3 endValue, float duration)
+    //{
+    //    scaleSequence = DOTween.Sequence();
 
-        scaleSequence.Append(outer.DOScale(endValue, duration));
-        scaleSequence.Join(inner.DOScale(endValue - Constants.innerOuterDistance, duration));
+    //    scaleSequence.Append(outer.DOScale(endValue, duration));
+    //    scaleSequence.Join(inner.DOScale(endValue - Constants.innerOuterDistance, duration));
 
-        scaleSequence.SetEase(Ease.Linear);
-        return scaleSequence;
-    }
+    //    scaleSequence.SetEase(Ease.Linear);
+    //    return scaleSequence;
+    //}
 
-    public void StopScale(){
-        scaleSequence.Kill();
-    }
+    //public void StopScale(){
+    //    scaleSequence.Kill();
+    //}
 
 }
