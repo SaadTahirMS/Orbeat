@@ -29,6 +29,11 @@ public class OrbitController : MonoBehaviour {
         scaleSequence.Kill();
     }
 
+    public void StopRotate()
+    {
+        rotate.StopRotate();
+    }
+
     public void SetScale(Vector3 value)
     {
         StopScale();

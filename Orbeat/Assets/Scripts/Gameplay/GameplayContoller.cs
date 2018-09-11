@@ -66,11 +66,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 //orbitController.ChangeState(GameState.Start);
                 //isFirstTime = false;
                 print("Start Game");
-
                 break;
             case GameState.Restart:
                 //isFirstTime = true;
                 print("Restart Game");
+                playerController.ChangeState(GameState.Restart);
+                mainOrbitController.ChangeState(GameState.Restart);
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
@@ -103,6 +104,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public void PlayerHitHurdle()
     {
         Debug.Log("Player collided with hurdle");
+        ChangeGameState(GameState.End);
     }
 
     public void HurdleHitWall()

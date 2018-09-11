@@ -27,8 +27,21 @@ public class MainOrbitController : MonoBehaviour
                 Scale();
                 break;
             case GameState.End:
+                StopScale();
+                StopRotate();
+                //SetOrbitState(false);
                 break;
-           
+            case GameState.Restart:
+                ResetScale();
+                break;     
+        }
+    }
+
+    private void SetOrbitState(bool state)
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].gameObject.SetActive(state);
         }
     }
 
@@ -54,18 +67,30 @@ public class MainOrbitController : MonoBehaviour
         return Random.Range(Constants.minRotateSpeed, Constants.maxRotateSpeed);
     }
 
+    private void ResetScale()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].SetScale(Constants.minOrbitScale + (i * Constants.hurdlesDistance));
+        }
+    }
+
     //Scaling depends on the hurdleScale
     private void Scale()
     {
         for (int i = 0; i < orbitControllers.Count; i++)
         {
-            ScaleIndividual(i);
+            ScaleIndividual(Vector3.zero,i,true);
         }
     }
 
-    private void ScaleIndividual(int index)
+    private void ScaleIndividual(Vector3 endValue,int index,bool istween)
     {
-        orbitControllers[index].DoScale(Vector3.zero, orbitControllers[index].GetHurdleScale() / 2 * Constants.scaleSpeed);
+        if(istween)
+            orbitControllers[index].DoScale(endValue, orbitControllers[index].GetHurdleScale() / 2 * Constants.scaleSpeed);
+        else
+            orbitControllers[index].DoScale(endValue, 0f);
+
     }
 
     //Always the bottom hurdle in hierarchy will collide with the wall 
@@ -88,7 +113,23 @@ public class MainOrbitController : MonoBehaviour
     public void ResetHurdleOrbitScale()
     {
         orbitControllers[0].SetScale(Constants.maxOrbitScale);
-        ScaleIndividual(0);
+        ScaleIndividual(Vector3.zero,0,true);
+    }
+
+    private void StopScale()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].StopScale();
+        }
+    }
+
+    private void StopRotate()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].StopRotate();
+        }
     }
 
     //private void AssignIndividualRotateSpeed(int index){

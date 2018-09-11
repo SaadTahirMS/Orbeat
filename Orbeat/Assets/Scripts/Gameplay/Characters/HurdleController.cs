@@ -16,18 +16,7 @@ public class HurdleController : MonoBehaviour {
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        switch (collision.gameObject.tag)
-        {
-            case "Player":
-                GameplayContoller.Instance.PlayerHitHurdle();
-                break;
-            case "Wall":
-                GameplayContoller.Instance.HurdleHitWall();
-                break;
-        }
-    }
+
 
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public static class Constants {
 
     //Player
-    public static Vector3 playerInitialPosition = new Vector3(0f, 75f, 0f);
+    public static Vector3 playerInitialPosition = new Vector3(0f, 175f, 0f);
     public static float playerRotationSpeed = 10f;
 
     //Sound
@@ -19,14 +19,15 @@ public static class Constants {
     public static float hurdleIncreaseAmount = 0.1f;
     public static float minHurdleFillAmount = 0.45f;
     public static float maxHurdleFillAmount = 0.95f;
-    public static Vector3 hurdleWidth = new Vector3(.5f, .5f, .5f); //1 is max and 0.1 is min
+    public static Vector3 hurdleWidth = new Vector3(1f, 1f, 1f); //1 is max and 0.1 is min
     public static Vector3 hurdlesDistance = new Vector3(10f, 10f, 10f);
 
     //Orbits
     public static float minRotateSpeed = 1f; //Low Rotation Speed means fast speed
     public static float maxRotateSpeed = 10f;
-    public static Vector3 maxOrbitScale = new Vector3(40f, 40f, 40f);
-    public static float scaleSpeed = 1f;//0.001 - 1
+    public static Vector3 minOrbitScale = new Vector3(14f, 14f, 14f);
+    public static Vector3 maxOrbitScale = new Vector3(44f, 44f, 44f);
+    public static float scaleSpeed = 0.5f;//0.001 - 1
 
     //Initials
     //public static float referenceWidth = 740f;

@@ -59,7 +59,9 @@ public class PlayerController: MonoBehaviour {
             case GameState.Start:
                 break;
             case GameState.End:
-                break;            
+                break;  
+            case GameState.Restart:
+                break;
         }
     }
 
