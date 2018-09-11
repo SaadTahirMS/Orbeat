@@ -9,7 +9,7 @@ public class PlayerController: MonoBehaviour {
     public Transform player;
     public Transform orbit;
     public Rigidbody2D rb2d; //used for collisions turn on off
-    public Slider slider;
+    //public Slider slider;
 
     private Vector3 position;
     public Vector3 Position
@@ -57,18 +57,27 @@ public class PlayerController: MonoBehaviour {
         switch (state)
         {
             case GameState.Start:
+                gameObject.SetActive(true);
                 break;
             case GameState.End:
+                gameObject.SetActive(false);
                 break;  
             case GameState.Restart:
                 break;
         }
     }
 
-    //Slider control
-    public void RotatePlayer()
+    ////Slider control
+    //public void RotatePlayer()
+    //{
+    //    player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -slider.value * 360f));
+    //}
+
+
+    public void RotatePlayer(float value)
     {
-        player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -slider.value * 360f));
+        print(value);
+        player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -value * 360f));
     }
 
     public void MoveLeft(){

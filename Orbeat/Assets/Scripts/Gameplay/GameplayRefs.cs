@@ -11,7 +11,7 @@ public class GameplayRefs : MonoBehaviour {
     public Loudness loudness;
     public GameObject triangleParticles;
     public GameObject hexagonParticles;
-    public HalfScreenTouchMovement gameControls;
+    public InputController inputController;
     [Range(0.45f, 0.95f)]
     public float hurdleFillAmount;
 }

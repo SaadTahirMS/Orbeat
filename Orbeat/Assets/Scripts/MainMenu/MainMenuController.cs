@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuController : Singleton<MainMenuController>, IController {
 
@@ -7,6 +8,9 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     public GameObject playBtn;
     public GameObject restartBtn;
+    public GameObject inputBtn1;
+    public GameObject inputBtn2;
+    public Text inputText;
 
     public void Open(){
         ActivatePlayBtn();
@@ -38,6 +42,13 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         restartBtn.SetActive(false);
     }
 
+
+    public void InputMethod(string method)
+    {
+        gameplayRefs.inputController.InputMethod(method);
+        inputText.text = method;
+    }
+
     // this will make a call to GameplayController to start the gameplay
     public void PlayGame(){
         DeactivatePlayBtn();
@@ -45,13 +56,14 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         SoundController.Instance.SetVolume(1f);
         gameplayContoller = GameplayContoller.Instance;
         gameplayContoller.Open();
-
+        inputBtn1.SetActive(false);
+        inputBtn2.SetActive(false);
+        inputText.gameObject.SetActive(false);
     }
 
     //a call from GameplayController to restart the game
     public void RestartGame(){
         DeactivateRestartBtn();
-
         gameplayContoller.ChangeGameState(GameState.Restart);
     }
 

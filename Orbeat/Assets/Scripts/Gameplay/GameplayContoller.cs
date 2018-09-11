@@ -39,7 +39,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void InitializeGameControls(){
-        gameplayRefs.gameControls.GameStart(true);
+        gameplayRefs.inputController.GameStart(true);
     }
  
     private void InitializeHurdles()
@@ -63,7 +63,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 SetHurdleFillAmount(hurdleFillAmount);
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
-                //orbitController.ChangeState(GameState.Start);
                 //isFirstTime = false;
                 print("Start Game");
                 break;
@@ -75,13 +74,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
-                SoundController.Instance.SetPitch(.5f,false);
-                SoundController.Instance.SetVolume(1f);
+                SoundController.Instance.SetPitch(.9f,false);
+                SoundController.Instance.SetVolume(0.75f);
                 playerController.ChangeState(GameState.End);
                 mainOrbitController.ChangeState(GameState.End);
                 print("Game Over");
                 MainMenuController.Instance.ActivateRestartBtn();
-                //targetFillAmount = Constants.maxTargetFillAmount;
                 SetHurdleFillAmount(0f);
                 break;
             
@@ -104,6 +102,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public void PlayerHitHurdle()
     {
         Debug.Log("Player collided with hurdle");
+        ExplosionParticles();
         ChangeGameState(GameState.End);
     }
 
@@ -113,5 +112,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         mainOrbitController.SortHurdleOrbit(); //set first list element as last sibling in hierarchy
         mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
         mainOrbitController.SortOrbits();   //sort all the orbits 
+    }
+
+    private void ExplosionParticles()
+    {
+        Vector3 pos = new Vector3(playerController.transform.position.x, playerController.transform.position.y, 0f);
+        Instantiate(gameplayRefs.triangleParticles, pos, Quaternion.identity);
+        Instantiate(gameplayRefs.hexagonParticles, pos, Quaternion.identity);
     }
 }
