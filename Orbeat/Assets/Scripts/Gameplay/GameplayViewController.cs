@@ -8,7 +8,7 @@ public class GameplayViewController : IController
 {
 
     private GameplayRefs gameplayRefs;
-    //float cameraMovementFactor;
+    float cameraMovementFactor;
 
     public GameplayViewController(GameplayRefs gpRefs)
     {
@@ -18,8 +18,10 @@ public class GameplayViewController : IController
 
     public void Open()
     {
-        //cameraMovementFactor = GetAspectRatio();
+        cameraMovementFactor = GetAspectRatio();
     }
+
+
 
     //public void SetScore(string score)
     //{
@@ -31,10 +33,10 @@ public class GameplayViewController : IController
     //    gameplayRefs.scoreContainer.SetActive(value);
     //}
 
-    //private float GetAspectRatio()
-    //{
-    //    return 1 - (float)Screen.width / Screen.height;
-    //}
+    private float GetAspectRatio()
+    {
+        return 1 - (float)Screen.width / Screen.height;
+    }
 
     //public void ChangeColorSet(ColorSet colorSet)
     //{
@@ -60,7 +62,7 @@ public class GameplayViewController : IController
     //    //}
     //}
 
-    //public void LookAtTransform(Vector3 target,float offset){
-    //   gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0f, -10);
-    //}
+    public void LookAtTransform(Vector3 target,float offset){
+       gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0f, -10);
+    }
 }

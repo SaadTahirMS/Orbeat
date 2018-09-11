@@ -68,16 +68,22 @@ public class PlayerController: MonoBehaviour {
     }
 
     ////Slider control
-    //public void RotatePlayer()
+    //public void RotatePlayerSlider()
     //{
     //    player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -slider.value * 360f));
     //}
 
 
-    public void RotatePlayer(float value)
+    public void RotatePlayerV1(float deltaPosition)
     {
-        print(value);
-        player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -value * 360f));
+        //print(value);
+        player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -deltaPosition * 360f));
+
+    }
+
+    public void RotatePlayerV2(float deltaPosition)
+    {
+        player.Rotate(Vector3.back * Time.deltaTime * deltaPosition * Constants.playerScrollRotationSpeed);
     }
 
     public void MoveLeft(){

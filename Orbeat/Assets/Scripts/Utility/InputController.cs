@@ -8,12 +8,11 @@ public class InputController : MonoBehaviour
     public PlayerController player;
     private float screenCenterX;
     private bool gameStart = false;
-    private string inputMethod = "Scroll";
+    private string inputMethod;
 
     public void InputMethod(string method)
     {
         inputMethod = method;
-        print(inputMethod);
     }
 
     private void Start()
@@ -31,37 +30,58 @@ public class InputController : MonoBehaviour
     {
         if (gameStart)
         {
-            if (inputMethod == "Buttons")
+            //For Keyboard
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                //For Keyboard
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    player.MoveLeft();
-                }
-                else if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    player.MoveRight();
-                }
-
-                if (Input.GetMouseButton(0))
-                {
-                    if (Input.mousePosition.x > screenCenterX)
-                    {
-                        player.MoveRight();
-                    }
-                    else if (Input.mousePosition.x < screenCenterX)
-                    {
-                        player.MoveLeft();
-                    }
-                }
+                player.MoveLeft();
             }
-            else if (inputMethod == "Scroll")
+            else if (Input.GetKey(KeyCode.RightArrow))
             {
-                if (Input.GetMouseButton(0))
-                {
-                    float x = Input.mousePosition.x - screenCenterX;
-                    player.RotatePlayer(x / Screen.width); //value b/w -0.5 and 0.5
-                }
+                player.MoveRight();
+            }
+
+
+            switch (inputMethod)
+            {
+                case "Buttons":
+                    if (Input.GetMouseButton(0))
+                    {
+                        if (Input.mousePosition.x > screenCenterX)
+                        {
+                            player.MoveRight();
+                        }
+                        else if (Input.mousePosition.x < screenCenterX)
+                        {
+                            player.MoveLeft();
+                        }
+                    }
+
+                    break;
+                case "Scroll V1":
+                    if (Input.GetMouseButton(0))
+                    {
+                        float x = Input.mousePosition.x - screenCenterX;
+                        player.RotatePlayerV1(x / Screen.width); //value b/w -0.5 and 0.5
+                    }
+
+                    break;
+                case "Scroll V2":
+                    if (Input.touchCount > 0)
+                    {
+                        Touch touch = Input.GetTouch(0);
+                        // Handle finger movements based on touch phase.
+                        if (touch.phase == TouchPhase.Moved)
+                        {
+                            player.RotatePlayerV2(touch.deltaPosition.x); //value b/w -0.5 and 0.5
+                                                                        //playerMovementRefs.ropeTransform.Rotate (Vector3.forward * Time.deltaTime * deltaPostionX * movementFactor);
+                        }
+                        else if (touch.phase == TouchPhase.Ended)
+                        {
+                            player.RotatePlayerV2(0);
+                        }
+                    }
+
+                    break;
             }
         }
 

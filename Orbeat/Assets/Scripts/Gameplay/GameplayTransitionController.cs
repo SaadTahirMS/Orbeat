@@ -56,6 +56,7 @@ public class GameplayTransitionController : MonoBehaviour
 
     private Tween PlayerPosition(Vector3 endValue,float duration)
     {
+        playerController.transform.localPosition = Vector3.zero;
         return playerController.transform.DOLocalMove(endValue, duration);
     }
 

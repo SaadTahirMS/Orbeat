@@ -18,9 +18,8 @@ public class OrbitController : MonoBehaviour {
 
     public Tween DoScale(Vector3 endValue, float duration){
         scaleSequence = DOTween.Sequence();
-        scaleSequence.Join(hurdleController.transform.DOScale(endValue, duration));
-        scaleSequence.Join(inner.DOScale(endValue - Constants.hurdleWidth, duration));
-        scaleSequence.SetEase(Ease.Linear);
+        scaleSequence.Join(hurdleController.transform.DOScale(endValue, duration).SetEase(Ease.Linear));
+        scaleSequence.Join(inner.DOScale(endValue - Constants.hurdleWidth, duration).SetEase(Ease.Linear));
         return scaleSequence;
     }
 

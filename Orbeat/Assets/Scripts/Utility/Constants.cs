@@ -7,6 +7,8 @@ public static class Constants {
     //Player
     public static Vector3 playerInitialPosition = new Vector3(0f, 175f, 0f);
     public static float playerRotationSpeed = 7.5f;
+    public static float playerScrollRotationSpeed = 30f;
+    public static Vector3 playerOrbitScale = new Vector3(4f, 4f, 4f);
 
     //Sound
     public static float pitchTime = .75f;
@@ -20,14 +22,17 @@ public static class Constants {
     public static float minHurdleFillAmount = 0.45f;
     public static float maxHurdleFillAmount = 0.95f;
     public static Vector3 hurdleWidth = new Vector3(1f, 1f, 1f); //1 is max and 0.1 is min
-    public static Vector3 hurdlesDistance = new Vector3(10f, 10f, 10f);
+    public static Vector3 hurdlesDistance = new Vector3(15f, 15f, 15f);
 
     //Orbits
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed
     public static float maxRotateSpeed = 10f;
-    public static Vector3 minOrbitScale = new Vector3(14f, 14f, 14f);
-    public static Vector3 maxOrbitScale = new Vector3(44f, 44f, 44f);
     public static float scaleSpeed = 0.25f;//0.001 - 1
+    //public static float rotationOffset = 45f; // plus minus previous value
+
+    //Camera 
+    public static float cameraOffset = 1f;
+
 
     //Initials
     //public static float referenceWidth = 740f;

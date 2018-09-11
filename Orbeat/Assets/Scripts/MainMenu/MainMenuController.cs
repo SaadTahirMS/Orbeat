@@ -10,6 +10,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     public GameObject restartBtn;
     public GameObject inputBtn1;
     public GameObject inputBtn2;
+    public GameObject inputBtn3;
     public Text inputText;
 
     public void Open(){
@@ -17,6 +18,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         SoundController.Instance.SetPitch(.5f,true);
         SoundController.Instance.SetVolume(1f);
         InitializeBeat();
+        InputMethod("Buttons");
     }
 
     private void InitializeBeat()
@@ -58,6 +60,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         gameplayContoller.Open();
         inputBtn1.SetActive(false);
         inputBtn2.SetActive(false);
+        inputBtn3.SetActive(false);
         inputText.gameObject.SetActive(false);
     }
 

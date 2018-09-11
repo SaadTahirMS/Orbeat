@@ -12,20 +12,31 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private List<HurdleController> hurdleControllers;
     private MainOrbitController mainOrbitController;
     private GameState gameState;
-    //private bool isFirstTime = false;
-    private float hurdleFillAmount;
 
     public void Open()
     {
         Application.targetFrameRate = 60;
 
-        //isFirstTime = true;
+        InitializeGameplayVariables();
         InitializeGameplayControllers();
         InitializePlayer();
-        InitializeGameControls();
         InitializeHurdles();
         InitializeOrbit();
         ChangeGameState(GameState.Start);
+    }
+
+    private void InitializeGameplayVariables()
+    {
+        Constants.minHurdleFillAmount = gameplayRefs.minHurdleFillAmount;
+        Constants.maxHurdleFillAmount = gameplayRefs.maxHurdleFillAmount;
+        Constants.cameraOffset = gameplayRefs.cameraOffset;
+        Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
+        Constants.scaleSpeed = gameplayRefs.scaleSpeed;
+        Constants.playerRotationSpeed =  gameplayRefs.playerRotationSpeed;
+        Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
+        Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
+        Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
+        //Constants.rotationOffset = gameplayRefs.rotationOffset;
     }
 
     private void InitializeGameplayControllers(){
@@ -37,15 +48,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameplayRefs.playerController.Initialize();
         playerController = gameplayRefs.playerController;
     }
-
-    private void InitializeGameControls(){
-        gameplayRefs.inputController.GameStart(true);
-    }
  
     private void InitializeHurdles()
     {
         hurdleControllers = gameplayRefs.hurdleControllers;
-        hurdleFillAmount = gameplayRefs.hurdleFillAmount;
     }
 
     private void InitializeOrbit(){
@@ -57,10 +63,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameState = state;
         switch(state){
             case GameState.Start:
+                gameplayRefs.inputController.GameStart(true);
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(1f);
                 playerController.ChangeState(GameState.Start);
-                SetHurdleFillAmount(hurdleFillAmount);
+                SetHurdleFillAmount();
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
                 //isFirstTime = false;
@@ -74,29 +81,53 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 ChangeGameState(GameState.Start);
                 break;
             case GameState.End:
-                SoundController.Instance.SetPitch(.9f,false);
+                //SoundController.Instance.SetPitch(.9f,false);
                 SoundController.Instance.SetVolume(0.75f);
                 playerController.ChangeState(GameState.End);
                 mainOrbitController.ChangeState(GameState.End);
+                gameplayRefs.inputController.GameStart(false);
                 print("Game Over");
                 MainMenuController.Instance.ActivateRestartBtn();
-                SetHurdleFillAmount(0f);
+                ResetHurdleFillAmount();
                 break;
             
         }
     }
 
-    //Set the targets size 
-    private void SetHurdleFillAmount(float fillAmount){
+    private void Update()
+    {
+        if (gameplayViewController != null && gameState == GameState.Start)
+            gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
+
+    }
+
+    //Set the hurdle sizes randomely
+    private void SetHurdleFillAmount(){
         for (int i = 0; i < hurdleControllers.Count;i++){
-            hurdleControllers[i].SetFillAmount(fillAmount,Constants.transitionTime);
+            float fillamount = RandomHurdleFillAmount();
+            hurdleControllers[i].SetFillAmount(fillamount,Constants.transitionTime);
         }
     }
 
-    private void IncreaseHurdleArea()
+    private void ResetHurdleFillAmount()
     {
-        this.hurdleFillAmount += Constants.hurdleIncreaseAmount;
-        this.hurdleFillAmount = Mathf.Clamp(this.hurdleFillAmount, Constants.minHurdleFillAmount, Constants.maxHurdleFillAmount);
+        for (int i = 0; i < hurdleControllers.Count; i++)
+        {
+            hurdleControllers[i].SetFillAmount(0f, Constants.transitionTime);
+        }
+    }
+
+    //Sets hurdle size at index 0
+    private void SetIndividualHurdleFillAmount()
+    {
+        float fillamount = RandomHurdleFillAmount();
+        hurdleControllers[0].SetFillAmount(fillamount, Constants.transitionTime);
+    }
+
+    private float RandomHurdleFillAmount()
+    {
+        float ran = Random.Range(Constants.minHurdleFillAmount, Constants.maxHurdleFillAmount);
+        return ran;
     }
 
     public void PlayerHitHurdle()
@@ -109,8 +140,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public void HurdleHitWall()
     {
         Debug.Log("Hurdle collided with wall");
-        mainOrbitController.SortHurdleOrbit(); //set first list element as last sibling in hierarchy
+        mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
         mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
+        SetIndividualHurdleFillAmount();    //set first list element fill amount
         mainOrbitController.SortOrbits();   //sort all the orbits 
     }
 
