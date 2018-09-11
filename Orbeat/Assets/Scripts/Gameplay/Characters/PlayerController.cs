@@ -11,8 +11,6 @@ public class PlayerController: MonoBehaviour {
     public Rigidbody2D rb2d; //used for collisions turn on off
     public Slider slider;
 
-    private bool gameStart = false;
-    private float screenCenterX; //for left right touch movement
     private Vector3 position;
     public Vector3 Position
     {
@@ -42,9 +40,6 @@ public class PlayerController: MonoBehaviour {
 
     public void Initialize()
     {
-        // save the horizontal center of the screen
-        screenCenterX = Screen.width * 0.5f;
-
         AssignPosition();
         AssignRotationSpeed();
     }
@@ -62,7 +57,6 @@ public class PlayerController: MonoBehaviour {
         switch (state)
         {
             case GameState.Start:
-                gameStart = true;
                 break;
             case GameState.End:
                 break;            
@@ -75,29 +69,11 @@ public class PlayerController: MonoBehaviour {
         player.localRotation = Quaternion.Euler(new Vector3(0f, 0f, -slider.value * 360f));
     }
 
-    //Keyboard control
-    private void Update()
-    {
-        if(gameStart){
-            //For Keyboard
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                MoveLeft();
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                MoveRight();
-            }
-
-        }
-
-    }
-
-    private void MoveLeft(){
+    public void MoveLeft(){
         player.Rotate(Vector3.forward * RotationSpeed);
     }
 
-    private void MoveRight(){
+    public void MoveRight(){
         player.Rotate(Vector3.back * RotationSpeed);
     }
 
@@ -105,5 +81,7 @@ public class PlayerController: MonoBehaviour {
     {
         rb2d.isKinematic = !state; //inversed just for understanding of function
     }
+
+
 
 }

@@ -9,6 +9,7 @@ public class GameplayTransitionController : MonoBehaviour
 
     private GameplayRefs gameplayRefs;
     private PlayerController playerController;
+    private List<HurdleController> hurdleControllers;
 
     //Sequences
     private Sequence startSequence;
@@ -23,6 +24,7 @@ public class GameplayTransitionController : MonoBehaviour
     public void Open()
     {
         playerController = gameplayRefs.playerController;
+        hurdleControllers = gameplayRefs.hurdleControllers;
     }
 
     public void ChangeState(GameState state)
