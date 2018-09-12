@@ -13,10 +13,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private MainOrbitController mainOrbitController;
     private GameState gameState;
 
+    private int score;
+
     public void Open()
     {
         Application.targetFrameRate = 60;
-
         InitializeGameplayVariables();
         InitializeGameplayControllers();
         InitializePlayer();
@@ -64,6 +65,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameState = state;
         switch(state){
             case GameState.Start:
+                ResetScore();
                 gameplayRefs.inputController.GameStart(true);
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(1f);
@@ -156,7 +158,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
         SetIndividualHurdleFillAmount();    //set first list element fill amount
         mainOrbitController.SortOrbits();   //sort all the orbits 
-        mainOrbitController.RotationOffset(); 
+        mainOrbitController.RotationOffset();
+        AddScore();
     }
 
     private void ExplosionParticles()
@@ -164,5 +167,14 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Vector3 pos = new Vector3(playerController.transform.position.x, playerController.transform.position.y, 0f);
         Instantiate(gameplayRefs.triangleParticles, pos, Quaternion.identity);
         Instantiate(gameplayRefs.hexagonParticles, pos, Quaternion.identity);
+    }
+
+    private void AddScore(){
+        score += 1;
+        gameplayViewController.SetScore(score);
+    }
+
+    private void ResetScore(){
+        score = 0;
     }
 }

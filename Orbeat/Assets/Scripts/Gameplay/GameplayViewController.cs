@@ -21,17 +21,10 @@ public class GameplayViewController : IController
         cameraMovementFactor = GetAspectRatio();
     }
 
-
-
-    //public void SetScore(string score)
-    //{
-    //    gameplayRefs.scoreText.text = score;
-    //}
-
-    //public void SetScoreContainer(bool value)
-    //{
-    //    gameplayRefs.scoreContainer.SetActive(value);
-    //}
+    public void SetScore(int score)
+    {
+        gameplayRefs.scoreText.text = score.ToString();
+    }
 
     private float GetAspectRatio()
     {

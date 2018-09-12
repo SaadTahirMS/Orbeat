@@ -14,6 +14,7 @@ public class GameplayRefs : MonoBehaviour {
     public GameObject hexagonParticles;
     public InputController inputController;
     public Camera cam;
+    public Text scoreText;
 
     [Header("Game Settings")]
     public string inputMethod;

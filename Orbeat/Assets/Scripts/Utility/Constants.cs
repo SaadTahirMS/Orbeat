@@ -35,6 +35,13 @@ public static class Constants {
     public static float cameraOffset = 1f;
 
 
+    //Game Colors
+    public static float playerAlpha = 1f;
+    public static float playerOrbitAlpha = 0.5f;
+    public static float glowAlpha = 1f;
+    public static float scoreAlpha = 0.5f;
+
+
     //Initials
     //public static float referenceWidth = 740f;
     ////public static Vector2 orbitsDistance = new Vector2(250f,250f);//distance between orbits
