@@ -83,16 +83,16 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 mainOrbitController.ChangeState(GameState.Restart);
                 ChangeGameState(GameState.Start);
                 break;
-            case GameState.End:
-                //SoundController.Instance.SetPitch(.9f,false);
-                SoundController.Instance.SetVolume(0.75f);
-                playerController.ChangeState(GameState.End);
-                mainOrbitController.ChangeState(GameState.End);
-                gameplayRefs.inputController.GameStart(false);
-                print("Game Over");
-                MainMenuController.Instance.ActivateRestartBtn();
-                ResetHurdleFillAmount();
-                break;
+            //case GameState.End:
+                ////SoundController.Instance.SetPitch(.9f,false);
+                //SoundController.Instance.SetVolume(0.75f);
+                //playerController.ChangeState(GameState.End);
+                //mainOrbitController.ChangeState(GameState.End);
+                //gameplayRefs.inputController.GameStart(false);
+                //print("Game Over");
+                //MainMenuController.Instance.ActivateRestartBtn();
+                //ResetHurdleFillAmount();
+                //break;
             case GameState.Quit:
                 playerController.ChangeState(GameState.Quit);
                 mainOrbitController.ChangeState(GameState.Quit);

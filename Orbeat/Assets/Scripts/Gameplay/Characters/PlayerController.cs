@@ -67,6 +67,7 @@ public class PlayerController: MonoBehaviour {
                 break;
             case GameState.Quit:
                 gameObject.transform.position = Vector3.zero;
+                player.transform.rotation = Quaternion.identity;
                 gameObject.SetActive(false);
                 break;
         }

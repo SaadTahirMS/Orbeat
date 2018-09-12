@@ -7235,11 +7235,11 @@ MonoBehaviour:
   scaleSpeed: 0.119
   playerRotationSpeed: 7.5
   playerScrollRotationSpeed: 30
-  playerCollision: 0
+  playerCollision: 1
   minRotateSpeed: 10
   maxRotateSpeed: 10
   rotationOffset: 0
-  canRotateOrbits: 1
+  canRotateOrbits: 0
 --- !u!1 &1606902811
 GameObject:
   m_ObjectHideFlags: 0
