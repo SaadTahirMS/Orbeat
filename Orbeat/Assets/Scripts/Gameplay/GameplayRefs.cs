@@ -14,7 +14,15 @@ public class GameplayRefs : MonoBehaviour {
     public GameObject hexagonParticles;
     public InputController inputController;
     public Camera cam;
+
+    //Coloring objects
+    public List<Image> innerOrbitsImg;
+    public Image playerObjImg;
+    public Image playerOrbitImg;
+    public List<Image> hurdleOrbitsImg;
+    public Image glowImg;
     public Text scoreText;
+    public List<ParticleSystem> particles;
 
     [Header("Game Settings")]
     public string inputMethod;

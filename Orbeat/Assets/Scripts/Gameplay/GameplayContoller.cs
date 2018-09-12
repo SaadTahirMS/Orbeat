@@ -11,6 +11,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private PlayerController playerController;
     private List<HurdleController> hurdleControllers;
     private MainOrbitController mainOrbitController;
+    private ColorController colorController;
     private GameState gameState;
 
     private int score;
@@ -23,6 +24,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializePlayer();
         InitializeHurdles();
         InitializeOrbit();
+        InitializeColors();
         ChangeGameState(GameState.Start);
     }
 
@@ -59,6 +61,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private void InitializeOrbit(){
         gameplayRefs.mainOrbitController.Initialize(gameplayRefs);
         mainOrbitController = gameplayRefs.mainOrbitController;
+    }
+
+    private void InitializeColors(){
+        colorController = new ColorController();
+        colorController.Initialize();
+        ChangeColors();
     }
 
     public void ChangeGameState(GameState state){
@@ -160,6 +168,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         mainOrbitController.SortOrbits();   //sort all the orbits 
         mainOrbitController.RotationOffset();
         AddScore();
+        //ChangeColors();
     }
 
     private void ExplosionParticles()
@@ -176,5 +185,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void ResetScore(){
         score = 0;
+    }
+
+    private void ChangeColors(){
+        ColorSet colorSet = colorController.GetRandomColorSet();
+        gameplayViewController.ChangeColorSet(colorSet);
     }
 }

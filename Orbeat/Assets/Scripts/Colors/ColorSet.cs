@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ColorSet {
 
-    public Color gameColor; //changes in alpha for different objects
-    public Color bgColor;   //this is darker than others
+    public Color32 bgColor;
+    public Color32 playerColor;
+    public Color32 playerOrbitColor;
+    public Color32 hurdleColor;
+    public Color32 glowColor;
+    public Color32 scoreColor;
+    public Color32 explosionColor;
 }
