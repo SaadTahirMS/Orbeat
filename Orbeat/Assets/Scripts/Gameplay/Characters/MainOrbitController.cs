@@ -23,6 +23,7 @@ public class MainOrbitController : MonoBehaviour
         switch (state)
         {
             case GameState.Start:
+                //gameObject.SetActive(true);
                 SetScale();
                 Rotate();
                 Scale();
@@ -34,7 +35,12 @@ public class MainOrbitController : MonoBehaviour
                 break;
             case GameState.Restart:
                 //ResetScale();
-                break;     
+                break;   
+            case GameState.Quit:
+                //gameObject.SetActive(false);
+                StopScale();
+                StopRotate();
+                break;
         }
     }
 
@@ -164,7 +170,13 @@ public class MainOrbitController : MonoBehaviour
     //    }
     //}
 
-
-
-  
+    //rotation offset on the last orbit depending on the previous orbit rotation
+    public void RotationOffset()
+    {
+        int i = orbitControllers.Count - 1; //last orbit
+        Vector3 previousRotation = orbitControllers[i-1].transform.localRotation.eulerAngles; //2nd last orbit
+        Vector3 randomOffset = Vector3.one * Random.Range(-Constants.rotationOffset.x, Constants.rotationOffset.x);
+        orbitControllers[i].transform.localRotation = Quaternion.Euler(previousRotation + randomOffset);
+    }
+     
 }

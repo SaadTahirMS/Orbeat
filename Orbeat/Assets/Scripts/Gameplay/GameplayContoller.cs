@@ -36,7 +36,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
         Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
         Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
-        //Constants.rotationOffset = gameplayRefs.rotationOffset;
+        Constants.rotationOffset = Vector3.one * gameplayRefs.rotationOffset;
+        Constants.playerCollision = gameplayRefs.playerCollision;
     }
 
     private void InitializeGameplayControllers(){
@@ -90,6 +91,14 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 MainMenuController.Instance.ActivateRestartBtn();
                 ResetHurdleFillAmount();
                 break;
+            case GameState.Quit:
+                playerController.ChangeState(GameState.Quit);
+                mainOrbitController.ChangeState(GameState.Quit);
+                gameplayRefs.inputController.GameStart(false);
+                print("Game Over");
+                MainMenuController.Instance.Open();
+                ResetHurdleFillAmount();
+                break;
             
         }
     }
@@ -98,7 +107,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         if (gameplayViewController != null && gameState == GameState.Start)
             gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
-
+        
     }
 
     //Set the hurdle sizes randomely
@@ -134,7 +143,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         Debug.Log("Player collided with hurdle");
         ExplosionParticles();
-        ChangeGameState(GameState.End);
+        ChangeGameState(GameState.Quit);
     }
 
     public void HurdleHitWall()
@@ -144,6 +153,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
         SetIndividualHurdleFillAmount();    //set first list element fill amount
         mainOrbitController.SortOrbits();   //sort all the orbits 
+        mainOrbitController.RotationOffset(); 
     }
 
     private void ExplosionParticles()

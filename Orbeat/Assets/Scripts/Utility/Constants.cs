@@ -9,6 +9,7 @@ public static class Constants {
     public static float playerRotationSpeed = 7.5f;
     public static float playerScrollRotationSpeed = 30f;
     public static Vector3 playerOrbitScale = new Vector3(4f, 4f, 4f);
+    public static bool playerCollision = true;
 
     //Sound
     public static float pitchTime = .75f;
@@ -28,7 +29,7 @@ public static class Constants {
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed
     public static float maxRotateSpeed = 10f;
     public static float scaleSpeed = 0.25f;//0.001 - 1
-    //public static float rotationOffset = 45f; // plus minus previous value
+    public static Vector3 rotationOffset = new Vector3(45f,45f,45f); // plus minus previous value
 
     //Camera 
     public static float cameraOffset = 1f;

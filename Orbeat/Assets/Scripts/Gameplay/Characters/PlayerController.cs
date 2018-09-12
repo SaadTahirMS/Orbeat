@@ -40,6 +40,7 @@ public class PlayerController: MonoBehaviour {
 
     public void Initialize()
     {
+        SetCollisions(Constants.playerCollision);
         AssignPosition();
         AssignRotationSpeed();
     }
@@ -63,6 +64,10 @@ public class PlayerController: MonoBehaviour {
                 gameObject.SetActive(false);
                 break;  
             case GameState.Restart:
+                break;
+            case GameState.Quit:
+                gameObject.transform.position = Vector3.zero;
+                gameObject.SetActive(false);
                 break;
         }
     }

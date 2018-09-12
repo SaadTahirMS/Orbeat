@@ -3,7 +3,8 @@ public enum GameState
 {
     Start,
     End,
-    Restart
+    Restart,
+    Quit
 }  
 
 public enum SFX

@@ -11,7 +11,21 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     public GameObject inputBtn1;
     public GameObject inputBtn2;
     public GameObject inputBtn3;
+    public GameObject inputBtn4;
     public Text inputText;
+
+    //Game Settings
+    public InputField minHurdleFillAmount;
+    public InputField maxHurdleFillAmount;
+    public InputField cameraOffset;
+    public InputField hurdlesDistance;
+    public InputField scaleSpeed;
+    public InputField playerRotationSpeed;
+    public InputField playerScrollRotationSpeed;
+    public InputField minRotateSpeed;
+    public InputField maxRotateSpeed;
+    public InputField rotationOffset;
+    public Text playerCollision;
 
     public void Open(){
         ActivatePlayBtn();
@@ -19,6 +33,44 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         SoundController.Instance.SetVolume(1f);
         InitializeBeat();
         InputMethod("Buttons");
+        inputBtn1.SetActive(true);
+        inputBtn2.SetActive(true);
+        inputBtn3.SetActive(true);
+        inputBtn4.SetActive(true);
+        inputText.gameObject.SetActive(true);
+        DefaultSettings();
+    }
+
+    private void DefaultSettings(){
+        minHurdleFillAmount.text = gameplayRefs.minHurdleFillAmount.ToString();
+        maxHurdleFillAmount.text = gameplayRefs.maxHurdleFillAmount.ToString();
+        cameraOffset.text = gameplayRefs.cameraOffset.ToString();
+        hurdlesDistance.text = gameplayRefs.hurdlesDistance.ToString();
+        scaleSpeed.text = gameplayRefs.scaleSpeed.ToString();
+        playerRotationSpeed.text = gameplayRefs.playerRotationSpeed.ToString();
+        playerScrollRotationSpeed.text = gameplayRefs.playerScrollRotationSpeed.ToString();
+        minRotateSpeed.text = gameplayRefs.minRotateSpeed.ToString();
+        maxRotateSpeed.text = gameplayRefs.maxRotateSpeed.ToString();
+        rotationOffset.text = gameplayRefs.rotationOffset.ToString();
+        playerCollision.text = gameplayRefs.playerCollision.ToString();
+    }
+
+    public void GameSettings(){
+        gameplayRefs.minHurdleFillAmount = float.Parse(minHurdleFillAmount.text);
+        gameplayRefs.maxHurdleFillAmount = float.Parse(maxHurdleFillAmount.text);
+        gameplayRefs.cameraOffset = float.Parse(cameraOffset.text);
+        gameplayRefs.hurdlesDistance = float.Parse(hurdlesDistance.text);
+        gameplayRefs.scaleSpeed = float.Parse(scaleSpeed.text);
+        gameplayRefs.playerRotationSpeed = float.Parse(playerRotationSpeed.text);
+        gameplayRefs.playerScrollRotationSpeed = float.Parse(playerScrollRotationSpeed.text);
+        gameplayRefs.minRotateSpeed = float.Parse(minRotateSpeed.text);
+        gameplayRefs.maxRotateSpeed = float.Parse(maxRotateSpeed.text);
+        gameplayRefs.rotationOffset = float.Parse(rotationOffset.text);
+    }
+
+    public void PlayerCollisions(bool flag){
+        gameplayRefs.playerCollision = flag;
+        playerCollision.text = gameplayRefs.playerCollision.ToString();
     }
 
     private void InitializeBeat()
@@ -61,6 +113,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         inputBtn1.SetActive(false);
         inputBtn2.SetActive(false);
         inputBtn3.SetActive(false);
+        inputBtn4.SetActive(false);
         inputText.gameObject.SetActive(false);
     }
 
