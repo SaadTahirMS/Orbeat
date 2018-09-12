@@ -37,7 +37,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
         Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
         Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
-        Constants.rotationOffset = Vector3.one * gameplayRefs.rotationOffset;
+        Constants.rotationOffset = gameplayRefs.rotationOffset;
         Constants.playerCollision = gameplayRefs.playerCollision;
     }
 

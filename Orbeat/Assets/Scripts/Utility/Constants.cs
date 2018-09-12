@@ -29,17 +29,17 @@ public static class Constants {
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed
     public static float maxRotateSpeed = 10f;
     public static float scaleSpeed = 0.25f;//0.001 - 1
-    public static Vector3 rotationOffset = new Vector3(45f,45f,45f); // plus minus previous value
+    public static float rotationOffset = 45f; // plus minus previous value
 
     //Camera 
     public static float cameraOffset = 1f;
 
 
-    //Game Colors
-    public static float playerAlpha = 1f;
-    public static float playerOrbitAlpha = 0.5f;
-    public static float glowAlpha = 1f;
-    public static float scoreAlpha = 0.5f;
+    ////Game Colors
+    //public static float playerAlpha = 1f;
+    //public static float playerOrbitAlpha = 0.5f;
+    //public static float glowAlpha = 1f;
+    //public static float scoreAlpha = 0.5f;
 
 
     //Initials

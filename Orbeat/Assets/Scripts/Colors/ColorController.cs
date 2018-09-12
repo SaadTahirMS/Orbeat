@@ -13,6 +13,10 @@ public class ColorController {
     private void AddColor(){
         ColorSet colorSet1 = new ColorSet
         {
+            //bgcolor 2A2F34FF
+            //playercolor EBD69DFF
+            //playerOrbitColor 656254FF
+            //hurdlecolor, glowcolor, scorecolor
             gameColor = new Color(0x00, 0x00, 0x00, 0x00),
             bgColor = new Color(0x00,0x00,0x00,0x00)
         };

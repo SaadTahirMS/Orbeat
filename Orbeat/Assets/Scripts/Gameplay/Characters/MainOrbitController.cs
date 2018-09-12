@@ -13,6 +13,7 @@ public class MainOrbitController : MonoBehaviour
     public void Initialize(GameplayRefs gameplayRefs)
     {
         gprefs = gameplayRefs;
+        CanRotate(gameplayRefs.canRotateOrbits);
         for (int i = 0; i < orbitControllers.Count; i++)
         {
             orbitControllers[i].Initialize(gameplayRefs.hurdleControllers[i]);
@@ -186,9 +187,15 @@ public class MainOrbitController : MonoBehaviour
     public void RotationOffset()
     {
         int i = orbitControllers.Count - 1; //last orbit
-        Vector3 previousRotation = orbitControllers[i-1].transform.localRotation.eulerAngles; //2nd last orbit
-        Vector3 randomOffset = Vector3.one * Random.Range(-Constants.rotationOffset.x, Constants.rotationOffset.x);
-        orbitControllers[i].transform.localRotation = Quaternion.Euler(previousRotation + randomOffset);
+        float previousRotation = orbitControllers[i-1].transform.localRotation.eulerAngles.z; //2nd last orbit
+        float randomOffset = Random.Range(-Constants.rotationOffset, Constants.rotationOffset);
+        orbitControllers[i].RotationOffset(previousRotation + randomOffset);
+    }
+
+    public void CanRotate(bool flag){
+        for (int i = 0; i < orbitControllers.Count;i++){
+            orbitControllers[i].rotate.canRotate = flag;
+        }
     }
      
 }

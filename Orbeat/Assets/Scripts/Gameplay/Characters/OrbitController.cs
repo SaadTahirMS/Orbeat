@@ -10,6 +10,8 @@ public class OrbitController : MonoBehaviour {
     [HideInInspector]
     public HurdleController hurdleController;
     private Sequence scaleSequence;
+    private int direction;
+    private float duration;
 
     public void Initialize(HurdleController hurdleController)
     {
@@ -17,6 +19,7 @@ public class OrbitController : MonoBehaviour {
     }
 
     public Tween DoScale(Vector3 endValue, float duration){
+       
         scaleSequence = DOTween.Sequence();
         scaleSequence.Join(hurdleController.transform.DOScale(endValue, duration).SetEase(Ease.Linear));
         scaleSequence.Join(inner.DOScale(endValue - Constants.hurdleWidth, duration).SetEase(Ease.Linear));
@@ -42,11 +45,19 @@ public class OrbitController : MonoBehaviour {
 
     public void DoRotate(int direction, float duration)
     {
+        this.duration = duration;
+        this.direction = direction;
         rotate.DoRotate(direction, duration);
     }
 
     public float GetHurdleScale()
     {
         return hurdleController.transform.localScale.x;
+    }
+
+    public void RotationOffset(float value){
+        StopRotate();
+        gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, value);
+        DoRotate(direction, duration);
     }
 }

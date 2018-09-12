@@ -33,10 +33,11 @@ public class GameplayRefs : MonoBehaviour {
     [Range(10f,50f)]
     public float playerScrollRotationSpeed;
     public bool playerCollision = true;//true for yes and false for no
-    [Range(1f,10f)]
+    [Range(1f,50f)]
     public float minRotateSpeed;
-    [Range(1f, 10f)]
+    [Range(1f, 50f)]
     public float maxRotateSpeed;
     [Range(0f,180f)]
     public float rotationOffset;
+    public bool canRotateOrbits;
 }
