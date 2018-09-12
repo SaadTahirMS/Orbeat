@@ -107,7 +107,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         if (gameplayViewController != null && gameState == GameState.Start)
             gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
-        
+
+        if(Input.GetKey(KeyCode.Escape)){
+            ChangeGameState(GameState.Quit);
+        }
     }
 
     //Set the hurdle sizes randomely

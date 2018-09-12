@@ -8,13 +8,22 @@ public class MainOrbitController : MonoBehaviour
     public List<OrbitController> orbitControllers;
     private int rotateDirection;
     private float rotateSpeed;
-
+    GameplayRefs gprefs;
 
     public void Initialize(GameplayRefs gameplayRefs)
     {
+        gprefs = gameplayRefs;
         for (int i = 0; i < orbitControllers.Count; i++)
         {
             orbitControllers[i].Initialize(gameplayRefs.hurdleControllers[i]);
+        }
+    }
+
+    private void ResetList(GameplayRefs gameplayRefs){
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i] = gameplayRefs.intialOrbitList[i];
+            orbitControllers[i].transform.SetAsFirstSibling();
         }
     }
 
@@ -24,6 +33,7 @@ public class MainOrbitController : MonoBehaviour
         {
             case GameState.Start:
                 //gameObject.SetActive(true);
+
                 SetScale();
                 Rotate();
                 Scale();
@@ -31,6 +41,7 @@ public class MainOrbitController : MonoBehaviour
             case GameState.End:
                 StopScale();
                 StopRotate();
+                SortOrbits();
                 //SetOrbitState(false);
                 break;
             case GameState.Restart:
@@ -40,6 +51,7 @@ public class MainOrbitController : MonoBehaviour
                 //gameObject.SetActive(false);
                 StopScale();
                 StopRotate();
+                ResetList(gprefs);
                 break;
         }
     }

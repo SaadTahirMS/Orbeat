@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameplayRefs : MonoBehaviour {
 
+    public List<OrbitController> intialOrbitList;
     public PlayerController playerController;
     public List<HurdleController> hurdleControllers;//area that can collide with the player
     public MainOrbitController mainOrbitController;//inner and hurdle together

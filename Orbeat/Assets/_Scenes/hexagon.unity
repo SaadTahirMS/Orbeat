@@ -6702,6 +6702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7471505a0c1d479da9266e799ce9352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intialOrbitList:
+  - {fileID: 1354315814}
+  - {fileID: 1502416566}
+  - {fileID: 1023254851}
+  - {fileID: 2092386973}
   playerController: {fileID: 1650243713}
   hurdleControllers:
   - {fileID: 1935163003}
