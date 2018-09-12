@@ -16,6 +16,7 @@ public class GameplayRefs : MonoBehaviour {
     public Camera cam;
 
     [Header("Game Settings")]
+    public string inputMethod;
     [Range(0f,0.95f)]
     public float minHurdleFillAmount;
     [Range(0f, 0.95f)]

@@ -8,13 +8,10 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     public GameObject playBtn;
     public GameObject restartBtn;
-    public GameObject inputBtn1;
-    public GameObject inputBtn2;
-    public GameObject inputBtn3;
-    public GameObject inputBtn4;
-    public Text inputText;
+    public GameObject settings;
 
     //Game Settings
+    public Text inputMethod;
     public InputField minHurdleFillAmount;
     public InputField maxHurdleFillAmount;
     public InputField cameraOffset;
@@ -32,16 +29,12 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         SoundController.Instance.SetPitch(.5f,true);
         SoundController.Instance.SetVolume(1f);
         InitializeBeat();
-        InputMethod("Buttons");
-        inputBtn1.SetActive(true);
-        inputBtn2.SetActive(true);
-        inputBtn3.SetActive(true);
-        inputBtn4.SetActive(true);
-        inputText.gameObject.SetActive(true);
+        settings.SetActive(true);
         DefaultSettings();
     }
 
     private void DefaultSettings(){
+        InputMethod(gameplayRefs.inputMethod);
         minHurdleFillAmount.text = gameplayRefs.minHurdleFillAmount.ToString();
         maxHurdleFillAmount.text = gameplayRefs.maxHurdleFillAmount.ToString();
         cameraOffset.text = gameplayRefs.cameraOffset.ToString();
@@ -100,7 +93,8 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     public void InputMethod(string method)
     {
         gameplayRefs.inputController.InputMethod(method);
-        inputText.text = method;
+        gameplayRefs.inputMethod = method;
+        inputMethod.text = method;
     }
 
     // this will make a call to GameplayController to start the gameplay
@@ -110,12 +104,8 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         SoundController.Instance.SetVolume(1f);
         gameplayContoller = GameplayContoller.Instance;
         gameplayContoller.Open();
-        inputBtn1.SetActive(false);
-        inputBtn2.SetActive(false);
-        inputBtn3.SetActive(false);
-        inputBtn4.SetActive(false);
-        inputText.gameObject.SetActive(false);
-    }
+        settings.SetActive(false);
+     }
 
     //a call from GameplayController to restart the game
     public void RestartGame(){
