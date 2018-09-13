@@ -35,7 +35,6 @@ public class MainOrbitController : MonoBehaviour
             case GameState.Start:
                 //gameObject.SetActive(true);
                 SetInitialScale();
-                //SetScale();
                 Rotate();
                 Scale();
                 break;
@@ -87,13 +86,13 @@ public class MainOrbitController : MonoBehaviour
         return Random.Range(Constants.minRotateSpeed, Constants.maxRotateSpeed);
     }
 
-    private void SetScale()
-    {
-        for (int i = 0; i < orbitControllers.Count; i++)
-        {
-            orbitControllers[i].SetScale(CalculateScale(i+1));
-        }
-    }
+    //private void SetScale()
+    //{
+    //    for (int i = 0; i < orbitControllers.Count; i++)
+    //    {
+    //        orbitControllers[i].SetScale(CalculateScale(i+1));
+    //    }
+    //}
 
     private Vector3 CalculateScale(int a)
     {

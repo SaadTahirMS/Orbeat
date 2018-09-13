@@ -14,7 +14,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private ColorController colorController;
     private GameState gameState;
 
-    private int score;
+    private int score = 0;
+    private int level = 0;
 
     public void Open()
     {
@@ -169,6 +170,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         mainOrbitController.SortOrbits();   //sort all the orbits 
         mainOrbitController.RotationOffset();
         AddScore();
+        if(CheckLevelUp()){
+            ChangeColors();
+        }
     }
 
     private void ExplosionParticles()
@@ -185,10 +189,19 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void ResetScore(){
         score = 0;
+        level = 0;
     }
 
     private void ChangeColors(){
         ColorSet colorSet = colorController.GetRandomColorSet();
         gameplayViewController.ChangeColorSet(colorSet);
+    }
+
+    private bool CheckLevelUp(){
+        if(score%10 == 0){
+            level += 1;
+            return true;
+        }
+        return false;
     }
 }

@@ -35,25 +35,25 @@ public class GameplayViewController : IController
     {
         for (int i = 0; i < gameplayRefs.innerOrbitsImg.Count;i++){
             //gameplayRefs.innerOrbitsImg[i].color = colorSet.bgColor; //new Color(42f/255, 47f/255, 52f/255, 255f/255); //colorSet.bgColor;
-            gameplayRefs.innerOrbitsImg[i].DOColor(colorSet.bgColor,Constants.transitionTime);
+            gameplayRefs.innerOrbitsImg[i].DOColor(colorSet.bgColor,Constants.colorTransitionTime);
         }
 
         //gameplayRefs.playerObjImg.color = colorSet.playerColor;
-        gameplayRefs.playerObjImg.DOColor(colorSet.playerColor,Constants.transitionTime);
+        gameplayRefs.playerObjImg.DOColor(colorSet.playerColor,Constants.colorTransitionTime);
 
 
         //gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
-        gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.transitionTime);
+        gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.colorTransitionTime);
 
         for (int i = 0; i < gameplayRefs.hurdleOrbitsImg.Count;i++){
             //gameplayRefs.hurdleOrbitsImg[i].color = colorSet.hurdleColor;
-            gameplayRefs.hurdleOrbitsImg[i].DOColor(colorSet.hurdleColor,Constants.transitionTime);
+            gameplayRefs.hurdleOrbitsImg[i].DOColor(colorSet.hurdleColor,Constants.colorTransitionTime);
         }
 
         //gameplayRefs.glowImg.color = colorSet.glowColor;
-        gameplayRefs.glowImg.DOColor(colorSet.glowColor,Constants.transitionTime);
+        gameplayRefs.glowImg.DOColor(colorSet.glowColor,Constants.colorTransitionTime);
         //gameplayRefs.scoreText.color = colorSet.scoreColor;
-        gameplayRefs.scoreText.DOColor(colorSet.scoreColor,Constants.transitionTime);
+        gameplayRefs.scoreText.DOColor(colorSet.scoreColor,Constants.colorTransitionTime);
 
         for (int i = 0; i < gameplayRefs.particles.Count; i++)
         {

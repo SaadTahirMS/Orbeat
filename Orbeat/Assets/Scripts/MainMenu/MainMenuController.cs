@@ -27,8 +27,8 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     public void Open(){
         ActivatePlayBtn();
-        SoundController.Instance.SetPitch(0.9f,true);
-        SoundController.Instance.SetVolume(0.75f);
+        SoundController.Instance.SetPitch(1f,true);
+        SoundController.Instance.SetVolume(0.5f);
         InitializeBeat();
         settings.SetActive(true);
         DefaultSettings();

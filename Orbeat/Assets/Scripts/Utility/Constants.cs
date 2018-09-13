@@ -14,9 +14,10 @@ public static class Constants {
     //Sound
     public static float pitchTime = .75f;
 
-    //Start Transition
+    //Tweens
     public static float transitionTime = 0.25f;
     public static float playerTransitionTime = 0.15f;
+    public static float colorTransitionTime = 5f;
 
     //Hurdle
     public static float hurdleIncreaseAmount = 0.1f;
