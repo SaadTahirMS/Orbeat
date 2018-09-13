@@ -23,7 +23,8 @@ public static class Constants {
     public static float minHurdleFillAmount = 0.45f;
     public static float maxHurdleFillAmount = 0.95f;
     public static Vector3 hurdleWidth = new Vector3(1f, 1f, 1f); //1 is max and 0.1 is min
-    public static Vector3 hurdlesDistance = new Vector3(15f, 15f, 15f);
+    public static Vector3 hurdlesDistance = new Vector3(10f, 10f, 10f);
+    public static Vector3 hurdlesInitialDistance = new Vector3(24f, 24f, 24f);
 
     //Orbits
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed

@@ -34,8 +34,8 @@ public class MainOrbitController : MonoBehaviour
         {
             case GameState.Start:
                 //gameObject.SetActive(true);
-
-                SetScale();
+                SetInitialScale();
+                //SetScale();
                 Rotate();
                 Scale();
                 break;
@@ -46,13 +46,13 @@ public class MainOrbitController : MonoBehaviour
                 //SetOrbitState(false);
                 break;
             case GameState.Restart:
-                //ResetScale();
                 break;   
             case GameState.Quit:
                 //gameObject.SetActive(false);
                 StopScale();
                 StopRotate();
                 ResetList(gprefs);
+                //SetInitialScale();
                 break;
         }
     }
@@ -98,6 +98,19 @@ public class MainOrbitController : MonoBehaviour
     private Vector3 CalculateScale(int a)
     {
         return Constants.playerOrbitScale + (a * Constants.hurdlesDistance);
+    }
+
+    private void SetInitialScale()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].SetScale(CalculateInitialScale(i));
+        }
+    }
+
+    private Vector3 CalculateInitialScale(int a)
+    {
+        return Constants.hurdlesInitialDistance + (a * Constants.hurdlesDistance); 
     }
 
     //Scaling depends on the hurdleScale

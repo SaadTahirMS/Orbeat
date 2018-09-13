@@ -7016,7 +7016,7 @@ MonoBehaviour:
   playerCollision: 1
   minRotateSpeed: 10
   maxRotateSpeed: 10
-  rotationOffset: 0
+  rotationOffset: 45
   canRotateOrbits: 0
 --- !u!1 &1606902811
 GameObject:
