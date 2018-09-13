@@ -83,6 +83,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayTransitionController.ChangeState(GameState.Start);
                 //isFirstTime = false;
                 print("Start Game");
+                ChangeColors();
                 break;
             case GameState.Restart:
                 //isFirstTime = true;
@@ -168,7 +169,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         mainOrbitController.SortOrbits();   //sort all the orbits 
         mainOrbitController.RotationOffset();
         AddScore();
-        //ChangeColors();
     }
 
     private void ExplosionParticles()
