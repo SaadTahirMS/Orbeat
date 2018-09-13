@@ -20,38 +20,20 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
-    private void ResetList(GameplayRefs gameplayRefs){
-        for (int i = 0; i < orbitControllers.Count; i++)
-        {
-            orbitControllers[i] = gameplayRefs.intialOrbitList[i];
-            orbitControllers[i].transform.SetAsFirstSibling();
-        }
-    }
-
     public void ChangeState(GameState state)
     {
         switch (state)
         {
             case GameState.Start:
-                //gameObject.SetActive(true);
                 SetInitialScale();
                 Rotate();
                 Scale();
                 break;
-            case GameState.End:
-                StopScale();
-                StopRotate();
-                SortOrbits();
-                //SetOrbitState(false);
-                break;
             case GameState.Restart:
                 break;   
             case GameState.Quit:
-                //gameObject.SetActive(false);
                 StopScale();
                 StopRotate();
-                ResetList(gprefs);
-                //SetInitialScale();
                 break;
         }
     }
@@ -86,13 +68,17 @@ public class MainOrbitController : MonoBehaviour
         return Random.Range(Constants.minRotateSpeed, Constants.maxRotateSpeed);
     }
 
-    //private void SetScale()
-    //{
-    //    for (int i = 0; i < orbitControllers.Count; i++)
-    //    {
-    //        orbitControllers[i].SetScale(CalculateScale(i+1));
-    //    }
-    //}
+    private void ResetScales()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].SetScale(Vector3.one);
+        }
+    }
+
+    public List<OrbitController> GetOrbits(){
+        return orbitControllers;
+    }
 
     private Vector3 CalculateScale(int a)
     {

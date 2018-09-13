@@ -34,8 +34,6 @@ public class GameplayTransitionController : MonoBehaviour
             case GameState.Start:
                 StartTransition();
                 break;
-            case GameState.End:
-                break;
         }
     }
 

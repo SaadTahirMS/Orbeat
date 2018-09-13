@@ -8,7 +8,9 @@ public class PlayerController: MonoBehaviour {
     
     public Transform player;
     public Transform orbit;
-    public Rigidbody2D rb2d; //used for collisions turn on off
+    public Rigidbody2D playerRB; //used for collisions turn on off
+    public Rigidbody2D playerOrbitRB; //used for collisions turn on off
+
     //public Slider slider;
 
     private Vector3 position;
@@ -58,14 +60,14 @@ public class PlayerController: MonoBehaviour {
         switch (state)
         {
             case GameState.Start:
+                SetCollisions(true);
                 gameObject.SetActive(true);
                 break;
-            case GameState.End:
-                gameObject.SetActive(false);
-                break;  
+
             case GameState.Restart:
                 break;
             case GameState.Quit:
+                SetCollisions(false);
                 gameObject.transform.position = Vector3.zero;
                 player.transform.rotation = Quaternion.identity;
                 gameObject.SetActive(false);
@@ -102,7 +104,9 @@ public class PlayerController: MonoBehaviour {
 
     public void SetCollisions(bool state)
     {
-        rb2d.isKinematic = !state; //inversed just for understanding of function
+        playerRB.isKinematic = !state; 
+        playerOrbitRB.isKinematic = !state; 
+
     }
 
 

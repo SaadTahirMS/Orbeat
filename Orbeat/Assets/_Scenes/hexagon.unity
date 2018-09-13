@@ -878,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b590fa865c8a64e24862e353b26fa8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSize: 14
+  initialSize: 12
   endValue: 5
   duration: 0.1
 --- !u!1 &153478594
@@ -7466,7 +7466,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1192645541}
   orbit: {fileID: 1899334705}
-  rb2d: {fileID: 1650243715}
+  playerRB: {fileID: 1650243715}
+  playerOrbitRB: {fileID: 191166935}
 --- !u!58 &1650243714
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7479,9 +7480,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 30}
+  m_Offset: {x: 0, y: 14}
   serializedVersion: 2
-  m_Radius: 9
+  m_Radius: 25
 --- !u!50 &1650243715
 Rigidbody2D:
   serializedVersion: 4

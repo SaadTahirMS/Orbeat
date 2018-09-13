@@ -12,7 +12,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private List<HurdleController> hurdleControllers;
     private MainOrbitController mainOrbitController;
     private ColorController colorController;
-    private GameState gameState;
+    public GameState gameState;
 
     private int score = 0;
     private int level = 0;
@@ -110,8 +110,20 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 print("Game Over");
                 MainMenuController.Instance.Open();
                 ResetHurdleFillAmount();
+                ResetOrbitList();
                 break;
             
+        }
+    }
+
+    private void ResetOrbitList()
+    {
+        List<OrbitController> orbitControllers = mainOrbitController.GetOrbits();
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i] = gameplayRefs.intialOrbitList[i];
+            //print(orbitControllers[i].name);
+            orbitControllers[i].transform.SetAsFirstSibling();
         }
     }
 

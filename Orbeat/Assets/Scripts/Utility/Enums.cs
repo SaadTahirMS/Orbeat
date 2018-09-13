@@ -2,7 +2,6 @@
 public enum GameState
 {
     Start,
-    End,
     Restart,
     Quit
 }  

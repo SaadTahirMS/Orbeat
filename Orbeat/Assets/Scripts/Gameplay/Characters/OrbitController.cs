@@ -19,7 +19,7 @@ public class OrbitController : MonoBehaviour {
     }
 
     public Tween DoScale(Vector3 endValue, float duration){
-       
+        StopScale();
         scaleSequence = DOTween.Sequence();
         scaleSequence.Join(hurdleController.transform.DOScale(endValue, duration).SetEase(Ease.Linear));
         scaleSequence.Join(inner.DOScale(endValue - Constants.hurdleWidth, duration).SetEase(Ease.Linear));
@@ -40,7 +40,11 @@ public class OrbitController : MonoBehaviour {
     {
         StopScale();
         hurdleController.transform.localScale = value;
-        inner.transform.localScale = value - Constants.hurdleWidth;
+        Vector3 scale = hurdleController.transform.localScale - Vector3.one;
+        inner.transform.localScale = scale;
+
+        //hurdleController.transform.DOScale(value,Constants.transitionTime);
+        //inner.transform.DOScale(hurdleController.transform.localScale - Constants.hurdleWidth, Constants.transitionTime);
     }
 
     public void DoRotate(int direction, float duration)
