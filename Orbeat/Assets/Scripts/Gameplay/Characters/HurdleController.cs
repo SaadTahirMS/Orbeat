@@ -11,6 +11,7 @@ public class HurdleController : MonoBehaviour {
     public Image hurdleImage;
 
     public void SetFillAmount(float fillAmount , float duration){
+        hurdleImage.fillAmount = 0f;
         hurdleImage.DOFillAmount(fillAmount, duration);
         arcCollider.totalAngle = (int)(fillAmount * 360);
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);

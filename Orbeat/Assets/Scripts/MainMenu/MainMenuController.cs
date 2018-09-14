@@ -12,8 +12,9 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     //Game Settings
     public Text inputMethod;
-    public InputField minHurdleFillAmount;
-    public InputField maxHurdleFillAmount;
+    //public InputField minHurdleFillAmount;
+    //public InputField maxHurdleFillAmount;
+    public InputField hurdleFillAmount;
     public InputField cameraOffset;
     public InputField hurdlesDistance;
     public InputField scaleSpeed;
@@ -36,8 +37,9 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     private void DefaultSettings(){
         InputMethod(gameplayRefs.inputMethod);
-        minHurdleFillAmount.text = gameplayRefs.minHurdleFillAmount.ToString();
-        maxHurdleFillAmount.text = gameplayRefs.maxHurdleFillAmount.ToString();
+        //minHurdleFillAmount.text = gameplayRefs.minHurdleFillAmount.ToString();
+        //maxHurdleFillAmount.text = gameplayRefs.maxHurdleFillAmount.ToString();
+        hurdleFillAmount.text = gameplayRefs.hurdleFillAmount.ToString();
         cameraOffset.text = gameplayRefs.cameraOffset.ToString();
         hurdlesDistance.text = gameplayRefs.hurdlesDistance.ToString();
         scaleSpeed.text = gameplayRefs.scaleSpeed.ToString();
@@ -51,8 +53,9 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     }
 
     public void GameSettings(){
-        gameplayRefs.minHurdleFillAmount = float.Parse(minHurdleFillAmount.text);
-        gameplayRefs.maxHurdleFillAmount = float.Parse(maxHurdleFillAmount.text);
+        //gameplayRefs.minHurdleFillAmount = float.Parse(minHurdleFillAmount.text);
+        //gameplayRefs.maxHurdleFillAmount = float.Parse(maxHurdleFillAmount.text);
+        gameplayRefs.hurdleFillAmount = float.Parse(hurdleFillAmount.text);
         gameplayRefs.cameraOffset = float.Parse(cameraOffset.text);
         gameplayRefs.hurdlesDistance = float.Parse(hurdlesDistance.text);
         gameplayRefs.scaleSpeed = float.Parse(scaleSpeed.text);

@@ -11,6 +11,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private PlayerController playerController;
     private List<HurdleController> hurdleControllers;
     private MainOrbitController mainOrbitController;
+    private List<OrbitController> orbitControllers;
     private ColorController colorController;
 
     [HideInInspector]public GameState gameState;
@@ -32,8 +33,9 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void InitializeGameplayVariables()
     {
-        Constants.minHurdleFillAmount = gameplayRefs.minHurdleFillAmount;
-        Constants.maxHurdleFillAmount = gameplayRefs.maxHurdleFillAmount;
+        //Constants.minHurdleFillAmount = gameplayRefs.minHurdleFillAmount;
+        //Constants.maxHurdleFillAmount = gameplayRefs.maxHurdleFillAmount;
+        Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmount;
         Constants.cameraOffset = gameplayRefs.cameraOffset;
         Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
         Constants.scaleSpeed = gameplayRefs.scaleSpeed;
@@ -120,7 +122,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     private void ResetOrbitList()
     {
-        List<OrbitController> orbitControllers = mainOrbitController.GetOrbits();
+        orbitControllers = mainOrbitController.GetOrbits();
         for (int i = 0; i < orbitControllers.Count; i++)
         {
             orbitControllers[i] = gameplayRefs.intialOrbitList[i];
@@ -143,9 +145,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
     //Set all the hurdle sizes randomely
     private void SetHurdleFillAmount(){
+        //for (int i = 0; i < hurdleControllers.Count;i++){
+        //    float fillamount = RandomHurdleFillAmount();
+        //    hurdleControllers[i].SetFillAmount(fillamount,Constants.transitionTime);
+        //}
         for (int i = 0; i < hurdleControllers.Count;i++){
-            float fillamount = RandomHurdleFillAmount();
-            hurdleControllers[i].SetFillAmount(fillamount,Constants.transitionTime);
+            hurdleControllers[i].SetFillAmount(Constants.hurdleFillAmount,Constants.transitionTime);
         }
     }
 
@@ -153,22 +158,25 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         for (int i = 0; i < hurdleControllers.Count; i++)
         {
-            hurdleControllers[i].SetFillAmount(0f, Constants.transitionTime);
+            hurdleControllers[i].SetFillAmount(0f, Constants.fillAmountTime);
         }
     }
 
-    //Sets hurdle size at index 0
-    private void SetIndividualHurdleFillAmount()
+    //Sets hurdle size
+    private void SetIndividualHurdleFillAmount(OrbitController orbit)
     {
-        float fillamount = RandomHurdleFillAmount();
-        hurdleControllers[0].SetFillAmount(fillamount, Constants.transitionTime);
+        //float fillamount = RandomHurdleFillAmount();
+        //hurdleControllers[0].SetFillAmount(fillamount, Constants.transitionTime);
+        //hurdleControllers[0].SetFillAmount(Constants.hurdleFillAmount, Constants.transitionTime);
+
+        orbit.hurdleController.SetFillAmount(Constants.hurdleFillAmount, Constants.fillAmountTime);
     }
 
-    private float RandomHurdleFillAmount()
-    {
-        float ran = Random.Range(Constants.minHurdleFillAmount, Constants.maxHurdleFillAmount);
-        return ran;
-    }
+    //private float RandomHurdleFillAmount()
+    //{
+    //    float ran = Random.Range(Constants.minHurdleFillAmount, Constants.maxHurdleFillAmount);
+    //    return ran;
+    //}
 
     public void PlayerHitHurdle()
     {
@@ -177,39 +185,61 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         ChangeGameState(GameState.Quit);
     }
 
+    private void PlayerCollisions(){
+        playerController.SetCollisions(Constants.playerCollision);
+    }
+
     public void HurdleHitWall()
     {
         Debug.Log("Hurdle collided with wall");
-        Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
+        orbitControllers = mainOrbitController.GetOrbits();
 
+        //Hurdle Distance
+        Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
         mainOrbitController.SetNewScale();
 
-        //mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
+        //Hurdle FillAmount
+        Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmount;
+        SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+
+        //Orbit Scale Speed
+        Constants.scaleSpeed = gameplayRefs.scaleSpeed;
+
+        //Camera Offset
+        Constants.cameraOffset = gameplayRefs.cameraOffset;
+
+        //Orbits Rotation
+        mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
+        Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
+        Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
+        mainOrbitController.AssignNewRotation();
+
+        //Orbit Rotation Offset
+        Constants.rotationOffset = gameplayRefs.rotationOffset;
+        mainOrbitController.RotationOffset();
+
+        //Player Rotate Speed
+        Constants.playerRotationSpeed = gameplayRefs.playerRotationSpeed;
+
+        //Player Scroll Speed
+        Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
+
+        //Player Collisions
+        Constants.playerCollision = gameplayRefs.playerCollision;
+        PlayerCollisions();
+
+        //Scoring
+        AddScore();
+        if(CheckLevelUp()){
+            ChangeColors();
+        }
+
+        //Sort Orbits
         mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
         mainOrbitController.SortOrbits();   //sort all the orbits 
 
-        //SetIndividualHurdleFillAmount();    //set first list element fill amount
-        //mainOrbitController.RotationOffset();
-        //AddScore();
-        ////OrbitParticles();
-        //gameplayViewController.OrbitFade();
-        //if(CheckLevelUp()){
-        //    ChangeColors();
-        //}
+        gameplayViewController.OrbitFade();
 
-        //mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
-        //Constants.cameraOffset = gameplayRefs.cameraOffset;
-        //Constants.minHurdleFillAmount = gameplayRefs.minHurdleFillAmount;
-        //Constants.maxHurdleFillAmount = gameplayRefs.maxHurdleFillAmount;
-        //SetIndividualHurdleFillAmount();
-
-        //Constants.scaleSpeed = gameplayRefs.scaleSpeed;
-        //Constants.playerRotationSpeed = gameplayRefs.playerRotationSpeed;
-        //Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
-        //Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
-        //Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
-        //Constants.rotationOffset = gameplayRefs.rotationOffset;
-        //Constants.playerCollision = gameplayRefs.playerCollision;
     }
 
     private void ExplosionParticles()

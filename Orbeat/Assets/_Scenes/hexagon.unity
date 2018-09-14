@@ -3471,7 +3471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 795203583}
   m_Layer: 5
-  m_Name: MaxHurdleFillAmount
+  m_Name: HurdleFillAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7078,18 +7078,17 @@ MonoBehaviour:
   - {fileID: 198530185125881536, guid: 60d9ef126686f4ef0af881c47c5b1905, type: 2}
   - {fileID: 198228583597399116, guid: 51b7b0afd815041109e117da54248b83, type: 2}
   inputMethod: Buttons
-  minHurdleFillAmount: 0.14
-  maxHurdleFillAmount: 0.33
-  cameraOffset: 1
   hurdlesDistance: 10
-  scaleSpeed: 0.119
-  playerRotationSpeed: 7.5
-  playerScrollRotationSpeed: 30
-  playerCollision: 0
+  hurdleFillAmount: 0.9
+  scaleSpeed: 0.2
+  cameraOffset: 1
+  canRotateOrbits: 0
   minRotateSpeed: 1
   maxRotateSpeed: 10
   rotationOffset: 45
-  canRotateOrbits: 0
+  playerRotationSpeed: 7.5
+  playerScrollRotationSpeed: 30
+  playerCollision: 0
 --- !u!1 &1606902811
 GameObject:
   m_ObjectHideFlags: 0
@@ -7524,14 +7523,13 @@ MonoBehaviour:
   player: {fileID: 1192645541}
   orbit: {fileID: 1899334705}
   playerRB: {fileID: 1650243715}
-  playerOrbitRB: {fileID: 191166935}
 --- !u!58 &1650243714
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1650243709}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -7547,7 +7545,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1650243709}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -9245,7 +9243,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MaxHurdleFillAmount
+  m_Text: HurdleFillAmount
 --- !u!222 &1991268449
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9664,8 +9662,7 @@ MonoBehaviour:
   restartBtn: {fileID: 683756431}
   settings: {fileID: 1930750607}
   inputMethod: {fileID: 13084187}
-  minHurdleFillAmount: {fileID: 636736530}
-  maxHurdleFillAmount: {fileID: 1296500951}
+  hurdleFillAmount: {fileID: 1296500951}
   cameraOffset: {fileID: 840288447}
   hurdlesDistance: {fileID: 481565874}
   scaleSpeed: {fileID: 1971785796}

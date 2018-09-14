@@ -37,6 +37,7 @@ public class GameplayViewController : IController
             //gameplayRefs.innerOrbitsImg[i].color = colorSet.bgColor; //new Color(42f/255, 47f/255, 52f/255, 255f/255); //colorSet.bgColor;
             gameplayRefs.innerOrbitsImg[i].DOColor(colorSet.bgColor,Constants.colorTransitionTime);
         }
+        gameplayRefs.cam.DOColor(colorSet.bgColor, Constants.colorTransitionTime);
 
         //gameplayRefs.playerObjImg.color = colorSet.playerColor;
         gameplayRefs.playerObjImg.DOColor(colorSet.playerColor,Constants.colorTransitionTime);

@@ -68,6 +68,13 @@ public class MainOrbitController : MonoBehaviour
         return Random.Range(Constants.minRotateSpeed, Constants.maxRotateSpeed);
     }
 
+    //assigning new rotation to the hurdle that hit the orbit
+    public void AssignNewRotation(){
+        float newRotateSpeed = AssignRotateSpeed();
+        int newDirection = AssignDirection();
+        orbitControllers[0].DoRotate(newDirection, newRotateSpeed);
+    }
+
     private void ResetScales()
     {
         for (int i = 0; i < orbitControllers.Count; i++)
@@ -129,11 +136,11 @@ public class MainOrbitController : MonoBehaviour
         orbitControllers[i] = key;
     }
 
-    public void ResetHurdleOrbitScale()
-    {
-        orbitControllers[0].SetScale(CalculateScale(orbitControllers.Count));
-        ScaleIndividual(Vector3.zero,0);//scale down to this value
-    }
+    //public void ResetHurdleOrbitScale()
+    //{
+    //    orbitControllers[0].SetScale(CalculateScale(orbitControllers.Count));
+    //    ScaleIndividual(Vector3.zero,0);//scale down to this value
+    //}
 
     private void StopScale()
     {

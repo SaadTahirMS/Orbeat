@@ -18,11 +18,13 @@ public static class Constants {
     public static float transitionTime = 0.25f;
     public static float playerTransitionTime = 0.15f;
     public static float colorTransitionTime = 5f;
+    public static float fillAmountTime = 1f;
 
     //Hurdle
     public static float hurdleIncreaseAmount = 0.1f;
-    public static float minHurdleFillAmount = 0.45f;
-    public static float maxHurdleFillAmount = 0.95f;
+    //public static float minHurdleFillAmount = 0.45f;
+    //public static float maxHurdleFillAmount = 0.95f;
+    public static float hurdleFillAmount = 0.25f; //increases with time to reduce the gap
     public static Vector3 hurdleWidth = new Vector3(1f, 1f, 1f); //1 is max and 0.1 is min
     public static Vector3 hurdlesDistance = new Vector3(10f, 10f, 10f);
     public static Vector3 hurdlesInitialDistance = new Vector3(24f, 24f, 24f);
