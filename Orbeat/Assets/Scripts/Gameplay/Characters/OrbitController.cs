@@ -54,9 +54,9 @@ public class OrbitController : MonoBehaviour {
         rotate.DoRotate(direction, duration);
     }
 
-    public float GetHurdleScale()
+    public Vector3 GetHurdleScale()
     {
-        return hurdleController.transform.localScale.x;
+        return hurdleController.transform.localScale;
     }
 
     public void RotationOffset(float value){

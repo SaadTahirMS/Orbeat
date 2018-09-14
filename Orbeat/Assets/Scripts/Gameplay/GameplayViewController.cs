@@ -44,6 +44,8 @@ public class GameplayViewController : IController
 
         //gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
         gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.colorTransitionTime);
+        gameplayRefs.playerOrbitGlowImg.color = colorSet.playerOrbitGlowColor;
+        //gameplayRefs.playerOrbitGlowImg.DOColor(colorSet.playerOrbitGlowColor, Constants.colorTransitionTime);
 
         for (int i = 0; i < gameplayRefs.hurdleOrbitsImg.Count;i++){
             //gameplayRefs.hurdleOrbitsImg[i].color = colorSet.hurdleColor;
@@ -63,5 +65,10 @@ public class GameplayViewController : IController
 
     public void LookAtTransform(Vector3 target,float offset){
        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0f, -10);
+    }
+
+    public void OrbitFade(){
+        gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo);
+
     }
 }

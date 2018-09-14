@@ -12,7 +12,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private List<HurdleController> hurdleControllers;
     private MainOrbitController mainOrbitController;
     private ColorController colorController;
-    public GameState gameState;
+
+    [HideInInspector]public GameState gameState;
 
     private int score = 0;
     private int level = 0;
@@ -20,12 +21,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public void Open()
     {
         Application.targetFrameRate = 60;
-        InitializeGameplayVariables();
         InitializeGameplayControllers();
         InitializePlayer();
         InitializeHurdles();
         InitializeOrbit();
         InitializeColors();
+        InitializeGameplayVariables();
         ChangeGameState(GameState.Start);
     }
 
@@ -42,6 +43,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
         Constants.rotationOffset = gameplayRefs.rotationOffset;
         Constants.playerCollision = gameplayRefs.playerCollision;
+        mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
     }
 
     private void InitializeGameplayControllers(){
@@ -135,9 +137,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         if(Input.GetKey(KeyCode.Escape)){
             ChangeGameState(GameState.Quit);
         }
+
+
     }
 
-    //Set the hurdle sizes randomely
+    //Set all the hurdle sizes randomely
     private void SetHurdleFillAmount(){
         for (int i = 0; i < hurdleControllers.Count;i++){
             float fillamount = RandomHurdleFillAmount();
@@ -176,15 +180,36 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     public void HurdleHitWall()
     {
         Debug.Log("Hurdle collided with wall");
+        Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
+
+        mainOrbitController.SetNewScale();
+
+        //mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
         mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
-        mainOrbitController.ResetHurdleOrbitScale();    //reset the first list element scale
-        SetIndividualHurdleFillAmount();    //set first list element fill amount
         mainOrbitController.SortOrbits();   //sort all the orbits 
-        mainOrbitController.RotationOffset();
-        AddScore();
-        if(CheckLevelUp()){
-            ChangeColors();
-        }
+
+        //SetIndividualHurdleFillAmount();    //set first list element fill amount
+        //mainOrbitController.RotationOffset();
+        //AddScore();
+        ////OrbitParticles();
+        //gameplayViewController.OrbitFade();
+        //if(CheckLevelUp()){
+        //    ChangeColors();
+        //}
+
+        //mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
+        //Constants.cameraOffset = gameplayRefs.cameraOffset;
+        //Constants.minHurdleFillAmount = gameplayRefs.minHurdleFillAmount;
+        //Constants.maxHurdleFillAmount = gameplayRefs.maxHurdleFillAmount;
+        //SetIndividualHurdleFillAmount();
+
+        //Constants.scaleSpeed = gameplayRefs.scaleSpeed;
+        //Constants.playerRotationSpeed = gameplayRefs.playerRotationSpeed;
+        //Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
+        //Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
+        //Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
+        //Constants.rotationOffset = gameplayRefs.rotationOffset;
+        //Constants.playerCollision = gameplayRefs.playerCollision;
     }
 
     private void ExplosionParticles()
@@ -192,6 +217,10 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Vector3 pos = new Vector3(playerController.transform.position.x, playerController.transform.position.y, 0f);
         Instantiate(gameplayRefs.triangleParticles, pos, Quaternion.identity);
         Instantiate(gameplayRefs.hexagonParticles, pos, Quaternion.identity);
+    }
+
+    private void OrbitParticles(){
+        Instantiate(gameplayRefs.orbitParticles, Vector3.zero, Quaternion.identity);
     }
 
     private void AddScore(){

@@ -12,6 +12,7 @@ public class GameplayRefs : MonoBehaviour {
     public Loudness loudness;
     public GameObject triangleParticles;
     public GameObject hexagonParticles;
+    public GameObject orbitParticles;
     public InputController inputController;
     public Camera cam;
 
@@ -19,6 +20,7 @@ public class GameplayRefs : MonoBehaviour {
     public List<Image> innerOrbitsImg;
     public Image playerObjImg;
     public Image playerOrbitImg;
+    public Image playerOrbitGlowImg;
     public List<Image> hurdleOrbitsImg;
     public Image glowImg;
     public Text scoreText;

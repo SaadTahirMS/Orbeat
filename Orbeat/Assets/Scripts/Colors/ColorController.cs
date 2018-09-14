@@ -19,6 +19,7 @@ public class ColorController {
             playerColor = new Color32(0xeb,0xd6,0x9d,0xff),
             //playerOrbitColor 656254FF
             playerOrbitColor = new Color32(0x65,0x62,0x54,0xff),
+            playerOrbitGlowColor = new Color32(0xf1, 0xdb, 0xa0, 0x00),
             //hurdlecolor F1DBA0FF
             hurdleColor = new Color32(0xf1,0xdb,0xa0,0xff),
             //glowcolor 7C755748
@@ -55,6 +56,7 @@ public class ColorController {
 
             //playerOrbitColor AE 3A 2A FF
             playerOrbitColor = new Color32(0xAE, 0x3A, 0x2A, 0xFF),
+            playerOrbitGlowColor = new Color32(0xDC, 0x6F, 0x36, 0x00),
 
             //hurdlecolor DC 6F 36 FF
             hurdleColor = new Color32(0xDC, 0x6F, 0x36, 0xFF),
@@ -80,6 +82,7 @@ public class ColorController {
 
             //playerOrbitColor 2C6537FF
             playerOrbitColor = new Color32(0x2C, 0x65, 0x37, 0xff),
+            playerOrbitGlowColor = new Color32(0x4E, 0xB6, 0x5A, 0x00),
 
             //hurdlecolor 4EB65AFF
             hurdleColor = new Color32(0x4E, 0xB6, 0x5A, 0xff),
@@ -97,20 +100,22 @@ public class ColorController {
 
         ColorSet colorSet4 = new ColorSet
         {
-            //bgcolor 47 3C 64 FF
-            bgColor = new Color32(0x47, 0x3C, 0x64, 0xff),
+            //bgcolor 47 3C 64 FF  
+            //332752FF
+            bgColor = new Color32(0x33, 0x27, 0x52, 0xff),
 
             //playercolor 7B CB A9 FF
             playerColor = new Color32(0x7B, 0xCB, 0xA9, 0xFF),
 
             //playerOrbitColor 52 8D A6 FF
             playerOrbitColor = new Color32(0x52, 0x8D, 0xA6, 0xFF),
+            playerOrbitGlowColor = new Color32(0x7B, 0xCB, 0xA9, 0x00),
 
             //hurdlecolor 7B CB A9 FF
             hurdleColor = new Color32(0x7B, 0xCB, 0xA9, 0xFF),
 
-            //glowcolor 53 78 A7 FF
-            glowColor = new Color32(0x53, 0x78, 0xA7, 0x48),
+            //glowcolor 53 78 A7 FF 385C9448
+            glowColor = new Color32(0x38, 0x5C, 0x94, 0x48),
 
             //scorecolor 53 A2 B1 FF
             scoreColor = new Color32(0x53, 0xA2, 0xB1, 0xFF),

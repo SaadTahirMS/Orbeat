@@ -103,17 +103,13 @@ public class MainOrbitController : MonoBehaviour
     {
         for (int i = 0; i < orbitControllers.Count; i++)
         {
-            ScaleIndividual(Vector3.zero,i,true);
+            ScaleIndividual(Vector3.zero,i);
         }
     }
 
-    private void ScaleIndividual(Vector3 endValue,int index,bool istween)
+    private void ScaleIndividual(Vector3 endValue,int index)
     {
-        if(istween)
-            orbitControllers[index].DoScale(endValue, orbitControllers[index].GetHurdleScale() / 2 * Constants.scaleSpeed);
-        else
-            orbitControllers[index].DoScale(endValue, 0f);
-
+        orbitControllers[index].DoScale(endValue, orbitControllers[index].GetHurdleScale().x / 2 * Constants.scaleSpeed);
     }
 
     //Always the bottom hurdle in hierarchy will collide with the wall 
@@ -136,7 +132,7 @@ public class MainOrbitController : MonoBehaviour
     public void ResetHurdleOrbitScale()
     {
         orbitControllers[0].SetScale(CalculateScale(orbitControllers.Count));
-        ScaleIndividual(Vector3.zero,0,true);
+        ScaleIndividual(Vector3.zero,0);//scale down to this value
     }
 
     private void StopScale()
@@ -153,6 +149,18 @@ public class MainOrbitController : MonoBehaviour
         {
             orbitControllers[i].StopRotate();
         }
+    }
+
+    //Scale of the first hurdle in the list
+    public void SetNewScale(){
+        //get the current scale of last index hurdle
+        Vector3 lastHurdleScale = orbitControllers[orbitControllers.Count - 1].GetHurdleScale();
+        //add the hurdle distance to this scale
+        Vector3 newScale = lastHurdleScale + Constants.hurdlesDistance;
+        //this is the new scale of this orbit
+        orbitControllers[0].SetScale(newScale);
+        ScaleIndividual(Vector3.zero, 0);//scale down to this value
+
     }
 
     //private void AssignIndividualRotateSpeed(int index){
