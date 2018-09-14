@@ -13,7 +13,7 @@ public class MainOrbitController : MonoBehaviour
     public void Initialize(GameplayRefs gameplayRefs)
     {
         gprefs = gameplayRefs;
-        CanRotate(gameplayRefs.canRotateOrbits);
+        //CanRotate(gameplayRefs.canRotateOrbits);
         for (int i = 0; i < orbitControllers.Count; i++)
         {
             orbitControllers[i].Initialize(gameplayRefs.hurdleControllers[i]);

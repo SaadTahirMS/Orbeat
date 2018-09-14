@@ -34,6 +34,8 @@ public static class Constants {
     public static float maxRotateSpeed = 10f;
     public static float scaleSpeed = 0.25f;//0.001 - 1
     public static float rotationOffset = 45f; // plus minus previous value
+    public static Vector3 edgeInitialPos = new Vector3(1175f,0f,0f);
+    public static float edgeDistance = 50f;
 
     //Camera 
     public static float cameraOffset = 1f;

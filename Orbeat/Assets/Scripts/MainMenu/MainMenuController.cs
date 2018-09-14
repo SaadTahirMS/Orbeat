@@ -24,7 +24,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     public InputField maxRotateSpeed;
     public InputField rotationOffset;
     public Text playerCollision;
-    public Text canRotateOrbits;
+    //public Text canRotateOrbits;
 
     public void Open(){
         ActivatePlayBtn();
@@ -49,7 +49,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         maxRotateSpeed.text = gameplayRefs.maxRotateSpeed.ToString();
         rotationOffset.text = gameplayRefs.rotationOffset.ToString();
         playerCollision.text = gameplayRefs.playerCollision.ToString();
-        canRotateOrbits.text = gameplayRefs.canRotateOrbits.ToString();
+        //canRotateOrbits.text = gameplayRefs.canRotateOrbits.ToString();
     }
 
     public void GameSettings(){
@@ -71,11 +71,11 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         playerCollision.text = gameplayRefs.playerCollision.ToString();
     }
 
-    public void CanRotate(bool flag)
-    {
-        gameplayRefs.canRotateOrbits = flag;
-        canRotateOrbits.text = gameplayRefs.canRotateOrbits.ToString();
-    }
+    //public void CanRotate(bool flag)
+    //{
+    //    gameplayRefs.canRotateOrbits = flag;
+    //    canRotateOrbits.text = gameplayRefs.canRotateOrbits.ToString();
+    //}
 
     private void InitializeBeat()
     {

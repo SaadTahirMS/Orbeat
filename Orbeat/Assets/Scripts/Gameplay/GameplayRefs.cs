@@ -34,13 +34,13 @@ public class GameplayRefs : MonoBehaviour {
     //public float maxHurdleFillAmount;
     [Range(5f, 50f)]
     public float hurdlesDistance;
-    [Range(0f,0.9f)]
+    [Range(0.1f,0.9f)]
     public float hurdleFillAmount;
-    [Range(0.1f, 1f)]
+    [Range(0.1f, 0.5f)]
     public float scaleSpeed;
     [Range(0f,5f)]
     public float cameraOffset;
-    public bool canRotateOrbits;
+    //public bool canRotateOrbits;
     [Range(1f, 50f)]
     public float minRotateSpeed;
     [Range(1f, 50f)]
@@ -53,4 +53,20 @@ public class GameplayRefs : MonoBehaviour {
     public float playerScrollRotationSpeed;
     public bool playerCollision;//true for yes and false for no
 
+    [Header("Progression Curves")]
+    public float minHurdleDistance = 5f;
+    public float maxHurdleDistance = 50f;
+    public AnimationCurve hurdleDistanceCurve;
+    public float minHurdleFillAmount = 0.1f;
+    public float maxHurdleFillAmount = 0.9f;
+    public AnimationCurve hurdleFillAmountCurve;
+    public float minScaleSpeed = 0.1f;
+    public float maxScaleSpeed = 0.5f;
+    public AnimationCurve scaleSpeedCurve;
+    public float minRotationOffset = 0f;
+    public float maxRotationOffset = 180f;
+    public AnimationCurve rotationOffsetCurve;
+    public float minOrbitRotateSpeed = 0f;
+    public float maxOrbitRotateSpeed = 100f;
+    public AnimationCurve orbitRotationCurve;
 }

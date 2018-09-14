@@ -70,6 +70,13 @@ public class GameplayViewController : IController
 
     public void OrbitFade(){
         gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo);
+    }
 
+    public void OrbitPunch(){
+        //gameplayRefs.playerOrbitImg.transform.DOScale(1.1f,0.1f).SetLoops(2, LoopType.Yoyo);
+        //gameplayRefs.playerOrbitGlowImg.transform.DOScale(1.1f, 0.1f).SetLoops(2, LoopType.Yoyo);
+
+        gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f,10);
+        gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f,10);
     }
 }

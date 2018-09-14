@@ -19,6 +19,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private int score = 0;
     private int level = 0;
 
+
     public void Open()
     {
         Application.targetFrameRate = 60;
@@ -27,7 +28,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeHurdles();
         InitializeOrbit();
         InitializeColors();
-        InitializeGameplayVariables();
         ChangeGameState(GameState.Start);
     }
 
@@ -35,17 +35,17 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         //Constants.minHurdleFillAmount = gameplayRefs.minHurdleFillAmount;
         //Constants.maxHurdleFillAmount = gameplayRefs.maxHurdleFillAmount;
-        Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmount;
-        Constants.cameraOffset = gameplayRefs.cameraOffset;
-        Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
-        Constants.scaleSpeed = gameplayRefs.scaleSpeed;
-        Constants.playerRotationSpeed =  gameplayRefs.playerRotationSpeed;
-        Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
-        Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
-        Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
-        Constants.rotationOffset = gameplayRefs.rotationOffset;
-        Constants.playerCollision = gameplayRefs.playerCollision;
-        mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
+        //Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmount;
+        //Constants.cameraOffset = gameplayRefs.cameraOffset;
+        //Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
+        //Constants.scaleSpeed = gameplayRefs.scaleSpeed;
+        //Constants.playerRotationSpeed =  gameplayRefs.playerRotationSpeed;
+        //Constants.playerScrollRotationSpeed = gameplayRefs.playerScrollRotationSpeed;
+        //Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
+        //Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
+        //Constants.rotationOffset = gameplayRefs.rotationOffset;
+        //Constants.playerCollision = gameplayRefs.playerCollision;
+        //mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
     }
 
     private void InitializeGameplayControllers(){
@@ -79,6 +79,8 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         switch(state){
             case GameState.Start:
                 ResetScore();
+                ProgressionCurves();
+                //GameProgression();
                 gameplayRefs.inputController.GameStart(true);
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(1f);
@@ -194,13 +196,69 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Debug.Log("Hurdle collided with wall");
         orbitControllers = mainOrbitController.GetOrbits();
 
+        ProgressionCurves();
+        //GameProgression();
+
+        mainOrbitController.SetNewScale();
+        SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+        //mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
+        mainOrbitController.AssignNewRotation();
+        mainOrbitController.RotationOffset();
+        PlayerCollisions();
+
+        //Sort Orbits
+        mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
+        mainOrbitController.SortOrbits();   //sort all the orbits 
+
+        //Other Things
+        AddScore();
+        if (CheckLevelUp())
+        {
+            ChangeColors();
+        }
+        gameplayViewController.OrbitFade();
+        gameplayViewController.OrbitPunch();
+    }
+
+    private void ProgressionCurves(){
+        float y = score / 100f;
+        float value;
+
+        value = gameplayRefs.hurdleDistanceCurve.Evaluate(y) * gameplayRefs.maxHurdleDistance;
+        Constants.hurdlesDistance = Vector3.one * Mathf.Clamp(value, gameplayRefs.minHurdleDistance, gameplayRefs.maxHurdleDistance);
+        print("New hurdleDistance x y: " + Constants.hurdlesDistance + "," + y);
+
+        value = gameplayRefs.hurdleFillAmountCurve.Evaluate(y) * gameplayRefs.maxHurdleFillAmount;
+        Constants.hurdleFillAmount = Mathf.Clamp(value, gameplayRefs.minHurdleFillAmount, gameplayRefs.maxHurdleFillAmount);
+        print("New hurdleFillAmount x y: " + Constants.hurdleFillAmount + "," + y);
+
+        value = gameplayRefs.maxScaleSpeed - gameplayRefs.scaleSpeedCurve.Evaluate(y) * gameplayRefs.maxScaleSpeed;
+        Constants.scaleSpeed = Mathf.Clamp(value, gameplayRefs.minScaleSpeed, gameplayRefs.maxScaleSpeed);
+        print("New scaleSpeed x y: " + Constants.scaleSpeed + "," + y);
+
+        value = gameplayRefs.rotationOffsetCurve.Evaluate(y) * gameplayRefs.maxRotationOffset;
+        Constants.rotationOffset = Mathf.Clamp(value, gameplayRefs.minRotationOffset, gameplayRefs.maxRotationOffset);
+        print("New rotationOffset x y: " + Constants.rotationOffset + "," + y);
+
+        //Max rotation curve and min value will be -x of max value
+        value = gameplayRefs.orbitRotationCurve.Evaluate(y) * gameplayRefs.maxOrbitRotateSpeed;
+        Constants.maxRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
+        value = Constants.maxRotateSpeed - 5f;
+        Constants.minRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
+        print("New maxRotateSpeed x y: " + Constants.maxRotateSpeed + "," + y);
+        print("New minRotateSpeed x y: " + Constants.minRotateSpeed + "," + y);
+
+        //Player Collisions
+        Constants.playerCollision = gameplayRefs.playerCollision;
+
+    }
+
+    private void GameProgression(){
         //Hurdle Distance
         Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdlesDistance;
-        mainOrbitController.SetNewScale();
 
         //Hurdle FillAmount
         Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmount;
-        SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
 
         //Orbit Scale Speed
         Constants.scaleSpeed = gameplayRefs.scaleSpeed;
@@ -209,14 +267,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         Constants.cameraOffset = gameplayRefs.cameraOffset;
 
         //Orbits Rotation
-        mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
         Constants.minRotateSpeed = gameplayRefs.minRotateSpeed;
         Constants.maxRotateSpeed = gameplayRefs.maxRotateSpeed;
-        mainOrbitController.AssignNewRotation();
 
         //Orbit Rotation Offset
         Constants.rotationOffset = gameplayRefs.rotationOffset;
-        mainOrbitController.RotationOffset();
 
         //Player Rotate Speed
         Constants.playerRotationSpeed = gameplayRefs.playerRotationSpeed;
@@ -226,20 +281,6 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
         //Player Collisions
         Constants.playerCollision = gameplayRefs.playerCollision;
-        PlayerCollisions();
-
-        //Scoring
-        AddScore();
-        if(CheckLevelUp()){
-            ChangeColors();
-        }
-
-        //Sort Orbits
-        mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
-        mainOrbitController.SortOrbits();   //sort all the orbits 
-
-        gameplayViewController.OrbitFade();
-
     }
 
     private void ExplosionParticles()
