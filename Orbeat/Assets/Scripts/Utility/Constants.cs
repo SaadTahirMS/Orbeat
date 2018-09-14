@@ -7,6 +7,8 @@ public static class Constants {
     //Player
     public static Vector3 playerInitialPosition = new Vector3(0f, 175f, 0f);
     public static float playerRotationSpeed = 7.5f;
+    public static float playerTapRotateSpeed = 5f;
+
     public static float playerScrollRotationSpeed = 30f;
     public static Vector3 playerOrbitScale = new Vector3(4f, 4f, 4f);
     public static bool playerCollision = true;

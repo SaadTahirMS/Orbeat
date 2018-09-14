@@ -9,6 +9,7 @@ public class InputController : MonoBehaviour
     private float screenCenterX;
     private bool gameStart = false;
     private string inputMethod;
+    private bool tap = false;
 
     public void InputMethod(string method)
     {
@@ -73,7 +74,7 @@ public class InputController : MonoBehaviour
                         if (touch.phase == TouchPhase.Moved)
                         {
                             player.RotatePlayerV2(touch.deltaPosition.x); //value b/w -0.5 and 0.5
-                                                                        //playerMovementRefs.ropeTransform.Rotate (Vector3.forward * Time.deltaTime * deltaPostionX * movementFactor);
+                                                                          //playerMovementRefs.ropeTransform.Rotate (Vector3.forward * Time.deltaTime * deltaPostionX * movementFactor);
                         }
                         else if (touch.phase == TouchPhase.Ended)
                         {
@@ -81,6 +82,16 @@ public class InputController : MonoBehaviour
                         }
                     }
 
+                    break;
+
+                case "Tap Switch":
+                    if (Input.GetMouseButtonDown(0))
+                        tap = !tap;
+
+                    if (tap)
+                        player.MoveTapLeft();
+                    else
+                        player.MoveTapRight();
                     break;
             }
         }

@@ -99,6 +99,16 @@ public class PlayerController: MonoBehaviour {
         player.Rotate(Vector3.back * RotationSpeed);
     }
 
+    public void MoveTapLeft()
+    {
+        player.Rotate(Vector3.forward * Constants.playerTapRotateSpeed);
+    }
+
+    public void MoveTapRight()
+    {
+        player.Rotate(Vector3.back * Constants.playerTapRotateSpeed);
+    }
+
     public void SetCollisions(bool state)
     {
         playerRB.isKinematic = !state; 

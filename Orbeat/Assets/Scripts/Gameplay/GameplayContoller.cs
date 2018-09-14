@@ -20,6 +20,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private int level = 0;
 
 
+
     public void Open()
     {
         Application.targetFrameRate = 60;
@@ -160,7 +161,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     {
         for (int i = 0; i < hurdleControllers.Count; i++)
         {
-            hurdleControllers[i].SetFillAmount(0f, Constants.fillAmountTime);
+            hurdleControllers[i].SetFillAmount(0f, Constants.transitionTime);
         }
     }
 
@@ -221,7 +222,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void ProgressionCurves(){
-        float y = score / 100f;
+        float y = score / gameplayRefs.difficultyLevel;
         float value;
 
         value = gameplayRefs.hurdleDistanceCurve.Evaluate(y) * gameplayRefs.maxHurdleDistance;
@@ -250,6 +251,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
 
         //Player Collisions
         Constants.playerCollision = gameplayRefs.playerCollision;
+
 
     }
 
