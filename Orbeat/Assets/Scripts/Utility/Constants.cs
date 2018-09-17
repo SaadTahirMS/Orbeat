@@ -21,7 +21,7 @@ public static class Constants {
     //Tweens
     public static float transitionTime = 0.25f;
     public static float playerTransitionTime = 0.15f;
-    public static float colorTransitionTime = 5f;
+    public static float colorTransitionTime = 2.5f;
     public static float fillAmountTime = 1f;
 
     //Hurdle
