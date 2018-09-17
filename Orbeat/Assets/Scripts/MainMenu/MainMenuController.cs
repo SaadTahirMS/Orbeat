@@ -12,6 +12,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
 
     ////Game Settings
     public Text inputMethod;
+    public InputField score;
     ////public InputField minHurdleFillAmount;
     ////public InputField maxHurdleFillAmount;
     //public InputField hurdleFillAmount;
@@ -53,7 +54,9 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     //    //canRotateOrbits.text = gameplayRefs.canRotateOrbits.ToString();
     //}
 
-    //public void GameSettings(){
+    int gameScore;
+    public void GameSettings(){
+        gameScore = int.Parse(score.text);
     //    //gameplayRefs.minHurdleFillAmount = float.Parse(minHurdleFillAmount.text);
     //    //gameplayRefs.maxHurdleFillAmount = float.Parse(maxHurdleFillAmount.text);
     //    gameplayRefs.hurdleFillAmount = float.Parse(hurdleFillAmount.text);
@@ -65,7 +68,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
     //    gameplayRefs.minRotateSpeed = float.Parse(minRotateSpeed.text);
     //    gameplayRefs.maxRotateSpeed = float.Parse(maxRotateSpeed.text);
     //    gameplayRefs.rotationOffset = float.Parse(rotationOffset.text);
-    //}
+    }
 
     //public void PlayerCollisions(bool flag){
     //    gameplayRefs.playerCollision = flag;
@@ -115,7 +118,7 @@ public class MainMenuController : Singleton<MainMenuController>, IController {
         SoundController.Instance.SetPitch(1f,true);
         SoundController.Instance.SetVolume(1f);
         gameplayContoller = GameplayContoller.Instance;
-        gameplayContoller.Open();
+        gameplayContoller.Open(gameScore);
         settings.SetActive(false);
      }
 

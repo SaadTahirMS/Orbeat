@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameplayContoller : Singleton<GameplayContoller>, IController
+public class GameplayContoller : Singleton<GameplayContoller>
 {
     public GameplayRefs gameplayRefs;
     private GameplayTransitionController gameplayTransitionController;
@@ -19,9 +19,11 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     private int score = 0;
     private int level = 0;
 
+    private void SetScore(int value){
+        score = value;
+    }
 
-
-    public void Open()
+    public void Open(int gameScore)
     {
         Application.targetFrameRate = 60;
         InitializeGameplayControllers();
@@ -29,6 +31,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         InitializeHurdles();
         InitializeOrbit();
         InitializeColors();
+        SetScore(gameScore);
         ChangeGameState(GameState.Start);
     }
 
@@ -77,7 +80,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         gameState = state;
         switch(state){
             case GameState.Start:
-                ResetScore();
+                //ResetScore();
                 ProgressionCurves();
                 //GameProgression();
                 gameplayRefs.inputController.GameStart(true);
@@ -115,6 +118,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
                 gameplayRefs.inputController.GameStart(false);
                 print("Game Over");
                 ResetHurdleFillAmount();
+                //ResetScore();
                 //ResetOrbitList();
 
                 break;

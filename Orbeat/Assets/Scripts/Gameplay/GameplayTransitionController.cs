@@ -60,7 +60,7 @@ public class GameplayTransitionController : MonoBehaviour
     #region EndTransition
     private void EndTransition()
     {
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.1f;
         endSequence = DOTween.Sequence();
         Tween playerScale = PlayerScale(Vector3.zero, Constants.transitionTime);
         endSequence.Append(playerScale).OnComplete(()=> { Time.timeScale = 1f; });
