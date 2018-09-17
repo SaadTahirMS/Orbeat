@@ -70,9 +70,7 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void InitializeColors(){
-        colorController = new ColorController();
-        colorController.Initialize();
-        ChangeColors();
+        colorController = gameplayRefs.colorController;
     }
 
     public void ChangeGameState(GameState state){
@@ -218,12 +216,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
         {
             ChangeColors();
         }
-        gameplayViewController.OrbitFade();
+        //gameplayViewController.OrbitFade();
         gameplayViewController.OrbitPunch();
     }
 
     private void ProgressionCurves(){
-        print("Difficulty Level: " + Constants.difficultyLevel);
+        //print("Difficulty Level: " + Constants.difficultyLevel);
         float y = score / Constants.difficultyLevel;
         float value;
 
@@ -309,12 +307,13 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void ChangeColors(){
-        ColorSet colorSet = colorController.GetRandomColorSet();
+        //ColorSet colorSet = colorController.GetRandomColorSet();
+        ColorSet colorSet = colorController.GetIncrementalColorSet();
         gameplayViewController.ChangeColorSet(colorSet);
     }
 
     private bool CheckLevelUp(){
-        if(score%10 == 0){
+        if(score%5 == 0){
             level += 1;
             return true;
         }

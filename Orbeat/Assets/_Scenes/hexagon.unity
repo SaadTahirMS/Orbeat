@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09558821, g: 0.09558821, b: 0.09558821, a: 1}
+  m_Color: {r: 0.16176468, g: 0.16176468, b: 0.16176468, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2128,7 +2128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &466193031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3447,6 +3447,245 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &710810215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 710810217}
+  - component: {fileID: 710810216}
+  m_Layer: 0
+  m_Name: ColorController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &710810216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 710810215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c34f676920a4d93b9ef55944244df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorSets:
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4281610026
+    playerColor:
+      serializedVersion: 2
+      rgba: 4288534251
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4283720293
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4288732145
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4284446078
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4288600045
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4279439930
+    playerColor:
+      serializedVersion: 2
+      rgba: 4281757660
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4280957614
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4281757660
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4281488604
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4281757660
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4280556038
+    playerColor:
+      serializedVersion: 2
+      rgba: 4284005732
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4281820460
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4284134990
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4283009336
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4284005732
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4284759111
+    playerColor:
+      serializedVersion: 2
+      rgba: 4289317755
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4289105234
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4289317755
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4289831507
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4289317755
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4282862127
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230719
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4283385188
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4284824028
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4285182592
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283297023
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4283247655
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230462
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4286668329
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4294692636
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4284822112
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283230462
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4282198839
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230719
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4283251317
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4285881599
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4290173952
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283230462
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4281741612
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230719
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4282471737
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4284328022
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4288929780
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283230462
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4283247655
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230462
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4285609579
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4290857206
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4288510225
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283230462
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4282333233
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230462
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4285295150
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4292205829
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4288562377
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283230462
+  - bgColor:
+      serializedVersion: 2
+      rgba: 4284887635
+    playerColor:
+      serializedVersion: 2
+      rgba: 4283230462
+    playerOrbitColor:
+      serializedVersion: 2
+      rgba: 4285161604
+    hurdleColor:
+      serializedVersion: 2
+      rgba: 4286434037
+    scoreColor:
+      serializedVersion: 2
+      rgba: 4285352123
+    explosionColor:
+      serializedVersion: 2
+      rgba: 4283230462
+--- !u!4 &710810217
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 710810215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &729290861
 GameObject:
   m_ObjectHideFlags: 0
@@ -6644,7 +6883,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 190f77a7435d24b6dbb51779bbae9b20, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 930452da9ca794dd2bc31de83edf362a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -7170,6 +7409,7 @@ MonoBehaviour:
   - {fileID: 598834777}
   - {fileID: 1423754643}
   mainOrbitController: {fileID: 345812427}
+  colorController: {fileID: 710810216}
   loudness: {fileID: 1528810560}
   triangleParticles: {fileID: 1729667761164870, guid: 60d9ef126686f4ef0af881c47c5b1905,
     type: 2}
@@ -7187,13 +7427,11 @@ MonoBehaviour:
   - {fileID: 1550514378}
   playerObjImg: {fileID: 1650243711}
   playerOrbitImg: {fileID: 191166932}
-  playerOrbitGlowImg: {fileID: 466193032}
   hurdleOrbitsImg:
   - {fileID: 1888069075}
   - {fileID: 1935163001}
   - {fileID: 1423754646}
   - {fileID: 598834780}
-  glowImg: {fileID: 2045810469}
   scoreText: {fileID: 2033416986}
   particles:
   - {fileID: 198530185125881536, guid: 60d9ef126686f4ef0af881c47c5b1905, type: 2}
@@ -9995,7 +10233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2045810468
 RectTransform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class GameplayRefs : MonoBehaviour {
     public PlayerController playerController;
     public List<HurdleController> hurdleControllers;//area that can collide with the player
     public MainOrbitController mainOrbitController;//inner and hurdle together
+    public ColorController colorController;
     public Loudness loudness;
     public GameObject triangleParticles;
     public GameObject hexagonParticles;
@@ -20,9 +21,9 @@ public class GameplayRefs : MonoBehaviour {
     public List<Image> innerOrbitsImg;
     public Image playerObjImg;
     public Image playerOrbitImg;
-    public Image playerOrbitGlowImg;
+    //public Image playerOrbitGlowImg;
     public List<Image> hurdleOrbitsImg;
-    public Image glowImg;
+    //public Image glowImg;
     public Text scoreText;
     public List<ParticleSystem> particles;
 
