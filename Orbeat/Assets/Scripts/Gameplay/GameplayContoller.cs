@@ -220,7 +220,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         {
             ChangeColors();
         }
-        //gameplayViewController.OrbitFade();
+        gameplayViewController.OrbitFade();
         gameplayViewController.OrbitPunch();
     }
 

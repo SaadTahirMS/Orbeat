@@ -21,7 +21,7 @@ public class GameplayRefs : MonoBehaviour {
     public List<Image> innerOrbitsImg;
     public Image playerObjImg;
     public Image playerOrbitImg;
-    //public Image playerOrbitGlowImg;
+    public Image playerOrbitGlowImg;
     public List<Image> hurdleOrbitsImg;
     //public Image glowImg;
     public Text scoreText;

@@ -948,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 12
-  endValue: 2.5
+  endValue: 10
   duration: 0.1
 --- !u!114 &130061591
 MonoBehaviour:
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 0}
+  profile: {fileID: 11400000, guid: 684c92650917f4c43956001bb9b7c154, type: 2}
 --- !u!1 &153478594
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,7 +2286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &466193031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3643,9 +3643,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4283720293
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 5530213
     hurdleColor:
       serializedVersion: 2
-      rgba: 4288732145
+      rgba: 4289325311
     scoreColor:
       serializedVersion: 2
       rgba: 4284446078
@@ -3661,9 +3664,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4280957614
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 2767534
     hurdleColor:
       serializedVersion: 2
-      rgba: 4281757660
+      rgba: 4282417663
     scoreColor:
       serializedVersion: 2
       rgba: 4281488604
@@ -3679,9 +3685,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4281820460
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 3630380
     hurdleColor:
       serializedVersion: 2
-      rgba: 4284134990
+      rgba: 4286185319
     scoreColor:
       serializedVersion: 2
       rgba: 4283009336
@@ -3697,9 +3706,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4289105234
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 10915154
     hurdleColor:
       serializedVersion: 2
-      rgba: 4289317755
+      rgba: 4292280222
     scoreColor:
       serializedVersion: 2
       rgba: 4289831507
@@ -3715,9 +3727,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4283385188
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 5195108
     hurdleColor:
       serializedVersion: 2
-      rgba: 4284824028
+      rgba: 4285940991
     scoreColor:
       serializedVersion: 2
       rgba: 4285182592
@@ -3733,6 +3748,9 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4286668329
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 8478249
     hurdleColor:
       serializedVersion: 2
       rgba: 4294692636
@@ -3751,6 +3769,9 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4283251317
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 5061237
     hurdleColor:
       serializedVersion: 2
       rgba: 4285881599
@@ -3769,9 +3790,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4282471737
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 4281657
     hurdleColor:
       serializedVersion: 2
-      rgba: 4284328022
+      rgba: 4287692677
     scoreColor:
       serializedVersion: 2
       rgba: 4288929780
@@ -3787,9 +3811,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4285609579
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 7419499
     hurdleColor:
       serializedVersion: 2
-      rgba: 4290857206
+      rgba: 4291449343
     scoreColor:
       serializedVersion: 2
       rgba: 4288510225
@@ -3805,9 +3832,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4285295150
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 7105070
     hurdleColor:
       serializedVersion: 2
-      rgba: 4292205829
+      rgba: 4294377225
     scoreColor:
       serializedVersion: 2
       rgba: 4288562377
@@ -3823,9 +3853,12 @@ MonoBehaviour:
     playerOrbitColor:
       serializedVersion: 2
       rgba: 4285161604
+    playerOrbitGlowColor:
+      serializedVersion: 2
+      rgba: 6971524
     hurdleColor:
       serializedVersion: 2
-      rgba: 4286434037
+      rgba: 4286698239
     scoreColor:
       serializedVersion: 2
       rgba: 4285352123
@@ -5194,7 +5227,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1023254849}
-  m_LocalRotation: {x: 0, y: 0, z: 0.17820117, w: 0.98399407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5204,7 +5237,7 @@ RectTransform:
   - {fileID: 1550514377}
   m_Father: {fileID: 345812426}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.53}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -7104,7 +7137,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1502416564}
-  m_LocalRotation: {x: 0, y: 0, z: 0.07758909, w: 0.99698544}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7114,7 +7147,7 @@ RectTransform:
   - {fileID: 859432853}
   m_Father: {fileID: 345812426}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.9}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -7259,7 +7292,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 930452da9ca794dd2bc31de83edf362a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 903021e97ef3448609632bc755c4f500, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -7803,6 +7836,7 @@ MonoBehaviour:
   - {fileID: 1550514378}
   playerObjImg: {fileID: 1650243711}
   playerOrbitImg: {fileID: 191166932}
+  playerOrbitGlowImg: {fileID: 466193032}
   hurdleOrbitsImg:
   - {fileID: 1888069075}
   - {fileID: 1935163001}
@@ -7823,8 +7857,8 @@ MonoBehaviour:
   playerRotationSpeed: 7.5
   playerScrollRotationSpeed: 30
   playerCollision: 1
-  minHurdleDistance: 7
-  maxHurdleDistance: 10
+  minHurdleDistance: 10
+  maxHurdleDistance: 7
   hurdleDistanceCurve:
     serializedVersion: 2
     m_Curve:
@@ -9761,7 +9795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029411793, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10891,7 +10925,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2092386971}
-  m_LocalRotation: {x: -0, y: 0, z: -0.25122508, w: -0.96792877}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10901,7 +10935,7 @@ RectTransform:
   - {fileID: 1610336799}
   m_Father: {fileID: 345812426}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -330.9}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
