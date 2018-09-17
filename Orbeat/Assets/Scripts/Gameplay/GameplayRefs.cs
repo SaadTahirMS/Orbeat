@@ -54,7 +54,6 @@ public class GameplayRefs : MonoBehaviour {
     public bool playerCollision;//true for yes and false for no
 
     [Header("Progression Curves")]
-    public int difficultyLevel = 100;
     public float minHurdleDistance = 5f;
     public float maxHurdleDistance = 50f;
     public AnimationCurve hurdleDistanceCurve;

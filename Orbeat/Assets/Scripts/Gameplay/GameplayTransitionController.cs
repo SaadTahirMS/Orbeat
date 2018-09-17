@@ -10,7 +10,8 @@ public class GameplayTransitionController : MonoBehaviour
     private GameplayRefs gameplayRefs;
     private PlayerController playerController;
     private List<HurdleController> hurdleControllers;
-
+    private MainOrbitController mainOrbitController;
+    private List<OrbitController> orbitControllers;
     //Sequences
     private Sequence startSequence;
     private Sequence endSequence;
@@ -25,6 +26,7 @@ public class GameplayTransitionController : MonoBehaviour
     {
         playerController = gameplayRefs.playerController;
         hurdleControllers = gameplayRefs.hurdleControllers;
+        mainOrbitController = gameplayRefs.mainOrbitController;
     }
 
     public void ChangeState(GameState state)
@@ -34,38 +36,77 @@ public class GameplayTransitionController : MonoBehaviour
             case GameState.Start:
                 StartTransition();
                 break;
+            case GameState.Quit:
+                EndTransition();
+                break;
         }
     }
 
     #region StartTransition
     private void StartTransition()
     {
-        startSequence = DOTween.Sequence();
+        Time.timeScale = 1f;
 
-        Tween playerPosition = PlayerPosition(playerController.Position, Constants.playerTransitionTime);
-        Tween playerScale = PlayerScale(Vector3.one, Constants.playerTransitionTime);
+        startSequence = DOTween.Sequence();
+        Tween playerPosition = PlayerPosition(playerController.Position, Constants.transitionTime);
+        Tween playerScale = PlayerScale(Vector3.one, Constants.transitionTime);
 
         startSequence.Append(playerPosition);
         startSequence.Join(playerScale);
-        startSequence.SetEase(Ease.Linear);
-
         startSequence.Play();
     }
+    #endregion
 
-    private Tween PlayerPosition(Vector3 endValue,float duration)
+    #region EndTransition
+    private void EndTransition()
     {
-        playerController.transform.localPosition = Vector3.zero;
-        return playerController.transform.DOLocalMove(endValue, duration);
+        Time.timeScale = 0.1f;
+        endSequence = DOTween.Sequence();
+        Tween playerScale = PlayerScale(Vector3.zero, Constants.transitionTime);
+        endSequence.Append(playerScale).OnComplete(()=> { Time.timeScale = 1f; });
+        endSequence.OnComplete(EndTransitionComplete);
+        endSequence.Play();
+
+
+    }
+    #endregion
+
+
+    private Tween PlayerPosition(Vector3 endValue, float duration)
+    {
+        return playerController.transform.DOLocalMove(endValue, duration).SetEase(Ease.Linear);
     }
 
     //Scales parent of playerObj
-    private Tween PlayerScale(Vector3 endValue, float duration)
+    private Tween PlayerParentScale(Vector3 endValue, float duration)
     {
-        return playerController.player.DOScale(endValue, duration);
+        return playerController.player.DOScale(endValue, duration).SetEase(Ease.Linear);
     }
 
+    //Scale of playerObj
+    private Tween PlayerScale(Vector3 endValue, float duration)
+    {
+        return playerController.transform.DOScale(endValue, duration).SetEase(Ease.Linear);
+    }
 
-    #endregion
+    private void EndTransitionComplete(){
+        ResetOrbitList();
+        OpenMenu();
+    }
+
+    private void OpenMenu(){
+        MainMenuController.Instance.Open();
+    }
+
+    private void ResetOrbitList()
+    {
+        orbitControllers = mainOrbitController.GetOrbits();
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i] = gameplayRefs.intialOrbitList[i];
+            orbitControllers[i].transform.SetAsFirstSibling();
+        }
+    }
 
     //List<MyTargetController> targetIDs;
     //PlayerController playerController;

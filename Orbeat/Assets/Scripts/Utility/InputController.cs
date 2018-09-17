@@ -41,10 +41,10 @@ public class InputController : MonoBehaviour
                 player.MoveRight();
             }
 
-
             switch (inputMethod)
             {
                 case "Buttons":
+                    Constants.difficultyLevel = 50;
                     if (Input.GetMouseButton(0))
                     {
                         if (Input.mousePosition.x > screenCenterX)
@@ -59,6 +59,7 @@ public class InputController : MonoBehaviour
 
                     break;
                 case "Scroll V1":
+                    Constants.difficultyLevel = 50;
                     if (Input.GetMouseButton(0))
                     {
                         float x = Input.mousePosition.x - screenCenterX;
@@ -67,6 +68,7 @@ public class InputController : MonoBehaviour
 
                     break;
                 case "Scroll V2":
+                    Constants.difficultyLevel = 50;
                     if (Input.touchCount > 0)
                     {
                         Touch touch = Input.GetTouch(0);
@@ -85,6 +87,7 @@ public class InputController : MonoBehaviour
                     break;
 
                 case "Tap Switch":
+                    Constants.difficultyLevel = 100;
                     if (Input.GetMouseButtonDown(0))
                         tap = !tap;
 

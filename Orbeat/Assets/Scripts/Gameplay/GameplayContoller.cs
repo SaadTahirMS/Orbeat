@@ -113,11 +113,12 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
             case GameState.Quit:
                 playerController.ChangeState(GameState.Quit);
                 mainOrbitController.ChangeState(GameState.Quit);
+                gameplayTransitionController.ChangeState(GameState.Quit);
                 gameplayRefs.inputController.GameStart(false);
                 print("Game Over");
-                MainMenuController.Instance.Open();
                 ResetHurdleFillAmount();
-                ResetOrbitList();
+                //ResetOrbitList();
+
                 break;
             
         }
@@ -222,32 +223,33 @@ public class GameplayContoller : Singleton<GameplayContoller>, IController
     }
 
     private void ProgressionCurves(){
-        float y = score / gameplayRefs.difficultyLevel;
+        print("Difficulty Level: " + Constants.difficultyLevel);
+        float y = score / Constants.difficultyLevel;
         float value;
 
         value = gameplayRefs.hurdleDistanceCurve.Evaluate(y) * gameplayRefs.maxHurdleDistance;
         Constants.hurdlesDistance = Vector3.one * Mathf.Clamp(value, gameplayRefs.minHurdleDistance, gameplayRefs.maxHurdleDistance);
-        print("New hurdleDistance x y: " + Constants.hurdlesDistance + "," + y);
+        //print("New hurdleDistance x y: " + Constants.hurdlesDistance + "," + y);
 
         value = gameplayRefs.hurdleFillAmountCurve.Evaluate(y) * gameplayRefs.maxHurdleFillAmount;
         Constants.hurdleFillAmount = Mathf.Clamp(value, gameplayRefs.minHurdleFillAmount, gameplayRefs.maxHurdleFillAmount);
-        print("New hurdleFillAmount x y: " + Constants.hurdleFillAmount + "," + y);
+        //print("New hurdleFillAmount x y: " + Constants.hurdleFillAmount + "," + y);
 
         value = gameplayRefs.maxScaleSpeed - gameplayRefs.scaleSpeedCurve.Evaluate(y) * gameplayRefs.maxScaleSpeed;
         Constants.scaleSpeed = Mathf.Clamp(value, gameplayRefs.minScaleSpeed, gameplayRefs.maxScaleSpeed);
-        print("New scaleSpeed x y: " + Constants.scaleSpeed + "," + y);
+        //print("New scaleSpeed x y: " + Constants.scaleSpeed + "," + y);
 
         value = gameplayRefs.rotationOffsetCurve.Evaluate(y) * gameplayRefs.maxRotationOffset;
         Constants.rotationOffset = Mathf.Clamp(value, gameplayRefs.minRotationOffset, gameplayRefs.maxRotationOffset);
-        print("New rotationOffset x y: " + Constants.rotationOffset + "," + y);
+        //print("New rotationOffset x y: " + Constants.rotationOffset + "," + y);
 
         //Max rotation curve and min value will be -x of max value
         value = gameplayRefs.orbitRotationCurve.Evaluate(y) * gameplayRefs.maxOrbitRotateSpeed;
         Constants.maxRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
         value = Constants.maxRotateSpeed - 5f;
         Constants.minRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
-        print("New maxRotateSpeed x y: " + Constants.maxRotateSpeed + "," + y);
-        print("New minRotateSpeed x y: " + Constants.minRotateSpeed + "," + y);
+        //print("New maxRotateSpeed x y: " + Constants.maxRotateSpeed + "," + y);
+        //print("New minRotateSpeed x y: " + Constants.minRotateSpeed + "," + y);
 
         //Player Collisions
         Constants.playerCollision = gameplayRefs.playerCollision;

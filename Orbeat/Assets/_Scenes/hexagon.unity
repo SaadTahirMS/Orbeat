@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 12
-  endValue: 3
+  endValue: 2.5
   duration: 0.1
 --- !u!1 &153478594
 GameObject:
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.09558821, g: 0.09558821, b: 0.09558821, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5334,7 +5334,7 @@ RectTransform:
   m_GameObject: {fileID: 1192645540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1899334705}
   - {fileID: 1650243710}
@@ -5362,7 +5362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1209378136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6644,7 +6644,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 26dabad2434e344e391863f53580ee52, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 190f77a7435d24b6dbb51779bbae9b20, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -7026,7 +7026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1557262882
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7209,7 +7209,6 @@ MonoBehaviour:
   playerRotationSpeed: 7.5
   playerScrollRotationSpeed: 30
   playerCollision: 1
-  difficultyLevel: 50
   minHurdleDistance: 7
   maxHurdleDistance: 10
   hurdleDistanceCurve:
@@ -7741,7 +7740,7 @@ RectTransform:
   m_GameObject: {fileID: 1650243709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1192645541}
   m_RootOrder: 1
@@ -9097,7 +9096,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1930750607}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -10170,16 +10169,6 @@ MonoBehaviour:
   restartBtn: {fileID: 683756431}
   settings: {fileID: 1930750607}
   inputMethod: {fileID: 13084187}
-  hurdleFillAmount: {fileID: 1296500951}
-  cameraOffset: {fileID: 840288447}
-  hurdlesDistance: {fileID: 481565874}
-  scaleSpeed: {fileID: 1971785796}
-  playerRotationSpeed: {fileID: 1606902813}
-  playerScrollRotationSpeed: {fileID: 1921850302}
-  minRotateSpeed: {fileID: 1400174140}
-  maxRotateSpeed: {fileID: 223264508}
-  rotationOffset: {fileID: 48824668}
-  playerCollision: {fileID: 200973596}
 --- !u!1 &2077045361
 GameObject:
   m_ObjectHideFlags: 0

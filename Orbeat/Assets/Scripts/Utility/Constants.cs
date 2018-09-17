@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Constants {
-    
+
+    public static int difficultyLevel = 50;
+
     //Player
     public static Vector3 playerInitialPosition = new Vector3(0f, 175f, 0f);
     public static float playerRotationSpeed = 7.5f;

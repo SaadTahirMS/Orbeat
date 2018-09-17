@@ -60,14 +60,12 @@ public class PlayerController: MonoBehaviour {
         switch (state)
         {
             case GameState.Start:
+                gameObject.transform.localPosition = Vector3.zero;
                 gameObject.SetActive(true);
                 break;
             case GameState.Restart:
                 break;
             case GameState.Quit:
-                gameObject.transform.position = Vector3.zero;
-                player.transform.rotation = Quaternion.identity;
-                gameObject.SetActive(false);
                 break;
         }
     }
