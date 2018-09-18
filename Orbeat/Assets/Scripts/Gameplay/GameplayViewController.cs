@@ -9,7 +9,7 @@ public class GameplayViewController : IController
 
     private GameplayRefs gameplayRefs;
     float cameraMovementFactor;
-    Sequence punchSequence;
+    Sequence punchSequence,waveSequence;
 
     public GameplayViewController(GameplayRefs gpRefs)
     {
@@ -39,14 +39,14 @@ public class GameplayViewController : IController
             gameplayRefs.innerOrbitsImg[i].DOColor(colorSet.bgColor,Constants.colorTransitionTime);
         }
         gameplayRefs.cam.DOColor(colorSet.bgColor, Constants.colorTransitionTime);
-
         //gameplayRefs.playerObjImg.color = colorSet.playerColor;
         gameplayRefs.playerObjImg.DOColor(colorSet.playerColor,Constants.colorTransitionTime);
-
 
         //gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
         gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.colorTransitionTime);
         gameplayRefs.playerOrbitGlowImg.color = colorSet.playerOrbitGlowColor;
+        gameplayRefs.waveImage.color = colorSet.playerOrbitColor;
+
         //gameplayRefs.playerOrbitGlowImg.DOColor(colorSet.playerOrbitGlowColor, Constants.colorTransitionTime);
 
         for (int i = 0; i < gameplayRefs.hurdleOrbitsImg.Count;i++){
@@ -74,9 +74,20 @@ public class GameplayViewController : IController
         //gameplayRefs.playerOrbitGlowImg.transform.DOScale(1.1f, 0.1f).SetLoops(2, LoopType.Yoyo);
         punchSequence.Kill();
         punchSequence = DOTween.Sequence();
-        punchSequence.Append(gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.25f, 10));
-        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.25f, 10));
-        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.125f).SetLoops(2, LoopType.Yoyo));
+        punchSequence.Append(gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
+        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
+        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo));
         punchSequence.Play();
+    }
+
+    public void WaveEffect(){
+        waveSequence.Kill();
+        waveSequence = DOTween.Sequence();
+        waveSequence.Append(gameplayRefs.waveImage.transform.DOScale(Vector3.one * 10f, 0.1f));
+        waveSequence.OnComplete(ResetScale);
+    }
+
+    private void ResetScale(){
+        gameplayRefs.waveImage.transform.localScale = Vector3.zero;
     }
 }

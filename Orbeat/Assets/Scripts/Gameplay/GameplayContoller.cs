@@ -198,14 +198,15 @@ public class GameplayContoller : Singleton<GameplayContoller>
     public void HurdleHitWall()
     {
         Debug.Log("Hurdle collided with wall");
-        AddScore(1);
-        //gameplayViewController.OrbitPunchFade();
         orbitControllers = mainOrbitController.GetOrbits();
 
         if(!levelUp){
+
+            gameplayViewController.OrbitPunchFade(); 
             Debug.Log("Not level up");
             ProgressionCurves();
-
+            AddScore(1);
+            //gameplayViewController.WaveEffect();
             //Applying progression settings
             mainOrbitController.SetNewScale();
             SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
@@ -235,6 +236,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 Constants.rotationOffset = gameplayPattern.rotationOffset;
 
                 //mainOrbitController.SetInitialScale();
+                //mainOrbitController.Scale();
                 mainOrbitController.StopScale();
                 mainOrbitController.ScaleTo(new Vector3(5f, 5f, 5f));
                 for (int i = 0; i < orbitControllers.Count; i++){
@@ -255,11 +257,16 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 startRotations = true;
                 orbitHitId = 0;
             }
-            if(startRotations)
+            if(startRotations){
                 mainOrbitController.SetRotateSpeed(gameplayPattern.direction, gameplayPattern.rotationSpeed);
+                //Constants.scaleSpeed = 2.5f;
+                mainOrbitController.StopScale();
+                mainOrbitController.ScaleTo(new Vector3(0f, 0f, 0f));
+            }
             else
                 mainOrbitController.SetNewRotations(0f, gameplayPattern.direction, gameplayPattern.initialRotationSpeed);
 
+            //mainOrbitController.SetNewScale();
 
         }
 
@@ -286,7 +293,10 @@ public class GameplayContoller : Singleton<GameplayContoller>
         Constants.hurdlesInitialDistance = hurdleInitialResetScale;
         mainOrbitController.SetInitialScale();
         mainOrbitController.Scale();
-        //mainOrbitController.ScaleFrom(Constants.hurdlesInitialDistance,Vector3.zero);
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            SetIndividualHurdleFillAmount(orbitControllers[i]);
+        }
         mainOrbitController.AssignNewRotations();
     }
 
@@ -397,7 +407,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
 
     private bool IsLevelUpTimerComplete(){
-        if (levelUpTimer > 5f)
+        if (levelUpTimer > 2.5f)
             return true;
         return false;
     }
