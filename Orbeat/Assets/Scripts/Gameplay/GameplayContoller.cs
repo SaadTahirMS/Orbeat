@@ -18,12 +18,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private int score = 0;
     private int level = 0;
+    private bool levelUp = false;
 
-    private void SetScore(int value){
-        score = value;
-    }
-
-    public void Open(int gameScore)
+    public void Open()
     {
         Application.targetFrameRate = 60;
         InitializeGameplayControllers();
@@ -31,7 +28,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
         InitializeHurdles();
         InitializeOrbit();
         InitializeColors();
-        SetScore(gameScore);
         ChangeGameState(GameState.Start);
     }
 
@@ -195,33 +191,82 @@ public class GameplayContoller : Singleton<GameplayContoller>
         playerController.SetCollisions(Constants.playerCollision);
     }
 
+    private void GamePattern(){
+        GameplayPattern gameplayPattern = new GameplayPattern
+        {
+            direction = 1,
+            rotationSpeed = 0,
+            rotationOffset = 0,
+            hurdleDistance = new Vector3(7f,7f,7f),
+            hurdleFillAmount = 0.7f,
+            scaleSpeed = 0.12f
+        };
+
+    }
+
     public void HurdleHitWall()
     {
         Debug.Log("Hurdle collided with wall");
-        orbitControllers = mainOrbitController.GetOrbits();
+        //Other Things
+        AddScore();
+        gameplayViewController.OrbitFade();
+        gameplayViewController.OrbitPunch();
 
-        ProgressionCurves();
-        //GameProgression();
 
-        mainOrbitController.SetNewScale();
-        SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
-        //mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
-        mainOrbitController.AssignNewRotation();
-        mainOrbitController.RotationOffset();
-        PlayerCollisions();
+        if(!levelUp){
+            Debug.Log("Not level up");
+            ProgressionCurves();
+            //Applying progression settings
+            orbitControllers = mainOrbitController.GetOrbits();
+            mainOrbitController.SetNewScale();
+            SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+            mainOrbitController.AssignNewRotation();
+            mainOrbitController.RotationOffset();
+            PlayerCollisions();
+
+            if (CheckLevelUp())
+            {
+                levelUp = true;
+                ChangeColors();
+            }
+
+        }
+        else if(levelUp && !IsPatternComplete()){
+            // do things on level up
+            Debug.Log("Level up");
+
+            GamePattern();
+            //Applying new settings
+            orbitControllers = mainOrbitController.GetOrbits();
+            mainOrbitController.CalculateInitialScale(0);
+
+
+
+            SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+            mainOrbitController.AssignNewRotation();
+            mainOrbitController.RotationOffset();
+            PlayerCollisions();
+        }
+        else if(IsPatternComplete()){
+            // do things after pattern is complete
+            Debug.Log("Pattern complete");
+            levelUp = false;
+            ProgressionCurves();
+            //Applying progression settings
+            orbitControllers = mainOrbitController.GetOrbits();
+            mainOrbitController.SetNewScale();
+            SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+            mainOrbitController.AssignNewRotation();
+            mainOrbitController.RotationOffset();
+            PlayerCollisions();
+        }
+
+       
 
         //Sort Orbits
         mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
         mainOrbitController.SortOrbits();   //sort all the orbits 
 
-        //Other Things
-        AddScore();
-        if (CheckLevelUp())
-        {
-            ChangeColors();
-        }
-        gameplayViewController.OrbitFade();
-        gameplayViewController.OrbitPunch();
     }
 
     private void ProgressionCurves(){
@@ -319,6 +364,13 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private bool CheckLevelUp(){
         if(score%5 == 0){
             level += 1;
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsPatternComplete(){
+        if(score%10 == 0 && levelUp){
             return true;
         }
         return false;

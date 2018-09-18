@@ -56,6 +56,18 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
+    public void SetNewRotation(float initialRotation,int direction,float speed){
+        //for (int i = 0; i < orbitControllers.Count; i++)
+        //{
+        //    //orbitControllers[i].transform.localRotation = Quaternion.Euler(0f,0f,initialRotation);
+        //    orbitControllers[i].transform.DOLocalRotate(new Vector3(0f, 0f, initialRotation), 0.1f);
+        //    orbitControllers[i].DoRotate(direction, speed);
+        //}
+
+        orbitControllers[0].transform.localRotation = Quaternion.Euler(0f, 0f, initialRotation);
+        orbitControllers[0].DoRotate(direction, speed);
+    }
+
     private int AssignDirection()
     {
         int direction = Random.Range(0, 2);
@@ -92,7 +104,7 @@ public class MainOrbitController : MonoBehaviour
         return Constants.playerOrbitScale + (a * Constants.hurdlesDistance);
     }
 
-    private void SetInitialScale()
+    public void SetInitialScale()
     {
         for (int i = 0; i < orbitControllers.Count; i++)
         {
@@ -100,13 +112,13 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
-    private Vector3 CalculateInitialScale(int a)
+    public Vector3 CalculateInitialScale(int a)
     {
         return Constants.hurdlesInitialDistance + (a * Constants.hurdlesDistance); 
     }
 
     //Scaling depends on the hurdleScale
-    private void Scale()
+    public void Scale()
     {
         for (int i = 0; i < orbitControllers.Count; i++)
         {
@@ -158,7 +170,7 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
-    //Scale of the first hurdle in the list
+    //Scale of the hurdle after hit
     public void SetNewScale(){
         //get the current scale of last index hurdle
         Vector3 lastHurdleScale = orbitControllers[orbitControllers.Count - 1].GetHurdleScale();
@@ -169,6 +181,7 @@ public class MainOrbitController : MonoBehaviour
         ScaleIndividual(Vector3.zero, 0);//scale down to this value
 
     }
+
 
     //private void AssignIndividualRotateSpeed(int index){
     //    switch(index){
@@ -204,6 +217,14 @@ public class MainOrbitController : MonoBehaviour
         float randomOffset = Random.Range(-Constants.rotationOffset, Constants.rotationOffset);
         orbitControllers[i].RotationOffset(previousRotation + randomOffset);
     }
+
+    public void SetNewRotationOffset()
+    {
+        int i = orbitControllers.Count - 1; //last orbit
+        float previousRotation = orbitControllers[i - 1].transform.localRotation.eulerAngles.z; //2nd last orbit
+        orbitControllers[i].RotationOffset(previousRotation + Constants.rotationOffset);
+    }
+
 
     public void CanRotate(bool flag){
         for (int i = 0; i < orbitControllers.Count;i++){
