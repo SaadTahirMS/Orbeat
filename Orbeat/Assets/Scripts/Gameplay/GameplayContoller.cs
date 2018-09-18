@@ -138,11 +138,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
         if (gameplayViewController != null && gameState == GameState.Start)
             gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
 
-        if(Input.GetKey(KeyCode.Escape)){
-            ChangeGameState(GameState.Quit);
-        }
+		#if UNITY_ANDROID
 
-
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			EventManager.DoFireBackButtonEvent ();
+		}
+		#endif
     }
 
     //Set all the hurdle sizes randomely

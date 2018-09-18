@@ -2,13 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class LoadingController : Singleton<LoadingController>,IController {
+public class LoadingController : Singleton<LoadingController> {
 
-    GameStateController gameStateController;
-
-    public void Open(){
-        gameStateController = GameStateController.Instance;
-        gameStateController.Open();
+	public void Initialize(ViewRefs refs){
+		GameStateController.Instance.Initialize (refs);
     }
 
 

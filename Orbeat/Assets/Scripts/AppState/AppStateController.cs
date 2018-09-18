@@ -2,11 +2,10 @@
 
 public class AppStateController : MonoBehaviour {
 
-    LoadingController loadingController;
-    private void Start()
+	public ViewRefs viewRefs;
+
+    private void Awake()
     {
-        loadingController = LoadingController.Instance;
-        loadingController.Open();
-        print("Appstate open");
+		LoadingController.Instance.Initialize (viewRefs);
     }
 }

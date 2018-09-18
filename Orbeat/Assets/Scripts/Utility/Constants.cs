@@ -4,6 +4,22 @@ using UnityEngine;
 
 public static class Constants {
 
+	#region Player Prefs
+
+	public const int kEncyptionStringKey = 910867680;
+
+	public const string isFirstSession 		= "isFirstSession";
+
+	public const string isNotificationsOn 		= "isNotificationsOn";
+
+	public const string noAdsPurchased 		= "noAdsPurchased";
+
+	public const string highScore 		= "highScore";
+	public const string playerName 		= "playerName";
+	public const string playerIconId 		= "playerIconId";
+
+	#endregion Player Prefs
+
     public static int difficultyLevel = 50;
 
     //Player
