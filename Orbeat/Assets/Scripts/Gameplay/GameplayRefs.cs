@@ -10,6 +10,7 @@ public class GameplayRefs : MonoBehaviour {
     public List<HurdleController> hurdleControllers;//area that can collide with the player
     public MainOrbitController mainOrbitController;//inner and hurdle together
     public ColorController colorController;
+    public List<GameplayPattern> gameplayPatterns;
     public Loudness loudness;
     public GameObject triangleParticles;
     public GameObject hexagonParticles;

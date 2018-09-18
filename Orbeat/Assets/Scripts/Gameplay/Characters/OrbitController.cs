@@ -5,6 +5,9 @@ using DG.Tweening;
 
 public class OrbitController : MonoBehaviour {
 
+    [HideInInspector]
+    public int id;
+
     public Transform inner;
     public Rotate rotate;
     [HideInInspector]
@@ -13,9 +16,10 @@ public class OrbitController : MonoBehaviour {
     private int direction;
     private float duration;
 
-    public void Initialize(HurdleController hurdleController)
+    public void Initialize(HurdleController hurdleController,int id)
     {
         this.hurdleController = hurdleController;
+        this.id = id;
     }
 
     public Tween DoScale(Vector3 endValue, float duration){
@@ -31,10 +35,6 @@ public class OrbitController : MonoBehaviour {
         scaleSequence.Kill();
     }
 
-    public void StopRotate()
-    {
-        rotate.StopRotate();
-    }
 
     public void SetScale(Vector3 value)
     {
@@ -43,8 +43,8 @@ public class OrbitController : MonoBehaviour {
         Vector3 scale = hurdleController.transform.localScale - Vector3.one;
         inner.transform.localScale = scale;
 
-        //hurdleController.transform.DOScale(value,Constants.transitionTime);
-        //inner.transform.DOScale(hurdleController.transform.localScale - Constants.hurdleWidth, Constants.transitionTime);
+        //hurdleController.transform.DOScale(value,0.1f);
+        //inner.transform.DOScale(hurdleController.transform.localScale - Constants.hurdleWidth, 0.1f);
     }
 
     public void DoRotate(int direction, float duration)
@@ -54,13 +54,17 @@ public class OrbitController : MonoBehaviour {
         rotate.DoRotate(direction, duration);
     }
 
+    public void ChangeDirection(){
+        direction = -1 * direction;
+    }
+
     public Vector3 GetHurdleScale()
     {
         return hurdleController.transform.localScale;
     }
 
     public void RotationOffset(float value){
-        StopRotate();
+        //StopRotate();
         gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, value);
         DoRotate(direction, duration);
     }

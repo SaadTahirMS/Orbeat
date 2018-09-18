@@ -9,6 +9,7 @@ public class GameplayViewController : IController
 
     private GameplayRefs gameplayRefs;
     float cameraMovementFactor;
+    Sequence punchSequence;
 
     public GameplayViewController(GameplayRefs gpRefs)
     {
@@ -68,16 +69,14 @@ public class GameplayViewController : IController
        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0f, -10);
     }
 
-    public void OrbitFade(){
-        gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo);
-        //gameplayRefs.playerOrbitImg.DOFade(0.4f, 0.15f).SetLoops(2, LoopType.Yoyo);
-    }
-
-    public void OrbitPunch(){
+    public void OrbitPunchFade(){
         //gameplayRefs.playerOrbitImg.transform.DOScale(1.1f,0.1f).SetLoops(2, LoopType.Yoyo);
         //gameplayRefs.playerOrbitGlowImg.transform.DOScale(1.1f, 0.1f).SetLoops(2, LoopType.Yoyo);
-
-        gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f,10);
-        gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f,10);
+        punchSequence.Kill();
+        punchSequence = DOTween.Sequence();
+        punchSequence.Append(gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.25f, 10));
+        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.25f, 10));
+        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.125f).SetLoops(2, LoopType.Yoyo));
+        punchSequence.Play();
     }
 }

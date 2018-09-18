@@ -68,7 +68,7 @@ public class InputController : MonoBehaviour
 
                     break;
                 case "Scroll V2":
-                    Constants.difficultyLevel = 50;
+                    //Constants.difficultyLevel = 50;
                     if (Input.touchCount > 0)
                     {
                         Touch touch = Input.GetTouch(0);
@@ -76,11 +76,12 @@ public class InputController : MonoBehaviour
                         if (touch.phase == TouchPhase.Moved)
                         {
                             player.RotatePlayerV2(touch.deltaPosition.x); //value b/w -0.5 and 0.5
-                                                                          //playerMovementRefs.ropeTransform.Rotate (Vector3.forward * Time.deltaTime * deltaPostionX * movementFactor);
+                            Time.timeScale = 1f;
                         }
                         else if (touch.phase == TouchPhase.Ended)
                         {
                             player.RotatePlayerV2(0);
+                            Time.timeScale = 0.1f;
                         }
                     }
 

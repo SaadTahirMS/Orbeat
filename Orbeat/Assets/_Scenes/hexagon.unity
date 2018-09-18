@@ -948,7 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 12
-  endValue: 1
+  endValue: 3
   duration: 0.1
 --- !u!114 &130061591
 MonoBehaviour:
@@ -956,7 +956,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 130061585}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -2912,7 +2912,7 @@ RectTransform:
   m_GameObject: {fileID: 598834775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 11, y: 11, z: 34}
+  m_LocalScale: {x: 9, y: 9, z: 34}
   m_Children: []
   m_Father: {fileID: 1023254850}
   m_RootOrder: 2
@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029411793, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4371,7 +4371,7 @@ RectTransform:
   m_GameObject: {fileID: 859432852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 23}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children: []
   m_Father: {fileID: 1502416565}
   m_RootOrder: 3
@@ -5254,6 +5254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16aba6a693c144fcd8d3cb2b12bc0bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   inner: {fileID: 1550514377}
   rotate: {fileID: 1023254852}
   hurdleController: {fileID: 0}
@@ -5268,7 +5269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbf348a2fb584d03a2ca8d27193f8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canRotate: 0
+  canRotate: 1
+  direction: 0
+  speed: 0
 --- !u!1 &1053338637
 GameObject:
   m_ObjectHideFlags: 0
@@ -6385,6 +6388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16aba6a693c144fcd8d3cb2b12bc0bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   inner: {fileID: 1151146904}
   rotate: {fileID: 1354315815}
   hurdleController: {fileID: 0}
@@ -6399,7 +6403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbf348a2fb584d03a2ca8d27193f8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canRotate: 0
+  canRotate: 1
+  direction: 0
+  speed: 0
 --- !u!1 &1366627528
 GameObject:
   m_ObjectHideFlags: 0
@@ -6949,7 +6955,7 @@ RectTransform:
   m_GameObject: {fileID: 1423754641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 13, y: 13, z: 44}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 2092386972}
   m_RootOrder: 2
@@ -6985,7 +6991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029411793, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7164,6 +7170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16aba6a693c144fcd8d3cb2b12bc0bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   inner: {fileID: 859432853}
   rotate: {fileID: 1502416567}
   hurdleController: {fileID: 0}
@@ -7178,7 +7185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbf348a2fb584d03a2ca8d27193f8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canRotate: 0
+  canRotate: 1
+  direction: 0
+  speed: 0
 --- !u!1 &1523479820
 GameObject:
   m_ObjectHideFlags: 0
@@ -7292,7 +7301,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 903021e97ef3448609632bc755c4f500, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 930452da9ca794dd2bc31de83edf362a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -7481,7 +7490,7 @@ RectTransform:
   m_GameObject: {fileID: 1550514376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 33}
+  m_LocalScale: {x: 8, y: 8, z: 33}
   m_Children: []
   m_Father: {fileID: 1023254850}
   m_RootOrder: 3
@@ -7819,6 +7828,27 @@ MonoBehaviour:
   - {fileID: 1423754643}
   mainOrbitController: {fileID: 345812427}
   colorController: {fileID: 710810216}
+  gameplayPatterns:
+  - direction: 1
+    pingpong: 0
+    initialRotation: 0
+    rotationSpeed: 7.5
+    initialRotationSpeed: 1
+    rotationOffset: 0
+    hurdleDistance: {x: 1, y: 1, z: 1}
+    hurdleInitialDistance: {x: 30, y: 30, z: 30}
+    hurdleFillAmount: 0.6
+    scaleSpeed: 0.16
+  - direction: -1
+    pingpong: 0
+    initialRotation: 0
+    rotationSpeed: 7.5
+    initialRotationSpeed: 1
+    rotationOffset: 0
+    hurdleDistance: {x: 1, y: 1, z: 1}
+    hurdleInitialDistance: {x: 30, y: 30, z: 30}
+    hurdleFillAmount: 0.6
+    scaleSpeed: 0.16
   loudness: {fileID: 1528810560}
   triangleParticles: {fileID: 1729667761164870, guid: 60d9ef126686f4ef0af881c47c5b1905,
     type: 2}
@@ -7858,7 +7888,7 @@ MonoBehaviour:
   playerScrollRotationSpeed: 30
   playerCollision: 0
   minHurdleDistance: 10
-  maxHurdleDistance: 7
+  maxHurdleDistance: 6
   hurdleDistanceCurve:
     serializedVersion: 2
     m_Curve:
@@ -7910,7 +7940,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   minScaleSpeed: 0.18
-  maxScaleSpeed: 0.15
+  maxScaleSpeed: 0.12
   scaleSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -7936,7 +7966,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   minRotationOffset: 120
-  maxRotationOffset: 160
+  maxRotationOffset: 180
   rotationOffsetCurve:
     serializedVersion: 2
     m_Curve:
@@ -7955,8 +7985,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  minOrbitRotateSpeed: 25
-  maxOrbitRotateSpeed: 50
+  minOrbitRotateSpeed: 0.5
+  maxOrbitRotateSpeed: 3
   orbitRotationCurve:
     serializedVersion: 2
     m_Curve:
@@ -8160,7 +8190,7 @@ RectTransform:
   m_GameObject: {fileID: 1610336798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 43}
+  m_LocalScale: {x: 9, y: 9, z: 9}
   m_Children: []
   m_Father: {fileID: 2092386972}
   m_RootOrder: 3
@@ -9245,7 +9275,7 @@ RectTransform:
   m_GameObject: {fileID: 1888069070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 24}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_Children: []
   m_Father: {fileID: 1502416565}
   m_RootOrder: 2
@@ -9281,7 +9311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029411793, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10951,6 +10981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16aba6a693c144fcd8d3cb2b12bc0bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   inner: {fileID: 1610336799}
   rotate: {fileID: 2092386974}
   hurdleController: {fileID: 0}
@@ -10965,7 +10996,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbf348a2fb584d03a2ca8d27193f8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canRotate: 0
+  canRotate: 1
+  direction: 0
+  speed: 0
 --- !u!1 &2118201373
 GameObject:
   m_ObjectHideFlags: 0
