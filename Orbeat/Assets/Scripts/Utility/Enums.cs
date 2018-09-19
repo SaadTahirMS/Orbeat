@@ -8,7 +8,13 @@ public enum GameState
 
 public enum SFX
 {
-    PlayerBlast
+    PlayerBlast,
+	ButtonClick,
+	LevelUp,
+	GameOver,
+	HighScore,
+	Ready,
+	Go
 }
 
 public enum Views : int

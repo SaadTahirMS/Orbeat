@@ -16,6 +16,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private List<GameplayPattern> gameplayPatterns;
     private GameplayPattern gameplayPattern;
 
+	private WaitForSeconds goSoundCrWait;
+	private float goSoundCrDelay = 1f;
+
     [HideInInspector]public GameState gameState;
 
     private int score = 0;
@@ -24,9 +27,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private Vector3 hurdleInitialResetScale = new Vector3(24f,24f,24f);
     private int orbitHitId;
 
+	private bool isHighScoreMade;
+
     public void Open()
     {
         Application.targetFrameRate = 60;
+		goSoundCrWait = new WaitForSeconds (goSoundCrDelay);
 		InitializeSoundEffect ();
         InitializeGameplayControllers();
         InitializePlayer();
@@ -57,7 +63,17 @@ public class GameplayContoller : Singleton<GameplayContoller>
 	private void InitializeSoundEffect()
 	{
 		SoundController.Instance.SetPitch(1f,true);
-		SoundController.Instance.SetVolume(1f);
+		SoundController.Instance.SetVolume(0.7f);
+		SoundController.Instance.PlayDialogSound (SFX.Ready);
+		StartCoroutine (PlayGoSoundCR ());
+	}
+
+	private IEnumerator PlayGoSoundCR()
+	{
+//		Time.timeScale = 0.1f;
+		yield return goSoundCrWait;
+//		Time.timeScale = 1;
+		SoundController.Instance.PlayDialogSound (SFX.Go);
 	}
 
     private void InitializeGameplayControllers(){
@@ -99,7 +115,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 //GameProgression();
                 gameplayRefs.inputController.GameStart(true);
                 SoundController.Instance.SetPitch(1f,false);
-                SoundController.Instance.SetVolume(1f);
+                SoundController.Instance.SetVolume(0.7f);
                 playerController.ChangeState(GameState.Start);
                 SetHurdleFillAmount();
                 mainOrbitController.ChangeState(GameState.Start);
@@ -189,6 +205,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     public void PlayerHitHurdle()
     {
         Debug.Log("Player collided with hurdle");
+		SoundController.Instance.PlayDialogSound (SFX.GameOver);
         ExplosionParticles();
         ChangeGameState(GameState.Quit);
     }
@@ -391,11 +408,17 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private void AddScore(int s){
         score += s;
 		PlayerData.CurrentScore = score;
+		if (PlayerData.IsHighScoreChanged () && !isHighScoreMade) {
+			isHighScoreMade = true;
+			SoundController.Instance.PlayDialogSound (SFX.HighScore);
+		}
+	
 		EventManager.DoFireScoreUpdatedEvent ();
         gameplayViewController.SetScore(score);
     }
 
     private void ResetVariables(){
+		isHighScoreMade = false;
         score = 0;
 		PlayerData.CurrentScore = score;
         level = 0;

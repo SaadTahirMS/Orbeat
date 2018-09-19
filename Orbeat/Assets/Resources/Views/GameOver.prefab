@@ -1383,6 +1383,10 @@ MonoBehaviour:
   - {fileID: 114518620653557674}
   - {fileID: 114952373538249544}
   - {fileID: 114169723509732276}
+  playerObj:
+  - {fileID: 1881781126801204}
+  - {fileID: 1323996004670112}
+  - {fileID: 1456897276568640}
 --- !u!114 &114632611148320362
 MonoBehaviour:
   m_ObjectHideFlags: 1

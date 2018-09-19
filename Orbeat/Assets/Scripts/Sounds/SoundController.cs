@@ -38,10 +38,19 @@ public class SoundController : Singleton<SoundController> {
 
     public AudioSource audioSource;
     public AudioSource sfxAudioSource;
+	public AudioSource dialogAudioSource;
 
     public AudioClip perfectHitSound;
     public AudioClip hurdleHitSound;
     public AudioClip playerBlastSound;
+
+	public AudioClip buttonClickSound;
+
+	public AudioClip levelupSound;
+	public AudioClip readySound;
+	public AudioClip goSound;
+	public AudioClip gameoverSound;
+	public AudioClip highScoreSound;
 
 	#endregion Variables And Properties
 
@@ -71,12 +80,39 @@ public class SoundController : Singleton<SoundController> {
 	#endregion Save/Load State
 
     public void PlaySFXSound(SFX state){
-        switch(state){
-            case SFX.PlayerBlast:
-                sfxAudioSource.PlayOneShot(playerBlastSound);
-                break;
-        }
+		if (soundState) {
+			switch (state) {
+			case SFX.PlayerBlast:
+				sfxAudioSource.PlayOneShot (playerBlastSound);
+				break;
+			case SFX.ButtonClick:
+				sfxAudioSource.PlayOneShot (buttonClickSound);
+				break;
+			}
+		}
     }
+
+	public void PlayDialogSound(SFX state){
+		if (soundState) {
+			switch (state) {
+			case SFX.LevelUp:
+				dialogAudioSource.PlayOneShot (levelupSound);
+				break;
+			case SFX.GameOver:
+				dialogAudioSource.PlayOneShot (gameoverSound);
+				break;
+			case SFX.Go:
+				dialogAudioSource.PlayOneShot (goSound);
+				break;
+			case SFX.Ready:
+				dialogAudioSource.PlayOneShot (readySound);
+				break;
+			case SFX.HighScore:
+				dialogAudioSource.PlayOneShot (highScoreSound);
+				break;
+			}
+		}
+	}
 
     public void SetPitch(float value,bool tween){
         if(tween)

@@ -195,10 +195,19 @@ public class EventManager {
 	public delegate void ScoreUpdated();
 	public static ScoreUpdated OnScoreUpdated;
 
+	public delegate void UpdateFillBarColor(Color barColor, Color fillerColor);
+	public static UpdateFillBarColor OnUpdateFillBarColor;
+
 	public static void DoFireScoreUpdatedEvent()
 	{
 		if (OnScoreUpdated != null)
 			OnScoreUpdated ();	
+	}
+
+	public static void DoFireUpdateFillBarColorEvent(Color barColor, Color fillerColor)
+	{
+		if (OnUpdateFillBarColor != null)
+			OnUpdateFillBarColor (barColor, fillerColor);	
 	}
 
 	#endregion Progression Bar

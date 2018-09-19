@@ -11,4 +11,5 @@ public class ProgressionBarRefs : MonoBehaviour {
 	public Image fillerImage;
 	public Image barImage;
 
+	public Transform opponentObj;
 }

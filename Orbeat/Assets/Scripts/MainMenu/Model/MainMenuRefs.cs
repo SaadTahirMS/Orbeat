@@ -16,6 +16,8 @@ public class MainMenuRefs : MonoBehaviour {
 	public Text[] playerName;
 	public Text[] score;
 
+	public GameObject[] playerObj;
+
 	public Text warningText;
 
 }

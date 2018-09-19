@@ -6,6 +6,7 @@ public class RateUsEventHandler : MonoBehaviour {
 
 	public void RateUsLater()
 	{
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 		EventManager.DoFireCloseViewEvent ();
 	}
 
