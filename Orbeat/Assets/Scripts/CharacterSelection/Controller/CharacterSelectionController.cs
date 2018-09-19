@@ -8,8 +8,6 @@ public class CharacterSelectionController : BaseController {
 
 	private CharacterSelectionViewController characterSelectionViewController;
 
-	private bool canChangeValue;
-
 	private WaitForSeconds randomSelectionCr;
 
 	private float randomSelectionCrDelay = 0.1f;
@@ -77,8 +75,7 @@ public class CharacterSelectionController : BaseController {
 
 	private void NameChanged()
 	{
-		if (canChangeValue)
-			characterSelectionViewController.SetChangeField (TextConstants.Change);
+		characterSelectionViewController.SetChangeField (TextConstants.Change);
 	}
 
 	private void CharacterChanged(int characterNumber)
@@ -95,13 +92,11 @@ public class CharacterSelectionController : BaseController {
 	{
 		if (!PlayerData.IsFirstSession) {
 			characterSelectionViewController.SetHighLighter (PlayerData.PlayerIconId,true);
-			characterSelectionViewController.SetChangeField (TextConstants.Ok);
-			canChangeValue = true;
 		} else {
 			GameStateController.Instance.StartCoroutine (SelectRandomCharacter ());
 			PlayerData.IsFirstSession = false;
-			canChangeValue = false;
 		}
+		characterSelectionViewController.SetChangeField (TextConstants.Ok);
 	}
 
 	IEnumerator SelectRandomCharacter()

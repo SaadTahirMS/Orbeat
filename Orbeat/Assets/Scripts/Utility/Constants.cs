@@ -8,6 +8,9 @@ public static class Constants {
 
 	public const int kEncyptionStringKey = 910867680;
 
+	public const string MusicState = "MusicState";
+	public const string SoundState = "SoundState";
+
 	public const string isFirstSession 		= "isFirstSession";
 
 	public const string isNotificationsOn 		= "isNotificationsOn";

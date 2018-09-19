@@ -52,14 +52,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponentIcons:
-  - {fileID: 21300000, guid: 8d1fa8b92248d4bf3bef5a3e29e8c604, type: 3}
-  - {fileID: 21300000, guid: 86a25ad1063b24594b895bd555d28a07, type: 3}
-  - {fileID: 21300000, guid: 9f30d66cd292948a5aa70dbcd3ebb3dd, type: 3}
-  - {fileID: 21300000, guid: a42c6bba677bb4240b332e2f2afaccb9, type: 3}
   - {fileID: 21300000, guid: 89ca5a5a7662d43efa8d71bb5383d4a2, type: 3}
+  - {fileID: 21300000, guid: a42c6bba677bb4240b332e2f2afaccb9, type: 3}
   - {fileID: 21300000, guid: 00fabe114902e4f6aa0a1cad4483601f, type: 3}
+  - {fileID: 21300000, guid: 9f30d66cd292948a5aa70dbcd3ebb3dd, type: 3}
   - {fileID: 21300000, guid: 5205e2cb9bf7c45eabc6d0a522f68729, type: 3}
   - {fileID: 21300000, guid: 770a0b10baefe40aab3d2ade32356b11, type: 3}
+  - {fileID: 21300000, guid: 86a25ad1063b24594b895bd555d28a07, type: 3}
+  - {fileID: 21300000, guid: 8d1fa8b92248d4bf3bef5a3e29e8c604, type: 3}
   playerIcons:
   - {fileID: 21300000, guid: 43c83fdf5ef5041fbbd53424fac52bfe, type: 3}
   - {fileID: 21300000, guid: e853671222a8c4dcd84eaf9220d189e6, type: 3}
@@ -73,6 +73,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8c352d5589294aa0b3a409cb3e6f361, type: 3}
   - {fileID: 21300000, guid: 85e170eb672ec4811871901ec55cc6e0, type: 3}
   - {fileID: 21300000, guid: a7f129137580b4923849f2fe8922a0ba, type: 3}
+  playerDefaultIcon: {fileID: 21300000, guid: d781009b8d035417e99a4615a3fe6789, type: 3}
   playerFontColor: {r: 0.27058825, g: 0.30980393, b: 0.3529412, a: 1}
   playerBarColor: {r: 0.22352941, g: 0.87058824, b: 0.8392157, a: 1}
   opponentBarColor: {r: 0.31764707, g: 0.3647059, b: 0.41960785, a: 1}

@@ -2,10 +2,10 @@
 
 public class AppStateController : MonoBehaviour {
 
-	public ViewRefs viewRefs;
+	public GameRefs gameRefs;
 
     private void Awake()
     {
-		LoadingController.Instance.Initialize (viewRefs);
+		LoadingController.Instance.Initialize (gameRefs);
     }
 }

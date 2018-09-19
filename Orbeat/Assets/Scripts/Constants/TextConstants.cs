@@ -64,13 +64,15 @@ public class TextConstants {
 
 	#endregion Game Pause
 
-	#region Game Revive
+	#region Game Over
 
-	public static string GameReviveHeading = "Game Revive";
-	public static string Cancel = "Cancel";
-	public static string WatchVideoToRevive = "Watch Video To Revive";
+	public static string Revive = "Revive";
+	public static string GameOverHeader = "Game Over";
+	public static string Score = "Score: ";
+	public static string Restart = "Restart";
+	public static string HighScore = "New High Score";
 
-	#endregion Game Revive
+	#endregion Game Over
 
 	#region Reward
 
@@ -88,6 +90,8 @@ public class TextConstants {
 
 	public static string Yes = "Yes";
 	public static string No = "No";
+
+	public static string Cancel = "Cancel";
 
 	#endregion Game Quit
 

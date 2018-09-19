@@ -1,6 +1,6 @@
 [LEADER BOARD],,
 ID,Name,Score
-1,Little Brother,5
+1,Little Sister,5
 2,Granny,11
 3,Pesky Cousin,18
 4,Dexteris Freind,45

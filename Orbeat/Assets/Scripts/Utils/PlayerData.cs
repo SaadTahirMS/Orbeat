@@ -145,12 +145,16 @@ public class PlayerData {
 	public static bool IsHighScoreChanged()
 	{
 		if (currentScore > highScore) {
-			HighScore = currentScore;
-			playerModel.score = highScore;
 			isScoreChanged = true;
 			return true;
 		}
 		return false;
+	}
+
+	public static void UpdateHighScore()
+	{
+		HighScore = currentScore;
+		playerModel.score = highScore;
 	}
 
 	#endregion
@@ -159,8 +163,8 @@ public class PlayerData {
 
 	public static void LoadState()
 	{
-		playerName = DatabaseManager.GetString (Constants.playerName, "Enter Your Name...");
-		playerIconId = DatabaseManager.GetInt (Constants.playerIconId, 0);
+		playerName = DatabaseManager.GetString (Constants.playerName, TextConstants.You);
+		playerIconId = DatabaseManager.GetInt (Constants.playerIconId, -1);
 		highScore = DatabaseManager.GetInt (Constants.highScore);
 		isNoAdsPurchased = DatabaseManager.GetBool (Constants.noAdsPurchased);
 		isNotificationsOn = DatabaseManager.GetBool (Constants.isNotificationsOn, true);

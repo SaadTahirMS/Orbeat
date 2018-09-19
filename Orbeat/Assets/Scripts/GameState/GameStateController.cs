@@ -5,24 +5,23 @@ using UnityEngine;
 public class GameStateController : Singleton<GameStateController> {
 
 	private ViewController viewController;
+	private ProgressionBarController progressionBarController;
 
-	public void Initialize(ViewRefs refs){
+	public void Initialize(GameRefs refs){
 
-		viewController = new ViewController (refs);
+		PlayerPrefs.DeleteAll ();
+
+		viewController = new ViewController (refs.viewRefs);
+		progressionBarController = new ProgressionBarController (refs.progressionBarRefs);
 
 		LoadPlayerState ();
-
+		SoundController.Instance.Initialize ();
 		LeaderBoardController.Instance.Initialize ();
 		AnimationHandler.Initialize ();
 		ThirdPartyController.Instance.Initialize ();
-
 		LoadGameData ();
 
 		ShowMainMenu ();
-
-		if (PlayerData.IsFirstSession) {
-			viewController.OpenView (Views.CharacterSelection);
-		}
     }
 
 	public void ShowMainMenu()
@@ -32,9 +31,17 @@ public class GameStateController : Singleton<GameStateController> {
 		viewController.OpenView (Views.MainMenu);
 	}
 
+	public void StartGame()
+	{
+		GameplayContoller.Instance.Open ();
+		progressionBarController.Open ();
+		viewController.CloseAllViews ();
+	}
+
 	private void LoadPlayerState()
 	{
 		PlayerData.LoadState ();
+//		PlayerData.HighScore = 250;
 	}
 
 	private void LoadGameData()

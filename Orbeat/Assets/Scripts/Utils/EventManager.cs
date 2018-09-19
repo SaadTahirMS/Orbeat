@@ -190,6 +190,19 @@ public class EventManager {
 
 	#endregion Confirmation Dialog
 
+	#region Progression Bar
+
+	public delegate void ScoreUpdated();
+	public static ScoreUpdated OnScoreUpdated;
+
+	public static void DoFireScoreUpdatedEvent()
+	{
+		if (OnScoreUpdated != null)
+			OnScoreUpdated ();	
+	}
+
+	#endregion Progression Bar
+
 	#region UnAssignEvents
 
 	public static void UnAssignAllEvents()

@@ -22,7 +22,7 @@ public class GameQuitController {
 		confirmationDialogModel.noCallback = NoClicked;
 		confirmationDialogModel.yesCallback = YesClicked;
 
-		confirmationDialogModel.noText = TextConstants.No;
+		confirmationDialogModel.noText = TextConstants.Cancel;
 		confirmationDialogModel.yesText = TextConstants.Yes;
 		confirmationDialogModel.headerText = TextConstants.GameQuitHeading;
 		confirmationDialogModel.descriptionText = TextConstants.GameQuitDesc;

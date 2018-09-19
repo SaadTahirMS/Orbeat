@@ -21,6 +21,7 @@ public class ViewController {
 	private ConfirmationDialogController confirmationDialogController;
 	private RateUsController rateUsController;
 	private CharacterSelectionController characterSelectionController;
+	private GameOverController gameOverController;
 
 	#endregion Variables
 
@@ -98,6 +99,11 @@ public class ViewController {
 			if (characterSelectionController == null)
 				characterSelectionController = new CharacterSelectionController ();
 			return characterSelectionController;
+		case Views.GameOver:
+			restrictBackButton = true;
+			if (gameOverController == null)
+				gameOverController = new GameOverController ();
+			return gameOverController;
 		default:
 			if (mainMenuController == null)
 				mainMenuController = new MainMenuController ();

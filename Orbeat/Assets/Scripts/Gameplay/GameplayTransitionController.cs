@@ -95,7 +95,7 @@ public class GameplayTransitionController : MonoBehaviour
     }
 
     private void OpenMenu(){
-//        MainMenuController.Instance.Open();
+		EventManager.DoFireOpenViewEvent (Views.GameOver);
     }
 
     private void ResetOrbitList()
