@@ -30,8 +30,6 @@ public class MainOrbitController : MonoBehaviour
                 Rotate();
                 Scale();
                 break;
-            case GameState.Restart:
-                break;   
             case GameState.Quit:
                 StopScale();
                 CanRotate(false);

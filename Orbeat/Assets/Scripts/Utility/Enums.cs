@@ -2,7 +2,7 @@
 public enum GameState
 {
     Start,
-    Restart,
+    Revive,
     Quit
 }  
 

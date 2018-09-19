@@ -62,8 +62,6 @@ public class PlayerController: MonoBehaviour {
                 gameObject.transform.localPosition = Vector3.zero;
                 gameObject.SetActive(true);
                 break;
-            case GameState.Restart:
-                break;
             case GameState.Quit:
                 break;
         }
@@ -108,8 +106,7 @@ public class PlayerController: MonoBehaviour {
 
     public void SetCollisions(bool state)
     {
-        playerRB.isKinematic = state; 
-        //playerOrbitRB.isKinematic = !state; 
+        playerRB.isKinematic = !state; 
     }
 
 

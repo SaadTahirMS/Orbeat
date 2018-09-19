@@ -61,6 +61,7 @@ public static class Constants {
     public static float rotationOffset = 45f; // plus minus previous value
     public static Vector3 edgeInitialPos = new Vector3(1175f,0f,0f);
     public static float edgeDistance = 50f;
+    public static float normalModeTime = 15;
 
     //Camera 
     public static float cameraOffset = 1f;

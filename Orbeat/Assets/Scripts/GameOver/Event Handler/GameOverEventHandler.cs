@@ -6,7 +6,9 @@ public class GameOverEventHandler : MonoBehaviour {
 
 	public void ReviveClicked()
 	{
-		ThirdPartyController.Instance.admobController.ShowRewardBasedVideo ();
+        ThirdPartyController.Instance.admobController.ShowRewardBasedVideo ();
+        //GameStateController.Instance.ReviveGame();
+        //GameplayContoller.Instance.ReviveGame();
 	}
 
 	public void RestartClicked()
