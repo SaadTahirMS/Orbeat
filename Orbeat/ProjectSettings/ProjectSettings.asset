@@ -591,11 +591,12 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: 169c6a0b-6ee0-4c97-80b4-9d46cf88cdc0
+  projectName: Orbeat
+  organizationId: shahrukhrafique
   cloudEnabled: 0
   enableNewInputSystem: 0
