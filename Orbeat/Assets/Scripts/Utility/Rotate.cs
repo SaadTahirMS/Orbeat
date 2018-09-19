@@ -5,11 +5,13 @@ using DG.Tweening;
 
 public class Rotate : MonoBehaviour {
     
-    public bool canRotate = false;
+    public bool canRotate;
     Sequence rotationSequence;
     private Vector3 rotation = new Vector3(0f, 0f, 360f);
-    private int direction;
-    private float speed;
+
+    public int direction;
+    [HideInInspector]
+    public float speed;
     //public void DoRotate(int direction,float duration)
     //{
     //    if(canRotate){
@@ -24,17 +26,13 @@ public class Rotate : MonoBehaviour {
     public void DoRotate(int direction,float speed){
         this.direction = direction;
         this.speed = speed;
-        canRotate = true;
     }
 
     private void Update()
     {
         if(canRotate)
-            gameObject.transform.Rotate(Vector3.forward * direction * speed * Time.deltaTime);
+            gameObject.transform.Rotate(Vector3.forward * direction * speed);
     }
 
 
-    public void StopRotate(){
-        canRotate = false;
-    }
 }
