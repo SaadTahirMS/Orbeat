@@ -9,6 +9,8 @@ public class GamePauseController : BaseController {
 
 	private GamePauseViewController gamePauseViewController;
 
+	private float timeMultiplier = 20;
+
 	#endregion Variables
 
 	#region Life Cycle Methods
@@ -44,8 +46,9 @@ public class GamePauseController : BaseController {
 		float timeScale = 0.00001f;
 		while (timeScale < 1) {
 			yield return null;
-			timeScale += Time.deltaTime;
+			timeScale += Time.deltaTime * timeMultiplier;
 			Time.timeScale = timeScale;
+			timeScale = Time.timeScale;
 		}
 		Time.timeScale = 1;
 	}

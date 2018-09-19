@@ -18,11 +18,19 @@ public class GameStateController : Singleton<GameStateController> {
 
 		LoadGameData ();
 
-		EventManager.DoFireOpenViewEvent (Views.MainMenu);
+		ShowMainMenu ();
+
 		if (PlayerData.IsFirstSession) {
-			EventManager.DoFireOpenViewEvent (Views.CharacterSelection);
+			viewController.OpenView (Views.CharacterSelection);
 		}
     }
+
+	public void ShowMainMenu()
+	{
+		Time.timeScale = 1;
+		viewController.CloseAllViews ();
+		viewController.OpenView (Views.MainMenu);
+	}
 
 	private void LoadPlayerState()
 	{

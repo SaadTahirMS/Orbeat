@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1561399729266298}
+  m_IsPrefabParent: 1
+--- !u!1 &1561399729266298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4425585590527394}
+  - component: {fileID: 114300157036420462}
+  m_Layer: 0
+  m_Name: UiIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4425585590527394
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561399729266298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114300157036420462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561399729266298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb12a61bce404cc5bc48dd098424ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentIcons:
+  - {fileID: 21300000, guid: 8d1fa8b92248d4bf3bef5a3e29e8c604, type: 3}
+  - {fileID: 21300000, guid: 86a25ad1063b24594b895bd555d28a07, type: 3}
+  - {fileID: 21300000, guid: 9f30d66cd292948a5aa70dbcd3ebb3dd, type: 3}
+  - {fileID: 21300000, guid: a42c6bba677bb4240b332e2f2afaccb9, type: 3}
+  - {fileID: 21300000, guid: 89ca5a5a7662d43efa8d71bb5383d4a2, type: 3}
+  - {fileID: 21300000, guid: 00fabe114902e4f6aa0a1cad4483601f, type: 3}
+  - {fileID: 21300000, guid: 5205e2cb9bf7c45eabc6d0a522f68729, type: 3}
+  - {fileID: 21300000, guid: 770a0b10baefe40aab3d2ade32356b11, type: 3}
+  playerIcons:
+  - {fileID: 21300000, guid: 43c83fdf5ef5041fbbd53424fac52bfe, type: 3}
+  - {fileID: 21300000, guid: e853671222a8c4dcd84eaf9220d189e6, type: 3}
+  - {fileID: 21300000, guid: 0e5e1875fa30c45c0900bf9c12d1cd56, type: 3}
+  - {fileID: 21300000, guid: c45e26cf71e7b46ae934fcb6199a7581, type: 3}
+  - {fileID: 21300000, guid: d7ae37575e21f4e888b1359a04120aaa, type: 3}
+  - {fileID: 21300000, guid: 707ed2dc2e2644560a29a55a5b726e21, type: 3}
+  - {fileID: 21300000, guid: 7c14c3461167c4b2d8b84cb82b186a6b, type: 3}
+  - {fileID: 21300000, guid: 12b38b8087af64c29947ea4e07393f6d, type: 3}
+  - {fileID: 21300000, guid: b2af3eadd8b8e449ba5d559beb2c17a9, type: 3}
+  - {fileID: 21300000, guid: a8c352d5589294aa0b3a409cb3e6f361, type: 3}
+  - {fileID: 21300000, guid: 85e170eb672ec4811871901ec55cc6e0, type: 3}
+  - {fileID: 21300000, guid: a7f129137580b4923849f2fe8922a0ba, type: 3}
+  playerFontColor: {r: 0.27058825, g: 0.30980393, b: 0.3529412, a: 1}
+  playerBarColor: {r: 0.22352941, g: 0.87058824, b: 0.8392157, a: 1}
+  opponentBarColor: {r: 0.31764707, g: 0.3647059, b: 0.41960785, a: 1}
+  opponentFontColor: {r: 0.7529412, g: 0.8117647, b: 0.8745098, a: 1}

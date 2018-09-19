@@ -43,6 +43,7 @@ public class ViewController {
 	private void InitializeEvents()
 	{
 		EventManager.OnOpenView += OnOpenView;
+		EventManager.OnCloseAllViews += CloseAllViews;
 		EventManager.OnCloseView += OnCloseView;
 		EventManager.OnBackButtonPressed += BackButtonPressed;
 	}
@@ -133,7 +134,7 @@ public class ViewController {
 			if (viewStack.Count == 1 && isMainMenuOpen) {
 				ShowGameQuitView ();
 			} else if (viewStack.Count == 0 && !isMainMenuOpen) {
-				EventManager.DoFirePauseGameEvent ();
+				OnOpenView (Views.Pause);
 			} else {
 				OnCloseView ();
 			}

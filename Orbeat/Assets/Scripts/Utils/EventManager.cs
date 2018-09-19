@@ -12,6 +12,9 @@ public class EventManager {
 	public delegate void CloseView();
 	public static CloseView OnCloseView;
 
+	public delegate void CloseAllViews();
+	public static CloseAllViews OnCloseAllViews;
+
 	public delegate void BackButtonPressed();
 	public static BackButtonPressed OnBackButtonPressed;
 
@@ -31,6 +34,12 @@ public class EventManager {
 	{
 		if (OnBackButtonPressed != null)
 			OnBackButtonPressed ();
+	}
+
+	public static void DoFireCloseAllViewsEvent()
+	{
+		if (OnCloseAllViews != null)
+			OnCloseAllViews ();
 	}
 
 	#endregion Views

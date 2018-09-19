@@ -11,6 +11,6 @@ public class GamePauseEventHandler : MonoBehaviour {
 
 	public void BackToHome()
 	{
-		EventManager.DoFireOpenViewEvent (Views.MainMenu);
+		GameStateController.Instance.ShowMainMenu ();
 	}
 }

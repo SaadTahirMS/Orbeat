@@ -23,6 +23,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     public void Open()
     {
         Application.targetFrameRate = 60;
+		InitializeSoundEffect ();
         InitializeGameplayControllers();
         InitializePlayer();
         InitializeHurdles();
@@ -47,6 +48,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
         //Constants.playerCollision = gameplayRefs.playerCollision;
         //mainOrbitController.CanRotate(gameplayRefs.canRotateOrbits);
     }
+
+	private void InitializeSoundEffect()
+	{
+		SoundController.Instance.SetPitch(1f,true);
+		SoundController.Instance.SetVolume(1f);
+	}
 
     private void InitializeGameplayControllers(){
         gameplayViewController = new GameplayViewController(gameplayRefs);
