@@ -6,7 +6,8 @@ public class GamePauseEventHandler : MonoBehaviour {
 
 	public void ResumeGame()
 	{
-		EventManager.DoFireCloseViewEvent ();
+		GameplayContoller.Instance.Open ();
+		EventManager.DoFireCloseAllViewsEvent ();
 	}
 
 	public void BackToHome()

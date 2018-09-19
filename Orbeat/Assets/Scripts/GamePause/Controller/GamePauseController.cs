@@ -23,7 +23,7 @@ public class GamePauseController : BaseController {
 	public void Open(GameObject obj, object viewModel = null)
 	{
 		gamePauseViewController.Open (obj);
-		Time.timeScale = 0.00001f;
+		Time.timeScale = 0.0000001f;
 	}
 
 	public void Close()
