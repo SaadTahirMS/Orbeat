@@ -55,7 +55,7 @@ public class OrbitController : MonoBehaviour {
     }
 
     public void ChangeDirection(){
-        direction = -1 * direction;
+        rotate.direction = -1 * direction;
     }
 
     public Vector3 GetHurdleScale()

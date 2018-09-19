@@ -25,7 +25,7 @@ public class GameplayRefs : MonoBehaviour {
     public Image playerOrbitGlowImg;
     public List<Image> hurdleOrbitsImg;
     //public Image glowImg;
-    public Image waveImage;
+    //public Image flashImg;
     public Text scoreText;
     public List<ParticleSystem> particles;
 

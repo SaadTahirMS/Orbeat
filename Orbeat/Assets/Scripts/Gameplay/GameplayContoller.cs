@@ -118,6 +118,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 Constants.hurdlesInitialDistance = hurdleInitialResetScale;
                 //ResetScore();
                 //ResetOrbitList();
+                levelUpTimer = 0;
+                levelUp = false;
+
                 break;
             
         }
@@ -144,7 +147,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         }
 
         if (startRotations){
-            //StartCoroutine(OrbitRotateDirection());
+            StartCoroutine(OrbitRotateDirection());
             levelUpTimer += Time.deltaTime;
             print("levelUpTimer " + levelUpTimer);
             if (IsLevelUpTimerComplete())
@@ -206,7 +209,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
             Debug.Log("Not level up");
             ProgressionCurves();
             AddScore(1);
-            //gameplayViewController.WaveEffect();
             //Applying progression settings
             mainOrbitController.SetNewScale();
             SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
@@ -220,7 +222,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
             if (CheckLevelUp())
             {
                 print("Game Level Up");
-
                 orbitHitId = orbitControllers[0].id;
                 print("ID: " + orbitHitId);
                 levelUp = true;
@@ -274,16 +275,11 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     }
 
-    IEnumerator OrbitRotateDirection(){
-        yield return new WaitForSeconds(1f);
-        if (gameplayPattern.pingpong)
-            mainOrbitController.ChangeDirection();
-    }
-
     private void LevelUpComplete()
     {
         // do things after pattern is complete
         Debug.Log("Pattern complete");
+        //gameplayViewController.Flash();
         AddScore(5);
         levelUp = false;
         startRotations = false;
@@ -300,7 +296,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
         mainOrbitController.AssignNewRotations();
     }
 
-
+    IEnumerator OrbitRotateDirection()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (gameplayPattern.pingpong)
+            mainOrbitController.ChangeDirection();
+    }
 
     private void ProgressionCurves(){
         //print("Difficulty Level: " + Constants.difficultyLevel);
@@ -399,7 +400,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     }
 
     private bool CheckLevelUp(){
-        if(score%5 == 0){
+        if(score%10 == 0){
             return true;
         }
         return false;

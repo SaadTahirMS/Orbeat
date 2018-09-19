@@ -9,7 +9,7 @@ public class GameplayViewController : IController
 
     private GameplayRefs gameplayRefs;
     float cameraMovementFactor;
-    Sequence punchSequence,waveSequence;
+    Sequence punchSequence,flashSequence;
 
     public GameplayViewController(GameplayRefs gpRefs)
     {
@@ -45,7 +45,7 @@ public class GameplayViewController : IController
         //gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
         gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.colorTransitionTime);
         gameplayRefs.playerOrbitGlowImg.color = colorSet.playerOrbitGlowColor;
-        gameplayRefs.waveImage.color = colorSet.playerOrbitColor;
+        //gameplayRefs.flashImg.color = colorSet.flashColor;
 
         //gameplayRefs.playerOrbitGlowImg.DOColor(colorSet.playerOrbitGlowColor, Constants.colorTransitionTime);
 
@@ -80,14 +80,12 @@ public class GameplayViewController : IController
         punchSequence.Play();
     }
 
-    public void WaveEffect(){
-        waveSequence.Kill();
-        waveSequence = DOTween.Sequence();
-        waveSequence.Append(gameplayRefs.waveImage.transform.DOScale(Vector3.one * 10f, 0.1f));
-        waveSequence.OnComplete(ResetScale);
-    }
+    //public void Flash(){
+    //    flashSequence.Kill();
+    //    flashSequence = DOTween.Sequence();
+    //    flashSequence.Append(gameplayRefs.flashImg.DOFade(1f,0.2f).SetLoops(2, LoopType.Yoyo));
+    //    flashSequence.Play();
 
-    private void ResetScale(){
-        gameplayRefs.waveImage.transform.localScale = Vector3.zero;
-    }
+    //}
+
 }
