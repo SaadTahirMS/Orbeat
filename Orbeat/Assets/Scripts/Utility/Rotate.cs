@@ -28,6 +28,21 @@ public class Rotate : MonoBehaviour {
         this.speed = speed;
     }
 
+    public void StopRotate()
+    {
+        canRotate = false;
+    }
+
+    public void StartRotate()
+    {
+        canRotate = true;
+    }
+
+    public void ChangeRotation()
+    {
+        direction *= -1;
+    }
+
     private void Update()
     {
         if(canRotate)

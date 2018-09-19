@@ -27,3 +27,12 @@ public enum WarningType
 	InAppPurchaseFailed,
 	NotEnoughCash
 }
+
+public enum ModeType
+{
+    NormalMode = 0,
+    ClockWise = 1,
+    AntiClockWise = 2,
+    PingPongMode = 3,
+
+}

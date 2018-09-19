@@ -48,6 +48,8 @@ public static class Constants {
     public static Vector3 hurdleWidth = new Vector3(1f, 1f, 1f); //1 is max and 0.1 is min
     public static Vector3 hurdlesDistance = new Vector3(10f, 10f, 10f);
     public static Vector3 hurdlesInitialDistance = new Vector3(24f, 24f, 24f);
+    public static Vector3 initialDistanceAfterSpecial = new Vector3(27f, 27f, 27f);
+    public static float initialDistanceAfterSpecialFactor = 4f; // 0.6667/ min speed
 
     //Orbits
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed

@@ -42,7 +42,6 @@ public class PlayerController: MonoBehaviour {
 
     public void Initialize()
     {
-        SetCollisions(Constants.playerCollision);
         AssignPosition();
         AssignRotationSpeed();
     }
@@ -109,7 +108,7 @@ public class PlayerController: MonoBehaviour {
 
     public void SetCollisions(bool state)
     {
-        playerRB.isKinematic = !state; 
+        playerRB.isKinematic = state; 
         //playerOrbitRB.isKinematic = !state; 
     }
 

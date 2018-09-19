@@ -35,7 +35,6 @@ public class OrbitController : MonoBehaviour {
         scaleSequence.Kill();
     }
 
-
     public void SetScale(Vector3 value)
     {
         StopScale();
@@ -47,6 +46,16 @@ public class OrbitController : MonoBehaviour {
         //inner.transform.DOScale(hurdleController.transform.localScale - Constants.hurdleWidth, 0.1f);
     }
 
+    public void StopRotate()
+    {
+        rotate.StopRotate();
+    }
+
+    public void StartRotate()
+    {
+        rotate.StartRotate();
+    }
+
     public void DoRotate(int direction, float duration)
     {
         this.duration = duration;
@@ -54,7 +63,41 @@ public class OrbitController : MonoBehaviour {
         rotate.DoRotate(direction, duration);
     }
 
+    bool isPingPongRotationStarted = false;
+
+    public void StartPingPongRotation(int direction, float duration)
+    {
+        DoRotate(direction, duration);
+        StartCoroutine(StartPingPongRotationCoroutine());
+    }
+
+    private IEnumerator StartPingPongRotationCoroutine()
+    {
+        isPingPongRotationStarted = true;
+
+        while(isPingPongRotationStarted)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            StopRotate();
+
+            yield return new WaitForSeconds(0.5f);
+
+            Debug.Log("Change direcrtion form pingpong");
+
+            rotate.ChangeRotation();
+            StartRotate();
+        }
+    }
+
+    public void StopSpecialRotation()
+    {
+        isPingPongRotationStarted = false;
+    }
+
+
     public void ChangeDirection(){
+        Debug.Log("Change direcrtion form other");
         rotate.direction = -1 * direction;
     }
 
