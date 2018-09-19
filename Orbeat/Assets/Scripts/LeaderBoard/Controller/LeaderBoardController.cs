@@ -9,18 +9,35 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 	private Dictionary<int,CharacterModel> opponentsDict;
 	private List<CharacterModel> charactersToShowList;
 
+	private List<CharacterModel> gameOverCharactersList;
+
 	private int maxListSize = 5;
 	private int opponentsToShowBelow = 2;
 
-	private int playerCurrentPosition;
-
+	private int playerLeaderBoardPosition;
 	private int playerIndex;
+
+	public int TotalOpponents
+	{
+		get
+		{
+			return opponentsDict.Count;
+		}
+	}
 
 	public int PlayerIndex
 	{
 		get
 		{
 			return playerIndex;
+		}
+	}
+
+	public int PlayerLeaderBoardPosition
+	{
+		get
+		{
+			return playerLeaderBoardPosition;
 		}
 	}
 
@@ -32,6 +49,7 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 	{
 		opponentsDict = new Dictionary<int, CharacterModel> ();
 		charactersToShowList = new List<CharacterModel> ();
+		gameOverCharactersList = new List<CharacterModel> ();
 
 		IntializePlayerModel ();
 	}
@@ -41,10 +59,14 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 		CharacterModel playerModel = new CharacterModel ();
 		playerModel.barColor = UIIconsData.Instance.playerBarColor;
 		playerModel.fontColor = UIIconsData.Instance.playerFontColor;
-		playerModel.playerSprite = UIIconsData.Instance.playerIcons [PlayerData.PlayerIconId];
 		playerModel.score = PlayerData.HighScore;
 		playerModel.name = PlayerData.PlayerName;
 
+		if (PlayerData.PlayerIconId == -1)
+			playerModel.playerSprite = UIIconsData.Instance.playerDefaultIcon;
+		else
+			playerModel.playerSprite = UIIconsData.Instance.playerIcons [PlayerData.PlayerIconId];
+		
 		PlayerData.PlayerModel = playerModel;
 	}
 
@@ -69,23 +91,24 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 		return opponentsDict [id];
 	}
 
-	public int GetPlayerCurrentPosition()
+	public List<CharacterModel> GetPlayersToShowList(int listSize, bool showTopPlayer = true, int opponentsBelow = 2)
 	{
-		return playerCurrentPosition;
-	}
-
-	public List<CharacterModel> GetPlayersToShowList()
-	{
+		opponentsToShowBelow = opponentsBelow;
+		maxListSize = listSize;
 		charactersToShowList.Clear ();
-		playerCurrentPosition = CalulatePlayerCurrentPosition ();
+		playerLeaderBoardPosition = CalulatePlayerPosition ();
 		int startIndex = GetPlayersRange ();
+		if (startIndex == 0)
+			startIndex = 1;
 		int offset = 0;
 		for (int i = 0; i < maxListSize; i++) {
-			if (startIndex == playerCurrentPosition) {
+			if (startIndex == playerLeaderBoardPosition) {
 				charactersToShowList.Add (PlayerData.PlayerModel);
 				playerIndex = maxListSize - i - 1;
 				offset++;
-			} else {
+			} else if (i == maxListSize - 1 && startIndex - offset != opponentsDict.Count && showTopPlayer) {
+				charactersToShowList.Add (opponentsDict [opponentsDict.Count]);
+			}else {
 				charactersToShowList.Add (opponentsDict [startIndex - offset]);
 			}
 			startIndex++;
@@ -94,7 +117,7 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 		return charactersToShowList;
 	}
 
-	private int CalulatePlayerCurrentPosition()
+	public int CalulatePlayerPosition()
 	{
 		int playerScore = PlayerData.HighScore;
 
@@ -106,19 +129,57 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 		return opponentsDict.Count + 1;
 	}
 
+	public int CalulatePlayerPosition(bool currentPosition = false)
+	{
+		int playerScore = currentPosition ? PlayerData.CurrentScore : PlayerData.HighScore;
+
+		for (int i = 1; i <= opponentsDict.Count; i++) {
+			if (playerScore < opponentsDict [i].score)
+				return i;
+		}
+
+		return opponentsDict.Count + 1;
+	}
+
 	private int GetPlayersRange()
 	{
-		if (playerCurrentPosition > opponentsDict.Count - opponentsToShowBelow)
-			return opponentsDict.Count - opponentsToShowBelow - 1;
-		else if(playerCurrentPosition == opponentsToShowBelow)
-			return playerCurrentPosition - 1;
-		else if(playerCurrentPosition > opponentsToShowBelow && playerCurrentPosition <= opponentsDict.Count - opponentsToShowBelow)
-			return playerCurrentPosition - opponentsToShowBelow;
+		if (playerLeaderBoardPosition > opponentsDict.Count - opponentsToShowBelow)
+			return opponentsToShowBelow > 1 ? opponentsDict.Count - opponentsToShowBelow - 1 : opponentsDict.Count - opponentsToShowBelow;
+		else if(playerLeaderBoardPosition == opponentsToShowBelow)
+			return playerLeaderBoardPosition - 1;
+		else if(playerLeaderBoardPosition > opponentsToShowBelow && playerLeaderBoardPosition <= opponentsDict.Count - opponentsToShowBelow)
+			return playerLeaderBoardPosition - opponentsToShowBelow;
 		else
-			return playerCurrentPosition;
+			return playerLeaderBoardPosition;
+	}
+
+	public bool IsPlayerPositionChanged()
+	{
+		if (playerLeaderBoardPosition > opponentsDict.Count)
+			return false;
+		return PlayerData.CurrentScore > opponentsDict [playerLeaderBoardPosition].score;
 	}
 
 	#endregion  LeaderBoard Position 
+
+	#region Game Over Characters List
+
+	public List<CharacterModel> GetGameOverCharactersList()
+	{
+		playerLeaderBoardPosition = CalulatePlayerPosition ();
+		gameOverCharactersList.Clear ();
+		if (playerLeaderBoardPosition == opponentsDict.Count + 1) {
+			gameOverCharactersList.Add (opponentsDict [playerLeaderBoardPosition - 1]);
+			gameOverCharactersList.Add (PlayerData.PlayerModel);
+		} else {
+			gameOverCharactersList.Add (PlayerData.PlayerModel);
+			gameOverCharactersList.Add (opponentsDict [playerLeaderBoardPosition]);
+		}
+
+		return gameOverCharactersList;
+	}
+
+	#endregion Game Over Characters List
 
 	#region Dummy Data
 
@@ -134,5 +195,4 @@ public class LeaderBoardController : Singleton<LeaderBoardController> {
 	}
 
 	#endregion Dummy Data
-
 }

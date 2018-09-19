@@ -153,7 +153,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
 		if (startRotations){
 			StartCoroutine(OrbitRotateDirection());
 			levelUpTimer += Time.deltaTime;
-			print("levelUpTimer " + levelUpTimer);
 			if (IsLevelUpTimerComplete())
 				LevelUpComplete();
 		}
@@ -391,11 +390,14 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void AddScore(int s){
         score += s;
+		PlayerData.CurrentScore = score;
+		EventManager.DoFireScoreUpdatedEvent ();
         gameplayViewController.SetScore(score);
     }
 
     private void ResetVariables(){
         score = 0;
+		PlayerData.CurrentScore = score;
         level = 0;
         levelUp = false;
         startRotations = false;

@@ -37,7 +37,7 @@ public class RateUsViewController : BaseController {
 	private void SetTexts()
 	{
 		refs.laterText.text = TextConstants.NoThanks;
-		refs.rateUsText.text = TextConstants.FiveStars;
+		refs.rateUsText.text = TextConstants.RateUs;
 		refs.rateUsDesc.text = TextConstants.RateUsDesc;
 		refs.rateUsHeading.text = TextConstants.RateUsHeading;
 	}

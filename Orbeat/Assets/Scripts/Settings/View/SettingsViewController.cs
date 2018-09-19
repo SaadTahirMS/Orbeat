@@ -9,9 +9,6 @@ public class SettingsViewController : BaseController {
 
 	private SettingsRefs refs;
 
-	private float onXValue = 49;
-	private float offXValue = -49;
-
 	#endregion Variables
 
 	#region Life Cycle Methods
@@ -37,19 +34,8 @@ public class SettingsViewController : BaseController {
 
 	private void SetTexts()
 	{
-		refs.soundText.text = TextConstants.Sound.ToUpper ();
-		refs.musicText.text = TextConstants.Music.ToUpper ();
-		refs.notificationsText.text = TextConstants.Notifications.ToUpper ();
-		refs.rateUsText.text = TextConstants.RateUs.ToUpper ();
-		refs.restoreText.text = TextConstants.Restore.ToUpper ();
-
-		refs.musicOnText.text = TextConstants.On.ToUpper ();
-		refs.notificationsOnText.text = TextConstants.On.ToUpper ();
-		refs.soundOnText.text = TextConstants.On.ToUpper ();
-
-		refs.musicOffText.text = TextConstants.Off.ToUpper ();
-		refs.notificationsOffText.text = TextConstants.Off.ToUpper ();
-		refs.soundOffText.text = TextConstants.Off.ToUpper ();
+		refs.rateUsText.text = TextConstants.RateUs;
+		refs.restoreText.text = TextConstants.Restore;
 	}
 
 	#endregion Texts Initialization
@@ -76,20 +62,17 @@ public class SettingsViewController : BaseController {
 
 	public void UpdateSoundView(bool soundState)
 	{
-		float xValue = soundState ? onXValue : offXValue;
-		AnimationHandler.PlayXToggleAnimation (refs.soundToggleObj, xValue);
+		refs.soundToggleObj.SetActive (!soundState);
 	}
 
 	public void UpdateMusicView(bool musicState)
 	{
-		float xValue = musicState ? onXValue : offXValue;
-		AnimationHandler.PlayXToggleAnimation (refs.musicToggleObj, xValue);
+		refs.musicToggleObj.SetActive (!musicState);
 	}
 
 	public void UpdateNotificationsView(bool notification)
 	{
-		float xValue = notification ? onXValue : offXValue;
-		AnimationHandler.PlayXToggleAnimation (refs.notificationsToggleObj, xValue);
+		refs.notificationsToggleObj.SetActive (!notification);
 	}
 
 	#endregion View Handling

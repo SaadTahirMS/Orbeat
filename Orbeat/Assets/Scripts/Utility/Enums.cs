@@ -18,7 +18,8 @@ public enum Views : int
 	ConfirmationDialog,
 	Pause,
 	RateUs,
-	CharacterSelection
+	CharacterSelection,
+	GameOver
 }
 
 public enum WarningType

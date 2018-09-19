@@ -55,7 +55,7 @@ public class MainMenuViewController : BaseController {
 	{
 		Text warningText = refs.warningText;
 
-		string warning = GetWarningText (type).ToUpper ();
+		string warning = GetWarningText (type);
 
 		warningText.text = warning;
 

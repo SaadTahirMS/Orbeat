@@ -101,7 +101,7 @@ public class AnimationHandler {
 		toggleSeq.Append (obj.DOLocalMoveX (moveValue, duration)).SetEase (Ease.Linear).Play ();
 	}
 
-	public static void PlayWarningAnimation(Text obj, float fadeDuration = 0.25f, float moveDuration = 0.75f)
+	public static void PlayWarningAnimation(Text obj, float movePosition = 200, float fadeDuration = 0.25f, float moveDuration = 0.75f)
 	{
 //		if (warningAnimSeq.IsPlaying ()) 
 		{
@@ -116,7 +116,7 @@ public class AnimationHandler {
 		warningAnimSeq
 			.Append(obj.DOFade (0, 0))
 			.Join(obj.transform.DOLocalMove (Vector3.zero, 0.1f))
-			.Append (obj.transform.DOLocalMoveY (200, moveDuration).SetEase (Ease.OutBack))
+			.Append (obj.transform.DOLocalMoveY (movePosition, moveDuration).SetEase (Ease.OutBack))
 			.Join (obj.DOFade (1, fadeDuration).SetEase (Ease.Linear))
 			.AppendInterval(1)
 //			.Append(obj.DOFade(0,0.1f))

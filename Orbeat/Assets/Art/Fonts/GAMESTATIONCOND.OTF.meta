@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 855012642cb434397b61551bf1bb4d08
-timeCreated: 1537257370
+guid: 56fb38f68f52648b5ae6b1e78be6f983
+timeCreated: 1537345073
 licenseType: Pro
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -12,7 +12,8 @@ TrueTypeFontImporter:
   fontName: Gamestation
   fontNames:
   - Gamestation
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 855012642cb434397b61551bf1bb4d08, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

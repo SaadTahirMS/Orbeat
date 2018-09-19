@@ -100,7 +100,7 @@ public class MainMenuController : BaseController {
 	{
 		if (PlayerData.IsScoreChanged) {
 			PlayerData.IsScoreChanged = false;
-			List<CharacterModel> charactersList = LeaderBoardController.Instance.GetPlayersToShowList ();
+			List<CharacterModel> charactersList = LeaderBoardController.Instance.GetPlayersToShowList (5);
 			for (int i = 0; i < charactersList.Count; i++) {
 				mainMenuViewController.SetLeaderBoardStrip (i, charactersList [charactersList.Count - i - 1]);
 			}

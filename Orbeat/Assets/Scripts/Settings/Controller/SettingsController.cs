@@ -57,15 +57,15 @@ public class SettingsController : BaseController {
 
 	public void LoadState()
 	{
-//		isSoundOn = SoundController.Instance.SoundState;
-//		isMusicOn = SoundController.Instance.MusicState;
+		isSoundOn = SoundController.Instance.SoundState;
+		isMusicOn = SoundController.Instance.MusicState;
 		isNotificationsOn = PlayerData.IsNotificationsOn;
 	}
 
 	public void SaveState()
 	{
-//		SoundController.Instance.SoundState = isSoundOn;
-//		SoundController.Instance.MusicState = isMusicOn;
+		SoundController.Instance.SoundState = isSoundOn;
+		SoundController.Instance.MusicState = isMusicOn;
 		PlayerData.IsNotificationsOn = isNotificationsOn;
 	}
 

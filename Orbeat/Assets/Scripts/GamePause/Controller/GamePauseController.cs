@@ -11,6 +11,8 @@ public class GamePauseController : BaseController {
 
 	private float timeMultiplier = 20;
 
+	private bool pauseGame;
+
 	#endregion Variables
 
 	#region Life Cycle Methods
@@ -23,6 +25,7 @@ public class GamePauseController : BaseController {
 	public void Open(GameObject obj, object viewModel = null)
 	{
 		gamePauseViewController.Open (obj);
+		pauseGame = true;
 		Time.timeScale = 0.0000001f;
 	}
 
@@ -38,6 +41,7 @@ public class GamePauseController : BaseController {
 
 	private void ResumeGame()
 	{
+		pauseGame = false;
 		GameStateController.Instance.StartCoroutine (BringTimeScaleToNormal ());
 	}
 
@@ -46,10 +50,17 @@ public class GamePauseController : BaseController {
 		float timeScale = 0.00001f;
 		while (timeScale < 1) {
 			yield return null;
-			timeScale += Time.deltaTime * timeMultiplier;
-			Time.timeScale = timeScale;
-			timeScale = Time.timeScale;
+			if (!pauseGame) {
+				timeScale += Time.deltaTime * timeMultiplier;
+				Time.timeScale = timeScale;
+				timeScale = Time.timeScale;
+			} else
+				break;
 		}
+
+		if(pauseGame)
+			Time.timeScale = 0.00001f;
+		else
 		Time.timeScale = 1;
 	}
 

@@ -57,7 +57,7 @@ public class CharacterSelectionViewController : BaseController {
 
 	public void NameChanged()
 	{
-		if (refs.iField.text == "" && refs.placeHolderText.text == TextConstants.EnterYourName)
+		if (refs.iField.text == "")
 			PlayerData.PlayerName = TextConstants.You;
 		else if (refs.iField.text != "")
 			PlayerData.PlayerName = refs.iField.text;
@@ -65,7 +65,7 @@ public class CharacterSelectionViewController : BaseController {
 
 	public void CharacterChanged(int characterNumber)
 	{
-		if (characterNumber != PlayerData.PlayerIconId && refs.changeTextField.text != TextConstants.Start)
+		if (characterNumber != PlayerData.PlayerIconId)
 			refs.changeTextField.text = TextConstants.Change;
 
 		PlaySelectionAnim (characterNumber);

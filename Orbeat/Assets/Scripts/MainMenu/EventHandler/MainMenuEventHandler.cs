@@ -6,8 +6,7 @@ public class MainMenuEventHandler : MonoBehaviour {
 
 	public void Play()
 	{
-		GameplayContoller.Instance.Open ();
-		EventManager.DoFireCloseAllViewsEvent ();
+		GameStateController.Instance.StartGame ();
 	}
 
 	public void ShowSettings()
