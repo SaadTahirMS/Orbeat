@@ -21,6 +21,7 @@ public class InputController : MonoBehaviour
         // save the horizontal center of the screen
         screenCenterX = Screen.width * 0.5f;
         print(screenCenterX);
+        InputMethod("Buttons");
     }
 
     public void GameStart(bool flag){
@@ -44,7 +45,6 @@ public class InputController : MonoBehaviour
             switch (inputMethod)
             {
                 case "Buttons":
-                    Constants.difficultyLevel = 50;
                     if (Input.GetMouseButton(0))
                     {
                         if (Input.mousePosition.x > screenCenterX)

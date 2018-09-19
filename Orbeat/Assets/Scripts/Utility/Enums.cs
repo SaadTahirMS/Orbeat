@@ -2,7 +2,7 @@
 public enum GameState
 {
     Start,
-    Restart,
+    Revive,
     Quit
 }  
 
@@ -33,4 +33,13 @@ public enum WarningType
 	NoVideoAvailable,
 	InAppPurchaseFailed,
 	NotEnoughCash
+}
+
+public enum ModeType
+{
+    NormalMode = 0,
+    ClockWise = 1,
+    AntiClockWise = 2,
+    PingPongMode = 3,
+
 }

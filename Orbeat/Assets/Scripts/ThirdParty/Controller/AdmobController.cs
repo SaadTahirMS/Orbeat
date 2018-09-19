@@ -187,7 +187,10 @@ public class AdmobController
 
 	public void ShowRewardBasedVideo()
 	{
-		if (IsRewardedVideoLoaded())
+#if UNITY_EDITOR
+        ThirdPartyEventManager.OnRewardBaseVideoClosed();
+#endif
+        if (IsRewardedVideoLoaded())
 		{
 			rewardBasedVideo.Show();
 		}

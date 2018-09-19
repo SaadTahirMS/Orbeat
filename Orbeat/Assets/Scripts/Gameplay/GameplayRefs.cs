@@ -10,11 +10,9 @@ public class GameplayRefs : MonoBehaviour {
     public List<HurdleController> hurdleControllers;//area that can collide with the player
     public MainOrbitController mainOrbitController;//inner and hurdle together
     public ColorController colorController;
-    public List<GameplayPattern> gameplayPatterns;
     public Loudness loudness;
     public GameObject triangleParticles;
     public GameObject hexagonParticles;
-    public GameObject orbitParticles;
     public InputController inputController;
     public Camera cam;
 
@@ -24,36 +22,34 @@ public class GameplayRefs : MonoBehaviour {
     public Image playerOrbitImg;
     public Image playerOrbitGlowImg;
     public List<Image> hurdleOrbitsImg;
-    //public Image glowImg;
-    //public Image flashImg;
     public Text scoreText;
     public List<ParticleSystem> particles;
 
     [Header("Game Settings")]
-    public string inputMethod;
+    //public string inputMethod;
     //[Range(0f,0.95f)]
     //public float minHurdleFillAmount;
     //[Range(0f, 0.95f)]
     //public float maxHurdleFillAmount;
-    [Range(5f, 50f)]
-    public float hurdlesDistance;
-    [Range(0.1f,0.9f)]
-    public float hurdleFillAmount;
-    [Range(0.1f, 0.5f)]
-    public float scaleSpeed;
-    [Range(0f,5f)]
-    public float cameraOffset;
-    //public bool canRotateOrbits;
-    [Range(1f, 50f)]
-    public float minRotateSpeed;
-    [Range(1f, 50f)]
-    public float maxRotateSpeed;
-    [Range(0f, 180f)]
-    public float rotationOffset;
-    [Range(1f,15f)]
-    public float playerRotationSpeed;
-    [Range(10f,50f)]
-    public float playerScrollRotationSpeed;
+    //[Range(5f, 50f)]
+    //public float hurdlesDistance;
+    //[Range(0.1f,0.9f)]
+    //public float hurdleFillAmount;
+    //[Range(0.1f, 0.5f)]
+    //public float scaleSpeed;
+    //[Range(0f,5f)]
+    //public float cameraOffset;
+    ////public bool canRotateOrbits;
+    //[Range(1f, 50f)]
+    //public float minRotateSpeed;
+    //[Range(1f, 50f)]
+    //public float maxRotateSpeed;
+    //[Range(0f, 180f)]
+    //public float rotationOffset;
+    //[Range(1f,15f)]
+    //public float playerRotationSpeed;
+    //[Range(10f,50f)]
+    //public float playerScrollRotationSpeed;
     public bool playerCollision;//true for yes and false for no
 
     [Header("Progression Curves")]

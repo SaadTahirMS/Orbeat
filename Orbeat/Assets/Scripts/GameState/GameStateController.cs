@@ -9,7 +9,7 @@ public class GameStateController : Singleton<GameStateController> {
 
 	public void Initialize(GameRefs refs){
 
-		PlayerPrefs.DeleteAll ();
+		//PlayerPrefs.DeleteAll ();
 
 		viewController = new ViewController (refs.viewRefs);
 		progressionBarController = new ProgressionBarController (refs.progressionBarRefs);

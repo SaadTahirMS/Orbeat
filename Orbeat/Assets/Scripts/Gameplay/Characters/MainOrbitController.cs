@@ -30,8 +30,6 @@ public class MainOrbitController : MonoBehaviour
                 Rotate();
                 Scale();
                 break;
-            case GameState.Restart:
-                break;   
             case GameState.Quit:
                 StopScale();
                 CanRotate(false);
@@ -69,12 +67,29 @@ public class MainOrbitController : MonoBehaviour
     //    orbitControllers[0].DoRotate(direction, speed);
     //}
 
-    public void SetNewRotations(float initialRotation,int direction,float speed){
+    public void SetNewRotations(float initialRotation, int direction, float speed, bool doSetInintalPosition = true)
+    {
         for (int i = 0; i < orbitControllers.Count; i++)
         {
             //orbitControllers[i].transform.localRotation = Quaternion.Euler(0f, 0f, initialRotation);
-            orbitControllers[i].transform.DOLocalRotate(new Vector3(0f, 0f, initialRotation),1f);
+            if (doSetInintalPosition)
+            {
+                orbitControllers[i].transform.DOLocalRotate(new Vector3(0f, 0f, initialRotation), 1);
+            }
             orbitControllers[i].DoRotate(direction, speed);
+        }
+    }
+
+    public void SetPingPongRotation(float initialRotation, int direction, float speed, bool doSetInintalPosition = true)
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            //orbitControllers[i].transform.localRotation = Quaternion.Euler(0f, 0f, initialRotation);
+            if (doSetInintalPosition)
+            {
+                orbitControllers[i].transform.DOLocalRotate(new Vector3(0f, 0f, initialRotation), 1);
+            }
+            orbitControllers[i].StartPingPongRotation(direction, speed);
         }
     }
 
@@ -115,7 +130,6 @@ public class MainOrbitController : MonoBehaviour
             int newDirection = AssignDirection();
             orbitControllers[i].DoRotate(newDirection, newRotateSpeed);
         }
-
     }
 
 
@@ -144,6 +158,14 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
+    public void SetInitialScaleOfZeroOrbit()
+    {
+        //for (int i = 0; i < orbitControllers.Count; i++)
+        //{
+            orbitControllers[0].SetScale(CalculateInitialScale(0));
+        //}
+    }
+
     public Vector3 CalculateInitialScale(int a)
     {
         return Constants.hurdlesInitialDistance + (a * Constants.hurdlesDistance); 
@@ -159,12 +181,15 @@ public class MainOrbitController : MonoBehaviour
     }
 
     //Scaling depends on the hurdleScale
-    public void ScaleTo(Vector3 endValue)
+    public Tween ScaleTo(Vector3 endValue, float duration)
     {
+        Sequence scaleSequence = DOTween.Sequence();
         for (int i = 0; i < orbitControllers.Count; i++)
         {
-            ScaleIndividualWithTime(endValue + i * Constants.hurdlesDistance, i, 2f);
+            scaleSequence.Join(ScaleIndividualWithTime(endValue + i * Constants.hurdlesDistance, i, duration));
         }
+
+        return scaleSequence;
     }
 
     ////Scaling depends on the hurdleScale
@@ -177,14 +202,14 @@ public class MainOrbitController : MonoBehaviour
     //}
 
 
-    private void ScaleIndividual(Vector3 endValue,int index)
+    public void ScaleIndividual(Vector3 endValue,int index)
     {
         orbitControllers[index].DoScale(endValue, orbitControllers[index].GetHurdleScale().x / 2 * Constants.scaleSpeed);
     }
 
-    private void ScaleIndividualWithTime(Vector3 endValue, int index,float duration)
+    private Tween ScaleIndividualWithTime(Vector3 endValue, int index,float duration)
     {
-        orbitControllers[index].DoScale(endValue, duration);
+        return orbitControllers[index].DoScale(endValue, duration);
     }
 
     //Always the bottom hurdle in hierarchy will collide with the wall 
@@ -218,20 +243,29 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
-    //private void StopRotate()
-    //{
-    //    for (int i = 0; i < orbitControllers.Count; i++)
-    //    {
-    //        orbitControllers[i].StopRotate();
-    //    }
-    //}
+    public void StopRotate()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].StopRotate();
+        }
+    }
+
+    public void StartRotate()
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].StartRotate();
+        }
+    }
 
     //Scale of the hurdle after hit
-    public void SetNewScale(){
+    public void SetNewScale(bool addInitialDistance = false, float scaleSpeedFactor = 1.5f){
         //get the current scale of last index hurdle
         Vector3 lastHurdleScale = orbitControllers[orbitControllers.Count - 1].GetHurdleScale();
         //add the hurdle distance to this scale
-        Vector3 newScale = lastHurdleScale + Constants.hurdlesDistance;
+        Vector3 initialDistance = addInitialDistance ? (Constants.initialDistanceAfterSpecial * Constants.initialDistanceAfterSpecialFactor * scaleSpeedFactor * Constants.scaleSpeed) : Vector3.zero;
+        Vector3 newScale = lastHurdleScale + Constants.hurdlesDistance + initialDistance;
         //this is the new scale of this orbit
         orbitControllers[0].SetScale(newScale);
         ScaleIndividual(Vector3.zero, 0);//scale down to this value
@@ -279,6 +313,15 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
+
+
+    public void ScaleToVaue(Vector3 endValue)
+    {
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].DoScale(endValue, orbitControllers[i].GetHurdleScale().x / 2 * 0.1f);
+        }
+    }
 
      
 }

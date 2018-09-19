@@ -75,6 +75,7 @@ public class GameOverController : BaseController {
 		GameStateController.Instance.StopCoroutine (DecreaseReviveFillerCR ());
 		GameStateController.Instance.StopCoroutine (ShowRestartButtonCr ());
 		EventManager.DoFireCloseViewEvent ();
+        GameplayContoller.Instance.ReviveGame();
 	}
 
 	private void OnRewardBaseVideoNotLoaded()

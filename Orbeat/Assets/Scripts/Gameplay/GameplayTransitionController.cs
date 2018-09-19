@@ -90,7 +90,7 @@ public class GameplayTransitionController : MonoBehaviour
     }
 
     private void EndTransitionComplete(){
-        ResetOrbitList();
+        GameplayContoller.Instance.ResetOrbitList();
         OpenMenu();
     }
 
@@ -98,15 +98,15 @@ public class GameplayTransitionController : MonoBehaviour
 		EventManager.DoFireOpenViewEvent (Views.GameOver);
     }
 
-    private void ResetOrbitList()
-    {
-        orbitControllers = mainOrbitController.GetOrbits();
-        for (int i = 0; i < orbitControllers.Count; i++)
-        {
-            orbitControllers[i] = gameplayRefs.intialOrbitList[i];
-            orbitControllers[i].transform.SetAsFirstSibling();
-        }
-    }
+    //private void ResetOrbitList()
+    //{
+    //    orbitControllers = mainOrbitController.GetOrbits();
+    //    for (int i = 0; i < orbitControllers.Count; i++)
+    //    {
+    //        orbitControllers[i] = gameplayRefs.intialOrbitList[i];
+    //        orbitControllers[i].transform.SetAsFirstSibling();
+    //    }
+    //}
 
     //List<MyTargetController> targetIDs;
     //PlayerController playerController;
