@@ -20,7 +20,7 @@ public class InputController : MonoBehaviour
     {
         // save the horizontal center of the screen
         screenCenterX = Screen.width * 0.5f;
-        print(screenCenterX);
+        //print(screenCenterX);
         InputMethod("Buttons");
     }
 

@@ -264,8 +264,20 @@ public class MainOrbitController : MonoBehaviour
         //get the current scale of last index hurdle
         Vector3 lastHurdleScale = orbitControllers[orbitControllers.Count - 1].GetHurdleScale();
         //add the hurdle distance to this scale
-        Vector3 initialDistance = addInitialDistance ? (Constants.initialDistanceAfterSpecial * Constants.initialDistanceAfterSpecialFactor * scaleSpeedFactor * Constants.scaleSpeed) : Vector3.zero;
-        Vector3 newScale = lastHurdleScale + Constants.hurdlesDistance + initialDistance;
+        //Vector3 initialDistance = addInitialDistance ? (Constants.initialDistanceAfterSpecial * Constants.initialDistanceAfterSpecialFactor * scaleSpeedFactor * Constants.scaleSpeed) : Vector3.zero;
+        Vector3 newScale;
+
+        if(addInitialDistance)
+        {
+
+             newScale = Constants.hurdlesInitialDistance;
+        }
+        else
+        {
+             newScale = lastHurdleScale + Constants.hurdlesDistance;
+        }
+        //Vector3 initialDistance = Constants.hurdlesInitialDistance;
+        //Vector3 newScale = lastHurdleScale + Constants.hurdlesDistance + initialDistance;
         //this is the new scale of this orbit
         orbitControllers[0].SetScale(newScale);
         ScaleIndividual(Vector3.zero, 0);//scale down to this value

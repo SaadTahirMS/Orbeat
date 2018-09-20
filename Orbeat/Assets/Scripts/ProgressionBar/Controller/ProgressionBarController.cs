@@ -74,7 +74,6 @@ public class ProgressionBarController {
 
 		if (isOpponentLeft) {
 			scoreToBeat = LeaderBoardController.Instance.GetCharacterModel (opponentToBeat).score;
-
 			refs.opponentImage.sprite = UIIconsData.Instance.opponentIcons [opponentToBeat - 1];
 
 			UpdateFillBar ();
@@ -86,11 +85,13 @@ public class ProgressionBarController {
 
 	private void UpdateFillBar()
 	{
-		if (isOpponentLeft) {
+		if (isOpponentLeft) 
+        {
 			float fillAmount = (float)PlayerData.CurrentScore / scoreToBeat;
+
 			refs.fillerImage.fillAmount = fillAmount;
 
-			if (fillAmount > 0.99f) {
+			if (fillAmount >= 1f) {
 				UpdateOpponent (true);
 			}
 		}

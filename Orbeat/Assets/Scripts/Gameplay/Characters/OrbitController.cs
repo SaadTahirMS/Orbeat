@@ -77,13 +77,13 @@ public class OrbitController : MonoBehaviour {
 
         while(isPingPongRotationStarted)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
 
             StopRotate();
 
             yield return new WaitForSeconds(0.5f);
 
-            Debug.Log("Change direcrtion form pingpong");
+            //Debug.Log("Change direcrtion form pingpong");
 
             rotate.ChangeRotation();
             StartRotate();
@@ -97,7 +97,7 @@ public class OrbitController : MonoBehaviour {
 
 
     public void ChangeDirection(){
-        Debug.Log("Change direcrtion form other");
+        //Debug.Log("Change direcrtion form other");
         rotate.direction = -1 * direction;
     }
 

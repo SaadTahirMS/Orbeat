@@ -21,15 +21,24 @@ public class GameplayContoller : Singleton<GameplayContoller>
     int randomSpecialValue = 0;
     bool addInitialDistance = false;
     float scaleSpeed = 1.5f;
-    private float normalModeTimer = Constants.normalModeTime;
+    private float normalModeTimer;
+    private float colorTimer;
+    private int orbitHitId = 0;
+
+    private void ResetScore(){
+        score = 0;
+        gameplayViewController.SetScore(score);
+    }
 
     private void ResetGame()
     {
-        score = 0;
         PlayerData.CurrentScore = score;
-        normalModeTimer = Constants.normalModeTime;
+        normalModeTimer = Random.Range(Constants.minNormalModeTime, Constants.maxNormalModeTime);
         gameplayViewController.SetScore(score);
+        addInitialDistance = false;
+        scaleSpeed = 0.18f;
         ResetOrbitList();
+        SetRandomColorTimer();
     }
 
     public void Open()
@@ -80,27 +89,35 @@ public class GameplayContoller : Singleton<GameplayContoller>
         gameState = state;
         switch(state){
             case GameState.Start:
-                print("Start Game");
+                //print("Start Game");
                 ResetGame();
+                ResetScore();
                 ProgressionCurves();
-                gameplayRefs.inputController.GameStart(true);
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(1f);
                 playerController.ChangeState(GameState.Start);
-                SetHurdleFillAmount();
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
-                ChangeColors();
+                gameplayRefs.inputController.GameStart(true);
+                SetHurdleFillAmount();
+                SetRandomColor();
                 break;
             case GameState.Revive:
-                print("Revive Game");
+                //print("Revive Game");
+                ResetGame();
+                ProgressionCurves();
+                SoundController.Instance.SetPitch(1f, false);
+                SoundController.Instance.SetVolume(1f);
                 playerController.ChangeState(GameState.Start);
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
-                //ChangeGameState(GameState.Start);
+                gameplayRefs.inputController.GameStart(true);
+                SetHurdleFillAmount();
+                SetRandomColor();
+                StartCoroutine(TimeScaleCoroutine());
                 break;
             case GameState.Quit:
-                print("Game Over");
+                //print("Game Over");
                 playerController.ChangeState(GameState.Quit);
                 mainOrbitController.ChangeState(GameState.Quit);
                 gameplayTransitionController.ChangeState(GameState.Quit);
@@ -109,6 +126,23 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 break;
             
         }
+    }
+
+    private IEnumerator TimeScaleCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+
+        Time.timeScale = 0.1f;
+
+        while(Time.timeScale < 1)
+        {
+            Time.timeScale += 0.05f;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        Time.timeScale = 1;
     }
 
     public void ReviveGame(){
@@ -128,7 +162,13 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void Update()
     {
-        normalModeTimer -= Time.deltaTime;
+        if(gameState == GameState.Start){
+            normalModeTimer -= Time.deltaTime;
+        }
+
+        if(colorController != null && (gameState == GameState.Start || gameState == GameState.Revive)){
+            ChangeColors();
+        }
 
         if (gameplayViewController != null && gameState == GameState.Start)
             gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
@@ -144,8 +184,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
     }
 
     private void SetHurdleFillAmount(){
-        for (int i = 0; i < hurdleControllers.Count;i++){
-            hurdleControllers[i].SetFillAmount(Constants.hurdleFillAmount,Constants.transitionTime);
+        for (int i = 0; i < mainOrbitController.GetOrbits().Count;i++){
+            SetIndividualHurdleFillAmount(orbitControllers[i]);
         }
     }
 
@@ -165,7 +205,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     public void PlayerHitHurdle()
     {
-        Debug.Log("Player collided with hurdle");
+        //Debug.Log("Player collided with hurdle");
         ExplosionParticles();
         ChangeGameState(GameState.Quit);
     }
@@ -186,12 +226,39 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void NormalMode()
     {
+
         orbitControllers = mainOrbitController.GetOrbits();
         gameplayViewController.OrbitPunchFade();
-        ProgressionCurves();
+        if (!aaa)
+        {
+            ProgressionCurves();
+        }
+        else
+        {
+
+            hurdleCount++;
+
+            if (hurdleCount >= 4)
+            {
+                ProgressionCurves();
+                aaa = false;
+                mainOrbitController.StopScale();
+                mainOrbitController.Scale();
+            }
+        }
+
+
+        Constants.hurdlesDistance = Vector3.one * 10;
         AddScore(1);
         //Applying progression settings
+        if (addInitialDistance)
+        {
+            Constants.scaleSpeed /= 3;
+        }
+
         mainOrbitController.SetNewScale(addInitialDistance, scaleSpeed);
+
+
         addInitialDistance = false;
         SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
         mainOrbitController.AssignNewRotation();
@@ -201,22 +268,26 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     }
 
+    bool aaa = false;
+    int hurdleCount = 0;
+
     private void SpecialMode()
     {
-        normalModeTimer = Constants.normalModeTime;
+        hurdleCount = 0;
+        aaa = true;
+        orbitHitId = orbitControllers[0].id;
 
-        randomSpecialValue++;// = Random.Range(1, 4);
+        normalModeTimer = 1000;
 
-        if(randomSpecialValue >=4)
-        {
-            randomSpecialValue = 1;
-        }
+        randomSpecialValue = Random.Range(1, 4);
+
+        //randomSpecialValue = 2;
 
         addInitialDistance = true;
         mainOrbitController.StopScale();
         Constants.hurdlesDistance = Vector3.one;
         Constants.hurdleFillAmount = 0.55f;
-        mainOrbitController.SetNewRotations(0, randomSpecialValue == (int)ModeType.AntiClockWise ? -1 : 1, 2);
+        mainOrbitController.SetNewRotations(0, randomSpecialValue == (int)ModeType.AntiClockWise ? -1 : 1,randomSpecialValue == (int)ModeType.PingPongMode? 2 : 2f);
 
         for (int i = 0; i < mainOrbitController.GetOrbits().Count; i++)
         {
@@ -228,6 +299,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void OnScaleComplete()
     {
+        normalModeTimer = Random.Range(Constants.minNormalModeTime, Constants.maxNormalModeTime);
+
         switch(randomSpecialValue)
         {
             case (int)ModeType.AntiClockWise:
@@ -263,7 +336,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private void PingPongMode()
     {
         mainOrbitController.SetPingPongRotation(0, 1, 2, false);
-        Constants.scaleSpeed = 3f;
+        Constants.scaleSpeed = 5f;
         scaleSpeed = Constants.scaleSpeed;
         mainOrbitController.Scale();
     }
@@ -310,8 +383,22 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private void ChangeColors()
     {
         //ColorSet colorSet = colorController.GetRandomColorSet();
-        ColorSet colorSet = colorController.GetIncrementalColorSet();
+        colorTimer -= Time.deltaTime;
+        if(colorTimer<=0){
+            SetRandomColor();
+            SetRandomColorTimer();
+            //print("Colors Changed");
+        }
+        //ColorSet colorSet = colorController.GetIncrementalColorSet();
+    }
+
+    private void SetRandomColor(){
+        ColorSet colorSet = colorController.GetRandomColorSet();
         gameplayViewController.ChangeColorSet(colorSet);
+    }
+
+    private void SetRandomColorTimer(){
+        colorTimer = Random.Range(Constants.minColorTimer, Constants.maxColorTimer);
     }
 
     public bool IsNormalModeChanged()

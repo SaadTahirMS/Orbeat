@@ -45,8 +45,7 @@ public class GameplayTransitionController : MonoBehaviour
     #region StartTransition
     private void StartTransition()
     {
-        Time.timeScale = 1f;
-
+        Time.timeScale = 1;
         startSequence = DOTween.Sequence();
         Tween playerPosition = PlayerPosition(playerController.Position, Constants.transitionTime);
         Tween playerScale = PlayerScale(Vector3.one, Constants.transitionTime);

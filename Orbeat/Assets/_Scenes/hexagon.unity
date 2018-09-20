@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 12
-  endValue: 3
+  endValue: 20
   duration: 0.1
 --- !u!114 &130061591
 MonoBehaviour:
@@ -2487,7 +2487,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 930452da9ca794dd2bc31de83edf362a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 903021e97ef3448609632bc755c4f500, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -3022,7 +3022,7 @@ MonoBehaviour:
   particles:
   - {fileID: 198530185125881536, guid: 60d9ef126686f4ef0af881c47c5b1905, type: 2}
   - {fileID: 198228583597399116, guid: 51b7b0afd815041109e117da54248b83, type: 2}
-  playerCollision: 1
+  playerCollision: 0
   minHurdleDistance: 10
   maxHurdleDistance: 10
   hurdleDistanceCurve:
@@ -3076,7 +3076,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   minScaleSpeed: 0.18
-  maxScaleSpeed: 0.15
+  maxScaleSpeed: 0.18
   scaleSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -3393,7 +3393,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650243711
 MonoBehaviour:
@@ -3416,7 +3416,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 8defffb1dcb3143a7b537c9b3c3446df, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3454,7 +3454,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 30}
+  m_Offset: {x: 0, y: 14.9}
   serializedVersion: 2
   m_Radius: 10
 --- !u!50 &1650243715
