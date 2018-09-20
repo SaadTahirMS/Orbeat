@@ -100,7 +100,7 @@ public class ProgressionBarController {
 			refs.fillerImage.fillAmount = fillAmount;
 
             if (fillAmount > 0.99f) {
-				SoundController.Instance.PlayDialogSound (SFX.LevelUp);
+				//SoundController.Instance.PlayDialogSound (SFX.LevelUp);
 				UpdateOpponent (true);
 			}
 		}

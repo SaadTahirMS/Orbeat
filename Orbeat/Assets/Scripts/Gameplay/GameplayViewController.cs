@@ -68,8 +68,8 @@ public class GameplayViewController : IController
         punchSequence.Kill();
         punchSequence = DOTween.Sequence();
         punchSequence.Append(gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
-        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
-        punchSequence.Join(gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo));
+        //punchSequence.Join(gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
+        //punchSequence.Join(gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo));
         punchSequence.Play();
     }
 

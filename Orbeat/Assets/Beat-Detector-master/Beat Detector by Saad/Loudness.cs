@@ -15,7 +15,7 @@ public class Loudness : MonoBehaviour
     private float clipLoudness;
     private float[] clipSampleData;
 
-    public bool canBeat = false;
+    private bool canBeat = false;
     public bool playAlone = false;
     MyBeat[] mb; //it finds all MyBeat itself
     MyFade[] mf; //it finds all MyFade itself
@@ -38,21 +38,6 @@ public class Loudness : MonoBehaviour
         canBeat = true;
     }
 
-    void Awake()
-    {
-
-        if (playAlone)
-        {
-            mb = FindObjectsOfType<MyBeat>();
-            if (!audioSource)
-            {
-                Debug.LogError(GetType() + ".Awake: there was no audioSource set.");
-            }
-            clipSampleData = new float[sampleDataLength];
-        }
-        //NextSong();
-
-    }
     // Update is called once per frame
     void Update()
     {
@@ -73,33 +58,8 @@ public class Loudness : MonoBehaviour
                 DOFade(clipLoudness);
                 DOCamZoom(clipLoudness);
             }
-
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    audioSource.pitch = 1 - pitchEndValue;
-            //}
-            //else if (Input.GetMouseButtonDown(1))
-            //{
-            //    audioSource.pitch = 1 + pitchEndValue;
-            //}
-            //else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
-            //{
-            //    audioSource.pitch = 1;
-            //}
         }
     }
-
-    //public void NextSong()
-    //{
-    //    audioSource.enabled = false;
-    //    if (songCount >= songs.Count)
-    //    {
-    //        songCount = 0;
-    //    }
-    //    audioSource.clip = songs[songCount];
-    //    songCount++;
-    //    audioSource.enabled = true;
-    //}
 
     void DOBeat(float v)
     {

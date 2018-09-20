@@ -56,13 +56,14 @@ public class GameplayContoller : Singleton<GameplayContoller>
         InitializeHurdles();
         InitializeOrbit();
         InitializeColors();
+        InitializeBeats();
         ResetOrbitList();
         ChangeGameState(GameState.Start);
     }
 
 	private void InitializeSoundEffect()
 	{
-		SoundController.Instance.SetPitch(1f,true);
+		//SoundController.Instance.SetPitch(1f,true);
 		SoundController.Instance.SetVolume(0.7f);
 		SoundController.Instance.PlayDialogSound (SFX.Ready);
 		StartCoroutine (PlayGoSoundCR ());
@@ -101,6 +102,10 @@ public class GameplayContoller : Singleton<GameplayContoller>
         colorController = gameplayRefs.colorController;
     }
 
+    private void InitializeBeats(){
+        gameplayRefs.loudness.Initialize();
+    }
+
     public void ChangeGameState(GameState state){
         gameState = state;
         switch(state){
@@ -111,6 +116,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(0.7f);
+                SoundController.Instance.SetAudioTime(0.5f);
+                SoundController.Instance.PlayMusic();
                 playerController.ChangeState(GameState.Start);
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
@@ -123,7 +130,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ResetGame();
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f, false);
-                SoundController.Instance.SetVolume(1f);
+                SoundController.Instance.SetVolume(0.7f);
                 playerController.ChangeState(GameState.Start);
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
@@ -139,6 +146,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 gameplayTransitionController.ChangeState(GameState.Quit);
                 gameplayRefs.inputController.GameStart(false);
                 ResetHurdleFillAmount();
+                SoundController.Instance.SetPitch(0.95f, true);
+                SoundController.Instance.SetVolume(0.25f);
                 break;
             
         }
@@ -257,6 +266,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
             if (hurdleCount >= 4)
             {
+                SoundController.Instance.PlayDialogSound(SFX.LevelUp);
                 ProgressionCurves();
                 aaa = false;
                 mainOrbitController.StopScale();
@@ -267,6 +277,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         Constants.hurdlesDistance = Vector3.one * 10;
         AddScore(1);
+        float p = 1 + score / 1000f;
+        SoundController.Instance.SetPitch(p,false);
 
         //Applying progression settings
         if (addInitialDistance)
@@ -305,7 +317,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         mainOrbitController.StopScale();
         Constants.hurdlesDistance = Vector3.one;
         Constants.hurdleFillAmount = 0.55f;
-        mainOrbitController.SetNewRotations(0, randomSpecialValue == (int)ModeType.AntiClockWise ? -1 : 1,randomSpecialValue == (int)ModeType.PingPongMode? 2 : 2f);
+        mainOrbitController.SetNewRotations(0, randomSpecialValue == (int)ModeType.AntiClockWise ? -1 : 1,randomSpecialValue == (int)ModeType.PingPongMode? 0f : 2f);
 
         for (int i = 0; i < mainOrbitController.GetOrbits().Count; i++)
         {
@@ -353,8 +365,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void PingPongMode()
     {
-        mainOrbitController.SetPingPongRotation(0, 1, 2, false);
-        Constants.scaleSpeed = 5f;
+        mainOrbitController.SetPingPongRotation(0, 1, 3, false);
+        Constants.scaleSpeed = 3f;
         scaleSpeed = Constants.scaleSpeed;
         mainOrbitController.Scale();
     }

@@ -79,6 +79,14 @@ public class SoundController : Singleton<SoundController> {
 
 	#endregion Save/Load State
 
+    public void PlayMusic(){
+        audioSource.Play();
+    }
+
+    public void StopMusic(){
+        audioSource.Stop();
+    }
+
     public void PlaySFXSound(SFX state){
 		if (soundState) {
 			switch (state) {
@@ -124,6 +132,11 @@ public class SoundController : Singleton<SoundController> {
     public void SetVolume(float value)
     {
         audioSource.volume = value;
+    }
+
+    public void SetAudioTime(float step)
+    {
+        audioSource.time = step * audioSource.clip.length;
     }
 
 }
