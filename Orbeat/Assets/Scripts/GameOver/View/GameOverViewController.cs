@@ -65,7 +65,7 @@ public class GameOverViewController : MonoBehaviour {
 
 	private void ShowCurrentScore()
 	{
-		refs.currentScoreText.text = TextConstants.Score + PlayerData.CurrentScore.ToString ();
+		refs.currentScoreText.text = PlayerData.CurrentScore.ToString ();
 	}
 
 	public void SetReviveButton(bool state)
