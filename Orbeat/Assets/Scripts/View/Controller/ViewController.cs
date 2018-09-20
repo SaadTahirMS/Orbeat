@@ -68,8 +68,8 @@ public class ViewController {
 		}
 		view.SetAsLastSibling ();
 		BaseController baseController = GetController (id);
-		baseController.Open (view.gameObject, viewModel);
 		viewStack.Push (baseController);
+		baseController.Open (view.gameObject, viewModel);
 	}
 
 	private BaseController GetController(Views id)
@@ -84,6 +84,7 @@ public class ViewController {
 				gamePauseController = new GamePauseController ();
 			return gamePauseController;
 		case Views.MainMenu:
+			restrictBackButton = false;
 			if (mainMenuController == null)
 				mainMenuController = new MainMenuController ();
 			return mainMenuController;
@@ -92,6 +93,7 @@ public class ViewController {
 				confirmationDialogController = new ConfirmationDialogController ();
 			return confirmationDialogController;
 		case Views.RateUs:
+			restrictBackButton = true;
 			if (rateUsController == null)
 				rateUsController = new RateUsController ();
 			return rateUsController;
@@ -114,7 +116,6 @@ public class ViewController {
 	private void OnCloseView()
 	{
 		if (viewStack.Count != 0) {
-			restrictBackButton = false;
 			BaseController baseController = viewStack.Pop ();
 			baseController.Close ();
 		}

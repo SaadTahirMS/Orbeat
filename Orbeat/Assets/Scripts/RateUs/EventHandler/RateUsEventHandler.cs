@@ -12,6 +12,7 @@ public class RateUsEventHandler : MonoBehaviour {
 
 	public void RateUsNow()
 	{
+		PlayerData.IsRateUsClicked = true;
 		RateUsLater ();
 		ThirdPartyController.Instance.supportController.RateApplication ();
 	}

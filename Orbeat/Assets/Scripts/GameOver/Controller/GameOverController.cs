@@ -27,6 +27,8 @@ public class GameOverController : BaseController {
 	private int playerIndex;
 	private int playerLeaderBoardPostion;
 
+	private bool hasAlreadyWatchedVideo;
+
 	#endregion Variables
 
 	#region Life Cycle Methods
@@ -46,6 +48,7 @@ public class GameOverController : BaseController {
 		gameOverViewController.Open (obj);
 		HandleReviveFiller ();
 		ShowLeaderBoard ();
+		CheckRateUS ();
 	}
 
 	public void Close()
@@ -72,6 +75,7 @@ public class GameOverController : BaseController {
 
 	private void ReviveGame()
 	{
+		hasAlreadyWatchedVideo = true;
 		GameStateController.Instance.StopCoroutine (DecreaseReviveFillerCR ());
 		GameStateController.Instance.StopCoroutine (ShowRestartButtonCr ());
 		EventManager.DoFireCloseViewEvent ();
@@ -90,8 +94,14 @@ public class GameOverController : BaseController {
 
 	private void HandleReviveFiller()
 	{
-		GameStateController.Instance.StartCoroutine (DecreaseReviveFillerCR ());
-		GameStateController.Instance.StartCoroutine (ShowRestartButtonCr ());
+		if (hasAlreadyWatchedVideo) {
+			hasAlreadyWatchedVideo = false;
+			gameOverViewController.SetReviveButton (false);
+//			gameOverViewController.SetGameOverButtons (true);
+		} else {
+			GameStateController.Instance.StartCoroutine (DecreaseReviveFillerCR ());
+//			GameStateController.Instance.StartCoroutine (ShowRestartButtonCr ());
+		}
 	}
 
 	private IEnumerator DecreaseReviveFillerCR()
@@ -144,6 +154,7 @@ public class GameOverController : BaseController {
 	{
 		isFirstSession = true;
 		yield return showRestartButtonWait;
+//		gameOverViewController.StartAnimationL ();
 		int offset = playerIndex == 2 ? -1 : 1;
 		int playerFactor = -1;
 		int playerNewLBPosition = LeaderBoardController.Instance.CalulatePlayerPosition ();
@@ -172,5 +183,16 @@ public class GameOverController : BaseController {
 	}
 
 	#endregion Leader Board Handling
+
+	#region Rate Us
+
+	private void CheckRateUS()
+	{
+		if (PlayerData.IsOpponentBeaten && PlayerData.OpponentsBeatSoFar > 2 && !PlayerData.IsRateUsClicked)
+			EventManager.DoFireOpenViewEvent (Views.RateUs);
+	}
+
+	#endregion Rate Us
+
 
 }

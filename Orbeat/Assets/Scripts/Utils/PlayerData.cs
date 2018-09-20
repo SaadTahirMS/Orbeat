@@ -7,16 +7,58 @@ public class PlayerData {
 	#region Properties And Variables
 
 	private static bool isFirstSession;
+	private static bool isRateUsClicked;
 	private static bool isNoAdsPurchased;
 	private static bool isNotificationsOn;
 	private static bool isScoreChanged = true;
 	private static int highScore;
 	private static int currentScore;
 
+
+	private static int opponentsBeatSoFar;
+	private static bool isOpponentBeaten;
+
 	private static string playerName;
 	private static int playerIconId;
 
 	private static CharacterModel playerModel;
+
+	public static int OpponentsBeatSoFar
+	{
+		get
+		{ 
+			return opponentsBeatSoFar;
+		}
+		set
+		{
+			opponentsBeatSoFar = value;
+		}
+	}
+
+	public static bool IsOpponentBeaten
+	{
+		get
+		{ 
+			return isOpponentBeaten;
+		}
+		set
+		{
+			isOpponentBeaten = value;
+		}
+	}
+
+	public static bool IsRateUsClicked
+	{
+		get
+		{ 
+			return isRateUsClicked;
+		}
+		set
+		{
+			isRateUsClicked = value;
+			SaveState ();
+		}
+	}
 
 	public static bool IsFirstSession
 	{
@@ -169,6 +211,7 @@ public class PlayerData {
 		isNoAdsPurchased = DatabaseManager.GetBool (Constants.noAdsPurchased);
 		isNotificationsOn = DatabaseManager.GetBool (Constants.isNotificationsOn, true);
 		isFirstSession = DatabaseManager.GetBool (Constants.isFirstSession, true);
+		isRateUsClicked = DatabaseManager.GetBool (Constants.isRateUsClicked);
 	}
 
 	public static void SaveState()
@@ -179,6 +222,7 @@ public class PlayerData {
 		DatabaseManager.SetBool (Constants.noAdsPurchased, isNoAdsPurchased);
 		DatabaseManager.SetBool (Constants.isNotificationsOn, isNotificationsOn);
 		DatabaseManager.SetBool (Constants.isFirstSession, isFirstSession);
+		DatabaseManager.SetBool (Constants.isRateUsClicked, isRateUsClicked);
 	}
 
 	#endregion Load/Save State

@@ -48,6 +48,7 @@ public class ProgressionBarController {
 		SetPlayer ();
 		totalOpponents = LeaderBoardController.Instance.TotalOpponents;
 		UpdateOpponent (false);
+		PlayerData.IsOpponentBeaten = false;
 	}
 
 	private void SetPlayer()
@@ -64,7 +65,7 @@ public class ProgressionBarController {
 
 	private void SetState(bool state)
 	{
-		refs.gameObject.SetActive (state);
+		refs.gameObject.SetActive (false);
 	}
 
 	#endregion
@@ -78,9 +79,9 @@ public class ProgressionBarController {
 			isOpponentLeft = false;
 			opponentToBeat -= 1;
 		}
-
+		PlayerData.OpponentsBeatSoFar = opponentToBeat;
 		refs.opponentImage.sprite = UIIconsData.Instance.opponentIcons [opponentToBeat - 1];
-		GameStateController.Instance.StartCoroutine (PopUpOpponentCr ());
+//		GameStateController.Instance.StartCoroutine (PopUpOpponentCr ());
 
 		if (isOpponentLeft) {
 			scoreToBeat = LeaderBoardController.Instance.GetCharacterModel (opponentToBeat).score;
@@ -99,8 +100,9 @@ public class ProgressionBarController {
 
 			refs.fillerImage.fillAmount = fillAmount;
 
-            if (fillAmount > 0.99f) {
-				SoundController.Instance.PlayDialogSound (SFX.LevelUp);
+            if (fillAmount >= 1f) {
+				PlayerData.IsOpponentBeaten = true;
+//				SoundController.Instance.PlayDialogSound (SFX.LevelUp);
 				UpdateOpponent (true);
 			}
 		}

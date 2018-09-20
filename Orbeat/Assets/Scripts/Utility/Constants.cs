@@ -12,6 +12,7 @@ public static class Constants {
 	public const string SoundState = "SoundState";
 
 	public const string isFirstSession 		= "isFirstSession";
+	public const string isRateUsClicked 		= "isRateUsClicked";
 
 	public const string isNotificationsOn 		= "isNotificationsOn";
 
