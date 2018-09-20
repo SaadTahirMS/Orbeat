@@ -65,8 +65,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
 	{
 		//SoundController.Instance.SetPitch(1f,true);
 		SoundController.Instance.SetVolume(0.7f);
-		SoundController.Instance.PlayDialogSound (SFX.Ready);
-		StartCoroutine (PlayGoSoundCR ());
+
+		StartCoroutine (GameStartTimeScaleCoroutine ());
 	}
 
 	private IEnumerator PlayGoSoundCR()
@@ -75,6 +75,26 @@ public class GameplayContoller : Singleton<GameplayContoller>
 		yield return goSoundCrWait;
 //		Time.timeScale = 1;
 		SoundController.Instance.PlayDialogSound (SFX.Go);
+	}
+
+	private IEnumerator GameStartTimeScaleCoroutine()
+	{
+		SoundController.Instance.PlayDialogSound (SFX.Ready);
+		yield return new WaitForSeconds(0.2f);
+
+
+
+		Time.timeScale = 0.3f;
+
+//		while(Time.timeScale < 1)
+//		{
+//			Time.timeScale += 0.05f;
+
+			yield return new WaitForSeconds(0.2f);
+//		}
+		SoundController.Instance.PlayDialogSound (SFX.Go);
+
+		Time.timeScale = 1;
 	}
 
     private void InitializeGameplayControllers(){

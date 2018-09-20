@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameOverViewController : MonoBehaviour {
 
@@ -8,23 +9,28 @@ public class GameOverViewController : MonoBehaviour {
 
 	private GameOverRefs refs;
 
+	float posX;
+
 	#endregion Variables
 
 	#region Life Cycle Methods
+
 
 	public void Open(GameObject obj, object viewModel = null)
 	{
 		if (refs == null) {
 			refs = obj.GetComponent<GameOverRefs> ();
+			posX = refs.playerObj [0].transform.localPosition.x;
 			SetTexts ();
 		}
 		AnimationHandler.SlideInFromRight (refs.transform);
 		ShowCurrentScore ();
-		SetGameOverButtons (false);
+//		SetGameOverButtons (false);
 		SetReviveFillAmount (1);
 		SetReviveButton (true);
 		SetState (true);
 		SetHighScoreBanner (false);
+		StartAnimation ();
 	}
 
 	public void Close()
@@ -142,4 +148,42 @@ public class GameOverViewController : MonoBehaviour {
 	}
 
 	#endregion LeaderBoard
+
+	public void StartAnimation()
+	{
+		for (int i = 0; i < refs.playerObj.Length; i++) 
+		{
+			refs.playerObj [i].transform.localPosition = new Vector3 (-1200, refs.playerObj [i].transform.localPosition.y, 0);
+		}
+
+		Sequence seq = DOTween.Sequence ();
+
+		for (int i = 0; i < refs.playerObj.Length; i++) 
+		{
+			seq.Insert (0.2f * (i + 1), refs.playerObj [i].transform.DOLocalMoveX (posX, 0.3f).SetEase (Ease.OutSine));
+		}
+
+		seq.Play ();
+	}
+
+	public void StartAnimationL()
+	{
+		Sequence seq = DOTween.Sequence ();
+
+		for (int i = 0; i < refs.playerObj.Length; i++) 
+		{
+			seq.Insert (0.2f * (i + 1), refs.playerObj [i].transform.DOLocalMoveX (-1200, 0.3f).SetEase (Ease.OutSine));
+		}
+
+//		seq.Play ();
+
+//		Sequence seq = DOTween.Sequence ();
+
+		for (int i = 0; i < refs.playerObj.Length; i++) 
+		{
+			seq.Insert (0.8f * (i + 1), refs.playerObj [i].transform.DOLocalMoveX (posX, 0.3f).SetEase (Ease.OutSine));
+		}
+
+		seq.Play ();
+	}
 }

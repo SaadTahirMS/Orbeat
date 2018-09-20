@@ -10,7 +10,7 @@ public class MainMenuController : BaseController {
 	private MainMenuViewController mainMenuViewController;
 
 	private WaitForSeconds popUpCrWait;
-	private float popUpCrDelay = 1;
+	private float popUpCrDelay = 2;
 
 	#endregion Variables
 

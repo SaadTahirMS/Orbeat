@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MainMenuViewController : BaseController {
 
 	#region Variables
 
 	private MainMenuRefs refs;
+
+	float posX;
 
 	#endregion Variables
 
@@ -17,14 +20,17 @@ public class MainMenuViewController : BaseController {
 	{
 		if (refs == null) {
 			refs = obj.GetComponent<MainMenuRefs> ();
+			posX = refs.playerObj [0].transform.localPosition.x;
 		}
 
+		StartAnimation ();
 		SetState (true);
 	}
 
 	public void Close()
 	{
 		SetState (false);
+		StopAnimation ();
 	}
 
 	#endregion Life Cycle Methods
@@ -99,5 +105,33 @@ public class MainMenuViewController : BaseController {
 	}
 
 	#endregion LeaderBoard
+
+	public void StartAnimation()
+	{
+		
+		refs.circle1.DORotate (Vector3.forward * 360, 2,RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops (-1,LoopType.Incremental);
+		refs.circle2.DORotate (Vector3.back * 360, 2,RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops (-1,LoopType.Incremental);
+
+
+		for (int i = 0; i < refs.playerObj.Length; i++) 
+		{
+			refs.playerObj [i].transform.localPosition = new Vector3 (-1200, refs.playerObj [i].transform.localPosition.y, 0);
+		}
+
+		Sequence seq = DOTween.Sequence ();
+
+		for (int i = 0; i < refs.playerObj.Length; i++) 
+		{
+			seq.Insert (0.2f * (i + 1), refs.playerObj [i].transform.DOLocalMoveX (posX, 0.3f).SetEase (Ease.OutSine));
+		}
+
+		seq.Play ();
+	}
+
+	public void StopAnimation()
+	{
+		refs.circle1.DOKill ();
+		refs.circle2.DOKill ();
+	}
 
 }
