@@ -3,7 +3,7 @@ ID,Name,Score
 1,Little Sister,5
 2,Granny,11
 3,Pesky Cousin,18
-4,Dexteris Freind,45
+4,Dexteris Friend,45
 5,School Best,83
 6,Town Best,106
 7,Country Best,254

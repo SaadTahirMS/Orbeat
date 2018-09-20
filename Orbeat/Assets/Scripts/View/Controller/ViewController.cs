@@ -140,7 +140,7 @@ public class ViewController {
 			if (viewStack.Count == 1 && isMainMenuOpen) {
 				ShowGameQuitView ();
 			} else if (viewStack.Count == 0 && !isMainMenuOpen) {
-				OnOpenView (Views.Pause);
+//				OnOpenView (Views.Pause);
 			} else {
 				OnCloseView ();
 			}

@@ -9,12 +9,16 @@ public class MainMenuController : BaseController {
 
 	private MainMenuViewController mainMenuViewController;
 
+	private WaitForSeconds popUpCrWait;
+	private float popUpCrDelay = 1;
+
 	#endregion Variables
 
 	#region Life Cycle Methods
 
 	public MainMenuController()
 	{
+		popUpCrWait = new WaitForSeconds (popUpCrDelay);
 		mainMenuViewController = new MainMenuViewController ();
 	}
 
@@ -76,6 +80,7 @@ public class MainMenuController : BaseController {
 		int playerIndex = LeaderBoardController.Instance.PlayerIndex;
 		if (index != playerIndex)
 			return;
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 		EventManager.DoFireOpenViewEvent (Views.CharacterSelection);
 	}
 
@@ -104,7 +109,15 @@ public class MainMenuController : BaseController {
 			for (int i = 0; i < charactersList.Count; i++) {
 				mainMenuViewController.SetLeaderBoardStrip (i, charactersList [charactersList.Count - i - 1]);
 			}
+			GameStateController.Instance.StartCoroutine (PopPlayerStripe ());
 		}
+	}
+
+	private IEnumerator PopPlayerStripe()
+	{
+		yield return popUpCrWait;
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
+		mainMenuViewController.PlayPlayerPopAnim (LeaderBoardController.Instance.PlayerIndex);
 	}
 
 	#endregion LeaderBoard

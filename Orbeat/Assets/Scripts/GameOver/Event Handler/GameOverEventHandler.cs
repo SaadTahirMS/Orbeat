@@ -6,18 +6,19 @@ public class GameOverEventHandler : MonoBehaviour {
 
 	public void ReviveClicked()
 	{
-        ThirdPartyController.Instance.admobController.ShowRewardBasedVideo ();
-        //GameStateController.Instance.ReviveGame();
-        //GameplayContoller.Instance.ReviveGame();
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
+		ThirdPartyController.Instance.admobController.ShowRewardBasedVideo ();
 	}
 
 	public void RestartClicked()
 	{
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 		GameStateController.Instance.StartGame ();
 	}
 
 	public void HomeClicked()
 	{
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 		GameStateController.Instance.ShowMainMenu ();
 	}
 }

@@ -93,6 +93,11 @@ public class MainMenuViewController : BaseController {
 		refs.playerImages [index].sprite = model.playerSprite;
 	}
 
+	public void PlayPlayerPopAnim(int index)
+	{
+		AnimationHandler.PlaySelectAnimation (refs.playerObj [index].transform);
+	}
+
 	#endregion LeaderBoard
 
 }

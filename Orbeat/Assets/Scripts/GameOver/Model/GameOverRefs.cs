@@ -25,5 +25,6 @@ public class GameOverRefs : MonoBehaviour {
 	public Image[] stripeImages;
 	public Text[] playerName;
 	public Text[] score;
+	public GameObject[] playerObj;
 
 }

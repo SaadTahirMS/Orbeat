@@ -6,11 +6,13 @@ public class ConfirmationDialogEventHandler : MonoBehaviour {
 
 	public void NoPressed()
 	{
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 		EventManager.DoFireNoPressedEvent ();
 	}
 
 	public void YesPressed()
 	{
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 		EventManager.DoFireYesPressedEvent ();
 	}
 }

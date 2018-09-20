@@ -16,12 +16,17 @@ public class ProgressionBarController {
 
 	private bool isOpponentLeft;
 
+	private WaitForSeconds popUpCrWait;
+	private float popUpCrDelay = 1;
+
 	#endregion Variables
 
 	#region Initialization
 
 	public ProgressionBarController(ProgressionBarRefs progressionRefs)
 	{
+		popUpCrWait = new WaitForSeconds (popUpCrDelay);
+
 		isOpponentLeft = true;
 		refs = progressionRefs;
 		InitializeEvents ();
@@ -30,6 +35,7 @@ public class ProgressionBarController {
 	private void InitializeEvents()
 	{
 		EventManager.OnScoreUpdated += UpdateFillBar;
+		EventManager.OnUpdateFillBarColor += UpdateFillBarColor;
 	}
 
 	#endregion Initialization
@@ -70,12 +76,14 @@ public class ProgressionBarController {
 		opponentToBeat = LeaderBoardController.Instance.CalulatePlayerPosition (notFirstOpponent);
 		if (opponentToBeat > totalOpponents) {
 			isOpponentLeft = false;
+			opponentToBeat -= 1;
 		}
+
+		refs.opponentImage.sprite = UIIconsData.Instance.opponentIcons [opponentToBeat - 1];
+		GameStateController.Instance.StartCoroutine (PopUpOpponentCr ());
 
 		if (isOpponentLeft) {
 			scoreToBeat = LeaderBoardController.Instance.GetCharacterModel (opponentToBeat).score;
-			refs.opponentImage.sprite = UIIconsData.Instance.opponentIcons [opponentToBeat - 1];
-
 			UpdateFillBar ();
 		} else {
 			refs.fillerImage.fillAmount = 1;
@@ -91,10 +99,23 @@ public class ProgressionBarController {
 
 			refs.fillerImage.fillAmount = fillAmount;
 
-			if (fillAmount >= 1f) {
+            if (fillAmount > 0.99f) {
+				SoundController.Instance.PlayDialogSound (SFX.LevelUp);
 				UpdateOpponent (true);
 			}
 		}
+	}
+
+	private void UpdateFillBarColor(Color32 barColor, Color32 fillerColor)
+	{
+		refs.barImage.color = barColor;
+		refs.fillerImage.color = fillerColor;
+	}
+
+	private IEnumerator PopUpOpponentCr()
+	{
+		yield return popUpCrWait;
+		AnimationHandler.PlaySelectAnimation (refs.opponentObj, 0.2f);
 	}
 
 	#endregion Progression Handling

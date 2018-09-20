@@ -15,14 +15,17 @@ public class GameOverController : BaseController {
 
 	private WaitForSeconds decreaseFillAmountWait;
 	private WaitForSeconds showRestartButtonWait;
+	private WaitForSeconds popUpCrWait;
+
+
 	private float decreaseFillAmountCrDelay = 0.025f;
 	private float showRestartButtonCrDelay = 2f;
-
-	private bool isReviveClicked;
+	private float popUpCrDelay = 1;
 
 	private bool isFirstSession;
 
-	private int playerPosition;
+	private int playerIndex;
+	private int playerLeaderBoardPostion;
 
 	#endregion Variables
 
@@ -31,6 +34,7 @@ public class GameOverController : BaseController {
 	public GameOverController()
 	{
 		isFirstSession = true;
+		popUpCrWait = new WaitForSeconds (popUpCrDelay);
 		decreaseFillAmountWait = new WaitForSeconds (decreaseFillAmountCrDelay);
 		showRestartButtonWait = new WaitForSeconds (showRestartButtonCrDelay);
 		gameOverViewController = new GameOverViewController ();
@@ -68,7 +72,6 @@ public class GameOverController : BaseController {
 
 	private void ReviveGame()
 	{
-		isReviveClicked = true;
 		GameStateController.Instance.StopCoroutine (DecreaseReviveFillerCR ());
 		GameStateController.Instance.StopCoroutine (ShowRestartButtonCr ());
 		EventManager.DoFireCloseViewEvent ();
@@ -93,7 +96,6 @@ public class GameOverController : BaseController {
 
 	private IEnumerator DecreaseReviveFillerCR()
 	{
-		isReviveClicked = false;
 		fillAmount = 1;
 		while (fillAmount > 0) {
 			fillAmount -= decreaseFactor * Time.deltaTime;
@@ -118,7 +120,8 @@ public class GameOverController : BaseController {
 		if (PlayerData.IsHighScoreChanged () || isFirstSession) {
 			isFirstSession = false;
 			charactersList = LeaderBoardController.Instance.GetPlayersToShowList (3, false, 1);
-			playerPosition = LeaderBoardController.Instance.PlayerIndex;
+			playerIndex = LeaderBoardController.Instance.PlayerIndex;
+			playerLeaderBoardPostion = LeaderBoardController.Instance.PlayerLeaderBoardPosition;
 			for (int i = 0; i < charactersList.Count; i++) {
 				gameOverViewController.SetLeaderBoardStrip (i, charactersList [charactersList.Count - i - 1]);
 			}
@@ -128,20 +131,44 @@ public class GameOverController : BaseController {
 				gameOverViewController.SetHighScoreBanner (true);
 			}
 
+			GameStateController.Instance.StartCoroutine (PopPlayerStripe ());
+
 			if (LeaderBoardController.Instance.IsPlayerPositionChanged ())
 				GameStateController.Instance.StartCoroutine (UpdateLeaderBoardCR ());
 			else
-				gameOverViewController.SetLeaderBoardStrip (playerPosition, PlayerData.PlayerModel);
+				gameOverViewController.SetLeaderBoardStrip (playerIndex, PlayerData.PlayerModel);
 		}
 	}
 
 	private IEnumerator UpdateLeaderBoardCR()
 	{
 		isFirstSession = true;
-		yield return new WaitForSeconds (3f);
-		int offset = playerPosition == 2 ? -1 : 1;
-		gameOverViewController.SetLeaderBoardStrip (playerPosition, charactersList [playerPosition + offset]);
-		gameOverViewController.SetLeaderBoardStrip (playerPosition - 1, PlayerData.PlayerModel);
+		yield return showRestartButtonWait;
+		int offset = playerIndex == 2 ? -1 : 1;
+		int playerFactor = -1;
+		int playerNewLBPosition = LeaderBoardController.Instance.CalulatePlayerPosition ();
+		int newPlayerIndex = playerIndex - 1;
+
+		if (playerNewLBPosition - playerLeaderBoardPostion >= 2 && playerLeaderBoardPostion == 1) {
+			offset = 0;
+			playerFactor -= 1;
+			gameOverViewController.SetLeaderBoardStrip (playerIndex, charactersList [playerIndex + offset - 1]);
+			gameOverViewController.SetLeaderBoardStrip (playerIndex -1, charactersList [playerIndex + offset]);
+			newPlayerIndex = 0;
+		}
+		else
+			gameOverViewController.SetLeaderBoardStrip (playerIndex, charactersList [playerIndex + offset]);
+
+		gameOverViewController.SetLeaderBoardStrip (playerIndex + playerFactor, PlayerData.PlayerModel);
+		GameStateController.Instance.StartCoroutine (PopPlayerStripe ());
+		playerIndex = newPlayerIndex;
+	}
+
+	private IEnumerator PopPlayerStripe()
+	{
+		yield return popUpCrWait;
+		SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
+		gameOverViewController.PlayPlayerPopAnim (playerIndex);
 	}
 
 	#endregion Leader Board Handling

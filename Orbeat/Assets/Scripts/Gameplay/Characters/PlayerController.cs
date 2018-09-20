@@ -58,8 +58,10 @@ public class PlayerController: MonoBehaviour {
     {
         switch (state)
         {
-            case GameState.Start:
-                gameObject.transform.localPosition = Vector3.zero;
+		case GameState.Start:
+              gameObject.transform.localPosition = Vector3.zero;
+//				gameObject.transform.localPosition = Constants.playerInitialPosition;
+				gameObject.transform.localRotation = Quaternion.Euler (Vector3.zero);
                 gameObject.SetActive(true);
                 break;
             case GameState.Quit:

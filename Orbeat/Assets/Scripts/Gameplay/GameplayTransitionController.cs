@@ -51,7 +51,7 @@ public class GameplayTransitionController : MonoBehaviour
         Tween playerScale = PlayerScale(Vector3.one, Constants.transitionTime);
 
         startSequence.Append(playerPosition);
-        startSequence.Join(playerScale);
+		startSequence.Join(playerScale);
         startSequence.Play();
     }
     #endregion
@@ -62,7 +62,7 @@ public class GameplayTransitionController : MonoBehaviour
         //Time.timeScale = 0.1f;
         endSequence = DOTween.Sequence();
         Tween playerScale = PlayerScale(Vector3.zero, Constants.transitionTime);
-        endSequence.Append(playerScale).OnComplete(()=> { Time.timeScale = 1f; });
+        endSequence.Append(playerScale);
         endSequence.OnComplete(EndTransitionComplete);
         endSequence.Play();
 

@@ -105,6 +105,7 @@ public class CharacterSelectionController : BaseController {
 		int numberOfIterations = 7;
 		yield return randomSelectionCr;
 		for (int i = 0; i < numberOfIterations; i++) {
+			SoundController.Instance.PlaySFXSound (SFX.ButtonClick);
 			randomCharacterIndex = Random.Range (0, characterSelectionViewController.GetTotalIconsCount ());
 			characterSelectionViewController.SetHighLighter (randomCharacterIndex, true);
 			yield return randomSelectionCr;

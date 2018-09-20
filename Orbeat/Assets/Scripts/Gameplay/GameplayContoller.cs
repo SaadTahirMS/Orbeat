@@ -15,6 +15,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private List<OrbitController> orbitControllers;
     private ColorController colorController;
 
+	private WaitForSeconds goSoundCrWait;
+	private float goSoundCrDelay = 1f;
+
     [HideInInspector]public GameState gameState;
 
     private int score = 0;
@@ -41,9 +44,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
         SetRandomColorTimer();
     }
 
+	private bool isHighScoreMade;
+
     public void Open()
     {
         Application.targetFrameRate = 60;
+		goSoundCrWait = new WaitForSeconds (goSoundCrDelay);
 		InitializeSoundEffect ();
         InitializeGameplayControllers();
         InitializePlayer();
@@ -57,7 +63,17 @@ public class GameplayContoller : Singleton<GameplayContoller>
 	private void InitializeSoundEffect()
 	{
 		SoundController.Instance.SetPitch(1f,true);
-		SoundController.Instance.SetVolume(1f);
+		SoundController.Instance.SetVolume(0.7f);
+		SoundController.Instance.PlayDialogSound (SFX.Ready);
+		StartCoroutine (PlayGoSoundCR ());
+	}
+
+	private IEnumerator PlayGoSoundCR()
+	{
+//		Time.timeScale = 0.1f;
+		yield return goSoundCrWait;
+//		Time.timeScale = 1;
+		SoundController.Instance.PlayDialogSound (SFX.Go);
 	}
 
     private void InitializeGameplayControllers(){
@@ -94,7 +110,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ResetScore();
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f,false);
-                SoundController.Instance.SetVolume(1f);
+                SoundController.Instance.SetVolume(0.7f);
                 playerController.ChangeState(GameState.Start);
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
@@ -205,7 +221,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     public void PlayerHitHurdle()
     {
-        //Debug.Log("Player collided with hurdle");
+		SoundController.Instance.PlayDialogSound (SFX.GameOver);
         ExplosionParticles();
         ChangeGameState(GameState.Quit);
     }
@@ -217,7 +233,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     public void HurdleHitWall()
     {
         NormalMode();
-
+		ChangeColors();
         if (IsNormalModeChanged())
         {
             SpecialMode();
@@ -229,6 +245,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         orbitControllers = mainOrbitController.GetOrbits();
         gameplayViewController.OrbitPunchFade();
+       
         if (!aaa)
         {
             ProgressionCurves();
@@ -250,6 +267,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         Constants.hurdlesDistance = Vector3.one * 10;
         AddScore(1);
+
         //Applying progression settings
         if (addInitialDistance)
         {
@@ -376,12 +394,23 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private void AddScore(int s){
         score += s;
 		PlayerData.CurrentScore = score;
+		if (PlayerData.IsHighScoreChanged () && !isHighScoreMade) {
+			isHighScoreMade = true;
+			SoundController.Instance.PlayDialogSound (SFX.HighScore);
+		}
+	
 		EventManager.DoFireScoreUpdatedEvent ();
         gameplayViewController.SetScore(score);
     }
 
-    private void ChangeColors()
-    {
+    private void ResetVariables(){
+		isHighScoreMade = false;
+        score = 0;
+		PlayerData.CurrentScore = score;
+        gameplayViewController.SetScore(score);
+    }
+
+    private void ChangeColors(){
         //ColorSet colorSet = colorController.GetRandomColorSet();
         colorTimer -= Time.deltaTime;
         if(colorTimer<=0){
