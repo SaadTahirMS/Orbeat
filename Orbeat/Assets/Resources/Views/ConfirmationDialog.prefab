@@ -214,7 +214,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.77
-  m_Text: Are sure you want to quit?
+  m_Text: Are you sure you want to quit?
 --- !u!114 &114042014841831652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -708,7 +708,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -0.0000076294, y: -301.5}
-  m_SizeDelta: {x: 421.5, y: 107.7}
+  m_SizeDelta: {x: 421.5, y: 82.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224369361408000204
 RectTransform:
