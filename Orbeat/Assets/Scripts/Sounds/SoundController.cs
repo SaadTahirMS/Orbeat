@@ -19,6 +19,7 @@ public class SoundController : Singleton<SoundController> {
 		set
 		{
 			musicState = value;
+            ManageMusic();
 			SaveState ();
 		}
 	}
@@ -79,8 +80,18 @@ public class SoundController : Singleton<SoundController> {
 
 	#endregion Save/Load State
 
+
+    private void ManageMusic()
+    {
+        if (musicState)
+            audioSource.Play();
+        else
+            audioSource.Pause();
+    }
+
     public void PlayMusic(){
-        audioSource.Play();
+        if (musicState)
+            audioSource.Play();
     }
 
     public void StopMusic(){

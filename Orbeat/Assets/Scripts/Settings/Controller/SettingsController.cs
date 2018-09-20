@@ -62,12 +62,20 @@ public class SettingsController : BaseController {
 		isNotificationsOn = PlayerData.IsNotificationsOn;
 	}
 
-	public void SaveState()
+	public void SaveNotification()
 	{
-		SoundController.Instance.SoundState = isSoundOn;
-		SoundController.Instance.MusicState = isMusicOn;
 		PlayerData.IsNotificationsOn = isNotificationsOn;
 	}
+
+    public void SaveMusic()
+    {
+        SoundController.Instance.MusicState = isMusicOn;
+    }
+
+    public void SaveSound()
+    {
+        SoundController.Instance.SoundState = isSoundOn;
+    }
 
 	#endregion Save/Load State
 
@@ -77,21 +85,21 @@ public class SettingsController : BaseController {
 	{
 		isMusicOn = !isMusicOn;
 		UpdateMusicView ();
-		SaveState ();
+        SaveMusic ();
 	}
 
 	private void OnChangeSound()
 	{
 		isSoundOn = !isSoundOn;
 		UpdateSoundView ();
-		SaveState ();
+        SaveSound ();
 	}
 
 	private void OnChangeNotificaitons()
 	{
 		isNotificationsOn = !isNotificationsOn;
 		UpdateNotificationsView ();
-		SaveState ();
+        SaveNotification ();
 	}
 
 	#endregion Event Call Back

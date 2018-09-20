@@ -19,7 +19,9 @@ public class MainMenuController : BaseController {
 	public MainMenuController()
 	{
 		popUpCrWait = new WaitForSeconds (popUpCrDelay);
-		mainMenuViewController = new MainMenuViewController ();
+        mainMenuViewController = new MainMenuViewController();
+
+        SoundController.Instance.PlayMusic();
 	}
 
 	public void Open(GameObject obj, object viewModel = null)
@@ -28,6 +30,7 @@ public class MainMenuController : BaseController {
 		mainMenuViewController.Open (obj);
 		SetNoAdsButton ();
 		ShowLeaderBoard ();
+
 	}
 
 	public void Close()

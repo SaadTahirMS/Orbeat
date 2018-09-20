@@ -136,7 +136,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(0.7f);
-                SoundController.Instance.SetAudioTime(0.5f);
+                SoundController.Instance.SetAudioTime(0f);
                 SoundController.Instance.PlayMusic();
                 playerController.ChangeState(GameState.Start);
                 mainOrbitController.ChangeState(GameState.Start);
@@ -165,7 +165,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 mainOrbitController.ChangeState(GameState.Quit);
                 gameplayTransitionController.ChangeState(GameState.Quit);
                 gameplayRefs.inputController.GameStart(false);
-                ResetHurdleFillAmount();
+                //ResetHurdleFillAmount();
                 SoundController.Instance.SetPitch(0.95f, true);
                 SoundController.Instance.SetVolume(0.25f);
                 break;
