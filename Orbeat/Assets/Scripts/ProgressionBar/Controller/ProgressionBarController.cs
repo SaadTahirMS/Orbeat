@@ -104,7 +104,7 @@ public class ProgressionBarController {
 		}
 	}
 
-	private void UpdateFillBarColor(Color barColor, Color fillerColor)
+	private void UpdateFillBarColor(Color32 barColor, Color32 fillerColor)
 	{
 		refs.barImage.color = barColor;
 		refs.fillerImage.color = fillerColor;

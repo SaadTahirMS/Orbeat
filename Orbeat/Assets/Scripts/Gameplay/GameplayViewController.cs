@@ -39,30 +39,23 @@ public class GameplayViewController : IController
             gameplayRefs.innerOrbitsImg[i].DOColor(colorSet.bgColor,Constants.colorTransitionTime);
         }
         gameplayRefs.cam.DOColor(colorSet.bgColor, Constants.colorTransitionTime);
-        //gameplayRefs.playerObjImg.color = colorSet.playerColor;
         gameplayRefs.playerObjImg.DOColor(colorSet.playerColor,Constants.colorTransitionTime);
 
-        //gameplayRefs.playerOrbitImg.color = colorSet.playerOrbitColor;
         gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.colorTransitionTime);
         gameplayRefs.playerOrbitGlowImg.color = colorSet.playerOrbitGlowColor;
-        //gameplayRefs.flashImg.color = colorSet.flashColor;
-
-        //gameplayRefs.playerOrbitGlowImg.DOColor(colorSet.playerOrbitGlowColor, Constants.colorTransitionTime);
 
         for (int i = 0; i < gameplayRefs.hurdleOrbitsImg.Count;i++){
-            //gameplayRefs.hurdleOrbitsImg[i].color = colorSet.hurdleColor;
             gameplayRefs.hurdleOrbitsImg[i].DOColor(colorSet.hurdleColor,Constants.colorTransitionTime);
         }
 
-        //gameplayRefs.glowImg.color = colorSet.glowColor;
-        //gameplayRefs.glowImg.DOColor(colorSet.glowColor,Constants.colorTransitionTime);
-        //gameplayRefs.scoreText.color = colorSet.scoreColor;
         gameplayRefs.scoreText.DOColor(colorSet.scoreColor,Constants.colorTransitionTime);
 
         for (int i = 0; i < gameplayRefs.particles.Count; i++)
         {
             gameplayRefs.particles[i].startColor = colorSet.explosionColor;
         }
+
+		EventManager.DoFireUpdateFillBarColorEvent (colorSet.barColor,colorSet.barfillColor);
     }
 
     public void LookAtTransform(Vector3 target,float offset){

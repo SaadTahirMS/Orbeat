@@ -106,7 +106,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 SetHurdleFillAmount();
                 mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
-                ChangeColors();
+                
                 break;
             case GameState.Revive:
                 print("Revive Game");
@@ -194,7 +194,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     public void HurdleHitWall()
     {
         NormalMode();
-
+		ChangeColors();
         if (IsNormalModeChanged())
         {
             SpecialMode();
@@ -206,7 +206,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         orbitControllers = mainOrbitController.GetOrbits();
         gameplayViewController.OrbitPunchFade();
         ProgressionCurves();
-        AddScore(1);
+		AddScore(10);
         //Applying progression settings
         mainOrbitController.SetNewScale(addInitialDistance, scaleSpeed);
         addInitialDistance = false;

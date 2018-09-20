@@ -195,7 +195,7 @@ public class EventManager {
 	public delegate void ScoreUpdated();
 	public static ScoreUpdated OnScoreUpdated;
 
-	public delegate void UpdateFillBarColor(Color barColor, Color fillerColor);
+	public delegate void UpdateFillBarColor(Color32 barColor, Color32 fillerColor);
 	public static UpdateFillBarColor OnUpdateFillBarColor;
 
 	public static void DoFireScoreUpdatedEvent()
@@ -204,7 +204,7 @@ public class EventManager {
 			OnScoreUpdated ();	
 	}
 
-	public static void DoFireUpdateFillBarColorEvent(Color barColor, Color fillerColor)
+	public static void DoFireUpdateFillBarColorEvent(Color32 barColor, Color32 fillerColor)
 	{
 		if (OnUpdateFillBarColor != null)
 			OnUpdateFillBarColor (barColor, fillerColor);	
