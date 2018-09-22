@@ -111,7 +111,9 @@ public class MainOrbitController : MonoBehaviour
 
     private float AssignRotateSpeed()
     {
-        return Random.Range(Constants.minRotateSpeed, Constants.maxRotateSpeed);
+        float value = Random.Range(Constants.minRotateSpeed, Constants.maxRotateSpeed);
+        //print("Rotation Speed: " + value);
+        return value;
     }
 
     //assigning new rotation to the hurdle that hit the orbit

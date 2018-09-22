@@ -59,7 +59,7 @@ public class InputController : MonoBehaviour
 
                     break;
                 case "Scroll V1":
-                    Constants.difficultyLevel = 50;
+                    //Constants.difficultyLevel = 50;
                     if (Input.GetMouseButton(0))
                     {
                         float x = Input.mousePosition.x - screenCenterX;
@@ -88,7 +88,7 @@ public class InputController : MonoBehaviour
                     break;
 
                 case "Tap Switch":
-                    Constants.difficultyLevel = 100;
+                    //Constants.difficultyLevel = 100;
                     if (Input.GetMouseButtonDown(0))
                         tap = !tap;
 

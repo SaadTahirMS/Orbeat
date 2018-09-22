@@ -136,7 +136,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f,false);
                 SoundController.Instance.SetVolume(0.7f);
-                SoundController.Instance.SetAudioTime(0f);
+                SoundController.Instance.SetAudioTime(0.05f);
                 SoundController.Instance.PlayMusic();
                 playerController.ChangeState(GameState.Start);
                 mainOrbitController.ChangeState(GameState.Start);
@@ -248,6 +248,11 @@ public class GameplayContoller : Singleton<GameplayContoller>
         orbit.hurdleController.SetFillAmount(Constants.hurdleFillAmount, Constants.fillAmountTime);
     }
 
+    private void ChangeHurdleFillAmount(){
+        print("Fill Amount: " + Constants.hurdleFillAmount);
+        orbitControllers[0].hurdleController.ChangeFillAmount();
+    }
+
     public void PlayerHitHurdle()
     {
 		SoundController.Instance.PlayDialogSound (SFX.GameOver);
@@ -273,7 +278,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     {
 
         orbitControllers = mainOrbitController.GetOrbits();
-        gameplayViewController.OrbitPunchFade();
+        gameplayViewController.HurdleHitWallTween();
        
         if (!aaa)
         {
@@ -297,8 +302,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         Constants.hurdlesDistance = Vector3.one * 10;
         AddScore(1);
-        float p = 1 + score / 1000f;
-        SoundController.Instance.SetPitch(p,false);
+        //float p = 1 + score / 1000f;
+        //SoundController.Instance.SetPitch(p,false);
 
         //Applying progression settings
         if (addInitialDistance)
@@ -311,11 +316,15 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         addInitialDistance = false;
         SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+
         mainOrbitController.AssignNewRotation();
         orbitControllers[0].StopSpecialRotation();
         mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
         mainOrbitController.SortOrbits();   //sort all the orbits 
-
+        if (score >= Constants.hurdleFillChangeScore)
+        {
+            ChangeHurdleFillAmount();
+        }
     }
 
     bool aaa = false;
@@ -393,26 +402,39 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
 
     private void ProgressionCurves(){
-        float y = score / Constants.difficultyLevel;
-        float value;
+        float x = score / Constants.difficultyLevel;
+        //float value;
 
-        value = gameplayRefs.hurdleDistanceCurve.Evaluate(y) * gameplayRefs.maxHurdleDistance;
-        Constants.hurdlesDistance = Vector3.one * Mathf.Clamp(value, gameplayRefs.minHurdleDistance, gameplayRefs.maxHurdleDistance);
+        Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdleDistanceCurve.Evaluate(x);// * gameplayRefs.maxHurdleDistance;
+         //= Vector3.one * Mathf.Clamp(value, gameplayRefs.minHurdleDistance, gameplayRefs.maxHurdleDistance);
 
-        value = gameplayRefs.hurdleFillAmountCurve.Evaluate(y) * gameplayRefs.maxHurdleFillAmount;
-        Constants.hurdleFillAmount = Mathf.Clamp(value, gameplayRefs.minHurdleFillAmount, gameplayRefs.maxHurdleFillAmount);
+        Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmountCurve.Evaluate(x);// * gameplayRefs.maxHurdleFillAmount;
+        //Constants.hurdleFillAmount = Mathf.Clamp(value, gameplayRefs.minHurdleFillAmount, gameplayRefs.maxHurdleFillAmount);
+        //print(x + " score and amount is "+ Constants.hurdleFillAmount);
+        //value = gameplayRefs.maxScaleSpeed - gameplayRefs.scaleSpeedCurve.Evaluate(x) * gameplayRefs.maxScaleSpeed;
+        //Constants.scaleSpeed = Mathf.Clamp(value, gameplayRefs.minScaleSpeed, gameplayRefs.maxScaleSpeed);
+        Constants.scaleSpeed = gameplayRefs.scaleSpeedCurve.Evaluate(x);
 
-        value = gameplayRefs.maxScaleSpeed - gameplayRefs.scaleSpeedCurve.Evaluate(y) * gameplayRefs.maxScaleSpeed;
-        Constants.scaleSpeed = Mathf.Clamp(value, gameplayRefs.minScaleSpeed, gameplayRefs.maxScaleSpeed);
-
-        value = gameplayRefs.rotationOffsetCurve.Evaluate(y) * gameplayRefs.maxRotationOffset;
-        Constants.rotationOffset = Mathf.Clamp(value, gameplayRefs.minRotationOffset, gameplayRefs.maxRotationOffset);
+        //value = gameplayRefs.rotationOffsetCurve.Evaluate(x) * gameplayRefs.maxRotationOffset;
+        //Constants.rotationOffset = Mathf.Clamp(value, gameplayRefs.minRotationOffset, gameplayRefs.maxRotationOffset);
+        Constants.rotationOffset = gameplayRefs.rotationOffsetCurve.Evaluate(x);
 
         //Max rotation curve and min value will be -x of max value
-        value = gameplayRefs.orbitRotationCurve.Evaluate(y) * gameplayRefs.maxOrbitRotateSpeed;
-        Constants.maxRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
-        value = Constants.maxRotateSpeed - 5f;
-        Constants.minRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
+        //value = gameplayRefs.orbitRotationCurve.Evaluate(x) * gameplayRefs.maxOrbitRotateSpeed;
+        //Constants.maxRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
+        //value = Constants.maxRotateSpeed - 5f;
+        //Constants.minRotateSpeed = Mathf.Clamp(value, gameplayRefs.minOrbitRotateSpeed, gameplayRefs.maxOrbitRotateSpeed);
+        Constants.maxRotateSpeed = gameplayRefs.orbitRotationCurve.Evaluate(x);
+        Constants.minRotateSpeed = Constants.maxRotateSpeed - 1f;
+
+        //Debug.Log("Score: " + x);
+        //Debug.Log("Hurdle Distance: " + Constants.hurdlesDistance);
+        //Debug.Log("Fillamount: " + Constants.hurdleFillAmount);
+        //Debug.Log("scaleSpeed: " + Constants.scaleSpeed);
+        //Debug.Log("rotationOffset: " + Constants.rotationOffset);
+        //Debug.Log("maxRotateSpeed: " + Constants.maxRotateSpeed);
+        //Debug.Log("minRotateSpeed: " + Constants.minRotateSpeed);
+
 
     }
 

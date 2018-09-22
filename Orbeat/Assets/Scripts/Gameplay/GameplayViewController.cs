@@ -62,23 +62,12 @@ public class GameplayViewController : IController
        gameplayRefs.cam.transform.position = new Vector3(target.x * (cameraMovementFactor) * offset, 0f, -10);
     }
 
-    public void OrbitPunchFade(){
-        //gameplayRefs.playerOrbitImg.transform.DOScale(1.1f,0.1f).SetLoops(2, LoopType.Yoyo);
-        //gameplayRefs.playerOrbitGlowImg.transform.DOScale(1.1f, 0.1f).SetLoops(2, LoopType.Yoyo);
+    public void HurdleHitWallTween(){
         punchSequence.Kill();
         punchSequence = DOTween.Sequence();
         punchSequence.Append(gameplayRefs.playerOrbitImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
-        //punchSequence.Join(gameplayRefs.playerOrbitGlowImg.transform.DOPunchScale(Vector3.one * 0.35f, 0.5f, 10));
-        //punchSequence.Join(gameplayRefs.playerOrbitGlowImg.DOFade(0.4f, 0.25f).SetLoops(2, LoopType.Yoyo));
         punchSequence.Play();
     }
 
-    //public void Flash(){
-    //    flashSequence.Kill();
-    //    flashSequence = DOTween.Sequence();
-    //    flashSequence.Append(gameplayRefs.flashImg.DOFade(1f,0.2f).SetLoops(2, LoopType.Yoyo));
-    //    flashSequence.Play();
-
-    //}
 
 }

@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -77,17 +77,20 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -107,6 +110,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &81330106
 GameObject:
@@ -188,7 +193,6 @@ GameObject:
   - component: {fileID: 130061587}
   - component: {fileID: 130061586}
   - component: {fileID: 130061590}
-  - component: {fileID: 130061591}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -241,11 +245,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &130061589
 Transform:
   m_ObjectHideFlags: 0
@@ -271,20 +275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 12
-  endValue: 3
+  endValue: 2
   duration: 0.1
---- !u!114 &130061591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 130061585}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 684c92650917f4c43956001bb9b7c154, type: 2}
 --- !u!1 &191166930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,8 +2661,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 680a95aafdc0a472ab1267492fc570a2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: f75377a2a575c4085ad1421b716827fd, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
@@ -2754,7 +2746,6 @@ MonoBehaviour:
   audioSource: {fileID: 1528810559}
   updateStep: 0.03
   sampleDataLength: 1024
-  canBeat: 0
   playAlone: 0
 --- !u!1001 &1546486679
 Prefab:
@@ -3205,86 +3196,66 @@ MonoBehaviour:
   - {fileID: 198530185125881536, guid: 60d9ef126686f4ef0af881c47c5b1905, type: 2}
   - {fileID: 198228583597399116, guid: 51b7b0afd815041109e117da54248b83, type: 2}
   playerCollision: 1
-  minHurdleDistance: 10
-  maxHurdleDistance: 10
   hurdleDistanceCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: -0.012500763
-      value: 0.99664307
-      inSlope: -2.7402735
-      outSlope: -2.7402735
+      time: 0.0018416569
+      value: 10.00024
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.50657916
-      value: 0.40950242
-      inSlope: -0.21636486
-      outSlope: -0.21636486
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.9841262
-      value: 0.17521574
-      inSlope: -1.9577146
-      outSlope: -1.9577146
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.99969375
-      value: 0.019458901
-      inSlope: -2.4947395
-      outSlope: -2.4947395
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  minHurdleFillAmount: 0.7
-  maxHurdleFillAmount: 0.8
-  hurdleFillAmountCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: -1.0456997
-      outSlope: -1.0456997
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.9942627
-      value: -0.0030670166
-      inSlope: -1.067398
-      outSlope: -1.067398
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  minScaleSpeed: 0.18
-  maxScaleSpeed: 0.15
-  scaleSpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: -0.018749237
-      value: 0.017547607
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.10965344
-      value: 0.4958712
-      inSlope: 1.7182529
-      outSlope: 1.7182529
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
+      time: 1.0018415
+      value: 10.00024
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  minRotationOffset: 120
-  maxRotationOffset: 180
+  hurdleFillAmountCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.7000122
+      inSlope: 0.06265427
+      outSlope: 0.06265427
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7
+      value: 0.7512565
+      inSlope: 0.17270358
+      outSlope: 0.17270358
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 1.3266785
+      outSlope: 1.3266785
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  scaleSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.18
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0.17
+      inSlope: -0.020682564
+      outSlope: -0.020682564
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   rotationOffsetCurve:
     serializedVersion: 2
     m_Curve:
@@ -3303,34 +3274,26 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  minOrbitRotateSpeed: 0.5
-  maxOrbitRotateSpeed: 3
   orbitRotationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
-      inSlope: 0.29771397
-      outSlope: 0.29771397
+      value: 1
+      inSlope: -0.15267019
+      outSlope: -0.15267019
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.21856886
-      value: 0.04071799
-      inSlope: 1.0000169
-      outSlope: 1.0000169
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.42358613
-      value: 0.65835303
-      inSlope: 1.3199449
-      outSlope: 1.3199449
+      time: 0.7
+      value: 2.131036
+      inSlope: 3.0827522
+      outSlope: 3.0827522
       tangentMode: 0
     - serializedVersion: 2
       time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
+      value: 3
+      inSlope: -0.2647752
+      outSlope: -0.2647752
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -3636,9 +3599,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 30}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 30
 --- !u!50 &1650243715
 Rigidbody2D:
   serializedVersion: 4
