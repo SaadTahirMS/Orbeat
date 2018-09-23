@@ -250,7 +250,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void ChangeHurdleFillAmount(){
         print("Fill Amount: " + Constants.hurdleFillAmount);
-        orbitControllers[0].hurdleController.ChangeFillAmount();
+        orbitControllers[1].hurdleController.ChangeFillAmount();
     }
 
     public void PlayerHitHurdle()
@@ -279,10 +279,15 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         orbitControllers = mainOrbitController.GetOrbits();
         gameplayViewController.HurdleHitWallTween();
-       
-        if (!aaa)
+        mainOrbitController.StartRotate();
+        if (!specialMode)
         {
             ProgressionCurves();
+            if (score >= Constants.hurdleFillChangeScore && !specialMode)
+            {
+                orbitControllers[1].StopRotate();
+                ChangeHurdleFillAmount();
+            }
         }
         else
         {
@@ -293,7 +298,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
             {
                 SoundController.Instance.PlayDialogSound(SFX.LevelUp);
                 ProgressionCurves();
-                aaa = false;
+                specialMode = false;
                 mainOrbitController.StopScale();
                 mainOrbitController.Scale();
             }
@@ -321,19 +326,16 @@ public class GameplayContoller : Singleton<GameplayContoller>
         orbitControllers[0].StopSpecialRotation();
         mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
         mainOrbitController.SortOrbits();   //sort all the orbits 
-        if (score >= Constants.hurdleFillChangeScore)
-        {
-            ChangeHurdleFillAmount();
-        }
+
     }
 
-    bool aaa = false;
+    bool specialMode = false;
     int hurdleCount = 0;
 
     private void SpecialMode()
     {
         hurdleCount = 0;
-        aaa = true;
+        specialMode = true;
         orbitHitId = orbitControllers[0].id;
 
         normalModeTimer = 1000;
@@ -347,7 +349,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         Constants.hurdlesDistance = Vector3.one;
         Constants.hurdleFillAmount = 0.55f;
         mainOrbitController.SetNewRotations(0, randomSpecialValue == (int)ModeType.AntiClockWise ? -1 : 1,randomSpecialValue == (int)ModeType.PingPongMode? 0f : 2f);
-
+        mainOrbitController.StartRotate();
         for (int i = 0; i < mainOrbitController.GetOrbits().Count; i++)
         {
             SetIndividualHurdleFillAmount(orbitControllers[i]);
