@@ -79,7 +79,7 @@ public class GameOverController : BaseController {
 		GameStateController.Instance.StopCoroutine (DecreaseReviveFillerCR ());
 		GameStateController.Instance.StopCoroutine (ShowRestartButtonCr ());
 		EventManager.DoFireCloseViewEvent ();
-        GameplayContoller.Instance.ReviveGame();
+        GameplayContoller.Instance.Revive = true;
 	}
 
 	private void OnRewardBaseVideoNotLoaded()
@@ -94,7 +94,7 @@ public class GameOverController : BaseController {
 
 	private void HandleReviveFiller()
 	{
-		if (hasAlreadyWatchedVideo) {
+        if (hasAlreadyWatchedVideo || !ThirdPartyController.Instance.admobController.IsRewardedVideoLoaded()) {
 			hasAlreadyWatchedVideo = false;
 			gameOverViewController.SetReviveButton (false);
 //			gameOverViewController.SetGameOverButtons (true);

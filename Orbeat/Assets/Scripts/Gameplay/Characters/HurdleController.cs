@@ -9,7 +9,6 @@ public class HurdleController : MonoBehaviour {
     public ArcCollider2D arcCollider;
     public EdgeCollider2D edgeCollider;
     public Image hurdleImage;
-    private bool fillAmountChangeFlag = true;
     private float fillAmount;
 
     public void SetFillAmount(float fillAmount , float duration){
@@ -18,7 +17,6 @@ public class HurdleController : MonoBehaviour {
         hurdleImage.DOFillAmount(fillAmount, duration);
         arcCollider.totalAngle = (int)(fillAmount * 360);
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
-        fillAmountChangeFlag = true;
     }
 
     public void ChangeFillAmount(){
@@ -31,5 +29,14 @@ public class HurdleController : MonoBehaviour {
 
     public float GetFillAmount(){
         return fillAmount;
+    }
+
+    public void StartFade(){
+        hurdleImage.DOFade(0, Constants.hurdleFadeTime).SetLoops(12, LoopType.Yoyo);
+    }
+
+    public void ResetFade(){
+        //hurdleImage.DOKill();
+        hurdleImage.DOFade(1, 0.1f);
     }
 }

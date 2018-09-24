@@ -1,6 +1,7 @@
 ﻿ 
 public enum GameState
 {
+    Initial,
     Start,
     Revive,
     Quit
@@ -41,5 +42,4 @@ public enum ModeType
     ClockWise = 1,
     AntiClockWise = 2,
     PingPongMode = 3,
-
 }

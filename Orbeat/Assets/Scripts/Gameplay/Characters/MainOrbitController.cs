@@ -102,6 +102,19 @@ public class MainOrbitController : MonoBehaviour
         }
     }
 
+    public void BeginHurdleFade(){
+        for (int i = 0; i < orbitControllers.Count;i++){
+            orbitControllers[i].hurdleController.StartFade();
+        }
+    }
+
+    public void ResetHurdleFade(){
+        for (int i = 0; i < orbitControllers.Count; i++)
+        {
+            orbitControllers[i].hurdleController.ResetFade();
+        }
+    }
+
     private int AssignDirection()
     {
         int direction = Random.Range(0, 2);

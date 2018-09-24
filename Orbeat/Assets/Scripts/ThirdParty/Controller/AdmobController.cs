@@ -18,6 +18,7 @@ public class AdmobController
 	private RewardBasedVideoAd rewardBasedVideo;
 
 	private bool isBannerLoaded = false;
+    private bool giveReward = false;
 
 	#endregion Variables
 
@@ -303,12 +304,17 @@ public class AdmobController
 
 	private void HandleRewardBasedVideoClosed(object sender, EventArgs args)
 	{
-		ThirdPartyEventManager.DoFireRewardBaseVideoClosedEvent ();
-		LoadRewardBasedVideo ();
+        if(giveReward){
+            giveReward = false;
+            ThirdPartyEventManager.DoFireRewardBaseVideoClosedEvent ();
+            LoadRewardBasedVideo();
+        
+        }
 	}
 
 	private void HandleRewardBasedVideoRewarded(object sender, Reward args)
 	{
+        giveReward = true;
 	}
 
 	private void HandleRewardBasedVideoLeftApplication(object sender, EventArgs args)
