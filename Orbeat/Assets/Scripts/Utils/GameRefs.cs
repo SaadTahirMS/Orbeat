@@ -6,4 +6,6 @@ public class GameRefs : MonoBehaviour {
 
 	public ViewRefs viewRefs;
 	public ProgressionBarRefs progressionBarRefs;
+    public GameObject loadingScreen;
+
 }
