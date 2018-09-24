@@ -249,7 +249,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     }
 
     private void ChangeHurdleFillAmount(){
-        print("Fill Amount: " + Constants.hurdleFillAmount);
+        //print("Fill Amount: " + Constants.hurdleFillAmount);
         orbitControllers[1].hurdleController.ChangeFillAmount();
     }
 
@@ -283,11 +283,22 @@ public class GameplayContoller : Singleton<GameplayContoller>
         if (!specialMode)
         {
             ProgressionCurves();
-            if (score >= Constants.hurdleFillChangeScore && !specialMode)
-            {
+            //if (score >= Constants.hurdleFillChangeScore && !specialMode)
+            //{
+            //    orbitControllers[1].StopRotate();
+            //    ChangeHurdleFillAmount();
+            //}
+
+            if(orbitControllers[1].hurdleController.GetFillAmount() >= 0.75f && !specialMode){
                 orbitControllers[1].StopRotate();
                 ChangeHurdleFillAmount();
             }
+
+            //if (score%20 == 0 && !specialMode)
+            //{
+            //    orbitControllers[1].StopRotate();
+            //    ChangeHurdleFillAmount();
+            //}
         }
         else
         {
@@ -342,8 +353,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         randomSpecialValue = Random.Range(1, 4);
 
-        //randomSpecialValue = 2;
-
         addInitialDistance = true;
         mainOrbitController.StopScale();
         Constants.hurdlesDistance = Vector3.one;
@@ -389,7 +398,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
     {
         mainOrbitController.SetNewRotations(0, -1, 7.5f, false);
         Constants.scaleSpeed = 1.5f;
-
         scaleSpeed = Constants.scaleSpeed;
         mainOrbitController.Scale();
     }
@@ -405,6 +413,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void ProgressionCurves(){
         float x = score / Constants.difficultyLevel;
+        //print(x);
         //float value;
 
         Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdleDistanceCurve.Evaluate(x);// * gameplayRefs.maxHurdleDistance;

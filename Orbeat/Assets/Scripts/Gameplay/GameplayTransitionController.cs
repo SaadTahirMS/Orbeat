@@ -61,7 +61,7 @@ public class GameplayTransitionController : MonoBehaviour
     {
         //Time.timeScale = 0.1f;
         endSequence = DOTween.Sequence();
-        Tween playerScale = PlayerScale(Vector3.zero, Constants.transitionTime);
+        Tween playerScale = PlayerYoyoScale();//(Vector3.zero, Constants.transitionTime);
         endSequence.Append(playerScale);
         endSequence.OnComplete(EndTransitionComplete);
         endSequence.Play();
@@ -86,6 +86,10 @@ public class GameplayTransitionController : MonoBehaviour
     private Tween PlayerScale(Vector3 endValue, float duration)
     {
         return playerController.transform.DOScale(endValue, duration).SetEase(Ease.Linear);
+    }
+
+    private Tween PlayerYoyoScale(){
+        return playerController.transform.DOScale(Vector3.one * 1.5f, Constants.transitionTime/2).SetLoops(6, LoopType.Yoyo);
     }
 
     private void EndTransitionComplete(){
