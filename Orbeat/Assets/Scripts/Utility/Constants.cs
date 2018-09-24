@@ -57,7 +57,7 @@ public static class Constants {
     public static Vector3 initialDistanceAfterSpecial = new Vector3(27f, 27f, 27f);
     public static float initialDistanceAfterSpecialFactor = 4.3f; // 0.6667/ min speed
     public static int hurdleFillChangeScore = 40;
-    public static float hurdleFadeTime = 0.25f;
+    public static float hurdleFadeTime = 0.75f;
     public static float minFadeTimer = 5f;
     public static float maxFadeTimer = 7f;
 

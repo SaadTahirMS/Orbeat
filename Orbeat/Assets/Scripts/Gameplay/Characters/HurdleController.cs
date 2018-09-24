@@ -32,7 +32,7 @@ public class HurdleController : MonoBehaviour {
     }
 
     public void StartFade(){
-        hurdleImage.DOFade(0, Constants.hurdleFadeTime).SetLoops(12, LoopType.Yoyo);
+        hurdleImage.DOFade(0, Constants.hurdleFadeTime).SetLoops(6, LoopType.Yoyo);
     }
 
     public void ResetFade(){
