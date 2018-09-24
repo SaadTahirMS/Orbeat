@@ -53,6 +53,11 @@ public class GameplayTransitionController : MonoBehaviour
         startSequence.Append(playerPosition);
 		startSequence.Join(playerScale);
         startSequence.Play();
+        startSequence.OnComplete(StartTransitionComplete);
+    }
+
+    private void StartTransitionComplete(){
+        
     }
     #endregion
 

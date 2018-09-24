@@ -69,5 +69,4 @@ public class GameplayViewController : IController
         punchSequence.Play();
     }
 
-
 }

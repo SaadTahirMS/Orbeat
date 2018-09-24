@@ -15,6 +15,7 @@ public class GameplayRefs : MonoBehaviour {
     public GameObject hexagonParticles;
     public InputController inputController;
     public Camera cam;
+    public GameObject tutorialBtns;
 
     //Coloring objects
     public List<Image> innerOrbitsImg;

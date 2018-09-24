@@ -59,8 +59,11 @@ public class GameplayContoller : Singleton<GameplayContoller>
         hurdleCount = 0;
         ResetOrbitList();
         SetRandomColorTimer();
-        ResetHurdleFade();
-        ResetHurdleFill();
+        hurdleFadeID = -1;
+        hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
+        hurdleFadeFlag = false;
+        hurdleFillTimer = 5f;
+        hurdleFillFlag = false;
 
     }
 
@@ -84,9 +87,15 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private void InitializeSoundEffect()
     {
         //SoundController.Instance.SetPitch(1f,true);
+        //PlayerPrefs.DeleteKey("Tutorial");
         SoundController.Instance.SetVolume(0.7f);
-
-        StartCoroutine(GameStartTimeScaleCoroutine());
+        if(PlayerPrefs.HasKey("Tutorial")){
+            print("Has tutorial key");
+            StartCoroutine(GameStartTimeScaleCoroutine());
+        }
+        else{
+            SoundController.Instance.PlayDialogSound(SFX.Ready);
+        }
     }
 
     private IEnumerator PlayGoSoundCR()
@@ -166,11 +175,19 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 //SoundController.Instance.SetAudioTime(0.05f);
                 SoundController.Instance.PlayMusic();
                 playerController.ChangeState(GameState.Start);
-                mainOrbitController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
                 gameplayRefs.inputController.GameStart(true);
-                SetHurdleFillAmount();
-                SetRandomColor();
+                if(PlayerPrefs.HasKey("Tutorial")){
+                    mainOrbitController.ChangeState(GameState.Start);
+                    SetHurdleFillAmount();
+                    SetRandomColor();
+                    tutorialComplete = true;
+                }
+                else{
+                    tutorialComplete = false;
+                    gameplayRefs.tutorialBtns.SetActive(true);
+                }
+
                 break;
             case GameState.Revive:
                 //print("Revive Game");
@@ -195,6 +212,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 //ResetHurdleFillAmount();
                 SoundController.Instance.SetPitch(0.95f, true);
                 SoundController.Instance.SetVolume(0.25f);
+                gameplayRefs.tutorialBtns.SetActive(false);
                 break;
 
         }
@@ -217,6 +235,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         Time.timeScale = 1;
     }
 
+
     public void ReviveGame()
     {
         ChangeGameState(GameState.Revive);
@@ -232,27 +251,53 @@ public class GameplayContoller : Singleton<GameplayContoller>
         }
     }
 
-    private void Update()
-    {
-        if(reviveGame)
-        {
-            reviveGame = false;
-            ReviveGame();
-        }
-        if (gameState == GameState.Start || gameState == GameState.Revive)
-        {
-            normalModeTimer -= Time.deltaTime;
+    bool tutorialComplete = false;
+
+    public void TutorialBtn(){
+        //tutorialComplete = true;
+        if(!PlayerPrefs.HasKey("Tutorial")){
+            SoundController.Instance.PlayDialogSound(SFX.Go);
+            PlayerPrefs.SetInt("Tutorial", 1);
+            tutorialComplete = true;
+            mainOrbitController.ChangeState(GameState.Start);
+            SetHurdleFillAmount();
+            SetRandomColor();
         }
 
-        if ((gameState == GameState.Start || gameState == GameState.Revive) && !hurdleFadeFlag && !specialMode)
-        {
-            hurdleFadeTimer -= Time.deltaTime;
-            //print(hurdleFadeTimer);
-            if (hurdleFadeTimer <= 0f)
+    }
+
+    private void Update()
+    {
+        if(tutorialComplete){
+            if (gameState == GameState.Start || gameState == GameState.Revive)
             {
-                HurdleFadeMode();
-                hurdleFadeFlag = true;
+                normalModeTimer -= Time.deltaTime;
             }
+
+            if ((gameState == GameState.Start || gameState == GameState.Revive) && !hurdleFadeFlag && !specialMode)
+            {
+                hurdleFadeTimer -= Time.deltaTime;
+                //print(hurdleFadeTimer);
+                if (hurdleFadeTimer <= 0f)
+                {
+                    HurdleFadeMode();
+                    hurdleFadeFlag = true;
+                }
+            }
+
+         
+            if (hurdleFillFlag)
+            {
+                hurdleFillTimer -= Time.deltaTime;
+                if (hurdleFillTimer <= 0f)
+                {
+                    ResetHurdleFill();
+                }
+            }
+
+            if (gameplayViewController != null && gameState == GameState.Start)
+                gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
+
         }
 
         if (colorController != null && (gameState == GameState.Start || gameState == GameState.Revive) && !hurdleFadeFlag)
@@ -260,25 +305,13 @@ public class GameplayContoller : Singleton<GameplayContoller>
             ChangeColors();
         }
 
-        //if(hurdleFadeFlag){
-        //    hurdleFadeTimer -= Time.deltaTime;
-        //    if (hurdleFadeTimer <= 0f){
-        //        ResetHurdleFade();
-        //    }
-        //}
 
-        if (hurdleFillFlag)
+        if(reviveGame)
         {
-            hurdleFillTimer -= Time.deltaTime;
-            if (hurdleFillTimer <= 0f)
-            {
-                ResetHurdleFill();
-            }
+            reviveGame = false;
+            ReviveGame();
         }
-
-        if (gameplayViewController != null && gameState == GameState.Start)
-            gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
-
+       
 
 #if UNITY_ANDROID
 
@@ -442,6 +475,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
         normalModeTimer = Random.Range(Constants.minNormalModeTime, Constants.maxNormalModeTime);
 
         randomSpecialValue = Random.Range(1, 5);
+
+        randomSpecialValue = 4;
+
         if(randomSpecialValue >= 4){
             DecideSpecialMode();
         }
@@ -528,8 +564,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
         orbitControllers[0].hurdleController.ResetFade();
         orbitControllers[0].StartRotate();
         hurdleFadeID = -1;
-        hurdleFadeTimer = Random.Range(Constants.minFadeTimer,Constants.maxFadeTimer);
+        hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
         hurdleFadeFlag = false;
+
     }
 
     private void HurdleFillMode()
