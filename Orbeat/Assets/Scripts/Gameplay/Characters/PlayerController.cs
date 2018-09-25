@@ -88,12 +88,24 @@ public class PlayerController: MonoBehaviour {
         player.Rotate(Vector3.back * Time.deltaTime * deltaPosition * Constants.playerScrollRotationSpeed);
     }
 
-    public void MoveLeft(){
-        player.Rotate(Vector3.forward * RotationSpeed);
+    public void MoveLeft(float delay)
+    {
+        player.Rotate(Vector3.forward * delay * RotationSpeed);
     }
 
-    public void MoveRight(){
-        player.Rotate(Vector3.back * RotationSpeed);
+    public void MoveRight(float delay)
+    {
+        player.Rotate(Vector3.back * delay * RotationSpeed);
+    }
+
+    public void MoveLeftRB( )
+    {
+        playerRB.AddTorque(100);
+    }
+
+    public void MoveRightRB( )
+    {
+        playerRB.AddTorque(-100);
     }
 
     public void MoveTapLeft()

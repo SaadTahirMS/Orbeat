@@ -1481,42 +1481,6 @@ MonoBehaviour:
       rgba: 4283230462
   - bgColor:
       serializedVersion: 2
-      rgba: 4278190155
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4278190240
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4278190335
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4278190335
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4283498496
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4288675840
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4294901760
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4294901760
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
       rgba: 4283498575
     playerColor:
       serializedVersion: 2
@@ -3615,7 +3579,7 @@ MonoBehaviour:
       tangentMode: 0
     - serializedVersion: 2
       time: 1
-      value: 0.17
+      value: 0.15
       inSlope: -0.020682564
       outSlope: -0.020682564
       tangentMode: 0
@@ -3646,20 +3610,20 @@ MonoBehaviour:
     - serializedVersion: 2
       time: 0
       value: 1
-      inSlope: -0.15267019
-      outSlope: -0.15267019
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.7
-      value: 2.131036
-      inSlope: 3.0827522
-      outSlope: 3.0827522
+      time: 0.50145394
+      value: 2.297765
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 1
-      value: 3
-      inSlope: -0.2647752
-      outSlope: -0.2647752
+      time: 0.9942627
+      value: 1.0105438
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

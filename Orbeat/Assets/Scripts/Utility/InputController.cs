@@ -28,6 +28,7 @@ public class InputController : MonoBehaviour
         gameStart = flag;
     }
 
+    float delay = 0.5f;
     private void Update()
     {
         if (gameStart)
@@ -35,11 +36,23 @@ public class InputController : MonoBehaviour
             //For Keyboard
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                player.MoveLeft();
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    StartCoroutine(DelayDown());
+                }
+                player.MoveLeft(delay);
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                player.MoveRight();
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    StartCoroutine(DelayDown());
+                }
+                player.MoveRight(delay);
+            }
+            if(Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)){
+                StopAllCoroutines();
+                delay = 0.5f;
             }
 
             switch (inputMethod)
@@ -47,16 +60,22 @@ public class InputController : MonoBehaviour
                 case "Buttons":
                     if (Input.GetMouseButton(0))
                     {
+                        if(Input.GetMouseButtonDown(0)){
+                            StartCoroutine(DelayDown());
+                        }
                         if (Input.mousePosition.x > screenCenterX)
                         {
-                            player.MoveRight();
+                            player.MoveRight(delay);
                         }
                         else if (Input.mousePosition.x < screenCenterX)
                         {
-                            player.MoveLeft();
+                            player.MoveLeft(delay);
                         }
                     }
-
+                    if(Input.GetMouseButtonUp(0)){
+                        StopAllCoroutines();
+                        delay = 0.5f;
+                    }
                     break;
                 case "Scroll V1":
                     //Constants.difficultyLevel = 50;
@@ -100,5 +119,10 @@ public class InputController : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator DelayDown(){
+        yield return new WaitForSeconds(0.1f);
+        delay = 1f;
     }
 }

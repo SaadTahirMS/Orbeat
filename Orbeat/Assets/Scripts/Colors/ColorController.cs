@@ -7,10 +7,10 @@ public class ColorController: MonoBehaviour {
     private int colorIndex = 0;
 
     public ColorSet GetRandomColorSet(){
-        //int randomColorSet = Random.Range(0, colorSets.Count);
-        //return colorSets[randomColorSet];
-        int randomColorSet = Random.Range(11, colorSets.Count);
+        int randomColorSet = Random.Range(0, colorSets.Count);
         return colorSets[randomColorSet];
+        //int randomColorSet = Random.Range(11, colorSets.Count);
+        //return colorSets[randomColorSet];
     }
 	
     public ColorSet GetIncrementalColorSet()
