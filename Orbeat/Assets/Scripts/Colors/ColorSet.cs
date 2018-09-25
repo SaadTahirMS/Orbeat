@@ -8,11 +8,7 @@ public class ColorSet {
     public Color32 bgColor;
     public Color32 playerColor;
     public Color32 playerOrbitColor;
-    public Color32 playerOrbitGlowColor;
     public Color32 hurdleColor;
-    //public Color32 flashColor;
     public Color32 scoreColor;
     public Color32 explosionColor;
-	public Color32 barColor;
-	public Color32 barfillColor;
 }

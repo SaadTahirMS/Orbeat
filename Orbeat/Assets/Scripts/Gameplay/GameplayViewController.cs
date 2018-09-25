@@ -42,7 +42,7 @@ public class GameplayViewController : IController
         gameplayRefs.playerObjImg.DOColor(colorSet.playerColor,Constants.colorTransitionTime);
 
         gameplayRefs.playerOrbitImg.DOColor(colorSet.playerOrbitColor,Constants.colorTransitionTime);
-        gameplayRefs.playerOrbitGlowImg.color = colorSet.playerOrbitGlowColor;
+        //gameplayRefs.playerOrbitGlowImg.color = colorSet.playerOrbitGlowColor;
 
         for (int i = 0; i < gameplayRefs.hurdleOrbitsImg.Count;i++){
             gameplayRefs.hurdleOrbitsImg[i].DOColor(colorSet.hurdleColor,Constants.colorTransitionTime);
@@ -55,7 +55,7 @@ public class GameplayViewController : IController
             gameplayRefs.particles[i].startColor = colorSet.explosionColor;
         }
 
-		EventManager.DoFireUpdateFillBarColorEvent (colorSet.barColor,colorSet.barfillColor);
+		//EventManager.DoFireUpdateFillBarColorEvent (colorSet.barColor,colorSet.barfillColor);
     }
 
     public void LookAtTransform(Vector3 target,float offset){

@@ -90,7 +90,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         //PlayerPrefs.DeleteKey("Tutorial");
         SoundController.Instance.SetVolume(0.7f);
         if(PlayerPrefs.HasKey("Tutorial")){
-            print("Has tutorial key");
+            //print("Has tutorial key");
             StartCoroutine(GameStartTimeScaleCoroutine());
         }
         else{
@@ -170,9 +170,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ResetGame();
                 ResetScore();
                 ProgressionCurves();
-                SoundController.Instance.SetPitch(1f, false);
+                SoundController.Instance.SetPitch(1f, true);
                 SoundController.Instance.SetVolume(0.7f);
-                //SoundController.Instance.SetAudioTime(0.05f);
+                SoundController.Instance.SetAudioTime(0.03f);
                 SoundController.Instance.PlayMusic();
                 playerController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
@@ -365,6 +365,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     public void HurdleHitWall()
     {
+        Vibration.Vibrate(50);
         NormalMode();
         ChangeColors();
         if (IsNormalModeChanged())
@@ -434,7 +435,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         if (hurdleFillFlag)
         {
-            print("hurdleFillFlag true");
+            //print("hurdleFillFlag true");
             orbitControllers[2].hurdleController.SetFillAmount(1, 0.1f);
             ChangeHurdleFillAmount();
         }
@@ -475,8 +476,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
         normalModeTimer = Random.Range(Constants.minNormalModeTime, Constants.maxNormalModeTime);
 
         randomSpecialValue = Random.Range(1, 5);
-
-        randomSpecialValue = 4;
 
         if(randomSpecialValue >= 4){
             DecideSpecialMode();
@@ -550,7 +549,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     //this runs just like normal mode but fades out and in the hurdles
     private void HurdleFadeMode(){
-        print("HurdleFadeMode");
+        //print("HurdleFadeMode");
         //mainOrbitController.BeginHurdleFade();
         orbitControllers[3].hurdleController.StartFade();
         orbitControllers[3].StopRotate();
@@ -559,7 +558,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void ResetHurdleFade()
     {
-        print("ResetHurdleFade");
+        //print("ResetHurdleFade");
         //mainOrbitController.ResetHurdleFade();
         orbitControllers[0].hurdleController.ResetFade();
         orbitControllers[0].StartRotate();
@@ -571,7 +570,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void HurdleFillMode()
     {
-        print("HurdleFillMode");
+        //print("HurdleFillMode");
         hurdleFillFlag = true;
         mainOrbitController.StopRotate();
         Constants.scaleSpeed = 0.25f;
@@ -584,7 +583,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void ResetHurdleFill()
     {
-        print("ResetHurdleFill");
+        //print("ResetHurdleFill");
         orbitControllers[1].hurdleController.SetFillAmount(0.5f, 0.1f);
         hurdleFillTimer = 5f;
         hurdleFillFlag = false;
