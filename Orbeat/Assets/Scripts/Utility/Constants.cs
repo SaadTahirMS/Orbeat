@@ -60,6 +60,8 @@ public static class Constants {
     public static float hurdleFadeTime = 0.75f;
     public static float minFadeTimer = 5f;
     public static float maxFadeTimer = 7f;
+    public static float minFillTimer = 5f;
+    public static float maxFillTimer = 7f;
 
     //Orbits
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed

@@ -19,12 +19,35 @@ public class HurdleController : MonoBehaviour {
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
     }
 
+    public void SetFillAmountWithTime(float fillAmount, float changeDuration)
+    {
+        print("SetFillAmountWithTime");
+        //hurdleImage.fillAmount = 0f;
+        this.fillAmount = fillAmount;
+        hurdleImage.DOFillAmount(fillAmount, 0.1f);
+        arcCollider.totalAngle = (int)(fillAmount * 360);
+        edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
+        StartCoroutine(ChangeFillAmountv2(changeDuration));
+    }
+
     public void ChangeFillAmount(){
         //print("Changing fill amount");
         float value = fillAmount - 0.5f;
         hurdleImage.DOFillAmount(value, 0.25f);//.SetLoops(2,LoopType.Yoyo);
         arcCollider.totalAngle = (int)(value * 360);
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
+    }
+
+    IEnumerator ChangeFillAmountv2(float changeDuration)
+    {
+        //print("Changing fill amount");
+        print("ChangeFillAmountv2");
+        yield return new WaitForSeconds(changeDuration);
+        float value = fillAmount - 0.5f;
+        hurdleImage.DOFillAmount(value, 0.35f);//.SetLoops(2,LoopType.Yoyo);
+        arcCollider.totalAngle = (int)(value * 360);
+        edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
+        print("Changed");
     }
 
     public float GetFillAmount(){

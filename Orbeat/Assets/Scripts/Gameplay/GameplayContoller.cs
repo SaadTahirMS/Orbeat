@@ -27,11 +27,11 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private float normalModeTimer;
     private float colorTimer;
     private int orbitHitId = 0;
-    private bool hurdleFadeFlag = false;
-    private float hurdleFadeTimer = 5f;
+    //private bool hurdleFadeFlag = false;
+    //private float hurdleFadeTimer = 5f;
     private bool hurdleFillFlag = false;
     private float hurdleFillTimer = 10f;
-    int hurdleFadeID = -1;
+    //int hurdleFadeID = -1;
 
     private bool reviveGame;
 
@@ -59,12 +59,11 @@ public class GameplayContoller : Singleton<GameplayContoller>
         hurdleCount = 0;
         ResetOrbitList();
         SetRandomColorTimer();
-        hurdleFadeID = -1;
-        hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
-        hurdleFadeFlag = false;
-        hurdleFillTimer = 5f;
-        hurdleFillFlag = false;
-
+        //hurdleFadeID = -1;
+        //hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
+        //hurdleFadeFlag = false;
+        ResetHurdleFillSettings();
+        StopAllCoroutinesOnHurdles();
     }
 
     private bool isHighScoreMade;
@@ -268,39 +267,49 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void Update()
     {
-        if(tutorialComplete){
+        if (tutorialComplete)
+        {
             if (gameState == GameState.Start || gameState == GameState.Revive)
             {
                 normalModeTimer -= Time.deltaTime;
             }
 
-            if ((gameState == GameState.Start || gameState == GameState.Revive) && !hurdleFadeFlag && !specialMode)
-            {
-                hurdleFadeTimer -= Time.deltaTime;
-                //print(hurdleFadeTimer);
-                if (hurdleFadeTimer <= 0f)
-                {
-                    HurdleFadeMode();
-                    hurdleFadeFlag = true;
+            //if ((gameState == GameState.Start || gameState == GameState.Revive) && !hurdleFadeFlag && !specialMode && IsHurdleFadeScoreReached())
+            //{
+            //    hurdleFadeTimer -= Time.deltaTime;
+            //    //print(hurdleFadeTimer);
+            //    if (hurdleFadeTimer <= 0f)
+            //    {
+            //        HurdleFadeMode();
+            //        hurdleFadeFlag = true;
+            //    }
+            //}
+
+            //the score is reached and is not special mode, so start timer and allow fillMode on timer complete
+            if ((gameState == GameState.Start || gameState == GameState.Revive) && !specialMode && !hurdleFillFlag && IsHurdleFillScoreReached()){
+                hurdleFillTimer -= Time.deltaTime;
+                print("hurdleFillTimer: " + hurdleFillTimer);
+                if (hurdleFillTimer <= 0f){
+                    hurdleFillFlag = true; //now the next hurdle that spawns at the last will get fillModeSettings in normalMode
                 }
             }
 
-         
-            if (hurdleFillFlag)
-            {
-                hurdleFillTimer -= Time.deltaTime;
-                if (hurdleFillTimer <= 0f)
-                {
-                    ResetHurdleFill();
-                }
-            }
+
+            //if (hurdleFillFlag)
+            //{
+            //    hurdleFillTimer -= Time.deltaTime;
+            //    if (hurdleFillTimer <= 0f)
+            //    {
+            //        ResetHurdleFill();
+            //    }
+            //}
 
             if (gameplayViewController != null && gameState == GameState.Start)
                 gameplayViewController.LookAtTransform(playerController.transform.position, Constants.cameraOffset);
 
         }
 
-        if (colorController != null && (gameState == GameState.Start || gameState == GameState.Revive) && !hurdleFadeFlag)
+        if (colorController != null && (gameState == GameState.Start || gameState == GameState.Revive))// && !hurdleFadeFlag)
         {
             ChangeColors();
         }
@@ -345,11 +354,16 @@ public class GameplayContoller : Singleton<GameplayContoller>
         orbit.hurdleController.SetFillAmount(Constants.hurdleFillAmount, Constants.fillAmountTime);
     }
 
-    private void ChangeHurdleFillAmount()
+    private void SetIndividualHurdleFillAmountWithTime(OrbitController orbit,float changeTime)
     {
-        //print("Fill Amount: " + Constants.hurdleFillAmount);
-        orbitControllers[1].hurdleController.ChangeFillAmount();
+        orbit.hurdleController.SetFillAmountWithTime(1f, changeTime);
     }
+
+    //private void ChangeHurdleFillAmount()
+    //{
+    //    //print("Fill Amount: " + Constants.hurdleFillAmount);
+    //    orbitControllers[1].hurdleController.ChangeFillAmount();
+    //}
 
     public void PlayerHitHurdle()
     {
@@ -368,7 +382,11 @@ public class GameplayContoller : Singleton<GameplayContoller>
         Vibration.Vibrate(50);
         NormalMode();
         ChangeColors();
-        if (IsNormalModeChanged())
+        //if (IsNormalModeChanged())
+        //{
+        //    SpecialMode();
+        //}
+        if (IsNormalModeScoreReached())
         {
             SpecialMode();
         }
@@ -380,40 +398,15 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         orbitControllers = mainOrbitController.GetOrbits();
         gameplayViewController.HurdleHitWallTween();
-
-        //mainOrbitController.StartRotate();
         if (!specialMode)
         {
-
-
-            if (hurdleFadeID == orbitControllers[0].id && hurdleFadeFlag)
-                ResetHurdleFade();
-
+            //if (hurdleFadeID == orbitControllers[0].id && hurdleFadeFlag)
+                //ResetHurdleFade();
             ProgressionCurves();
-            //if (score >= Constants.hurdleFillChangeScore && !specialMode)
-            //{
-            //    orbitControllers[1].StopRotate();
-            //    ChangeHurdleFillAmount();
-            //}
 
-            //if (hurdleFillFlag)
-            //{
-            //    Constants.hurdleFillAmount = 1f;
-            //    SetHurdleFillAmount();
-            //    orbitControllers[1].StopRotate();
-            //    ChangeHurdleFillAmount();
-            //}
-
-            //if (score%20 == 0 && !specialMode)
-            //{
-            //    orbitControllers[1].StopRotate();
-            //    ChangeHurdleFillAmount();
-            //}
         }
         else
         {
-            
-
             hurdleCount++;
             if (hurdleCount >= 4)
             {
@@ -425,26 +418,39 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 mainOrbitController.StartRotate();
             }
         }
-
-
         Constants.hurdlesDistance = Vector3.one * 10;
         AddScore(1);
         //float p = 1 + score / 1000f;
         //SoundController.Instance.SetPitch(p,false);
 
 
-        if (hurdleFillFlag)
-        {
-            //print("hurdleFillFlag true");
-            orbitControllers[2].hurdleController.SetFillAmount(1, 0.1f);
-            ChangeHurdleFillAmount();
+        //if (hurdleFillFlag)
+        //{
+        //    orbitControllers[2].hurdleController.SetFillAmount(1, 0.1f);
+        //    ChangeHurdleFillAmount();
+        //}
+        //else{
+            
+        //    SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
+        //    mainOrbitController.AssignNewRotation();
+        //    orbitControllers[0].StopSpecialRotation();
+        //}
+
+        //timer has completed and is not in special mode
+        if(hurdleFillFlag && !specialMode){
+            SetIndividualHurdleFillAmountWithTime(orbitControllers[0], orbitControllers[0].GetHurdleScale().x * 3.5f * Constants.scaleSpeed); //Set the fill amount of this orbit
+            ResetHurdleFillSettings();
         }
-        else{
-           
+        else
             SetIndividualHurdleFillAmount(orbitControllers[0]); //Set the fill amount of this orbit
-            mainOrbitController.AssignNewRotation();
-            orbitControllers[0].StopSpecialRotation();
-        }
+
+        //if(IsHurdleFadeScoreReached()){
+        //    orbitControllers[0].hurdleController.StartFade();
+        //    orbitControllers[0].StopRotate();
+        //}
+
+        mainOrbitController.AssignNewRotation();
+        orbitControllers[0].StopSpecialRotation();
 
         //Applying progression settings
         if (addInitialDistance)
@@ -453,21 +459,23 @@ public class GameplayContoller : Singleton<GameplayContoller>
         }
         mainOrbitController.SetNewScale(addInitialDistance, scaleSpeed);
         addInitialDistance = false;
-
         mainOrbitController.SortHurdleOrbit();  //set first list element as last sibling in hierarchy
         mainOrbitController.SortOrbits();   //sort all the orbits 
-
-
     }
+
+    private void ResetHurdleFillSettings(){
+        hurdleFillFlag = false;
+        hurdleFillTimer = Random.Range(Constants.minFillTimer, Constants.maxFillTimer);
+    }
+
 
     bool specialMode = false;
     int hurdleCount = 0;
 
     private void SpecialMode()
     {
-
-        if (hurdleFadeFlag)
-            ResetHurdleFade();
+        //if fill mode was set to change and special mode came so we need to stop the coroutine
+        StopAllCoroutinesOnHurdles();
 
         hurdleCount = 0;
         specialMode = true;
@@ -475,12 +483,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         normalModeTimer = Random.Range(Constants.minNormalModeTime, Constants.maxNormalModeTime);
 
-        randomSpecialValue = Random.Range(1, 5);
+        randomSpecialValue = Random.Range(1, 4);
 
-        if(randomSpecialValue >= 4){
-            DecideSpecialMode();
-        }
-        else{
+        //if(randomSpecialValue >= 4){
+        //    DecideSpecialMode();
+        //}
+        //else{
             addInitialDistance = true;
             mainOrbitController.StopScale();
             Constants.hurdlesDistance = Vector3.one;
@@ -493,8 +501,14 @@ public class GameplayContoller : Singleton<GameplayContoller>
             }
 
             mainOrbitController.ScaleTo(Vector3.one * 5f, 3).OnComplete(OnScaleComplete);
-        }
+        //}
 
+    }
+
+    private void StopAllCoroutinesOnHurdles(){
+        for (int i = 0; i < orbitControllers.Count;i++){
+            orbitControllers[i].hurdleController.StopAllCoroutines();
+        }
     }
 
     private void OnScaleComplete()
@@ -516,9 +530,9 @@ public class GameplayContoller : Singleton<GameplayContoller>
             case (int)ModeType.PingPongMode:
                 PingPongMode();
                 break;
-            case (int)ModeType.HurdleFill:
-                HurdleFillMode();
-                break;
+            //case (int)ModeType.HurdleFill:
+                //HurdleFillMode();
+                //break;
         }
     }
 
@@ -548,46 +562,46 @@ public class GameplayContoller : Singleton<GameplayContoller>
     }
 
     //this runs just like normal mode but fades out and in the hurdles
-    private void HurdleFadeMode(){
-        //print("HurdleFadeMode");
-        //mainOrbitController.BeginHurdleFade();
-        orbitControllers[3].hurdleController.StartFade();
-        orbitControllers[3].StopRotate();
-        hurdleFadeID = orbitControllers[3].id;
-    }
+    //private void HurdleFadeMode(){
+    //    //print("HurdleFadeMode");
+    //    //mainOrbitController.BeginHurdleFade();
+    //    orbitControllers[3].hurdleController.StartFade();
+    //    orbitControllers[3].StopRotate();
+    //    hurdleFadeID = orbitControllers[3].id;
+    //}
 
-    private void ResetHurdleFade()
-    {
-        //print("ResetHurdleFade");
-        //mainOrbitController.ResetHurdleFade();
-        orbitControllers[0].hurdleController.ResetFade();
-        orbitControllers[0].StartRotate();
-        hurdleFadeID = -1;
-        hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
-        hurdleFadeFlag = false;
+    //private void ResetHurdleFade()
+    //{
+    //    //print("ResetHurdleFade");
+    //    //mainOrbitController.ResetHurdleFade();
+    //    orbitControllers[0].hurdleController.ResetFade();
+    //    orbitControllers[0].StartRotate();
+    //    hurdleFadeID = -1;
+    //    hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
+    //    hurdleFadeFlag = false;
 
-    }
+    //}
 
-    private void HurdleFillMode()
-    {
-        //print("HurdleFillMode");
-        hurdleFillFlag = true;
-        mainOrbitController.StopRotate();
-        Constants.scaleSpeed = 0.25f;
-        for (int i = 1; i < orbitControllers.Count; i++)
-        {
-            //Constants.hurdleFillAmount = 1f;
-            orbitControllers[i].hurdleController.SetFillAmount(1f, 0.1f);
-        }
-    }
+    //private void HurdleFillMode()
+    //{
+    //    //print("HurdleFillMode");
+    //    hurdleFillFlag = true;
+    //    mainOrbitController.StopRotate();
+    //    Constants.scaleSpeed = 0.25f;
+    //    for (int i = 1; i < orbitControllers.Count; i++)
+    //    {
+    //        //Constants.hurdleFillAmount = 1f;
+    //        orbitControllers[i].hurdleController.SetFillAmount(1f, 0.1f);
+    //    }
+    //}
 
-    private void ResetHurdleFill()
-    {
-        //print("ResetHurdleFill");
-        orbitControllers[1].hurdleController.SetFillAmount(0.5f, 0.1f);
-        hurdleFillTimer = 5f;
-        hurdleFillFlag = false;
-    }
+    //private void ResetHurdleFill()
+    //{
+    //    //print("ResetHurdleFill");
+    //    orbitControllers[1].hurdleController.SetFillAmount(0.5f, 0.1f);
+    //    hurdleFillTimer = 5f;
+    //    hurdleFillFlag = false;
+    //}
 
     private void ProgressionCurves(){
         float x = score / Constants.difficultyLevel;
@@ -673,14 +687,29 @@ public class GameplayContoller : Singleton<GameplayContoller>
         colorTimer = Random.Range(Constants.minColorTimer, Constants.maxColorTimer);
     }
 
-    public bool IsNormalModeChanged()
+    //public bool IsNormalModeChanged()
+    //{
+    //    return normalModeTimer <= 0 ? true : false;
+    //}
+
+    public bool IsNormalModeScoreReached()
     {
-        return normalModeTimer <= 0 ? true : false;
+        return score % 15 == 0 ? true : false;
     }
 
-    public bool IsHurdleFillMode()
+    public bool IsHurdleFadeScoreReached()
     {
-        return hurdleFillTimer <= 0 ? true : false;
+        return score >= 7 ? true : false;
     }
+
+    public bool IsHurdleFillScoreReached()
+    {
+        return score >= 5 ? true : false;
+    }
+
+    //public bool IsHurdleFillMode()
+    //{
+    //    return hurdleFillTimer <= 0 ? true : false;
+    //}
 
 }
