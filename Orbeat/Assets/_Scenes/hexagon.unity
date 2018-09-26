@@ -1479,114 +1479,6 @@ MonoBehaviour:
     explosionColor:
       serializedVersion: 2
       rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4283498575
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4288676003
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4294902015
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4294902015
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4281479680
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4284769280
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4294967040
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4294967040
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4278202880
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4278215680
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4278255360
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4278255360
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4278202930
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4278215780
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4278255615
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4278255615
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4278192665
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4278264676
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4278215935
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4278215935
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
-  - bgColor:
-      serializedVersion: 2
-      rgba: 4281466905
-    playerColor:
-      serializedVersion: 2
-      rgba: 4283230462
-    playerOrbitColor:
-      serializedVersion: 2
-      rgba: 4284743730
-    hurdleColor:
-      serializedVersion: 2
-      rgba: 4294901888
-    scoreColor:
-      serializedVersion: 2
-      rgba: 4294901888
-    explosionColor:
-      serializedVersion: 2
-      rgba: 4283230462
 --- !u!4 &710810217
 Transform:
   m_ObjectHideFlags: 0
@@ -2993,8 +2885,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 26dabad2434e344e391863f53580ee52, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
-  m_Pitch: 0.5
+  m_Volume: 0
+  m_Pitch: 0
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -3579,7 +3471,7 @@ MonoBehaviour:
       tangentMode: 0
     - serializedVersion: 2
       time: 1
-      value: 0.15
+      value: 0.166
       inSlope: -0.020682564
       outSlope: -0.020682564
       tangentMode: 0
@@ -3609,19 +3501,25 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.50145394
-      value: 2.297765
+      time: 0.3
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.9942627
-      value: 1.0105438
+      time: 0.5494371
+      value: 0.87076765
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9999695
+      value: 1.5081635
       inSlope: 0
       outSlope: 0
       tangentMode: 0

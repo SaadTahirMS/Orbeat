@@ -43,8 +43,8 @@ public static class Constants {
     public static float playerTransitionTime = 0.15f;
     public static float fillAmountTime = 1f;
     public static float colorTransitionTime = 1f;
-    public static float minColorTimer = 0.5f;// 0.2f;
-    public static float maxColorTimer = 1.5f;// 0.8f;
+    public static float minColorTimer = 0.2f;
+    public static float maxColorTimer = 0.8f;
 
     //Hurdle
     public static float hurdleIncreaseAmount = 0.1f;

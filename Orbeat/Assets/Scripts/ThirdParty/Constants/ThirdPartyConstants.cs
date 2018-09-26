@@ -51,7 +51,7 @@ public class ThirdPartyConstants {
 
 
 	public static string kAdMobBannerId = "ca-app-pub-5568002574023697/8046641449";
-	public static string kAdMobInterstitalId = "ca-app-pub-5568002574023697/9964543566";
+    public static string kAdMobInterstitalId = "ca-app-pub-7418823270776132/3314951644";
 
 	// Vungle testing kAdMobRewardedVideoId : ca-app-pub-3848928197586604/3137260197
 	// AdColony testing kAdMobRewardedVideoId : ca-app-pub-3848928197586604/5118703503
@@ -59,7 +59,7 @@ public class ThirdPartyConstants {
 	// Chartboost testing kAdMobRewardedVideoId : ca-app-pub-3848928197586604/2812104360
 	// Shahrukh testing kAdMobRewardedVideoId : ca-app-pub-5568002574023697/2441276765
 
-	public static string kAdMobRewardedVideoId = "ca-app-pub-3848928197586604/3137260197";
+    public static string kAdMobRewardedVideoId = "ca-app-pub-7418823270776132/6513451312";
 
 	#elif UNITY_IOS
 	public static string kAdMobAppId = "";
