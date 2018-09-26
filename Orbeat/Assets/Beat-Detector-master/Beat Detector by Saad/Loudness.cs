@@ -76,4 +76,9 @@ public class Loudness : MonoBehaviour
         for (int i = 0; i < mcz.Length; i++)
             mcz[i].DoZoom(v);
     }
+
+    public void ChangeCamZoomEndValue(float value){
+        for (int i = 0; i < mcz.Length; i++)
+            mcz[i].ChangeEndValue(value);
+    }
 }

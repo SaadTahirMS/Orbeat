@@ -41,11 +41,8 @@ public class SoundController : Singleton<SoundController> {
     public AudioSource sfxAudioSource;
 	public AudioSource dialogAudioSource;
 
-    public AudioClip perfectHitSound;
-    public AudioClip hurdleHitSound;
-    public AudioClip playerBlastSound;
-
 	public AudioClip buttonClickSound;
+    public AudioClip popSound;
 
 	public AudioClip levelupSound;
 	public AudioClip readySound;
@@ -101,8 +98,8 @@ public class SoundController : Singleton<SoundController> {
     public void PlaySFXSound(SFX state){
 		if (soundState) {
 			switch (state) {
-			case SFX.PlayerBlast:
-				sfxAudioSource.PlayOneShot (playerBlastSound);
+			case SFX.Pop:
+                sfxAudioSource.PlayOneShot (popSound);
 				break;
 			case SFX.ButtonClick:
 				sfxAudioSource.PlayOneShot (buttonClickSound);
@@ -129,6 +126,7 @@ public class SoundController : Singleton<SoundController> {
 			case SFX.HighScore:
 				dialogAudioSource.PlayOneShot (highScoreSound);
 				break;
+
 			}
 		}
 	}

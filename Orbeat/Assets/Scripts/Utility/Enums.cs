@@ -9,6 +9,7 @@ public enum GameState
 
 public enum SFX
 {
+    Pop,
     PlayerBlast,
 	ButtonClick,
 	LevelUp,
@@ -42,5 +43,4 @@ public enum ModeType
     ClockWise = 1,
     AntiClockWise = 2,
     PingPongMode = 3,
-    HurdleFill = 4
 }

@@ -45,6 +45,8 @@ public static class Constants {
     public static float colorTransitionTime = 1f;
     public static float minColorTimer = 0.2f;
     public static float maxColorTimer = 0.8f;
+    public static float minBeatValue = 2f;
+    public static float maxBeatValue = 5f;
 
     //Hurdle
     public static float hurdleIncreaseAmount = 0.1f;
@@ -58,10 +60,10 @@ public static class Constants {
     public static float initialDistanceAfterSpecialFactor = 4.3f; // 0.6667/ min speed
     public static int hurdleFillChangeScore = 40;
     public static float hurdleFadeTime = 0.75f;
-    public static float minFadeTimer = 5f;
-    public static float maxFadeTimer = 7f;
-    public static float minFillTimer = 5f;
-    public static float maxFillTimer = 7f;
+    public static float minFadeTimer = 3f;
+    public static float maxFadeTimer = 5f;
+    public static float minFillTimer = 3f;
+    public static float maxFillTimer = 5f;
 
     //Orbits
     public static float minRotateSpeed = 5f; //Low Rotation Speed means fast speed
@@ -75,5 +77,11 @@ public static class Constants {
 
     //Camera 
     public static float cameraOffset = 1f;
+
+
+    //Gameplay
+    public static int normalScore = 20;
+    public static int fadeScore = 30;
+    public static int fillScore = 45;
 
 }

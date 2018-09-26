@@ -17,4 +17,7 @@ public class MyCamZoom : MonoBehaviour
         z.Append(Camera.main.DOOrthoSize(initialSize + value * endValue, duration).SetLoops(2, LoopType.Yoyo));
         z.Play();
     }
+    public void ChangeEndValue(float value){
+        endValue = value;
+    }
 }

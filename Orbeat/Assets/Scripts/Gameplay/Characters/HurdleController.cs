@@ -21,7 +21,6 @@ public class HurdleController : MonoBehaviour {
 
     public void SetFillAmountWithTime(float fillAmount, float changeDuration)
     {
-        print("SetFillAmountWithTime");
         //hurdleImage.fillAmount = 0f;
         this.fillAmount = fillAmount;
         hurdleImage.DOFillAmount(fillAmount, 0.1f);
@@ -41,13 +40,11 @@ public class HurdleController : MonoBehaviour {
     IEnumerator ChangeFillAmountv2(float changeDuration)
     {
         //print("Changing fill amount");
-        print("ChangeFillAmountv2");
         yield return new WaitForSeconds(changeDuration);
         float value = fillAmount - 0.5f;
         hurdleImage.DOFillAmount(value, 0.35f);//.SetLoops(2,LoopType.Yoyo);
         arcCollider.totalAngle = (int)(value * 360);
         edgeCollider.points = arcCollider.getPoints(edgeCollider.offset);
-        print("Changed");
     }
 
     public float GetFillAmount(){
