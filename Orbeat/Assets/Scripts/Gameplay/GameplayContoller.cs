@@ -28,13 +28,15 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private float colorTimer;
     private int orbitHitId = 0;
     private bool hurdleFadeFlag = false;
-    private float hurdleFadeTimer = 5f;
+    private float hurdleFadeTimer = Constants.minFadeTimer;
     private int hurdleFadeHitID = -1;
     private bool hurdleFillFlag = false;
-    private float hurdleFillTimer = 10f;
+    private float hurdleFillTimer = Constants.minFillTimer;
     private bool changeColorFlag = true;
     private bool reviveGame;
     private float beatValue = Constants.minBeatValue;
+    private int level = 0;
+    private int levelupMod;
 
     public bool Revive
     {
@@ -47,6 +49,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     private void ResetScore()
     {
         score = 0;
+        level = 0;
         gameplayViewController.SetScore(score);
     }
 
@@ -172,6 +175,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 ResetGame();
                 ResetScore();
                 ResetBeatValue();
+                UpdateLevel();
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f, true);
                 SoundController.Instance.SetVolume(0.7f);
@@ -180,21 +184,12 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 playerController.ChangeState(GameState.Start);
                 gameplayTransitionController.ChangeState(GameState.Start);
                 gameplayRefs.inputController.GameStart(true);
-                if(PlayerPrefs.HasKey("Tutorial")){
-                    mainOrbitController.ChangeState(GameState.Start);
-                    SetHurdleFillAmount();
-                    SetRandomColor();
-                    tutorialComplete = true;
-                }
-                else{
-                    tutorialComplete = false;
-                    gameplayRefs.tutorialBtns.SetActive(true);
-                }
-
+                CheckTutorial();
                 break;
             case GameState.Revive:
                 //print("Revive Game");
                 ResetGame();
+                CheckLevelForUpdate();
                 ProgressionCurves();
                 SoundController.Instance.SetPitch(1f, false);
                 SoundController.Instance.SetVolume(0.7f);
@@ -213,8 +208,8 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 gameplayTransitionController.ChangeState(GameState.Quit);
                 gameplayRefs.inputController.GameStart(false);
                 //ResetHurdleFillAmount();
-                SoundController.Instance.SetPitch(0.5f, true);
-                SoundController.Instance.SetVolume(0.3f);
+                SoundController.Instance.SetPitch(0f, true);
+                //SoundController.Instance.SetVolume(0f);
                 gameplayRefs.tutorialBtns.SetActive(false);
                 break;
 
@@ -238,6 +233,33 @@ public class GameplayContoller : Singleton<GameplayContoller>
         Time.timeScale = 1;
     }
 
+    private void UpdateLevel(){
+        level++;
+        levelupMod = 5 * level + score;
+        print(levelupMod+ " "+level);
+    }
+
+    private void CheckLevelForUpdate(){
+        if(levelupMod == score){
+            //means that the player died during special mode
+            levelupMod += 5;
+        }
+    }
+
+    private void CheckTutorial(){
+        if (PlayerPrefs.HasKey("Tutorial"))
+        {
+            mainOrbitController.ChangeState(GameState.Start);
+            SetHurdleFillAmount();
+            SetRandomColor();
+            tutorialComplete = true;
+        }
+        else
+        {
+            tutorialComplete = false;
+            gameplayRefs.tutorialBtns.SetActive(true);
+        }
+    }
 
     public void ReviveGame()
     {
@@ -365,10 +387,10 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     public void HurdleHitWall()
     {
-        Vibration.Vibrate(50);
-        SoundController.Instance.PlaySFXSound(SFX.Pop);
+        Vibration.Vibrate(20);
+        //SoundController.Instance.PlaySFXSound(SFX.Pop);
         NormalMode();
-        if (IsNormalModeScoreReached())
+        if (IsNormalModeScoreReached() && !specialMode)
         {
             SpecialMode();
         }
@@ -380,16 +402,21 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
         orbitControllers = mainOrbitController.GetOrbits();
         gameplayViewController.HurdleHitWallTween();
-
+        //changeColorFlag = true;
+        orbitControllers[0].hurdleController.ResetFade();
+        orbitControllers[0].StartRotate();
         //begin rotate of the fade orbit
         if(hurdleFadeHitID == orbitControllers[0].id){
-            orbitControllers[0].StartRotate();
+            //orbitControllers[0].hurdleController.ResetFade();
+            //orbitControllers[0].StartRotate();
             changeColorFlag = true;
         }
 
         if (!specialMode)
         {
             ProgressionCurves();
+            AddScore(1);
+
         }
         else
         {
@@ -402,17 +429,17 @@ public class GameplayContoller : Singleton<GameplayContoller>
                 mainOrbitController.StopScale();
                 mainOrbitController.Scale();
                 mainOrbitController.StartRotate();
-                AddScore(1);
+                AddScore(5);
                 UpdateBeatValue(1);
+                UpdateLevel();
             }
         }
         Constants.hurdlesDistance = Vector3.one * 10;
-        AddScore(1);
        
         //timer has completed and is not in special mode and not in fade mode
-        if(hurdleFillFlag && !specialMode && !hurdleFadeFlag){
+        if(hurdleFillFlag && !specialMode){
             print("HurdleFillMode");
-            SetIndividualHurdleFillAmountWithTime(orbitControllers[0], orbitControllers[0].GetHurdleScale().x * 3.5f * Constants.scaleSpeed); //Set the fill amount of this orbit
+            SetIndividualHurdleFillAmountWithTime(orbitControllers[0], orbitControllers[0].GetHurdleScale().x * 3.25f * Constants.scaleSpeed); //Set the fill amount of this orbit
             ResetHurdleFillSettings();
         }
         else
@@ -420,7 +447,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
 
         //timer has completed and is not in special mode and not in fill mode
-        if (hurdleFadeFlag && !specialMode && !hurdleFillFlag)
+        if (hurdleFadeFlag && !specialMode)
         {
             HurdleFadeMode();
             ResetHurdleFadeSettings();
@@ -449,13 +476,33 @@ public class GameplayContoller : Singleton<GameplayContoller>
     }
 
     private void ResetHurdleFillSettings(){
+        if (level % 4 == 0)
+        {
+            print("Fill Frequency high");
+            hurdleFillTimer = Random.Range(Constants.minFillTimerHigh, Constants.maxFillTimerHigh);
+        }
+        else
+        {
+            print("Fill Frequency Low");
+            hurdleFillTimer = Random.Range(Constants.minFillTimer, Constants.maxFillTimer);
+        }
+
         hurdleFillFlag = false;
-        hurdleFillTimer = Random.Range(Constants.minFillTimer, Constants.maxFillTimer);
+
     }
 
     private void ResetHurdleFadeSettings(){
+        if(level%2 == 0){
+            print("Fade Frequency high");
+            hurdleFadeTimer = Random.Range(Constants.minFadeTimerHigh, Constants.maxFadeTimerHigh);
+        }
+        else{
+            print("Fade Frequency Low");
+            hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
+        }
+
         hurdleFadeFlag = false;
-        hurdleFadeTimer = Random.Range(Constants.minFadeTimer, Constants.maxFadeTimer);
+
     }
 
     bool specialMode = false;
@@ -463,6 +510,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     private void SpecialMode()
     {
+        print("SpecialMode");
         //if fill mode was set to change and special mode came so we need to stop the coroutine
         StopAllCoroutinesOnHurdles();
         //Kill fade tween if applied on hurdle and special mode has arrived 
@@ -624,7 +672,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
 
     public bool IsNormalModeScoreReached()
     {
-        return score % Constants.normalScore == 0 ? true : false;
+        return score % levelupMod == 0 ? true : false;
     }
 
     public bool IsHurdleFadeScoreReached()
