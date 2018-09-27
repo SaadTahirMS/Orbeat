@@ -55,13 +55,13 @@ public class HurdleController : MonoBehaviour {
         hurdleImage.DOFade(0, Constants.hurdleFadeTime).SetLoops(6, LoopType.Yoyo);
     }
 
-    public void StopFade()
-    {
+    public void StopFade(){
         hurdleImage.DOKill();
     }
 
     public void ResetFade(){
-        hurdleImage.DOKill();
-        hurdleImage.DOFade(1, 0.01f);
+        //hurdleImage.DOKill();
+        hurdleImage.DOFade(1, 0.0001f);
+        //hurdleImage.color = new Color(hurdleImage.color.r, hurdleImage.color.g, hurdleImage.color.b, 1f);
     }
 }

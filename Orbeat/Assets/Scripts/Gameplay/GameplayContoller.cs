@@ -549,6 +549,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     {
         for (int i = 0; i < orbitControllers.Count; i++)
         {
+            orbitControllers[i].hurdleController.StopFade();
             orbitControllers[i].hurdleController.ResetFade();
         }
     }
