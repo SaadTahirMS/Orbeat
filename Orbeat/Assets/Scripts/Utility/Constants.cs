@@ -47,6 +47,7 @@ public static class Constants {
     public static float maxColorTimer = 0.8f;
     public static float minBeatValue = 4f;
     public static float maxBeatValue = 10f;
+    public static float flashTime = 0.1f;
 
     //Hurdle
     public static float hurdleIncreaseAmount = 0.1f;

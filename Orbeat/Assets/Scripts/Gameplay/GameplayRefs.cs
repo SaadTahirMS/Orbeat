@@ -16,6 +16,7 @@ public class GameplayRefs : MonoBehaviour {
     public InputController inputController;
     public Camera cam;
     public GameObject tutorialBtns;
+    public Image flashImg;
 
     //Coloring objects
     public List<Image> innerOrbitsImg;
@@ -40,7 +41,7 @@ public class GameplayRefs : MonoBehaviour {
     public AnimationCurve scaleSpeedCurve;
     //public float minRotationOffset = 0f;
     //public float maxRotationOffset = 180f;
-    public AnimationCurve rotationOffsetCurve;
+    //public AnimationCurve rotationOffsetCurve;
     //public float minOrbitRotateSpeed = 0f;
     //public float maxOrbitRotateSpeed = 100f;
     public AnimationCurve orbitRotationCurve;

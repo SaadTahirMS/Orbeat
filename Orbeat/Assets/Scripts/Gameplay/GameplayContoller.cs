@@ -536,7 +536,6 @@ public class GameplayContoller : Singleton<GameplayContoller>
         }
 
         mainOrbitController.ScaleTo(Vector3.one * 5f, 3).OnComplete(OnScaleComplete);
-
     }
 
     private void StopAllCoroutinesOnHurdles(){
@@ -607,7 +606,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
         Constants.hurdlesDistance = Vector3.one * gameplayRefs.hurdleDistanceCurve.Evaluate(x);// * gameplayRefs.maxHurdleDistance;
         Constants.hurdleFillAmount = gameplayRefs.hurdleFillAmountCurve.Evaluate(x);// * gameplayRefs.maxHurdleFillAmount;
         Constants.scaleSpeed = gameplayRefs.scaleSpeedCurve.Evaluate(x);
-        Constants.rotationOffset = gameplayRefs.rotationOffsetCurve.Evaluate(x);
+        //Constants.rotationOffset = gameplayRefs.rotationOffsetCurve.Evaluate(x);
         Constants.maxRotateSpeed = gameplayRefs.orbitRotationCurve.Evaluate(x);
         Constants.minRotateSpeed = Constants.maxRotateSpeed - 1f;
 
@@ -663,7 +662,7 @@ public class GameplayContoller : Singleton<GameplayContoller>
     }
 
     private void SetRandomColor(){
-        ColorSet colorSet = colorController.GetRandomColorSet();
+        ColorSet colorSet = colorController.GetGroupColors(level-1);
         gameplayViewController.ChangeColorSet(colorSet);
     }
 
